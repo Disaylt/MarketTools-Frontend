@@ -1,7 +1,15 @@
 .active-dark-bg{
-    background-color: $active-dark;
+    background-color: $active-dark !important;
 }
 
 .inactive-dark-bg{
-    background-color: $inactive-dark;
+    background-color: $inactive-dark !important;
+}
+
+.transporent-bg{
+    background-color: $white-transporent0 !important;
+}
+
+.app-color-white75{
+    color: $white-transporent75;
 }

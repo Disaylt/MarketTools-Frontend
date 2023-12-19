@@ -1,0 +1,15 @@
+.app-main-button{
+    background-color: $grey-transporent15 ;
+}
+
+.app-main-button span {
+    color: $white-transporent75;
+}
+
+.app-main-button:hover{
+    background-color: $grey-transporent25;
+}
+
+.app-main-button:active{
+    background-color: $grey-transporent50;
+}

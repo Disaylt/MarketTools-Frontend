@@ -1,1 +1,47 @@
-<p>sidebar works!</p>
+<div id="sidebar">
+    <div class="mx-2 ">
+        <div class="mb-2">
+            <select [(ngModel)]="selectedMarket" (ngModelChange)="setMarketNavigation()" class="form-select shadow-none border-1 px-2" style="width: 200px;">
+                <option *ngFor="let market of markets" [ngValue]="market">{{market.nameView}}</option>
+              </select>
+        </div>
+        <div style="width: 200px; max-height: 80vh;" class="active-dark-bg p-1 rounded-2 text-white overflow-auto">
+            <div class="accordion accordion-flush" id="accordionMenu">
+                <div *ngFor="let nav of marketBar" class="mb-1">
+                    <div *ngIf="nav.main.path != null; else colapceBar">
+                        <a 
+                        [ngClass]="nav.main.isDisabled ? 'app-link-disabled' : ''"
+                        class="app-link app-main-link d-flex align-items-center py-1" 
+                        type="button" >
+                            <mat-icon class="me-1">{{nav.iconCode}}</mat-icon>
+                            {{nav.main.name}}
+                        </a>
+                    </div>
+                    <ng-template #colapceBar>
+                        <div *ngIf="nav.colapseName != null">
+                            <a
+                            [ngClass]="nav.main.isDisabled ? 'app-link-disabled' : ''"
+                            class="app-link app-main-link d-flex align-items-center collapsed py-1" 
+                            type="button" 
+                            data-bs-toggle="collapse" 
+                            [attr.data-bs-target]="'#' + nav.colapseName">
+                                <mat-icon class="me-1">{{nav.iconCode}}</mat-icon>
+                                {{nav.main.name}}
+                            </a>
+                            <div id="{{nav.colapseName}}" class="accordion-collapse collapse px-1" data-bs-parent="#accordionMenu">
+                                <div class="d-flex flex-column border-start ps-1">
+                                    <a *ngFor="let subNav of nav.parent" 
+                                    href="#" 
+                                    [ngClass]="subNav.isDisabled ? 'app-link-disabled' : ''" 
+                                    class="app-link app-main-link sub-nav">
+                                    {{subNav.name}}
+                                </a>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-template>
+                </div>
+              </div>
+        </div>
+    </div>
+</div>

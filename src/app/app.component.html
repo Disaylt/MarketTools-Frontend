@@ -1,18 +1,29 @@
 <header>
-  <app-header></app-header>
+  <app-header [isMobile]="isMobile" [sidenav]="sidenav"></app-header>
 </header>
 <main>
   <div class="app-body-container">
-    <div *ngFor="let i of nums" class="d-flex flex-row justify-content-between mb-2">
-      <div class="mx-2 w-100 p-1 text-center active-dark-bg rounded-2">
-        Test 1
-      </div>
-      <div class="mx-2 w-100 p-1 text-center active-dark-bg rounded-2">
-        Test 2
-      </div>
-      <div class="mx-2 w-100 p-1 text-center active-dark-bg rounded-2 ">
-        Test 3
-      </div>
-    </div>
+    <mat-sidenav-container class="inactive-dark-bg">
+      <mat-sidenav [mode]="isMobile ? 'over' : 'side'" [opened]="isMobile ? 'false' : 'true'" class="transporent-bg">
+          <app-sidebar></app-sidebar>
+      </mat-sidenav>
+      <mat-sidenav-content class="text-white">
+        <div class="d-flex flex-row mx-2">
+          <div class="flex-fill">
+            <div *ngFor="let i of nums" class="d-flex flex-row justify-content-between mb-2">
+              <div class="mx-1 w-100 p-1 text-center active-dark-bg rounded-2">
+                Test 1
+              </div>
+              <div class="mx-1 w-100 p-1 text-center active-dark-bg rounded-2">
+                Test 2
+              </div>
+              <div class="mx-1 w-100 p-1 text-center active-dark-bg rounded-2">
+                Test 3
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-sidenav-content>
+    </mat-sidenav-container>  
   </div>
 </main>
