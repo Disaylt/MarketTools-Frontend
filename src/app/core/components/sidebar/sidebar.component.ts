@@ -29,7 +29,6 @@ export class SidebarComponent implements OnInit {
   }
 
   setMarketNavigation(){
-    console.log(this.marketBar);
     switch(this.selectedMarket.nameEnum){
       case MarketplaceName.wb:
         this.marketBar = WbNavigationStorage.value;

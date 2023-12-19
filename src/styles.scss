@@ -40,6 +40,7 @@ $MarketTools-Frontend-theme: mat.define-light-theme((
 @import 'assets/styles/base/colors.scss';
 @import 'assets/styles/base/scrollbar.scss';
 @import 'assets/styles/components/components.scss';
+@import 'assets/styles/base/media.scss';
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

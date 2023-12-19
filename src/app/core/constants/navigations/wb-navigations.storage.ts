@@ -8,7 +8,7 @@ export class WbNavigationStorage{
             main : {
                 name : "Дэшборд",
                 path : `${this.market}/stats`,
-                isDisabled : false
+                isDisabled : true
             }
         },
         {
@@ -16,7 +16,7 @@ export class WbNavigationStorage{
             iconCode: "device_hub",
             main : {
                 name : "Подключение",
-                isDisabled : false
+                isDisabled : true
             },
             parent : [
                 {
@@ -47,7 +47,7 @@ export class WbNavigationStorage{
                 {
                     name : "Нейросеть",
                     path : `${this.market}/autoresponder/neural-network`,
-                    isDisabled : false
+                    isDisabled : true
                 }
             ]
         },
@@ -76,7 +76,7 @@ export class WbNavigationStorage{
             iconCode: "equalizer",
             main : {
                 name : "Аналитика",
-                isDisabled : false
+                isDisabled : true
             },
             parent : [
                 {

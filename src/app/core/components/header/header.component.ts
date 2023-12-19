@@ -1,7 +1,9 @@
+import { BreakpointObserver } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
-import { Component, Input, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSidenav } from '@angular/material/sidenav';
+import { WindowsSizes } from '../../constants/window-sizes';
 
 @Component({
   selector: 'app-header',
@@ -11,14 +13,10 @@ import { MatSidenav } from '@angular/material/sidenav';
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent {
-  @Input() sidenav!: MatSidenav;
-  @Input() isMobile!: Boolean;
+  @Output() toggleEvent = new EventEmitter<void>();
 
-  
-
-  toggleMenu() {
-    if(this.isMobile){
-      this.sidenav.toggle();
-    }
+  toggleClick(){
+    this.toggleEvent.emit();
   }
+
 }

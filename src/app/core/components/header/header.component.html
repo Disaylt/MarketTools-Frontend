@@ -5,10 +5,15 @@
                 <label class="logo">MP-FORCE</label>
             </div>
             <div class="d-flex flex-row align-items-center bd-highlight mx-1">
-                <span class="mx-1">Аккаунт</span>
-                <button id="sidebar-show-button" type="button" class="app-icon-button mx-1" (click)="toggleMenu()">
+                <button type="button" class="app-icon-button me-1">
+                    <mat-icon>person</mat-icon>
+                </button>
+                <button id="sidebar-show-button" type="button" class="app-icon-button me-1 only-mobile" (click)="toggleClick()">
                     <mat-icon>menu</mat-icon>
                 </button>
+                <div class="me-1">
+
+                </div>
             </div>
         </div>
     </div>

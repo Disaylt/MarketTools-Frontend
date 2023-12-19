@@ -1,5 +1,6 @@
 import {
   Component,
+  HostListener,
   Input,
   OnInit,
   ViewChild,
@@ -19,15 +20,13 @@ import { WindowsSizes } from './core/constants/window-sizes';
     styleUrl: './app.component.scss',
     imports: [CommonModule, HeaderComponent, SidebarComponent, MatSidenavModule]
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit {
   title = 'MarketTools-Frontend';
-  @ViewChild(MatSidenav) 
-  sidenav!: MatSidenav;
-  isMobile = true;
-  
-  nums : number[] = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+  @ViewChild(MatSidenav) sidenav!: MatSidenav;
+  @ViewChild(HeaderComponent) header!: HeaderComponent;
+  isMobile = false;
 
-  constructor(private observer: BreakpointObserver) {}
+  constructor(private observer: BreakpointObserver){}
 
   ngOnInit(): void {
     this.observer.observe([`(max-width: ${WindowsSizes.mobile}px)`]).subscribe((screenSize) => {
@@ -38,4 +37,19 @@ export class AppComponent implements OnInit{
       }
     });
   }
+
+  ngAfterViewInit(){
+    this.header.toggleEvent.subscribe(()=> {
+      this.toggleMenu();
+    })
+  }
+  
+  toggleMenu() {
+    if(this.isMobile){
+      this.sidenav.toggle();
+    }
+  }
+
+  nums : number[] = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+
 }
