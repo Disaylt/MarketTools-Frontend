@@ -1,0 +1,7 @@
+<nav class="mx-2" aria-label="breadcrumb">
+    <div class="d-flex flex-row mb-2">
+        <div *ngFor="let breadcrumb of breadcrumbs" class="d-flex align-items-center">
+            <mat-icon>navigate_next</mat-icon><a [routerLink]="breadcrumb.url">{{ breadcrumb.label }}</a>
+        </div>
+    </div>
+  </nav>

@@ -12,13 +12,14 @@ import { SidebarComponent } from "./core/components/sidebar/sidebar.component";
 import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { WindowsSizes } from './core/constants/window-sizes';
+import { BreadcrumbComponent } from "./core/components/breadcrumb/breadcrumb.component";
 
 @Component({
     selector: 'app-root',
     standalone: true,
     templateUrl: './app.component.html',
     styleUrl: './app.component.scss',
-    imports: [CommonModule, HeaderComponent, SidebarComponent, MatSidenavModule]
+    imports: [CommonModule, HeaderComponent, SidebarComponent, MatSidenavModule, RouterOutlet, BreadcrumbComponent]
 })
 export class AppComponent implements OnInit {
   title = 'MarketTools-Frontend';
@@ -49,7 +50,5 @@ export class AppComponent implements OnInit {
       this.sidenav.toggle();
     }
   }
-
-  nums : number[] = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
 
 }
