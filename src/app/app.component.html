@@ -4,7 +4,11 @@
 <main class="h-100">
   <div class="app-body-container h-100">
     <mat-sidenav-container class="inactive-dark-bg h-100">
-      <mat-sidenav [mode]="isMobile ? 'over' : 'side'" [opened]="isMobile ? 'false' : 'true'" class="transporent-bg">
+      <mat-sidenav 
+      [mode]="isMobile ? 'over' : 'side'" 
+      [opened]="isMobile ? 'false' : 'true'" 
+      class="transporent-bg"
+      style="box-shadow: none !important;">
           <app-sidebar></app-sidebar>
       </mat-sidenav>
       <mat-sidenav-content class="px-2">
