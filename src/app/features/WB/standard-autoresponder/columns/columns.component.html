@@ -1,20 +1,18 @@
 <div class="d-flex flex-row">
-    <div>
+    <div style="width: 180px;">
         <div class="d-flex flex-row">
-            <select [(ngModel)]="selectColumnType" class="form-select form-select-sm app-select shadow-none border-1 px-1 mx-1" style="width: 150px;">
+            <select [(ngModel)]="selectedColumnType" class="form-select form-select-sm app-select shadow-none border-1 px-1 mx-1">
                 <option *ngFor="let columnType of columnTypes"  [ngValue]="columnType">{{columnType.name}}</option>
               </select>
             <app-icon-button class="mx-1">add</app-icon-button>
         </div>
-        <div class="active-dark-bg flex-fill mx-1 mt-2 rounded-2">
-            <div>asdasd</div>
-            <div>asdasd</div>
-            <div>asdasd</div>
-            <div>asdasd</div>
-            <div>asdasd</div>
-            <div>asdasd</div>
-            <div>asdasd</div>
-            <div>asdasd</div>
+        <div class="active-dark-bg flex-fill mx-1 mt-2 rounded-2 p-1">
+            <div *ngFor="let column of columns" class="d-flex flex-row justify-content-between mb-1">
+                <button (click)="selectColumn(column)" class="text-truncate flex-fill text-start" [ngClass]="{'select-column' : selectedColumn == column}">
+                    <span class="text-white">{{column.name}}</span>
+                </button>
+                <app-icon-button class="">close</app-icon-button>
+            </div>
         </div>
     </div>
     <div class="active-dark-bg flex-fill mx-1">
