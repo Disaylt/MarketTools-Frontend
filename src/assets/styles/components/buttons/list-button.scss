@@ -1,9 +1,7 @@
-.app-button{
+.app-list-button{
     display: flex;
-    align-items: center;
     height: 32px;
     padding: 2px 5px 2px 5px;
-    justify-content: center;
     background-color: $transparent0;
     border: 0px;
     border-radius: 6px;
@@ -12,33 +10,33 @@
     text-overflow: ellipsis;
 }
 
-.app-button:disabled {
+.app-list-button:disabled {
     opacity: 0.6;
     pointer-events: none;
   }
 
-.app-button.active{
+.app-list-button.active{
     background-color: $grey-transporent50;
     pointer-events: none;
 }
 
-.app-button.active span {
+.app-list-button.active span {
     color: white;
 }
 
-.app-button span {
+.app-list-button span {
     color: $white-transporent75;
 }
 
-.app-button:hover{
+.app-list-button:hover{
     background-color: $grey-transporent25;
     border: 1px;
 }
 
-.app-button:hover span{
+.app-list-button:hover span{
     color: white;
 }
 
-.app-button:active{
+.app-list-button:active{
     background-color: $grey-transporent50;
 }

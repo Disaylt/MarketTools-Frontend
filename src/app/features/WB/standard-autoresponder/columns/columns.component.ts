@@ -5,13 +5,15 @@ import { ColumnTypeStorage } from './constants/column-type.storage';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Column } from './models/column.models';
+import { CellsComponent } from "./cells/cells.component";
+import {CdkMenu, CdkMenuItem, CdkMenuTrigger} from '@angular/cdk/menu';
 
 @Component({
     selector: 'app-columns',
     standalone: true,
     templateUrl: './columns.component.html',
     styleUrl: './columns.component.scss',
-    imports: [IconButtonComponent, CommonModule, FormsModule]
+    imports: [IconButtonComponent, CommonModule, FormsModule, CellsComponent, CdkMenuTrigger, CdkMenu, CdkMenuItem]
 })
 export class ColumnsComponent {
 
@@ -27,14 +29,6 @@ export class ColumnsComponent {
     {
       name : "test 2",
       id : 1
-    },
-    {
-      name : "test 3",
-      id : 2
-    },
-    {
-      name : "test 4",
-      id : 3
     }
   ]
 
