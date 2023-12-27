@@ -1,0 +1,33 @@
+.app-icon-button{
+    display: flex;
+    align-items: center;
+    height: 32px;
+    width: 32px;
+    padding: 2px;
+    justify-content: center;
+    background-color: $transparent0;
+    border-width: 1px;
+    border-color: $grey-transporent50;
+    border-radius: 6px;
+}
+
+.app-icon-button:disabled {
+    opacity: 0.6;
+    pointer-events: none;
+  }
+
+.app-icon-button span {
+    color: $white-transporent75;
+}
+
+.app-icon-button:hover{
+    background-color: $grey-transporent25;
+}
+
+.app-icon-button:hover span{
+    color: white;
+}
+
+.app-icon-button:active{
+    background-color: $grey-transporent50;
+}

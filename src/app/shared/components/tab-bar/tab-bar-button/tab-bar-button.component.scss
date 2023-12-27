@@ -1,0 +1,11 @@
+:host{
+    display: flex;
+    flex: 1 1 auto;
+}
+
+:host.active > button{
+    color: white;
+    pointer-events: none;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+}
