@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { StandardAutoresponderComponent } from './features/WB/standard-autoresponder/standard-autoresponder.component';
 import { ViewTestComponent } from './features/view-test/view-test.component';
+import { ColumnsComponent } from './features/WB/standard-autoresponder/columns/columns.component';
 
 export const routes: Routes = [
     {
@@ -18,7 +19,7 @@ export const routes: Routes = [
                         children:[
                             {
                                 path:"columns",
-                                component:ViewTestComponent
+                                component:ColumnsComponent
                             },
                             {
                                 path: "recommendation-table",
