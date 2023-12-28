@@ -15,7 +15,7 @@
                         [routerLink]="nav.main.path"
                         routerLinkActive="active"
                         type="button" >
-                            <mat-icon class="me-1">{{nav.iconCode}}</mat-icon>
+                            <span class="material-symbols-outlined me-1">{{nav.iconCode}}</span>
                             {{nav.main.name}}
                         </a>
                     </div>
@@ -27,7 +27,7 @@
                             type="button" 
                             data-bs-toggle="collapse" 
                             [attr.data-bs-target]="'#' + nav.colapseName">
-                                <mat-icon class="me-1">{{nav.iconCode}}</mat-icon>
+                                <span class="material-symbols-outlined me-1">{{nav.iconCode}}</span>
                                 <span class="me-1">{{nav.main.name}}</span>
                             </a>
                             <div id="{{nav.colapseName}}" class="accordion-collapse collapse px-1" data-bs-parent="#accordionMenu">

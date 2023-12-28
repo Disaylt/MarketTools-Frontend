@@ -8,7 +8,7 @@
             <ng-template #addMenu>
                 <div class="d-flex flex-column p-1 rounded-2 dark-background shadow" cdkMenu>
                     <input class="form-control form-control-sm app-select shadow-none mb-1" placeholder="Название" type="text">
-                    <button cdkMenuItem class="app-button app-main-button">Создать</button>
+                    <button cdkMenuItem class="app-button app-main-button" (click)="authService.setAuth(false)">Создать</button>
                 </div>
             </ng-template>
 

@@ -1,4 +1,4 @@
-<div class="h-100">
+<div *ngIf="authService.isAuth; else auth" class="h-100">
   <header class="">
     <app-header></app-header>
   </header>
@@ -18,3 +18,6 @@
     </div>
   </main>
 </div>
+<ng-template #auth>
+  <router-outlet></router-outlet>
+</ng-template>

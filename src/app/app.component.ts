@@ -13,13 +13,15 @@ import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { WindowsSizes } from './core/constants/window-sizes';
 import { BreadcrumbComponent } from "./core/components/breadcrumb/breadcrumb.component";
+import { AuthService } from './core/services/auth.service';
+import { AuthComponent } from "./features/auth/auth.component";
 
 @Component({
     selector: 'app-root',
     standalone: true,
     templateUrl: './app.component.html',
     styleUrl: './app.component.scss',
-    imports: [CommonModule, HeaderComponent, SidebarComponent, MatSidenavModule, RouterOutlet, BreadcrumbComponent]
+    imports: [CommonModule, HeaderComponent, SidebarComponent, MatSidenavModule, RouterOutlet, BreadcrumbComponent, AuthComponent]
 })
 export class AppComponent implements OnInit {
   title = 'MarketTools-Frontend';
@@ -27,7 +29,7 @@ export class AppComponent implements OnInit {
   @ViewChild(HeaderComponent) header!: HeaderComponent;
   isMobile = false;
 
-  constructor(private observer: BreakpointObserver){}
+  constructor(private observer: BreakpointObserver, public authService : AuthService){}
 
   ngOnInit(): void {
     this.observer.observe([`(max-width: ${WindowsSizes.mobile}px)`]).subscribe((screenSize) => {

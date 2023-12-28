@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { Column } from './models/column.models';
 import { CellsComponent } from "./cells/cells.component";
 import {CdkMenu, CdkMenuItem, CdkMenuTrigger} from '@angular/cdk/menu';
+import { AuthService } from '../../../../core/services/auth.service';
 
 @Component({
     selector: 'app-columns',
@@ -32,8 +33,11 @@ export class ColumnsComponent {
     }
   ]
 
+  constructor(public authService : AuthService){}
+
   selectColumn(column : Column){
     this.selectedColumn = column;
+    
   }
 
 }
