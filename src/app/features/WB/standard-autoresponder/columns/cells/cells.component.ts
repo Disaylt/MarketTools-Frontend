@@ -11,14 +11,5 @@ import { ToastrService } from 'ngx-toastr';
     imports: [IconButtonComponent, CdkMenuTrigger, CdkMenu, CdkMenuItem]
 })
 export class CellsComponent {
-    constructor(private toastr: ToastrService) {}
-
-    show(){
-        this.toastr.error('Превышен лимит', "", {
-            progressBar : true,
-            closeButton : true,
-            toastClass: "ngx-toastr shadow-none rounded-3 app-error-alert-bg",
-            timeOut : 0
-        });
-    }
+    
 }

@@ -45,7 +45,7 @@ export class AppComponent implements OnInit {
   }
 
   sendRequest(){
-    this.identityHttpService.getAuthStatus()
+    this.identityHttpService.getUserDetails()
       .subscribe((value) => {
         console.log(value);
       })
