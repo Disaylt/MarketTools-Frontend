@@ -14,10 +14,8 @@ export class ErrorHttpInterceptor implements HttpInterceptor{
             catchError((error: HttpErrorResponse) => {
                 switch(error.status){
                     case 401:
-                        this.asuthService.setAuth(false);
                         break;
                     case 403:
-                        this.asuthService.setAuth(false);
                         break;
                 }
 

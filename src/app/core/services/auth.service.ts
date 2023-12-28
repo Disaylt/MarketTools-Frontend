@@ -6,27 +6,16 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class AuthService {
 
-  private _isAuth : boolean = true;
-  private _token : string | null = null;
-
-  public get isAuth() : boolean{
-    return this._isAuth;
-  }
-
-  setAuth(status : boolean){
-    this._isAuth = status;
-  }
 
   getToken() : string | null{
-    if(this._token === null){
-      this._token = localStorage.getItem("token");
-    }
-
-    return this._token;
+    return localStorage.getItem("token");
   }
 
   setToken(token : string){
     localStorage.setItem("token", token);
-    this._token = token;
+  }
+
+  deleteToken(){
+    localStorage.removeItem("token");
   }
 }
