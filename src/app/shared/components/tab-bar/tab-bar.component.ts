@@ -1,6 +1,5 @@
 import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
-import { IconButtonComponent } from "../buttons/icon-button/icon-button.component";
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
 
@@ -9,7 +8,7 @@ import { CommonModule } from '@angular/common';
     standalone: true,
     templateUrl: './tab-bar.component.html',
     styleUrl: './tab-bar.component.scss',
-    imports: [MatIconModule, IconButtonComponent, CommonModule]
+    imports: [MatIconModule, CommonModule]
 })
 export class TabBarComponent{
   

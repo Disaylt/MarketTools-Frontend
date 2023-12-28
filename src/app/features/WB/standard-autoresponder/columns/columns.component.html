@@ -1,24 +1,35 @@
 <div class="d-flex flex-row">
     <div style="width: 180px;">
         <div class="d-flex flex-row">
-            <select [(ngModel)]="selectedColumnType" class="form-select form-select-sm app-select shadow-none border-1 px-1 mx-1">
+            <select [(ngModel)]="selectedColumnType" class="form-select form-select-sm app-select shadow-none border-1 mx-1">
                 <option *ngFor="let columnType of columnTypes"  [ngValue]="columnType">{{columnType.name}}</option>
             </select>
-            <app-icon-button [cdkMenuTriggerFor]="addMenu" class="mx-1">add</app-icon-button>
+            <div class="mx-1">
+                <button [cdkMenuTriggerFor]="addMenu" class="app-icon-button app-icon-button-border">
+                    <span class="material-symbols-outlined">
+                        add
+                    </span>
+                </button>
+            </div>
             <ng-template #addMenu>
-                <div class="d-flex flex-column p-1 rounded-2 dark-background shadow" cdkMenu>
+                <div class="d-flex flex-column p-1 rounded-2 app-transparent-dark-bg shadow" cdkMenu>
                     <input class="form-control form-control-sm app-select shadow-none mb-1" placeholder="Название" type="text">
                     <button cdkMenuItem class="app-button app-main-button">Создать</button>
                 </div>
             </ng-template>
-
         </div>
         <div class="active-dark-bg flex-fill mx-1 mt-2 rounded-2 p-1">
             <div *ngFor="let column of columns" class="d-flex flex-row justify-content-between">
                 <button (click)="selectColumn(column)" class="flex-fill text-start app-list-button" [ngClass]="{'active' : selectedColumn == column}">
                     <span class="text-truncate">{{column.name}}</span>
                 </button>
-                <app-icon-button [border]="false" class="">close</app-icon-button>
+                <div>
+                    <button class="app-icon-button">
+                        <span class="material-symbols-outlined">
+                            close
+                        </span>
+                    </button>
+                </div>
             </div>
         </div>
     </div>

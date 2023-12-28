@@ -1,7 +1,15 @@
 <div class="d-flex flex-row">
-    <app-icon-button *ngIf="isShowScrollButton" (click)="scrollToLeft()">arrow_back_ios_new</app-icon-button>
+    <button *ngIf="isShowScrollButton" (click)="scrollToLeft()"  class="app-icon-button app-icon-button-border me-1">
+        <span class="material-symbols-outlined">
+            arrow_back_ios_new
+        </span>
+    </button>
     <div #tabbar class="d-flex flex-row flex-fill mx-1 border-bottom justify-content-between overflow-hidden">
         <ng-content></ng-content>
     </div>
-    <app-icon-button *ngIf="isShowScrollButton" (click)="scrollToRight()">arrow_forward_ios</app-icon-button>
+    <button *ngIf="isShowScrollButton" (click)="scrollToRight()"  class="app-icon-button app-icon-button-border me-1">
+        <span class="material-symbols-outlined">
+            arrow_forward_ios
+        </span>
+    </button>
 </div>

@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { IconButtonComponent } from "../../../../shared/components/buttons/icon-button/icon-button.component";
 import { ColumnType } from './models/column-type.model';
 import { ColumnTypeStorage } from './constants/column-type.storage';
 import { CommonModule } from '@angular/common';
@@ -14,7 +13,7 @@ import { AuthService } from '../../../../core/services/auth.service';
     standalone: true,
     templateUrl: './columns.component.html',
     styleUrl: './columns.component.scss',
-    imports: [IconButtonComponent, CommonModule, FormsModule, CellsComponent, CdkMenuTrigger, CdkMenu, CdkMenuItem]
+    imports: [CommonModule, FormsModule, CellsComponent, CdkMenuTrigger, CdkMenu, CdkMenuItem]
 })
 export class ColumnsComponent {
 

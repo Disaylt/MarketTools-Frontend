@@ -5,14 +5,14 @@
     width: 32px;
     padding: 2px;
     justify-content: center;
-    background-color: $transparent0;
+    background-color: var(--elements-dark);
     border-width: 0px;
     border-radius: 6px;
 }
 
 .app-icon-button.app-icon-button-border {
     border-width: 1px;
-    border-color: $grey-transporent50;
+    border-color: var(--grey-transparent50);
 }
 
 .app-icon-button:disabled {
@@ -21,11 +21,11 @@
   }
 
 .app-icon-button span {
-    color: $white-transporent75;
+    color: var(--white-transparent75);
 }
 
 .app-icon-button:hover{
-    background-color: $grey-transporent25;
+    background-color: var(--grey-transparent25);
 }
 
 .app-icon-button:hover span{
@@ -33,5 +33,5 @@
 }
 
 .app-icon-button:active{
-    background-color: $grey-transporent50;
+    background-color: var(--grey-transparent50);
 }

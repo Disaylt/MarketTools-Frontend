@@ -1,6 +1,11 @@
-<input class="form-control form-control-sm app-select shadow-none mt-3 mb-2" placeholder="Email" type="text">
-<input class="form-control form-control-sm app-select shadow-none mb-2" placeholder="Пароль" type="password">
-<input class="form-control form-control-sm app-select shadow-none mb-2" placeholder="Повторите пароль" type="password">
+<input [(ngModel)]="value.email" class="form-control form-control-sm app-select shadow-none mt-3 mb-2" placeholder="Email" type="text">
+<input [(ngModel)]="value.password" class="form-control form-control-sm app-select shadow-none mb-2" placeholder="Пароль" type="password">
+<input [(ngModel)]="value.repeatPassword" class="form-control form-control-sm app-select shadow-none mb-2" placeholder="Повторите пароль" type="password">
 <div class="d-flex justify-content-end">
-    <button class="app-button app-main-button">Зарегистрироваться</button>
+    <button [disabled]="isTryRegister" class="app-button app-main-button" (click)="register()">
+        Регистрация
+        <div *ngIf="isTryRegister" class="spinner-border spinner-border-sm mx-1" role="status">
+            <span class="visually-hidden"></span>
+        </div>              
+    </button>
 </div>

@@ -31,9 +31,19 @@ export const routes: Routes = [
         canActivateChild : [authDashboardGuard],
         children : [
             {
+                path: "",
+                redirectTo: "wb/stats",
+                pathMatch: "full"
+            },
+            {
                 path : "wb",
                 title : "WB",
                 children : [
+                    {
+                        path: "",
+                        redirectTo: "stats",
+                        pathMatch: "full"
+                    },
                     {
                         path: "autoresponder",
                         title : "Автоответчик",
