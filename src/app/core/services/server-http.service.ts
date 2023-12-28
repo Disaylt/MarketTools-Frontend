@@ -10,29 +10,24 @@ export class ServerHttpService{
 
   private hostUrl! : string;
 
-  constructor(private http : HttpClient, private authService : AuthService) 
+  constructor(private http : HttpClient) 
   {
     this.hostUrl = ServerHost.get();
   }
 
   get<T>(path : string){
-    return this.http.get<T>(`${this.hostUrl}${path}`, { headers : this.getHeaders()});
+    return this.http.get<T>(`${this.hostUrl}${path}`);
   }
 
   delete<T>(path : string){
-    return this.http.delete<T>(`${this.hostUrl}${path}`, { headers : this.getHeaders()});
+    return this.http.delete<T>(`${this.hostUrl}${path}`);
   }
 
   post<T>(path : string, body : any){
-    return this.http.post<T>(`${this.hostUrl}${path}`, body, { headers : this.getHeaders()});
+    return this.http.post<T>(`${this.hostUrl}${path}`, body);
   }
 
   put<T>(path : string, body : any){
-    return this.http.post<T>(`${this.hostUrl}${path}`, body, { headers : this.getHeaders()});
-  }
-
-  private getHeaders(){
-    return new HttpHeaders()
-      .set("Authorization", `Bearer ${this.authService.getToken()}`);
+    return this.http.post<T>(`${this.hostUrl}${path}`, body);
   }
 }
