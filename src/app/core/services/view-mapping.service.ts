@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ViewDataImplement, ViewResult } from '../models/view-result.model';
+import { ActionsImplement, ViewResult } from '../models/view-result.model';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +11,7 @@ export class ViewMappingService {
   map<T>(data : T) : ViewResult<T>{
     return {
       data : data,
-      viewData : new ViewDataImplement()
+      actions : new ActionsImplement()
     }
   } 
 }

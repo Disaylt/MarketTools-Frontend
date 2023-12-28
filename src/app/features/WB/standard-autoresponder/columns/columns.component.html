@@ -2,7 +2,7 @@
     <div style="width: 180px;">
         <div>
             <div class="d-flex flex-row">
-                <select [disabled]="isLoad" [(ngModel)]="selectedColumnType" class="form-select form-select-sm app-select shadow-none border-1 mx-1">
+                <select [disabled]="isLoad" [(ngModel)]="selectedColumnType" (ngModelChange)="loadColumns()" class="form-select form-select-sm app-select shadow-none border-1 mx-1">
                     <option *ngFor="let columnType of columnTypes"  [ngValue]="columnType">{{columnType.name}}</option>
                 </select>
                 <div class="mx-1">
@@ -15,7 +15,10 @@
                 <ng-template #addMenu>
                     <div class="d-flex flex-column p-1 rounded-2 app-transparent-dark-bg shadow" cdkMenu>
                         <input [(ngModel)]="newColumnName" class="form-control form-control-sm app-select shadow-none mb-1" placeholder="Название" type="text">
-                        <button cdkMenuItem class="app-button app-main-button">Создать</button>
+                        <button [disabled]="isAddingNewColumn" (click)="add()" class="app-button app-main-button">
+                            <span class="mx-1">Создать</span>
+                            <app-spiner size="sm" *ngIf="isAddingNewColumn"></app-spiner>
+                        </button>
                     </div>
                 </ng-template>
             </div>
@@ -24,20 +27,21 @@
                     <button (click)="selectColumn(column)" class="flex-fill text-start app-list-button" [ngClass]="{'active' : selectedColumn == column}">
                         <span class="text-truncate">{{column.data.name}}</span>
                     </button>
-                    <div>
-                        <button class="app-icon-button">
-                            <span class="material-symbols-outlined">
+                    <div class="ms-1">
+                        <button [disabled]="column.actions.isLoad" (click)="delete(column)" class="app-icon-button">
+                            <span *ngIf="column.actions.isLoad == false; else closeButtonSpiner" class="material-symbols-outlined">
                                 close
                             </span>
+                            <ng-template #closeButtonSpiner>
+                                <app-spiner size="sm"></app-spiner>
+                            </ng-template>
                         </button>
                     </div>
                 </div>
             </div>
             <div *ngIf="isLoad" class="active-dark-bg flex-fill mx-1 mt-2 rounded-2 p-1">
-                <div class="d-flex justify-content-center my-2">
-                    <div class="spinner-border text-light" style="width: 3rem; height: 3rem;" role="status">
-                        <span class="visually-hidden">Loading...</span>
-                      </div>
+                <div class="my-2">
+                    <app-spiner size="big"></app-spiner>
                 </div>
             </div>
         </div>

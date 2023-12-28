@@ -3,20 +3,21 @@ import { ColumnType } from './models/column-type.model';
 import { ColumnTypeStorage } from './constants/column-type.storage';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Column } from './models/column.models';
+import { Column, NewColumn } from './models/column.models';
 import { CellsComponent } from "./cells/cells.component";
 import {CdkMenu, CdkMenuItem, CdkMenuTrigger} from '@angular/cdk/menu';
 import { ColumnsService } from './services/columns.service';
-import { finalize } from 'rxjs';
+import { finalize, pipe } from 'rxjs';
 import { ViewMappingService } from '../../../../core/services/view-mapping.service';
 import { ViewResult } from '../../../../core/models/view-result.model';
+import { SpinerComponent } from "../../../../shared/components/spiner/spiner.component";
 
 @Component({
     selector: 'app-columns',
     standalone: true,
     templateUrl: './columns.component.html',
     styleUrl: './columns.component.scss',
-    imports: [CommonModule, FormsModule, CellsComponent, CdkMenuTrigger, CdkMenu, CdkMenuItem]
+    imports: [CommonModule, FormsModule, CellsComponent, CdkMenuTrigger, CdkMenu, CdkMenuItem, SpinerComponent]
 })
 export class ColumnsComponent implements OnInit {
 
@@ -42,8 +43,57 @@ export class ColumnsComponent implements OnInit {
     
   }
 
-  addColumn(){
+  delete(column : ViewResult<Column>){
+    column.actions.isLoad = true;
     
+    this.columnsService.deleteColumn(column.data.id)
+      .pipe(
+        finalize(() => {
+          column.actions.isLoad = false;
+        })
+      )
+      .subscribe(
+        {
+          complete : () => {
+            this.columns = this.columns
+              .filter(x=> x != column);
+            
+            if(this.selectedColumn == column){
+              this.selectedColumn = null;
+            }
+          }
+        }
+      )
+  }
+
+  add(){
+    const type = this.selectedColumnType.id;
+    this.isAddingNewColumn = true;
+
+    const newColumn : NewColumn = {
+      name : this.newColumnName,
+      type : type
+    };
+
+    this.columnsService.add(newColumn)
+      .pipe(
+        finalize(() => {
+          this.isAddingNewColumn = false;
+        })
+      )
+      .subscribe(
+        {
+          next: (data) => {
+            const column = this.viewMapper.map(data);
+            if(this.selectedColumnType.id == type){
+              this.columns.push(column);
+            }
+          },
+          complete: () => {
+            this.newColumnName = "";
+          }
+        }
+      )
   }
 
   loadColumns(){
