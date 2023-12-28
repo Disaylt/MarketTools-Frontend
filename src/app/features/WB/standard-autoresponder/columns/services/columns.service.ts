@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { NewColumn } from '../models/column.models';
+import { Column, NewColumn } from '../models/column.models';
 
 @Injectable({
   providedIn: 'root'
@@ -12,13 +12,13 @@ export class ColumnsService {
   getRange(type : number){
     const path = `api/v1/autoresponder/standard/columns?type=${type}`;
 
-    return this.httpClient.get(path);
+    return this.httpClient.get<Column[]>(path);
   }
 
   add(body : NewColumn){
     const path = "api/v1/autoresponder/standard/column";
 
-    return this.httpClient.post(path, body);
+    return this.httpClient.post<Column>(path, body);
   }
 
   deleteColumn(id : number){
