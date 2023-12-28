@@ -19,15 +19,23 @@ export class ErrorHttpInterceptor implements HttpInterceptor{
                         break;
                 }
 
-                this.toastsService.error('Ошибка', "", {
-                    progressBar : true,
-                    closeButton : true,
-                    toastClass: "ngx-toastr shadow-none rounded-3 app-error-alert-bg"
-                });
+                this.sendAlerts(error.error);
 
                 return throwError(() => error.message);
             })
           );
     }
     
+    private sendAlerts(errorBody : any){
+        for(const key of Object.keys(errorBody.errors)){
+            const values = errorBody.errors[key] as string[];
+            values.forEach(message=> {
+                this.toastsService.error(message, "", {
+                    progressBar : true,
+                    closeButton : true,
+                    toastClass: "ngx-toastr shadow-none rounded-3 app-error-alert-bg"
+                });
+            })
+          }
+    }
 }

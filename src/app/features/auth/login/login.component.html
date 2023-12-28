@@ -1,6 +1,20 @@
-<input class="form-control form-control-sm app-select shadow-none mt-3 mb-2" placeholder="Email" type="text">
-<input class="form-control form-control-sm app-select shadow-none mb-2" placeholder="Пароль" type="password">
-<div class="d-flex justify-content-end">
-    <button class="app-button me-1">Забыл пароль</button>
-    <button class="app-button app-main-button">Войти</button>
+<div *ngIf="isLoad == false; else load">
+    <input [(ngModel)]="value.email" class="form-control form-control-sm app-select shadow-none mt-3 mb-2" placeholder="Email" type="text">
+    <input [(ngModel)]="value.password" class="form-control form-control-sm app-select shadow-none mb-2" placeholder="Пароль" type="password">
+    <div class="d-flex justify-content-end">
+        <button class="app-button me-1">Забыл пароль</button>
+        <button [disabled]="isTryLogin" class="app-button app-main-button" (click)="login()">
+            Войти
+            <div *ngIf="isTryLogin" class="spinner-border spinner-border-sm mx-1" role="status">
+                <span class="visually-hidden"></span>
+            </div>              
+        </button>
+    </div>
 </div>
+<ng-template #load>
+    <div class="d-flex justify-content-center my-3">
+        <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>  
+    </div>
+</ng-template>

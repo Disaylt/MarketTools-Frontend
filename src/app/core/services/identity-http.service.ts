@@ -23,13 +23,13 @@ export class IdentityHttpService {
   }
 
   login(body : Login) : Observable<AuthDetails>{
-    const path = "/api/v1/Identity/login"
+    const path = "api/v1/Identity/login"
 
     return this.http.post<AuthDetails>(path, body);
   }
 
   register(body : Register) : Observable<AuthDetails>{
-    const path = "/api/v1/Identity/register"
+    const path = "api/v1/Identity/register"
 
     return this.http.post<AuthDetails>(path, body);
   }
