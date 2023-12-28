@@ -2,38 +2,54 @@ import { Routes } from '@angular/router';
 import { StandardAutoresponderComponent } from './features/WB/standard-autoresponder/standard-autoresponder.component';
 import { ViewTestComponent } from './features/view-test/view-test.component';
 import { ColumnsComponent } from './features/WB/standard-autoresponder/columns/columns.component';
+import { AuthComponent } from './features/auth/auth.component';
+import { DashboardComponent } from './core/components/dashboard/dashboard.component';
 
 export const routes: Routes = [
     {
-        path : "wb",
-        title : "WB",
+        path : "dashboard",
+        component : DashboardComponent,
         children : [
             {
-                path: "autoresponder",
-                title : "Автоответчик",
-                children: [
+                path : "wb",
+                title : "WB",
+                children : [
                     {
-                        path: "standard",
-                        title : "Стандартный",
-                        component: StandardAutoresponderComponent,
-                        children:[
+                        path: "autoresponder",
+                        title : "Автоответчик",
+                        children: [
                             {
-                                path:"columns",
-                                component:ColumnsComponent
-                            },
-                            {
-                                path: "recommendation-table",
-                                component:ViewTestComponent
+                                path: "standard",
+                                title : "Стандартный",
+                                component: StandardAutoresponderComponent,
+                                children:[
+                                    {
+                                        path:"columns",
+                                        component:ColumnsComponent
+                                    },
+                                    {
+                                        path: "recommendation-table",
+                                        component:ViewTestComponent
+                                    }
+                                ]
                             }
                         ]
+                    },
+                    {
+                        path : "stats",
+                        title : "Статистика",
+                        component : StandardAutoresponderComponent
                     }
                 ]
-            },
-            {
-                path : "stats",
-                title : "Статистика",
-                component : StandardAutoresponderComponent
             }
         ]
+    },
+    {
+        path : "auth",
+        component : AuthComponent
+    },
+    {
+        path:"**", 
+        redirectTo:"/dashboard"
     }
 ];

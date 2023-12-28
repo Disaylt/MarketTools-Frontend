@@ -24,43 +24,8 @@ import { IdentityHttpService } from './core/services/identity-http.service';
     styleUrl: './app.component.scss',
     imports: [CommonModule, HeaderComponent, SidebarComponent, MatSidenavModule, RouterOutlet, BreadcrumbComponent, AuthComponent]
 })
-export class AppComponent implements OnInit {
+export class AppComponent{
   title = 'MarketTools-Frontend';
-  @ViewChild(MatSidenav) sidenav!: MatSidenav;
-  @ViewChild(HeaderComponent) header!: HeaderComponent;
-  isMobile = false;
-
-  constructor(private observer: BreakpointObserver, 
-    public authService : AuthService, 
-    private identityHttpService : IdentityHttpService){}
-
-  ngOnInit(): void {
-    this.observer.observe([`(max-width: ${WindowsSizes.mobile}px)`]).subscribe((screenSize) => {
-      if(screenSize.matches){
-        this.isMobile = true;
-      } else {
-        this.isMobile = false;
-      }
-    });
-  }
-
-  sendRequest(){
-    this.identityHttpService.getUserDetails()
-      .subscribe((value) => {
-        console.log(value);
-      })
-  }
-
-  ngAfterViewInit(){
-    this.header.toggleEvent.subscribe(()=> {
-      this.toggleMenu();
-    })
-  }
   
-  toggleMenu() {
-    if(this.isMobile){
-      this.sidenav.toggle();
-    }
-  }
 
 }
