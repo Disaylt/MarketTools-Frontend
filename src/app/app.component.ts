@@ -15,6 +15,7 @@ import { WindowsSizes } from './core/constants/window-sizes';
 import { BreadcrumbComponent } from "./core/components/breadcrumb/breadcrumb.component";
 import { AuthService } from './core/services/auth.service';
 import { AuthComponent } from "./features/auth/auth.component";
+import { IdentityHttpService } from './core/services/identity-http.service';
 
 @Component({
     selector: 'app-root',
@@ -29,7 +30,9 @@ export class AppComponent implements OnInit {
   @ViewChild(HeaderComponent) header!: HeaderComponent;
   isMobile = false;
 
-  constructor(private observer: BreakpointObserver, public authService : AuthService){}
+  constructor(private observer: BreakpointObserver, 
+    public authService : AuthService, 
+    private identityHttpService : IdentityHttpService){}
 
   ngOnInit(): void {
     this.observer.observe([`(max-width: ${WindowsSizes.mobile}px)`]).subscribe((screenSize) => {
@@ -39,6 +42,13 @@ export class AppComponent implements OnInit {
         this.isMobile = false;
       }
     });
+  }
+
+  sendRequest(){
+    this.identityHttpService.getAuthStatus()
+      .subscribe((value) => {
+        console.log(value);
+      })
   }
 
   ngAfterViewInit(){

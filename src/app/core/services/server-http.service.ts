@@ -6,13 +6,12 @@ import { AuthService } from './auth.service';
 @Injectable({
   providedIn: 'root'
 })
-export class ServerHttpService implements OnInit {
+export class ServerHttpService{
 
   private hostUrl! : string;
 
-  constructor(private http : HttpClient, private authService : AuthService) { }
-
-  ngOnInit(): void {
+  constructor(private http : HttpClient, private authService : AuthService) 
+  {
     this.hostUrl = ServerHost.get();
   }
 
@@ -34,6 +33,6 @@ export class ServerHttpService implements OnInit {
 
   private getHeaders(){
     return new HttpHeaders()
-      .set("Authorization", `Bearer ${this.authService.getToken()}`)
+      .set("Authorization", `Bearer ${this.authService.getToken()}`);
   }
 }
