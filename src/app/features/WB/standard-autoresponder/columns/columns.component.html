@@ -1,6 +1,6 @@
 <div class="d-flex flex-row">
-    <div style="width: 180px;">
-        <div>
+    <div>
+        <div style="width: 180px;">
             <div class="d-flex flex-row">
                 <select [disabled]="isLoad" [(ngModel)]="selectedColumnType" (ngModelChange)="loadColumns()" class="form-select form-select-sm app-select shadow-none border-1 mx-1">
                     <option *ngFor="let columnType of columnTypes"  [ngValue]="columnType">{{columnType.name}}</option>
@@ -47,6 +47,6 @@
         </div>
     </div>
     <div class="flex-fill mx-1">
-        <app-cells></app-cells>
+        <app-cells [columnId]="selectedColumn?.data?.id ?? null"></app-cells>
     </div>
 </div>

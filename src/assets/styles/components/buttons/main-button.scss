@@ -10,6 +10,10 @@
     background-color: $grey-transporent25;
 }
 
+.app-main-button.only-text{
+    background-color: var(--full-transparent)
+}
+
 .app-main-button:active{
     background-color: $grey-transporent50;
 }

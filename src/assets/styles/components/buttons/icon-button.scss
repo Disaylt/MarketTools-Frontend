@@ -28,6 +28,10 @@
     background-color: var(--grey-transparent25);
 }
 
+.app-icon-button.only-text{
+    background-color: var(--full-transparent)
+}
+
 .app-icon-button:hover span{
     color: white;
 }
