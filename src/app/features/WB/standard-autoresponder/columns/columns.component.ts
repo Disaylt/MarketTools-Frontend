@@ -11,13 +11,14 @@ import { finalize, pipe } from 'rxjs';
 import { ViewMappingService } from '../../../../core/services/view-mapping.service';
 import { ViewResult } from '../../../../core/models/view-result.model';
 import { SpinerComponent } from "../../../../shared/components/spiner/spiner.component";
+import { RecommendationBindWordsComponent } from "./recommendation-bind-words/recommendation-bind-words.component";
 
 @Component({
     selector: 'app-columns',
     standalone: true,
     templateUrl: './columns.component.html',
     styleUrl: './columns.component.scss',
-    imports: [CommonModule, FormsModule, CellsComponent, CdkMenuTrigger, CdkMenu, CdkMenuItem, SpinerComponent]
+    imports: [CommonModule, FormsModule, CellsComponent, CdkMenuTrigger, CdkMenu, CdkMenuItem, SpinerComponent, RecommendationBindWordsComponent]
 })
 export class ColumnsComponent implements OnInit {
 

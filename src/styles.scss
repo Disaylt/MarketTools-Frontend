@@ -35,6 +35,7 @@ $MarketTools-Frontend-theme: mat.define-light-theme((
 /* You can add global styles to this file, and also import other style files */
 
 @import 'assets/styles/utilities/variables.scss';
+@import 'assets/styles/utilities/alerts.scss';
 @import 'assets/styles/layout/container.scss';
 @import 'assets/styles/base/colors.scss';
 @import 'assets/styles/base/scrollbar.scss';
