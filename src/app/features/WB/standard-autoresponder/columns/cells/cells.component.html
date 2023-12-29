@@ -1,34 +1,59 @@
 <div *ngIf="isLoad" class="mb-3 mx-1">
     <app-progress-bar></app-progress-bar>
 </div>
-<div *ngIf="columnId != null">
+<div *ngIf="columnId != null && isLoad == false">
     <div class="app-color-white75">
         <div class="d-flex flex-row">
             <div class="flex-fill mx-1">
-                <input class="form-control form-control-sm app-select shadow-none mb-2" placeholder="Часть текста ответа" type="text">
+                <input [(ngModel)]="textCell" class="form-control form-control-sm app-select shadow-none mb-2" placeholder="Часть текста ответа" type="text">
             </div>
             <div class="mx-1">
-                <button class="app-icon-button app-icon-button-border">
-                    <span class="material-symbols-outlined">
+                <button [disabled]="isTryAdd" (click)="add()" class="app-icon-button app-icon-button-border">
+                    <span *ngIf="isTryAdd == false; else loadNewCell" class="material-symbols-outlined">
                         add
                     </span>
+                    <ng-template #loadNewCell>
+                        <app-spiner size="sm"></app-spiner>
+                    </ng-template>
                 </button>
             </div>
         </div>
         <div>
-            <div class="d-flex flex-row justify-content-between active-dark-bg mb-1 p-1 rounded-2 mx-1">
-                <span class="mx-1 text-break">ewlrfsadlakrsjflaskdjflejlfjasldjglwflajslgasldfghfghfghfghjfljart glasdflj aw ej asd g sdfg sergdfdfgdfg esrtawerhg dfgf sdfg </span>
+            <div *ngFor="let cell of cells" class="d-flex flex-row justify-content-between active-dark-bg mb-1 p-1 rounded-2 mx-1">
+                <div class="me-1 d-flex align-items-center flex-fill">
+                    <input *ngIf="cell.actions.isEdit; else notEditCell" [(ngModel)]="cell.data.value" class="form-control form-control-sm app-select shadow-none flex-fill" placeholder="Часть текста ответа" type="text">
+                    <ng-template #notEditCell>
+                        <span class="text-break ms-1">{{cell.data.value}}</span>
+                    </ng-template>
+                </div>
                 <div>
-                    <button [cdkMenuTriggerFor]="menu" class="app-icon-button app-icon-button-border">
-                        <span class="material-symbols-outlined">
-                            more_horiz
+                    <button *ngIf="cell.actions.isEdit; else cellActionsButton" [disabled]="cell.actions.isLoad" (click)="sendChanges(cell)" class="app-icon-button app-icon-button-border">
+                        <span *ngIf="cell.actions.isLoad == false; else loadEditCell" class="material-symbols-outlined">
+                            done
                         </span>
+                        <ng-template #loadEditCell>
+                            <app-spiner size="sm"></app-spiner>
+                        </ng-template>
                     </button>
-                    <ng-template #menu>
-                        <div class="d-flex flex-column p-1 mt-1 rounded-2 app-transparent-dark-bg shadow" cdkMenu>
-                            <button class="app-button mb-1">Удалить</button>
-                            <button class="app-button">Редактировать</button>
-                        </div>
+                    <ng-template #cellActionsButton>
+                        <button [disabled]="cell.actions.isLoad" [cdkMenuTriggerFor]="menu" class="app-icon-button app-icon-button-border">
+                            <span *ngIf="cell.actions.isLoad == false; else loadActionCell" class="material-symbols-outlined">
+                                more_horiz
+                            </span>
+                            <ng-template #loadActionCell>
+                                <app-spiner size="sm"></app-spiner>
+                            </ng-template>
+                        </button>
+                        <ng-template #menu>
+                            <div class="d-flex flex-column p-1 mt-1 rounded-2 app-transparent-dark-bg shadow" cdkMenu>
+                                <button (click)="delete(cell)" cdkMenuItem class="app-button mb-1">
+                                    <span class="mx-1">Удалить</span>
+                                </button>
+                                <button (click)="startChange(cell)" cdkMenuItem class="app-button">
+                                    <span class="mx-1">Редактировать</span>
+                                </button>
+                            </div>
+                        </ng-template>
                     </ng-template>
                 </div>
     
