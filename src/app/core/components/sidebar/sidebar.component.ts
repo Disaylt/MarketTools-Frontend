@@ -8,7 +8,10 @@ import { FormsModule } from '@angular/forms';
 import { Navigation, NavigationValue } from '../../models/navigation-bar.model';
 import { MarketplaceName } from '../../enums/marketplace-name';
 import { WbNavigationStorage } from '../../constants/navigations/wb-navigations.storage';
-import { RouterModule, RouterOutlet } from '@angular/router';
+import { Router, RouterModule, RouterOutlet } from '@angular/router';
+import { MarketDeterminantService } from '../../services/market-determinant.service';
+import { timeout } from 'rxjs';
+import { OzonNavigationStorage } from '../../constants/navigations/ozon-navigations.storage';
 
 @Component({
   selector: 'app-sidebar',
@@ -20,28 +23,40 @@ import { RouterModule, RouterOutlet } from '@angular/router';
 export class SidebarComponent implements OnInit {
   
   markets : Marketplace[] = MarketplaceStorage.value;
-  selectedMarket! : Marketplace;
+  lastSelectMarket : Marketplace | null = null;
 
   marketBar : Navigation[] = [];
 
+  constructor(private router : Router, public marketDeterminantService : MarketDeterminantService){}
+
   ngOnInit(): void {
-    this.firstSelectMarket();
-    this.setMarketNavigation();
+    this.marketDeterminantService.toggleEvent
+      .subscribe(x=> {
+        this.setMarketNavigation();
+      })
   }
 
   setMarketNavigation(){
-    switch(this.selectedMarket.nameEnum){
+    let routeLink = "";
+
+    switch(this.marketDeterminantService.marketplace.nameEnum){
       case MarketplaceName.wb:
         this.marketBar = WbNavigationStorage.value;
+        routeLink = "dashboard/wb"
+        break;
+      case MarketplaceName.ozon:
+        this.marketBar = OzonNavigationStorage.value;
+        routeLink = "dashboard/ozon"
         break;
       default:
-        this.marketBar = []
+        this.marketBar = [];
+        this.router.navigate(["dashboard/marketpalce-not-found"]);
     }
-  }
 
-  private firstSelectMarket(){
-    if(this.markets.length > 0){
-      this.selectedMarket = this.markets[0];
+    if(this.lastSelectMarket != null && this.marketDeterminantService.marketplace != this.lastSelectMarket){
+      this.router.navigate([routeLink]);
     }
+
+    this.lastSelectMarket = this.marketDeterminantService.marketplace;
   }
 }
