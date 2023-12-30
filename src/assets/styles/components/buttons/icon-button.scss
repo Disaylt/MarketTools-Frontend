@@ -10,14 +10,20 @@
     border-radius: 6px;
 }
 
-.app-icon-button.app-icon-circle{
+.app-icon-circle{
     border-radius: 16px;
 }
 
-.app-icon-button.app-icon-button-border {
+.app-icon-button.app-big-button {
+    height: 38px;
+    width: 38px;
+}
+
+.app-icon-button.app-button-border {
     border-width: 1px;
     border-color: var(--grey-transparent50);
 }
+
 
 .app-icon-button:disabled {
     opacity: 0.6;

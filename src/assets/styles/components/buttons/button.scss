@@ -5,11 +5,22 @@
     padding: 2px 5px 2px 5px;
     justify-content: center;
     background-color: $transparent0;
-    border: 0px;
+    border-width: 0px;
     border-radius: 6px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+.app-big-button {
+    height: 38px;
+    padding: 2px 10px 2px 10px;
+    font-size: 18px;
+}
+
+.app-button.app-button-border {
+    border-width: 1px;
+    border-color: var(--grey-transparent50);
 }
 
 .app-button:disabled {
@@ -32,7 +43,6 @@
 
 .app-button:hover{
     background-color: $grey-transporent25;
-    border: 1px;
 }
 
 .app-button:hover span{

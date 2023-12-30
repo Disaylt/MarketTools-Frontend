@@ -1,7 +1,87 @@
-<div>
-    <button class="app-icon-button app-icon-button-border">
-        <span class="material-symbols-outlined">
-            search
-        </span>
-    </button>
+<div class="d-flex flex-row active-dark-bg p-1 rounded-3">
+    <div class="me-1">
+        <button [cdkMenuTriggerFor]="searchMenu" class="app-icon-button app-button-border app-big-button">
+            <span class="material-symbols-outlined">
+                search
+            </span>
+        </button>
+        <ng-template #searchMenu>
+            <div class="d-flex flex-column p-1 rounded-2 app-transparent-dark-bg shadow mt-1" cdkMenu>
+                <input [(ngModel)]="searchArticle" class="form-control form-control-sm app-select shadow-none" placeholder="Артикул" type="text">
+            </div>
+        </ng-template>
+    </div>
+    <div class="me-1">
+        <button class="app-icon-button app-button-border app-big-button">
+            <span class="material-symbols-outlined">
+                add
+            </span>
+        </button>
+    </div>
+    <div>
+        <button [cdkMenuTriggerFor]="excelMenu" class="app-button app-main-button app-button-border app-big-button">
+            <span>Excel</span>
+        </button>
+        <ng-template #excelMenu>
+            <div class="d-flex flex-column p-1 mt-1 rounded-2 app-transparent-dark-bg shadow" cdkMenu>
+                <button cdkMenuItem class="app-button">
+                    <span class="material-symbols-outlined">
+                        download
+                    </span>
+                    <span class="mx-1">Скачать</span>
+                </button>
+                <button cdkMenuItem class="app-button">
+                    <span class="material-symbols-outlined">
+                        add
+                    </span>
+                    <span class="mx-1">Добавить</span>
+                </button>
+                <button cdkMenuItem class="app-button">
+                    <span class="material-symbols-outlined">
+                        restart_alt
+                    </span>
+                    <span class="mx-1">Заменить</span>
+                </button>
+            </div>
+        </ng-template>
+    </div>
+</div>
+
+<div class="mt-3 active-dark-bg p-1 rounded-3">
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col" class="fw-medium p-1">Артикул</th>
+            <th scope="col" class="fw-medium p-1">Название</th>
+            <th scope="col" class="fw-medium p-1">Рек. Артикул</th>
+            <th scope="col" class="fw-medium p-1">Рек. Название</th>
+            <th scope="col" class="fw-medium p-1"></th>
+          </tr>
+        </thead>
+        <tbody class="">
+          <tr>
+            <td class="text-break p-1">Mark sdgfdgsdfg esdf esrghsdifh awsiehf asidhfhiaser</td>
+            <td class="text-break p-1">MarkMarkMarkMarkMarkMarkMarkMarkMarkMarkMarkMarkMarkMarkMarkMark</td>
+            <td class="text-break p-1">Otto</td>
+            <td class="text-break p-1">mdo</td>
+            <td class="text-break p-1">
+                <button [cdkMenuTriggerFor]="valueMenu" class="app-icon-button">
+                    <span class="material-symbols-outlined">
+                        more_horiz
+                    </span>
+                </button>
+                <ng-template #valueMenu>
+                    <div class="d-flex flex-column p-1 mt-1 rounded-2 app-transparent-dark-bg shadow" cdkMenu>
+                        <button cdkMenuItem class="app-button">
+                            <span class="mx-1">Удалить</span>
+                        </button>
+                        <button cdkMenuItem class="app-button">
+                            <span class="mx-1">Редактировать</span>
+                        </button>
+                    </div>
+                </ng-template>
+            </td>
+          </tr>
+        </tbody>
+      </table>
 </div>

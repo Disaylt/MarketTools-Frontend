@@ -8,7 +8,7 @@
                 <input [(ngModel)]="textCell" class="form-control form-control-sm app-select shadow-none mb-2" placeholder="Часть текста ответа" type="text">
             </div>
             <div class="mx-1">
-                <button [disabled]="isTryAdd" (click)="add()" class="app-icon-button app-icon-button-border">
+                <button [disabled]="isTryAdd" (click)="add()" class="app-icon-button app-button-border">
                     <span *ngIf="isTryAdd == false; else loadNewCell" class="material-symbols-outlined">
                         add
                     </span>
@@ -49,7 +49,7 @@
                                 <button (click)="startChange(cell)" cdkMenuItem class="app-button">
                                     <span class="mx-1">Редактировать</span>
                                 </button>
-                                <button (click)="delete(cell)" cdkMenuItem class="app-button mb-1">
+                                <button (click)="delete(cell)" cdkMenuItem class="app-button">
                                     <span class="mx-1">Удалить</span>
                                 </button>
                             </div>

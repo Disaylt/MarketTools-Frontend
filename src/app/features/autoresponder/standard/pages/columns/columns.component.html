@@ -6,7 +6,7 @@
                     <option *ngFor="let columnType of columnTypes"  [ngValue]="columnType">{{columnType.name}}</option>
                 </select>
                 <div class="mx-1">
-                    <button [disabled]="isLoad" [cdkMenuTriggerFor]="addMenu" class="app-icon-button app-icon-button-border">
+                    <button [disabled]="isLoad" [cdkMenuTriggerFor]="addMenu" class="app-icon-button app-button-border">
                         <span class="material-symbols-outlined">
                             add
                         </span>
@@ -15,7 +15,7 @@
                 <ng-template #addMenu>
                     <div class="d-flex flex-column p-1 rounded-2 app-transparent-dark-bg shadow" cdkMenu>
                         <input [(ngModel)]="newColumnName" class="form-control form-control-sm app-select shadow-none mb-1" placeholder="Название" type="text">
-                        <button [disabled]="isAddingNewColumn" (click)="add()" class="app-button app-main-button">
+                        <button [disabled]="isAddingNewColumn" (click)="add()" class="app-button app-main-button app-button-border">
                             <span class="mx-1">Создать</span>
                             <app-spiner size="sm" *ngIf="isAddingNewColumn"></app-spiner>
                         </button>

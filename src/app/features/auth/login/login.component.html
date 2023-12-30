@@ -3,7 +3,7 @@
     <input [(ngModel)]="value.password" class="form-control form-control-sm app-select shadow-none mb-2" placeholder="Пароль" type="password">
     <div class="d-flex justify-content-end">
         <button class="app-button me-1">Восстановить пароль</button>
-        <button [disabled]="isTryLogin" class="app-button app-main-button" (click)="login()">
+        <button [disabled]="isTryLogin" class="app-button app-main-button app-button-border" (click)="login()">
             Войти
             <div *ngIf="isTryLogin" class="spinner-border spinner-border-sm mx-1" role="status">
                 <span class="visually-hidden"></span>
