@@ -1,26 +1,28 @@
-import { Component, OnInit } from '@angular/core';
-import { ColumnType } from './models/column-type.model';
-import { ColumnTypeStorage } from './constants/column-type.storage';
 import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { CellsComponent } from './pages/cells/cells.component';
+import { CdkMenu, CdkMenuItem, CdkMenuTrigger } from '@angular/cdk/menu';
+import { SpinerComponent } from '../../../../../shared/components/spiner/spiner.component';
+import { RecommendationVariablesClueComponent } from './components/recommendation-variables-clue/recommendation-variables-clue.component';
+import { ColumnType } from './models/column-type.model';
+import { ViewResult } from '../../../../../core/models/view-result.model';
 import { Column, NewColumn } from './models/column.models';
-import { CellsComponent } from "./cells/cells.component";
-import {CdkMenu, CdkMenuItem, CdkMenuTrigger} from '@angular/cdk/menu';
 import { ColumnsService } from './services/columns.service';
-import { finalize, pipe } from 'rxjs';
-import { ViewMappingService } from '../../../../core/services/view-mapping.service';
-import { ViewResult } from '../../../../core/models/view-result.model';
-import { SpinerComponent } from "../../../../shared/components/spiner/spiner.component";
-import { RecommendationBindWordsComponent } from "./recommendation-bind-words/recommendation-bind-words.component";
+import { ViewMappingService } from '../../../../../core/services/view-mapping.service';
+import { finalize } from 'rxjs';
+import { ColumnTypeStorage } from './constants/column-types.storage';
+import { RouterLink, RouterModule, RouterOutlet } from '@angular/router';
+
 
 @Component({
-    selector: 'app-columns',
-    standalone: true,
-    templateUrl: './columns.component.html',
-    styleUrl: './columns.component.scss',
-    imports: [CommonModule, FormsModule, CellsComponent, CdkMenuTrigger, CdkMenu, CdkMenuItem, SpinerComponent, RecommendationBindWordsComponent]
+  selector: 'app-columns',
+  standalone: true,
+  imports: [CommonModule, FormsModule, CellsComponent, CdkMenuTrigger, CdkMenu, CdkMenuItem, SpinerComponent, RecommendationVariablesClueComponent, RouterModule, RouterOutlet, RouterLink],
+  templateUrl: './columns.component.html',
+  styleUrl: './columns.component.scss'
 })
-export class ColumnsComponent implements OnInit {
+export class ColumnsComponent {
 
   isLoad : boolean = true;
 
@@ -115,5 +117,4 @@ export class ColumnsComponent implements OnInit {
         }
       })
   }
-
 }

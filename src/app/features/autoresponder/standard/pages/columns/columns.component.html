@@ -22,10 +22,10 @@
                     </div>
                 </ng-template>
             </div>
-            <app-recommendation-bind-words *ngIf="selectedColumnType.id == 1"></app-recommendation-bind-words>
+            <app-recommendation-variables-clue *ngIf="selectedColumnType.id == 1"></app-recommendation-variables-clue>
             <div *ngIf="isLoad == false && columns.length > 0" class="active-dark-bg flex-fill mx-1 mt-2 rounded-2 p-1">
                 <div *ngFor="let column of columns" class="d-flex flex-row justify-content-between">
-                    <button (click)="selectColumn(column)" class="flex-fill text-start app-list-button" [ngClass]="{'active' : selectedColumn == column}">
+                    <button (click)="selectColumn(column)" class="flex-fill d-flex align-items-center text-start app-list-button" [ngClass]="{'active' : selectedColumn == column}">
                         <span class="text-truncate">{{column.data.name}}</span>
                     </button>
                     <div class="ms-1">

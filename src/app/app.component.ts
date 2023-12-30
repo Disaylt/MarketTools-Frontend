@@ -27,5 +27,5 @@ import { IdentityHttpService } from './core/services/identity-http.service';
 export class AppComponent{
   title = 'MarketTools-Frontend';
   
-
+  
 }

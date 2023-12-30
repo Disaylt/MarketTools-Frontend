@@ -46,11 +46,11 @@
                         </button>
                         <ng-template #menu>
                             <div class="d-flex flex-column p-1 mt-1 rounded-2 app-transparent-dark-bg shadow" cdkMenu>
-                                <button (click)="delete(cell)" cdkMenuItem class="app-button mb-1">
-                                    <span class="mx-1">Удалить</span>
-                                </button>
                                 <button (click)="startChange(cell)" cdkMenuItem class="app-button">
                                     <span class="mx-1">Редактировать</span>
+                                </button>
+                                <button (click)="delete(cell)" cdkMenuItem class="app-button mb-1">
+                                    <span class="mx-1">Удалить</span>
                                 </button>
                             </div>
                         </ng-template>

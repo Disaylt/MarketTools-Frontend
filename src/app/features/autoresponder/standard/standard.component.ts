@@ -4,12 +4,12 @@ import { TabBarButtonComponent } from "../../../shared/components/tab-bar/tab-ba
 import { RouterModule } from '@angular/router';
 
 @Component({
-    selector: 'app-standard-autoresponder',
-    standalone: true,
-    templateUrl: './standard-autoresponder.component.html',
-    styleUrl: './standard-autoresponder.component.scss',
-    imports: [TabBarComponent, TabBarButtonComponent, RouterModule]
+  selector: 'app-standard',
+  standalone: true,
+  imports: [TabBarComponent, TabBarButtonComponent, RouterModule],
+  templateUrl: './standard.component.html',
+  styleUrl: './standard.component.scss'
 })
-export class StandardAutoresponderComponent {
+export class StandardComponent {
 
 }

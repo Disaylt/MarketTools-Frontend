@@ -7,7 +7,7 @@ export class WbNavigationStorage{
             iconCode: "dashboard",
             main : {
                 name : "Дэшборд",
-                path : `${this.market}/stats`,
+                path : `${this.market}/info`,
                 isDisabled : false
             }
         },

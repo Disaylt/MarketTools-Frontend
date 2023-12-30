@@ -22,7 +22,6 @@ export class SidebarComponent implements OnInit {
   markets : Marketplace[] = MarketplaceStorage.value;
   selectedMarket! : Marketplace;
 
-  selectNavigation : Navigation | null = null;
   marketBar : Navigation[] = [];
 
   ngOnInit(): void {
@@ -38,11 +37,6 @@ export class SidebarComponent implements OnInit {
       default:
         this.marketBar = []
     }
-  }
-
-  test(nav : Navigation){
-    console.log(nav);
-    this.selectNavigation = nav;
   }
 
   private firstSelectMarket(){

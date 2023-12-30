@@ -1,20 +1,20 @@
-import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { VariableHelp } from './models/variable-help.model';
+import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { BindWordHelp } from './models/bind-words-help.model';
-import {CdkMenu, CdkMenuItem, CdkMenuTrigger} from '@angular/cdk/menu';
+import { CdkMenu, CdkMenuItem, CdkMenuTrigger } from '@angular/cdk/menu';
 
 @Component({
-  selector: 'app-recommendation-bind-words',
+  selector: 'app-recommendation-variables-clue',
   standalone: true,
   imports: [CommonModule, RouterModule, CdkMenuTrigger, CdkMenu, CdkMenuItem],
-  templateUrl: './recommendation-bind-words.component.html',
-  styleUrl: './recommendation-bind-words.component.scss'
+  templateUrl: './recommendation-variables-clue.component.html',
+  styleUrl: './recommendation-variables-clue.component.scss'
 })
-export class RecommendationBindWordsComponent {
+export class RecommendationVariablesClueComponent {
   isShow : boolean = true;
   
-  bindWordsHelp : BindWordHelp[] = [
+  bindWordsHelp : VariableHelp[] = [
     {
       name:"$buy_article$",
       text:[
