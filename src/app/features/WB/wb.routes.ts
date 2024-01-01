@@ -6,6 +6,7 @@ import { WbMarketplaceComponent } from "./wb-marketplace.component";
 
 export const wbRoute : Route =
 {
+    title : "WB",
     path : "wb",
     component: WbMarketplaceComponent,
     children : [
@@ -15,10 +16,12 @@ export const wbRoute : Route =
             pathMatch: "full"
         },
         {
+            title : "Информация",
             path : "info",
             component: DashboardComponent
         },
         {
+            title : "Автоответчик",
             path : "autoresponder",
             children : autoresponderRoutes
         }

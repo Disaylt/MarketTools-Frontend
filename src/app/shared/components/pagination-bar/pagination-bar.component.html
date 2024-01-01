@@ -1,0 +1,42 @@
+<div class="text-white d-flex flex-row justify-content-center">
+    <div class="mx-1 d-flex flex-row">
+        <button *ngIf="maxPage > 1"
+        (click)="selectPage(page - 1)" [disabled]="page === firstViewPageNumber || isLoad" 
+        class="app-icon-button app-button-border mx-1">
+            <span class="material-symbols-outlined">
+                arrow_back_ios_new
+            </span>
+        </button>
+        <div *ngIf="firstViewPageNumber != null">
+            <button [ngClass]="page === firstViewPageNumber ? 'active' : ''"  
+                class="app-button app-main-button app-button-border mx-1" 
+                (click)="selectPage(firstViewPageNumber)"
+                [disabled]="isLoad">
+                <span>{{firstViewPageNumber}}</span>
+            </button>
+        </div>
+    </div>
+    <div *ngFor="let numPage of middleViewPageNumbers">
+        <button [ngClass]="page === numPage ? 'active' : ''" 
+            class="app-button app-main-button app-button-border mx-1" 
+            (click)="selectPage(numPage)"
+            [disabled]="isLoad">
+            <span>{{numPage}}</span>
+        </button>
+    </div>
+    <div class="mx-1 d-flex flex-row">
+        <div *ngIf="lastViewPageNumber != null">
+            <button [ngClass]="page === lastViewPageNumber ? 'active' : ''" 
+                class="app-button app-main-button app-button-border mx-1" 
+                (click)="selectPage(lastViewPageNumber)"
+                [disabled]="isLoad">
+                <span>{{lastViewPageNumber}}</span>
+            </button>
+        </div>
+        <button *ngIf="maxPage > 1" (click)="selectPage(page + 1)" [disabled]="page === lastViewPageNumber || isLoad" class="app-icon-button app-button-border mx-1">
+            <span class="material-symbols-outlined">
+                arrow_forward_ios
+            </span>
+        </button>
+    </div>
+</div>

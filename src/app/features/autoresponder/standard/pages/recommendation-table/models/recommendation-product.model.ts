@@ -1,17 +1,12 @@
 import { MarketplaceName } from "../../../../../../core/enums/marketplace-name";
 import { Pagination } from "../../../../../../core/models/pagination.model";
 
-export interface RecoomendationProduct extends RecoomendationProductDatails{
+export interface RecommendationProduct extends RecommendationProductDatails{
     id : number;
-    marketplaceName : MarketplaceName;
 }
 
-export interface RecommendationProductCreate extends RecoomendationProductDatails{
+export interface RecommendationProductCreate extends RecommendationProductDatails{
     marketplaceName : MarketplaceName;
-}
-
-export interface RecommendationProductUpdate extends RecoomendationProductDatails{
-    id : number;
 }
 
 export interface QueryRecommendationProducts extends Pagination{
@@ -19,7 +14,7 @@ export interface QueryRecommendationProducts extends Pagination{
     marketplaceName : MarketplaceName;
 }
 
-interface RecoomendationProductDatails{
+export interface RecommendationProductDatails{
     feedbackArticle : string;
     feedbackProductName : string | null;
     recommendationArticle : string | null;

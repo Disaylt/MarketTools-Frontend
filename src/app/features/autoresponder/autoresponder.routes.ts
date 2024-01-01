@@ -11,10 +11,12 @@ export const autoresponderRoutes : Routes = [
         component: StandardComponent,
         children:[
             {
+                title : "Колонки",
                 path:"columns",
                 component:ColumnsComponent
             },
             {
+                title : "Таблица рекомендаций",
                 path: "recommendation-table",
                 component:RecommendationTableComponent
             }

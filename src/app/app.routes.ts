@@ -25,6 +25,7 @@ export const authDashboardGuard = (route: ActivatedRouteSnapshot, state: RouterS
 export const routes: Routes = [
     {
         path : "dashboard",
+        title : "Дэшборд",
         component : DashboardComponent,
         canActivate : [authDashboardGuard],
         canActivateChild : [authDashboardGuard],
@@ -36,11 +37,13 @@ export const routes: Routes = [
             },
             wbRoute,
             {
+                title : "Страница не найдена",
                 path : "marketpalce-not-found",
                 component : MarketplaceNotFoundComponent
             },
             {
                 path : "ozon",
+                title : "Озон",
                 component: OzonMarketplaceComponent,
                 children : [
                     {
@@ -49,6 +52,7 @@ export const routes: Routes = [
                         pathMatch : "full"
                     },
                     {
+                        title : "Информация",
                         path : "info",
                         component : ViewTestComponent
                     },
@@ -70,10 +74,12 @@ export const routes: Routes = [
                 pathMatch: "full"
             },
             {
+                title : "Авторизация",
                 path : "login",
                 component : LoginComponent
             },
             {
+                title : "Регистрация",
                 path : "register",
                 component : RegisterComponent
             }
