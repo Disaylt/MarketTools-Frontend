@@ -5,7 +5,7 @@
     width: 32px;
     padding: 2px;
     justify-content: center;
-    background-color: var(--elements-dark);
+    background-color: $transparent0;
     border-width: 0px;
     border-radius: 6px;
 }
@@ -23,7 +23,6 @@
     border-width: 1px;
     border-color: var(--grey-transparent50);
 }
-
 
 .app-icon-button:disabled {
     opacity: 0.6;

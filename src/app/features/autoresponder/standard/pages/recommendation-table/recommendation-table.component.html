@@ -20,18 +20,18 @@
         </button>
     </div>
     <div>
-        <button [cdkMenuTriggerFor]="excelMenu" class="app-button app-main-button app-button-border app-big-button">
+        <button [cdkMenuTriggerFor]="excelMenu" class="app-button app-button-border app-big-button">
             <span>Excel</span>
         </button>
         <ng-template #excelMenu>
             <div class="d-flex flex-column p-1 mt-1 rounded-2 app-transparent-dark-bg shadow" cdkMenu>
-                <button cdkMenuItem class="app-button">
+                <button (click)="downloadAsExcel()" cdkMenuItem class="app-button">
                     <span class="material-symbols-outlined">
                         download
                     </span>
                     <span class="mx-1">Скачать</span>
                 </button>
-                <button cdkMenuItem class="app-button">
+                <button (click)="openExcelDialog()" cdkMenuItem class="app-button">
                     <span class="material-symbols-outlined">
                         add
                     </span>

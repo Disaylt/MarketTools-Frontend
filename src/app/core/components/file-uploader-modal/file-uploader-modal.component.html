@@ -1,0 +1,11 @@
+<div class="py-1 px-2 modal-background rounded-3 border">
+    <div class="d-flex flex-row justify-content-between align-items-center mb-2">
+        <span>Загрузка файла</span>
+        <button (click)="dialogRef.close()" class="app-icon-button app-icon-button-border">
+            <span class="material-symbols-outlined">
+                close
+            </span>
+        </button>
+    </div>
+    <input type="file" [accept]="accept" (change)="onFileSelected($event)" class="mb-2">
+</div>

@@ -6,6 +6,10 @@
     background-color: $inactive-dark !important;
 }
 
+.modal-background{
+    background-color: var(--modal-background) !important;
+}
+
 .dark-background{
     background-color: $dark !important;
 }

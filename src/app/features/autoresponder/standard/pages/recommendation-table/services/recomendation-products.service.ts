@@ -18,6 +18,12 @@ export class RecomendationProductsService {
   return this.httpClient.get<PaginationResult<RecommendationProduct>>(path);
   }
 
+  getExcel(){
+    const path = `api/v1/autoresponder/standard/recommendation-products/excel?&marketplaceName=${this.marketPlaceService.marketplace.nameEnum}`;
+
+    return this.httpClient.get(path, {responseType: 'blob'});
+  }
+
   add(value : RecommendationProductDatails){
     const body : RecommendationProductCreate = value as RecommendationProductCreate;
     body.marketplaceName = this.marketPlaceService.marketplace.nameEnum;

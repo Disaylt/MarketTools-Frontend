@@ -14,6 +14,11 @@ import { Observable, finalize } from 'rxjs';
 import { ViewMappingService } from '../../../../../core/services/view-mapping.service';
 import { RecommendationProductComponent } from "./components/recommendation-product/recommendation-product.component";
 import { SpinerComponent } from "../../../../../shared/components/spiner/spiner.component";
+import {Dialog, DialogRef, DIALOG_DATA, DialogModule} from '@angular/cdk/dialog';
+import { FileUploaderModalComponent } from '../../../../../core/components/file-uploader-modal/file-uploader-modal.component';
+import { FileType } from '../../../../../core/enums/file-types';
+import { DomSanitizer } from '@angular/platform-browser';
+import { FilesUtility } from '../../../../../shared/utilities/FilesUtility';
 
 @Component({
     selector: 'app-recommendation-table',
@@ -21,7 +26,7 @@ import { SpinerComponent } from "../../../../../shared/components/spiner/spiner.
     providers: [],
     templateUrl: './recommendation-table.component.html',
     styleUrl: './recommendation-table.component.scss',
-    imports: [CdkMenuTrigger, CdkMenu, CdkMenuItem, CommonModule, FormsModule, ProgressBarComponent, PaginationBarComponent, RecommendationProductComponent, SpinerComponent]
+    imports: [DialogModule, CdkMenuTrigger, CdkMenu, CdkMenuItem, CommonModule, FormsModule, ProgressBarComponent, PaginationBarComponent, RecommendationProductComponent, SpinerComponent]
 })
 export class RecommendationTableComponent implements OnInit{
 
@@ -35,7 +40,23 @@ export class RecommendationTableComponent implements OnInit{
   constructor(private recommendationProductsService : RecomendationProductsService, 
     private router : Router, 
     private activeRoute : ActivatedRoute,
-    private mapper : ViewMappingService){
+    private mapper : ViewMappingService,
+    private dialog: Dialog){
+  }
+
+  openExcelDialog(){
+    const dialogRef = this.dialog.open(FileUploaderModalComponent, {
+      data : FileType.excel
+    });
+  }
+
+  downloadAsExcel(){
+    this.recommendationProductsService.getExcel()
+      .subscribe({
+        next : (data) => {
+          FilesUtility.download(data, "recommendationTable.xlsx");
+        }
+      })
   }
 
   add(){
