@@ -8,4 +8,12 @@
         </button>
     </div>
     <input type="file" [accept]="accept" (change)="onFileSelected($event)" class="mb-2">
+    <div *ngIf="isBadFile" class="d-flex flex-row p-1 rounded-3 app-warn-alert mb-1 app-color-white75 flex-fill">
+        <span class="material-symbols-outlined me-1">
+            error
+        </span>
+        <span>
+            Файл не подходит для загрузки.
+        </span>
+    </div>
 </div>

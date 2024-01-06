@@ -19,9 +19,21 @@ export class RecomendationProductsService {
   }
 
   getExcel(){
-    const path = `api/v1/autoresponder/standard/recommendation-products/excel?&marketplaceName=${this.marketPlaceService.marketplace.nameEnum}`;
+    const path = `api/v1/autoresponder/standard/recommendation-products/excel?marketplaceName=${this.marketPlaceService.marketplace.nameEnum}`;
 
     return this.httpClient.get(path, {responseType: 'blob'});
+  }
+
+  addRangeFromExcel(formData : FormData){
+    const path = `api/v1/autoresponder/standard/recommendation-products/excel?marketplaceName=${this.marketPlaceService.marketplace.nameEnum}`;
+
+    return this.httpClient.post(path, formData);
+  }
+
+  replaceRangeFromExcel(formData : FormData){
+    const path = `api/v1/autoresponder/standard/recommendation-products/excel?marketplaceName=${this.marketPlaceService.marketplace.nameEnum}`;
+    
+    return this.httpClient.put(path, formData);
   }
 
   add(value : RecommendationProductDatails){

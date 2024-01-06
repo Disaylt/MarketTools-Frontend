@@ -10,7 +10,7 @@ import { ViewResult } from '../../../../../core/models/view-result.model';
 import { RecommendationProduct } from './models/recommendation-product.model';
 import { RecomendationProductsService } from './services/recomendation-products.service';
 import { PaginationBarComponent } from "../../../../../shared/components/pagination-bar/pagination-bar.component";
-import { Observable, finalize } from 'rxjs';
+import { Observable, concat, concatMap, finalize, map, of } from 'rxjs';
 import { ViewMappingService } from '../../../../../core/services/view-mapping.service';
 import { RecommendationProductComponent } from "./components/recommendation-product/recommendation-product.component";
 import { SpinerComponent } from "../../../../../shared/components/spiner/spiner.component";
@@ -19,6 +19,7 @@ import { FileUploaderModalComponent } from '../../../../../core/components/file-
 import { FileType } from '../../../../../core/enums/file-types';
 import { DomSanitizer } from '@angular/platform-browser';
 import { FilesUtility } from '../../../../../shared/utilities/FilesUtility';
+import { ExcelComponent } from "./components/excel/excel.component";
 
 @Component({
     selector: 'app-recommendation-table',
@@ -26,7 +27,7 @@ import { FilesUtility } from '../../../../../shared/utilities/FilesUtility';
     providers: [],
     templateUrl: './recommendation-table.component.html',
     styleUrl: './recommendation-table.component.scss',
-    imports: [DialogModule, CdkMenuTrigger, CdkMenu, CdkMenuItem, CommonModule, FormsModule, ProgressBarComponent, PaginationBarComponent, RecommendationProductComponent, SpinerComponent]
+    imports: [DialogModule, CdkMenuTrigger, CdkMenu, CdkMenuItem, CommonModule, FormsModule, ProgressBarComponent, PaginationBarComponent, RecommendationProductComponent, SpinerComponent, ExcelComponent]
 })
 export class RecommendationTableComponent implements OnInit{
 
@@ -40,23 +41,7 @@ export class RecommendationTableComponent implements OnInit{
   constructor(private recommendationProductsService : RecomendationProductsService, 
     private router : Router, 
     private activeRoute : ActivatedRoute,
-    private mapper : ViewMappingService,
-    private dialog: Dialog){
-  }
-
-  openExcelDialog(){
-    const dialogRef = this.dialog.open(FileUploaderModalComponent, {
-      data : FileType.excel
-    });
-  }
-
-  downloadAsExcel(){
-    this.recommendationProductsService.getExcel()
-      .subscribe({
-        next : (data) => {
-          FilesUtility.download(data, "recommendationTable.xlsx");
-        }
-      })
+    private mapper : ViewMappingService){
   }
 
   add(){

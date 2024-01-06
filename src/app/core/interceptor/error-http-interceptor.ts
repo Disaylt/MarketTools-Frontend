@@ -18,7 +18,6 @@ export class ErrorHttpInterceptor implements HttpInterceptor{
                     case 403:
                         break;
                 }
-
                 this.sendAlerts(error.error);
 
                 return throwError(() => error.message);
@@ -27,15 +26,24 @@ export class ErrorHttpInterceptor implements HttpInterceptor{
     }
     
     private sendAlerts(errorBody : any){
-        for(const key of Object.keys(errorBody.errors)){
-            const values = errorBody.errors[key] as string[];
-            values.forEach(message=> {
-                this.toastsService.error(message, "", {
-                    progressBar : true,
-                    closeButton : true,
-                    toastClass: "ngx-toastr shadow-none rounded-3 app-error-alert-bg"
-                });
-            })
-          }
+        try{
+            for(const key of Object.keys(errorBody.errors)){
+                const values = errorBody.errors[key] as string[];
+                values.forEach(message=> {
+                    this.toastsService.error(message, "", {
+                        progressBar : true,
+                        closeButton : true,
+                        toastClass: "ngx-toastr shadow-none rounded-3 app-error-alert-bg"
+                    });
+                })
+              }
+        }
+        catch{
+            this.toastsService.error("Критическая ошибка", "", {
+                progressBar : true,
+                closeButton : true,
+                toastClass: "ngx-toastr shadow-none rounded-3 app-error-alert-bg"
+            });
+        }
     }
 }

@@ -2,17 +2,19 @@ import {Dialog, DialogRef, DIALOG_DATA, DialogModule} from '@angular/cdk/dialog'
 import { Component, Inject } from '@angular/core';
 import { TypeFileService } from '../../services/type-file.service';
 import { FileType } from '../../enums/file-types';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-file-uploader-modal',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './file-uploader-modal.component.html',
   styleUrl: './file-uploader-modal.component.scss'
 })
 export class FileUploaderModalComponent {
   
   accept : string | null = null;
+  isBadFile : boolean = false;
 
   constructor(
     public dialogRef: DialogRef<any>,
@@ -25,13 +27,15 @@ export class FileUploaderModalComponent {
 
   onFileSelected(event: any): void {
     const file: File = event.target.files[0];
+    this.isBadFile = false;
 
     if (file && file.type === this.accept) {
-      console.log(file)
-      this.dialogRef.close();
+      const formData = new FormData();
+      formData.append("file", file, file.name)
+      this.dialogRef.close(formData);
     }
     else{
-      console.log("Dont file")
+      this.isBadFile = true;
     }
   }
 }
