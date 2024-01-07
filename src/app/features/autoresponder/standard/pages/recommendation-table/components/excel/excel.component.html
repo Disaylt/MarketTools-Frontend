@@ -1,17 +1,17 @@
 <div class="d-flex flex-column p-1 mt-1 rounded-2 app-transparent-dark-bg shadow">
-    <button [disabled]="isDisableDownload" (click)="downloadAsExcel()" cdkMenuItem class="app-button">
+    <button [disabled]="isDisable" (click)="downloadAsExcel()" cdkMenuItem class="app-button">
         <span class="material-symbols-outlined">
             download
         </span>
         <span class="mx-1">Скачать</span>
     </button>
-    <button (click)="openExcelDialog()" cdkMenuItem class="app-button">
+    <button [disabled]="isDisable" (click)="addRange()" cdkMenuItem class="app-button">
         <span class="material-symbols-outlined">
             add
         </span>
         <span class="mx-1">Добавить</span>
     </button>
-    <button cdkMenuItem class="app-button">
+    <button [disabled]="isDisable" (click)="replaceRange()"  cdkMenuItem class="app-button">
         <span class="material-symbols-outlined">
             restart_alt
         </span>

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, ActivatedRouteSnapshot, Params, Router } from '@angular/router';
 import { MarketDeterminantService } from '../../../../../core/services/market-determinant.service';
 import { MarketplaceStorage } from '../../../../../core/constants/navigations/marketpkaces.storage';
@@ -31,6 +31,8 @@ import { ExcelComponent } from "./components/excel/excel.component";
 })
 export class RecommendationTableComponent implements OnInit{
 
+  reloadTableEvent : EventEmitter<void> = new EventEmitter<void>();
+  loadStatusEvent : EventEmitter<boolean> = new EventEmitter<boolean>();
   searchArticle : string = "";
   @ViewChild(PaginationBarComponent) paginationBar! : PaginationBarComponent;
 
@@ -42,6 +44,33 @@ export class RecommendationTableComponent implements OnInit{
     private router : Router, 
     private activeRoute : ActivatedRoute,
     private mapper : ViewMappingService){
+  }
+
+  ngOnInit(): void {
+    const article = this.activeRoute
+      .snapshot
+      .queryParams["article"];
+
+    if(article as string){
+      this.searchArticle = article;
+    }
+
+    this.reloadTableEvent.subscribe(x=> {
+      this.get();
+    });
+
+    this.loadStatusEvent.subscribe(x=> {
+      this.isLoad = x;
+    })
+  }
+
+  ngAfterViewInit(){
+    this.paginationBar.onChangePage.subscribe(
+      (data) => {
+        this.get()
+      }
+    )
+    this.get();
   }
 
   add(){
@@ -93,16 +122,16 @@ export class RecommendationTableComponent implements OnInit{
     }
 
     action.pipe(
+      map(data => data as RecommendationProduct),
       finalize(() => {
         value.actions.isLoad = false;
       })
     )
     .subscribe({
       next: (data) => {
-        const resultProduct = data as RecommendationProduct;
 
-        if(resultProduct != null){
-          value.data.id = resultProduct.id;
+        if(data != null){
+          value.data.id = data.id;
         }
 
         value.actions.isEdit = false;
@@ -110,24 +139,6 @@ export class RecommendationTableComponent implements OnInit{
     })
   }
 
-  ngOnInit(): void {
-    const article = this.activeRoute
-      .snapshot
-      .queryParams["article"];
-
-    if(article as string){
-      this.searchArticle = article;
-    }
-  }
-
-  ngAfterViewInit(){
-    this.paginationBar.onChangePage.subscribe(
-      (data) => {
-        this.get()
-      }
-    )
-    this.get();
-  }
 
   changeSearchArticle(){
     const queryParams = {"article" : this.searchArticle}

@@ -20,17 +20,17 @@
         </button>
     </div>
     <div>
-        <button [cdkMenuTriggerFor]="excelMenu" class="app-button app-button-border app-big-button">
+        <button [disabled]="isLoad" [cdkMenuTriggerFor]="excelMenu" class="app-button app-button-border app-big-button">
             <span>Excel</span>
         </button>
         <ng-template #excelMenu>
-            <app-excel cdkMenu></app-excel>
+            <app-excel [reloadTableEvent]="reloadTableEvent" [loadStatusEvent]="loadStatusEvent" cdkMenu></app-excel>
         </ng-template>
     </div>
 </div>
 
 <div class="mt-3 active-dark-bg p-1 rounded-3">
-    <table *ngIf="isLoad == false" class="table">
+    <table *ngIf="isLoad == false" class="table table-hover">
         <thead>
             <tr>
                 <th scope="col" class="fw-medium p-1">Артикул</th>
@@ -41,7 +41,7 @@
             </tr>
         </thead>
         <tbody class="">
-            <tr *ngFor="let prodcutDetails of recommendationProducts">
+            <tr class="" *ngFor="let prodcutDetails of recommendationProducts">
                 <td class="text-break p-1">
                     <input *ngIf="prodcutDetails.actions.isEdit; else notEditFeedbackArticle"
                         [(ngModel)]="prodcutDetails.data.feedbackArticle"
