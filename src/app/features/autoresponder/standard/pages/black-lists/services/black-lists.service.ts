@@ -22,7 +22,7 @@ export class BlackListsService {
   }
 
   delete(id : number){
-    const path = `api/v1/autoresponder/standard/black-lists?id=${id}`;
+    const path = `api/v1/autoresponder/standard/black-list?id=${id}`;
 
     return this.httpClient.delete(path);
   }
