@@ -4,6 +4,7 @@ import { ColumnsComponent } from "./standard/pages/columns/columns.component";
 import { RecommendationTableComponent } from "./standard/pages/recommendation-table/recommendation-table.component";
 import { CellsComponent } from "./standard/pages/columns/pages/cells/cells.component";
 import { BlackListsComponent } from "./standard/pages/black-lists/black-lists.component";
+import { BanWordsComponent } from "./standard/pages/black-lists/components/ban-words/ban-words.component";
 
 export const autoresponderRoutes : Routes = [
     {

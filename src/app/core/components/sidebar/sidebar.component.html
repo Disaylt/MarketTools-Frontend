@@ -5,7 +5,7 @@
                 <option *ngFor="let market of markets" [ngValue]="market">{{market.nameView}}</option>
               </select>
         </div>
-        <div style="width: 200px;" class="active-dark-bg p-1 rounded-2 text-white">
+        <div style="width: 200px;" class="active-dark-bg p-1 rounded-2 text-white border">
             <div class="accordion accordion-flush" id="accordionMenu">
                 <div *ngFor="let nav of marketBar" class="mb-1">
                     <div *ngIf="nav.main.path != null; else colapceBar">

@@ -16,7 +16,7 @@ export class BanWordsService {
   }
 
   add(value : string, blackListId : number){
-    const path = `api/v1/autoresponder/standard/black-list/ban-words?value=${value}&blackListId=${blackListId}`;
+    const path = `api/v1/autoresponder/standard/black-list/ban-word?value=${value}&blackListId=${blackListId}`;
 
     return this.httpClient.post<BanWord>(path, null);
   }

@@ -1,0 +1,30 @@
+.app-active-list{
+    list-style-type: none;
+    cursor: pointer;
+    padding-left: 0px;
+}
+
+.app-active-list li.active{
+    background-color: var(--grey-transparent50);
+}
+
+.app-active-list li.active span{
+    color:  white
+}
+
+.app-active-list li {
+    padding: 3px 3px;
+}
+
+.app-active-list :hover .app-hide{
+    display: inline;
+}
+
+.app-active-list li:hover{
+    background-color: var(--grey-transparent25);
+}
+
+.app-active-list li:hover span{
+    color: white;
+}
+

@@ -8,13 +8,14 @@ import { BlackListsService } from './services/black-lists.service';
 import { concat, finalize, map, tap } from 'rxjs';
 import { ViewMappingService } from '../../../../../core/services/view-mapping.service';
 import { BanWordsComponent } from "./components/ban-words/ban-words.component";
+import { RouterLink, RouterOutlet } from '@angular/router';
 
 @Component({
     selector: 'app-black-lists',
     standalone: true,
     templateUrl: './black-lists.component.html',
     styleUrl: './black-lists.component.scss',
-    imports: [CommonModule, FormsModule, SpinerComponent, BanWordsComponent]
+    imports: [CommonModule, FormsModule, SpinerComponent, BanWordsComponent, RouterLink, RouterOutlet]
 })
 export class BlackListsComponent implements OnInit {
   newBlackList = {
@@ -23,13 +24,21 @@ export class BlackListsComponent implements OnInit {
   }
   isLoad : boolean = false;
   
-  selectBlackList : ViewResult<BlackListVm> | null = null;
+  selectedBlackList : BlackListVm | null = null;
   blackLists : ViewResult<BlackListVm>[] = [];
 
   constructor(private blackListsService : BlackListsService, private mapper : ViewMappingService){}
 
+  selectBlackList(blackLists : ViewResult<BlackListVm>){
+    this.selectedBlackList = blackLists.data;
+  }
+
   ngOnInit(): void {
     this.getRange();
+  }
+
+  preventEvent(event: Event) {
+    event.stopPropagation();
   }
 
   getRange(){
@@ -61,8 +70,8 @@ export class BlackListsComponent implements OnInit {
       .subscribe(
         {
           complete : () => {
-            if(this.selectBlackList === blackList){
-              this.selectBlackList = null;
+            if(this.selectedBlackList === blackList.data){
+              this.selectedBlackList = null;
             }
             this.blackLists = this.blackLists
               .filter(x=> x != blackList);
