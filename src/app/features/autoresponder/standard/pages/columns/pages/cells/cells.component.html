@@ -5,7 +5,7 @@
     <div class="app-color-white75">
         <div class="d-flex flex-row">
             <div class="flex-fill mx-1">
-                <input [(ngModel)]="textCell" class="form-control form-control-sm app-select shadow-none mb-2" placeholder="Часть текста ответа" type="text">
+                <input (keydown.enter)="add()" [(ngModel)]="textCell" class="form-control form-control-sm app-select shadow-none mb-2" placeholder="Часть ответа на отзыв (Enter)" type="text">
             </div>
             <div class="mx-1">
                 <button [disabled]="isTryAdd" (click)="add()" class="app-icon-button app-main-button app-button-border">

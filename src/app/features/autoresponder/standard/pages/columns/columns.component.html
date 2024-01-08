@@ -2,10 +2,10 @@
     <div>
         <div style="width: 200px;">
             <div class="d-flex flex-row">
-                <select [disabled]="isLoad" [(ngModel)]="selectedColumnType" (ngModelChange)="loadColumns()" class="form-select form-select-sm app-select shadow-none border-1 mx-1">
+                <select [disabled]="isLoad" [(ngModel)]="selectedColumnType" (ngModelChange)="loadColumns()" class="form-select form-select-sm app-select shadow-none border-1">
                     <option *ngFor="let columnType of columnTypes"  [ngValue]="columnType">{{columnType.name}}</option>
                 </select>
-                <div class="mx-1">
+                <div class="ms-1">
                     <button [disabled]="isLoad" [cdkMenuTriggerFor]="addMenu" class="app-icon-button app-main-button app-button-border">
                         <span class="material-symbols-outlined">
                             add
@@ -14,7 +14,7 @@
                 </div>
                 <ng-template #addMenu>
                     <div class="d-flex flex-column p-1 rounded-2 app-transparent-dark-bg shadow mt-1" cdkMenu>
-                        <input [(ngModel)]="newColumnName" class="form-control form-control-sm app-select shadow-none mb-1" placeholder="Название" type="text">
+                        <input (keydown.enter)="add()" [(ngModel)]="newColumnName" class="form-control form-control-sm app-select shadow-none mb-1" placeholder="Название (Enter)" type="text">
                         <button [disabled]="isAddingNewColumn" (click)="add()" class="app-button app-main-button app-button-border">
                             <span class="mx-1">Создать</span>
                             <app-spiner size="sm" *ngIf="isAddingNewColumn"></app-spiner>
@@ -23,14 +23,15 @@
                 </ng-template>
             </div>
             <app-recommendation-variables-clue *ngIf="selectedColumnType.id == 1"></app-recommendation-variables-clue>
-            <div *ngIf="isLoad == false && columns.length > 0" class="active-dark-bg flex-fill mx-1 mt-2 rounded-2 p-1">
-                <div *ngFor="let column of columns" class="d-flex flex-row justify-content-between">
-                    <button (click)="selectColumn(column)" class="flex-fill d-flex align-items-center text-start app-list-button" [ngClass]="{'active' : selectedColumn == column}">
-                        <span class="text-truncate">{{column.data.name}}</span>
-                    </button>
-                    <div class="ms-1">
-                        <button [disabled]="column.actions.isLoad" (click)="delete(column)" class="app-icon-button app-icon-circle">
-                            <span *ngIf="column.actions.isLoad == false; else closeButtonSpiner" class="material-symbols-outlined">
+            <ul *ngIf="isLoad == false && columns.length > 0"  class="app-active-list border p-1 active-dark-bg flex-fill mt-2 rounded-2 p-1 mt-2">
+                <li *ngFor="let column of columns" 
+                    (click)="selectColumn(column)" 
+                    class="d-flex flex-row justify-content-between rounded-1 active" 
+                    [ngClass]="{'active' : selectedColumn == column}">
+                    <span class="py-1 text-truncate app-color-white75">{{column.data.name}}</span>
+                    <div class="ms-1 app-hide">
+                        <button (click)="$event.stopPropagation(); delete(column)" [disabled]="column.actions.isLoad" class="app-icon-button app-icon-circle">
+                            <span *ngIf="column.actions.isLoad == false;  else closeButtonSpiner" class="material-symbols-outlined">
                                 close
                             </span>
                             <ng-template #closeButtonSpiner>
@@ -38,8 +39,8 @@
                             </ng-template>
                         </button>
                     </div>
-                </div>
-            </div>
+                </li>
+            </ul>
             <div *ngIf="isLoad" class="active-dark-bg flex-fill mx-1 mt-2 rounded-2 p-1">
                 <div class="my-2">
                     <app-spiner size="big"></app-spiner>
