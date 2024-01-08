@@ -5,6 +5,7 @@ import { RecommendationTableComponent } from "./standard/pages/recommendation-ta
 import { CellsComponent } from "./standard/pages/columns/pages/cells/cells.component";
 import { BlackListsComponent } from "./standard/pages/black-lists/black-lists.component";
 import { BanWordsComponent } from "./standard/pages/black-lists/components/ban-words/ban-words.component";
+import { TemplatesComponent } from "./standard/pages/templates/templates.component";
 
 export const autoresponderRoutes : Routes = [
     {
@@ -26,6 +27,11 @@ export const autoresponderRoutes : Routes = [
                 title : "Черный список",
                 path : "black-lists",
                 component : BlackListsComponent
+            },
+            {
+                title : "Шаблоны",
+                path : "templates",
+                component : TemplatesComponent
             }
         ]
     }
