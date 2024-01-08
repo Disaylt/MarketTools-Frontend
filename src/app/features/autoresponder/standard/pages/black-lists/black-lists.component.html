@@ -1,40 +1,42 @@
 <div class="d-flex flex-row">
-    <div style="width: 160px;">
-        <div class="d-flex flex-row">
-            <input [(ngModel)]="newBlackList.name" class="form-control form-control-sm app-select shadow-none me-1" placeholder="Название" type="text">
-            <button [disabled]="newBlackList.name.length === 0 || isLoad || newBlackList.isLoad" (click)="add()" class="app-button app-main-button app-button-border">
-                <span *ngIf="newBlackList.isLoad == false; else addButtonSpiner" class="material-symbols-outlined">
-                    add
-                </span>
-                <ng-template #addButtonSpiner>
-                    <app-spiner size="sm"></app-spiner>
-                </ng-template>
-            </button>
-        </div>
-        <div *ngIf="isLoad == false && blackLists.length > 0" class="active-dark-bg flex-fill mt-2 rounded-2 p-1">
-            <div *ngFor="let blackList of blackLists" class="d-flex flex-row justify-content-between">
-                <button class="flex-fill d-flex align-items-center text-start app-list-button" [ngClass]="{'active' : selectBlackList == blackList}">
-                    <span class="text-truncate">{{blackList.data.name}}</span>
+    <div>
+        <div style="width: 160px;">
+            <div class="d-flex flex-row">
+                <input [(ngModel)]="newBlackList.name" class="form-control form-control-sm app-select shadow-none me-1" placeholder="Название" type="text">
+                <button [disabled]="newBlackList.name.length === 0 || isLoad || newBlackList.isLoad" (click)="add()" class="app-button app-main-button app-button-border">
+                    <span *ngIf="newBlackList.isLoad == false; else addButtonSpiner" class="material-symbols-outlined">
+                        add
+                    </span>
+                    <ng-template #addButtonSpiner>
+                        <app-spiner size="sm"></app-spiner>
+                    </ng-template>
                 </button>
-                <div class="ms-1">
-                    <button (click)="delete(blackList)" [disabled]="blackList.actions.isLoad" class="app-icon-button app-icon-circle">
-                        <span *ngIf="blackList.actions.isLoad == false; else closeButtonSpiner" class="material-symbols-outlined">
-                            close
-                        </span>
-                        <ng-template #closeButtonSpiner>
-                            <app-spiner size="sm"></app-spiner>
-                        </ng-template>
+            </div>
+            <div *ngIf="isLoad == false && blackLists.length > 0" class="active-dark-bg flex-fill mt-2 rounded-2 p-1">
+                <div *ngFor="let blackList of blackLists" class="d-flex flex-row justify-content-between">
+                    <button class="flex-fill d-flex align-items-center text-start app-list-button" [ngClass]="{'active' : selectBlackList == blackList}">
+                        <span class="text-truncate">{{blackList.data.name}}</span>
                     </button>
+                    <div class="ms-1">
+                        <button (click)="delete(blackList)" [disabled]="blackList.actions.isLoad" class="app-icon-button app-icon-circle">
+                            <span *ngIf="blackList.actions.isLoad == false; else closeButtonSpiner" class="material-symbols-outlined">
+                                close
+                            </span>
+                            <ng-template #closeButtonSpiner>
+                                <app-spiner size="sm"></app-spiner>
+                            </ng-template>
+                        </button>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div *ngIf="isLoad" class="active-dark-bg flex-fill mt-2 rounded-2 p-1">
-            <div class="my-2">
-                <app-spiner size="big"></app-spiner>
+            <div *ngIf="isLoad" class="active-dark-bg flex-fill mt-2 rounded-2 p-1">
+                <div class="my-2">
+                    <app-spiner size="big"></app-spiner>
+                </div>
             </div>
         </div>
     </div>
     <div class="flex-fill mx-1">
-
+        <app-ban-words></app-ban-words>
     </div>
 </div>

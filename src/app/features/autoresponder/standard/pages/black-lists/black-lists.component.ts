@@ -7,13 +7,14 @@ import { SpinerComponent } from "../../../../../shared/components/spiner/spiner.
 import { BlackListsService } from './services/black-lists.service';
 import { concat, finalize, map, tap } from 'rxjs';
 import { ViewMappingService } from '../../../../../core/services/view-mapping.service';
+import { BanWordsComponent } from "./components/ban-words/ban-words.component";
 
 @Component({
     selector: 'app-black-lists',
     standalone: true,
     templateUrl: './black-lists.component.html',
     styleUrl: './black-lists.component.scss',
-    imports: [CommonModule, FormsModule, SpinerComponent]
+    imports: [CommonModule, FormsModule, SpinerComponent, BanWordsComponent]
 })
 export class BlackListsComponent implements OnInit {
   newBlackList = {
