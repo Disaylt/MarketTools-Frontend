@@ -1,4 +1,4 @@
-<div class="d-flex flex-row active-dark-bg p-1 rounded-3">
+<div class="d-flex flex-row active-dark-bg p-1 rounded-3 border app-soft-element-border-color">
     <div class="me-1">
         <button [cdkMenuTriggerFor]="searchMenu" class="app-icon-button app-button-border app-big-button">
             <span class="material-symbols-outlined">
@@ -29,7 +29,7 @@
     </div>
 </div>
 
-<div class="mt-3 active-dark-bg p-1 rounded-3">
+<div class="mt-3 active-dark-bg border app-soft-element-border-color p-1 rounded-3">
     <table *ngIf="isLoad == false" class="table table-hover">
         <thead>
             <tr>
@@ -44,6 +44,7 @@
             <tr class="" *ngFor="let prodcutDetails of recommendationProducts">
                 <td class="text-break p-1">
                     <input *ngIf="prodcutDetails.actions.isEdit; else notEditFeedbackArticle"
+                    (keydown.enter)="save(prodcutDetails)"
                         [(ngModel)]="prodcutDetails.data.feedbackArticle"
                         class="form-control form-control-sm app-select shadow-none flex-fill" placeholder="Артикул"
                         type="text">
@@ -53,6 +54,7 @@
                 </td>
                 <td class="text-break p-1">
                     <input *ngIf="prodcutDetails.actions.isEdit; else notEditFeedbackProductName"
+                        (keydown.enter)="save(prodcutDetails)"
                         [(ngModel)]="prodcutDetails.data.feedbackProductName"
                         class="form-control form-control-sm app-select shadow-none flex-fill" placeholder="Название"
                         type="text">
@@ -62,6 +64,7 @@
                 </td>
                 <td class="text-break p-1">
                     <input *ngIf="prodcutDetails.actions.isEdit; else notEditRecommendationArticle"
+                        (keydown.enter)="save(prodcutDetails)"
                         [(ngModel)]="prodcutDetails.data.recommendationArticle"
                         class="form-control form-control-sm app-select shadow-none flex-fill" placeholder="Артикул"
                         type="text">
@@ -71,6 +74,7 @@
                 </td>
                 <td class="text-break p-1">
                     <input *ngIf="prodcutDetails.actions.isEdit; else notEditRecommendationProductName"
+                        (keydown.enter)="save(prodcutDetails)"
                         [(ngModel)]="prodcutDetails.data.recommendationProductName"
                         class="form-control form-control-sm app-select shadow-none flex-fill" placeholder="Название"
                         type="text">

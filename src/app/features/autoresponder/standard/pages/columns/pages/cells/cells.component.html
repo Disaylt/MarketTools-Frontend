@@ -19,7 +19,7 @@
             </div>
         </div>
         <div>
-            <div *ngFor="let cell of cells" class="d-flex flex-row justify-content-between active-dark-bg mb-1 p-1 rounded-2 mx-1">
+            <div *ngFor="let cell of cells" class="d-flex flex-row justify-content-between active-dark-bg border app-soft-element-border-color mb-1 p-1 rounded-2 mx-1">
                 <div class="me-1 d-flex align-items-center flex-fill">
                     <input *ngIf="cell.actions.isEdit; else notEditCell" [(ngModel)]="cell.data.value" class="form-control form-control-sm app-select shadow-none flex-fill" placeholder="Часть текста ответа" type="text">
                     <ng-template #notEditCell>

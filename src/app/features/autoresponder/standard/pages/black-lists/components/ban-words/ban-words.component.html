@@ -13,7 +13,7 @@
     <div *ngIf="isLoad" class="my-3">
         <app-progress-bar></app-progress-bar>
     </div>
-    <div class="active-dark-bg rounded-2">
+    <div *ngIf="banWords.length > 0" class="active-dark-bg border app-soft-element-border-color rounded-2">
         <div class="d-flex flex-row flex-wrap class app-color-white75">
             <div *ngFor="let banWord of banWords" class="text-break border rounded-1 p-1 m-1 flex-fill app-border-active">
                 <div class="d-flex flex-row align-items-center justify-content-between">

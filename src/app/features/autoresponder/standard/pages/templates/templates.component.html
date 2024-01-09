@@ -1,1 +1,31 @@
-<p>templates works!</p>
+<div class="d-flex flex-row flex-wrap">
+    <button class="app-icon-button app-main-button app-button-border app-big-button mt-1 me-1">
+        <span class="material-symbols-outlined">
+            add
+        </span>
+    </button>
+    <div class="d-flex flex-row align-items-center active-dark-bg rounded-3 flex-fill mt-1 border app-soft-element-border-color">
+        <button style="width: 200px;" class="app-button app-button-border d-flex flex-row justify-content-between mx-1">
+            <span>{{selectTemplate === null ? 'Выбрать шаблон' : selectTemplate}}</span>
+            <span class="material-symbols-outlined">
+                expand_more
+            </span>
+        </button>
+        <div class="vr app-color-white75"></div>
+        <button class="app-icon-button app-button-border mx-1">
+            <span class="material-symbols-outlined">
+                delete
+            </span>
+        </button>
+        <button class="app-icon-button app-button-border me-1">
+            <span class="material-symbols-outlined">
+                tune
+            </span>
+        </button>
+        <button class="app-icon-button app-button-border">
+            <span class="material-symbols-outlined">
+                policy
+            </span>
+        </button>
+    </div>
+</div>
