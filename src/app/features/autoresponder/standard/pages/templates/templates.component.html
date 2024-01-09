@@ -25,28 +25,42 @@
                 </span>
             </button>
             <ng-template #templatesSelectMenu>
-                <div style="max-height: 300px; max-width: 300px;" class="d-flex flex-column p-1 rounded-2 app-transparent-dark-bg shadow mt-1 overflow-auto" cdkMenu>
-                    <input [(ngModel)]="searchTemplateValue" 
-                    class="form-control form-control-sm app-select shadow-none mb-1" 
-                    placeholder="🔍︎ Поиск" 
-                    type="text">
-                    <ul *ngIf="templates.length > 0"  class="app-active-list">
-                        <li *ngFor="let template of templates" 
-                            (click)="select(template)"
-                            cdkMenuItem
-                            class="d-flex flex-row justify-content-between rounded-1 active" 
-                            [ngClass]="{'active' : selectTemplate == template}">
-                            <span class="py-1 text-truncate app-color-white75">{{template.data.name}}</span>
-                        </li>
-                    </ul>
+                <div style="max-height: 300px; max-width: 300px;" class="rounded-2 app-transparent-dark-bg shadow mt-1" cdkMenu>
+                    <div class="d-flex flex-column p-1 h-100">
+                        <div>
+                            <input [(ngModel)]="searchTemplateValue" 
+                            class="form-control form-control-sm app-select shadow-none mb-1" 
+                            placeholder="🔍︎ Поиск" 
+                            type="text">
+                        </div>
+                        <span *ngIf="templates.length === 0" class="app-color-white75" style="font-size: 12px;">Добавьте хотя бы 1 шаблон</span>
+                        <ul class="app-active-list overflow-auto">
+                            <li *ngFor="let template of templates | nameFilter : searchTemplateValue" 
+                                (click)="select(template)"
+                                class="d-flex flex-row justify-content-between rounded-1 active" 
+                                [ngClass]="{'active' : selectTemplate == template}">
+                                <span class="py-1 text-truncate app-color-white75">{{template.data.name}}</span>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </ng-template>
             <div class="vr app-color-white75"></div>
-            <button [disabled]="selectTemplate == null" class="app-icon-button app-button-border mx-1">
+            <button [cdkMenuTriggerFor]="deleteMenu" [disabled]="selectTemplate == null" class="app-icon-button app-button-border mx-1">
                 <span class="material-symbols-outlined">
                     delete
                 </span>
             </button>
+            <ng-template #deleteMenu>
+                <div class="d-flex flex-column p-1 rounded-2 app-transparent-dark-bg shadow mt-1" cdkMenu>
+                    <span style="font-size: 14px;" class="app-color-white75 mb-1">Удалить шаблон?</span>
+                    <div class="d-flex flex-row">
+                        <button cdkMenuItem (click)="delete(selectTemplate!)"  class="app-button app-main-button app-button-border flex-fill">
+                            <span class="mx-1">Да</span>
+                        </button>
+                    </div>
+                </div>
+            </ng-template>
             <button [disabled]="selectTemplate == null" class="app-icon-button app-button-border me-1">
                 <span class="material-symbols-outlined">
                     tune
