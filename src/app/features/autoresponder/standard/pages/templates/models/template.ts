@@ -3,6 +3,6 @@ export interface Template{
     name : string;
 }
 
-export interface TemplateCreateModel{
+export interface NewTemplate{
     name : string;
 }

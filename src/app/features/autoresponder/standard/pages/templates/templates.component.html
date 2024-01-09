@@ -1,31 +1,61 @@
-<div class="d-flex flex-row flex-wrap">
-    <button class="app-icon-button app-main-button app-button-border app-big-button mt-1 me-1">
-        <span class="material-symbols-outlined">
-            add
-        </span>
-    </button>
-    <div class="d-flex flex-row align-items-center active-dark-bg rounded-3 flex-fill mt-1 border app-soft-element-border-color">
-        <button style="width: 200px;" class="app-button app-button-border d-flex flex-row justify-content-between mx-1">
-            <span>{{selectTemplate === null ? 'Выбрать шаблон' : selectTemplate}}</span>
-            <span class="material-symbols-outlined">
-                expand_more
-            </span>
-        </button>
-        <div class="vr app-color-white75"></div>
-        <button class="app-icon-button app-button-border mx-1">
-            <span class="material-symbols-outlined">
-                delete
-            </span>
-        </button>
-        <button class="app-icon-button app-button-border me-1">
-            <span class="material-symbols-outlined">
-                tune
-            </span>
-        </button>
-        <button class="app-icon-button app-button-border">
-            <span class="material-symbols-outlined">
-                policy
-            </span>
-        </button>
-    </div>
+<div *ngIf="isLoad; else templateComponent" class="my-3">
+    <app-progress-bar></app-progress-bar>
 </div>
+<ng-template #templateComponent>
+    <div class="d-flex flex-row flex-wrap">
+        <button [cdkMenuTriggerFor]="addMenu" class="app-icon-button app-main-button app-button-border app-big-button mt-1 me-1">
+            <span class="material-symbols-outlined">
+                add
+            </span>
+        </button>
+        <ng-template #addMenu>
+            <div class="d-flex flex-column p-1 rounded-2 app-transparent-dark-bg shadow mt-1" cdkMenu>
+                <input (keydown.enter)="add()" [(ngModel)]="newTemplate.name" class="form-control form-control-sm app-select shadow-none mb-1" placeholder="Название (Enter)" type="text">
+                <button [disabled]="newTemplate.isLoad || newTemplate.name.length == 0" (click)="add()" class="app-button app-main-button app-button-border">
+                    <span class="mx-1">Создать</span>
+                    <app-spiner size="sm" *ngIf="newTemplate.isLoad"></app-spiner>
+                </button>
+            </div>
+        </ng-template>
+        <div class="d-flex flex-row align-items-center active-dark-bg rounded-3 flex-fill mt-1 border app-soft-element-border-color">
+            <button [cdkMenuTriggerFor]="templatesSelectMenu" style="width: 200px;" class="app-button app-button-border d-flex flex-row justify-content-between mx-1">
+                <span class="text-truncate">{{selectTemplate === null ? 'Выбрать шаблон' : selectTemplate.data.name}}</span>
+                <span class="material-symbols-outlined">
+                    expand_more
+                </span>
+            </button>
+            <ng-template #templatesSelectMenu>
+                <div style="max-height: 300px; max-width: 300px;" class="d-flex flex-column p-1 rounded-2 app-transparent-dark-bg shadow mt-1 overflow-auto" cdkMenu>
+                    <input [(ngModel)]="searchTemplateValue" 
+                    class="form-control form-control-sm app-select shadow-none mb-1" 
+                    placeholder="🔍︎ Поиск" 
+                    type="text">
+                    <ul *ngIf="templates.length > 0"  class="app-active-list">
+                        <li *ngFor="let template of templates" 
+                            (click)="select(template)" 
+                            class="d-flex flex-row justify-content-between rounded-1 active" 
+                            [ngClass]="{'active' : selectTemplate == template}">
+                            <span class="py-1 text-truncate app-color-white75">{{template.data.name}}</span>
+                        </li>
+                    </ul>
+                </div>
+            </ng-template>
+            <div class="vr app-color-white75"></div>
+            <button [disabled]="selectTemplate == null" class="app-icon-button app-button-border mx-1">
+                <span class="material-symbols-outlined">
+                    delete
+                </span>
+            </button>
+            <button [disabled]="selectTemplate == null" class="app-icon-button app-button-border me-1">
+                <span class="material-symbols-outlined">
+                    tune
+                </span>
+            </button>
+            <button [disabled]="selectTemplate == null" class="app-icon-button app-button-border">
+                <span class="material-symbols-outlined">
+                    policy
+                </span>
+            </button>
+        </div>
+    </div>
+</ng-template>

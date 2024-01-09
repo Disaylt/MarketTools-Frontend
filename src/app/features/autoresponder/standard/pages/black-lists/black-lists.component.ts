@@ -37,10 +37,6 @@ export class BlackListsComponent implements OnInit {
     this.getRange();
   }
 
-  preventEvent(event: Event) {
-    event.stopPropagation();
-  }
-
   getRange(){
     this.isLoad = true;
 
