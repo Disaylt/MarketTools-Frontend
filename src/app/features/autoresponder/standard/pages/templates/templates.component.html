@@ -32,7 +32,8 @@
                     type="text">
                     <ul *ngIf="templates.length > 0"  class="app-active-list">
                         <li *ngFor="let template of templates" 
-                            (click)="select(template)" 
+                            (click)="select(template)"
+                            cdkMenuItem
                             class="d-flex flex-row justify-content-between rounded-1 active" 
                             [ngClass]="{'active' : selectTemplate == template}">
                             <span class="py-1 text-truncate app-color-white75">{{template.data.name}}</span>
