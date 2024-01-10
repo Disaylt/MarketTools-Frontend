@@ -11,13 +11,14 @@ import { SpinerComponent } from "../../../../../shared/components/spiner/spiner.
 import { CdkMenu, CdkMenuItem, CdkMenuTrigger } from '@angular/cdk/menu';
 import { NameFilterPipe } from "../../../../../shared/pipes/name-filter.pipe";
 import { SettingsComponent } from "./components/settings/settings.component";
+import { BlackListComponent } from "./components/black-list/black-list.component";
 
 @Component({
     selector: 'app-templates',
     standalone: true,
     templateUrl: './templates.component.html',
     styleUrl: './templates.component.scss',
-    imports: [CdkMenuTrigger, CdkMenu, CdkMenuItem, CommonModule, FormsModule, ProgressBarComponent, SpinerComponent, NameFilterPipe, SettingsComponent]
+    imports: [CdkMenuTrigger, CdkMenu, CdkMenuItem, CommonModule, FormsModule, ProgressBarComponent, SpinerComponent, NameFilterPipe, SettingsComponent, BlackListComponent]
 })
 export class TemplatesComponent implements OnInit {
   selectTemplate : ViewResult<Template> | null = null;

@@ -37,7 +37,7 @@
                         <ul class="app-active-list mb-0 overflow-auto">
                             <li *ngFor="let template of templates | nameFilter : searchTemplateValue" 
                                 (click)="select(template)"
-                                class="d-flex flex-row justify-content-between rounded-1 active" 
+                                class="d-flex flex-row justify-content-between rounded-1" 
                                 [ngClass]="{'active' : selectTemplate == template}">
                                 <span class="text-truncate app-color-white75">{{template.data.name}}</span>
                             </li>
@@ -69,11 +69,14 @@
             <ng-template #settingsMenu>
                 <app-settings [templateId]="selectTemplate!.data.id" cdkMenu></app-settings>
             </ng-template>
-            <button [disabled]="selectTemplate == null" class="app-icon-button app-button-border">
+            <button [cdkMenuTriggerFor]="blackListMenu"  [disabled]="selectTemplate == null" class="app-icon-button app-button-border">
                 <span class="material-symbols-outlined">
                     policy
                 </span>
             </button>
+            <ng-template #blackListMenu>
+                <app-black-list [template]="selectTemplate!.data" cdkMenu></app-black-list>
+            </ng-template>
         </div>
     </div>
 </ng-template>
