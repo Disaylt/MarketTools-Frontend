@@ -9,7 +9,7 @@
             </span>
         </button>
         <ng-template #addMenu>
-            <div class="d-flex flex-column p-1 rounded-2 app-transparent-dark-bg shadow mt-1" cdkMenu>
+            <div class="d-flex flex-column p-1 rounded-2 app-transparent-dark-bg border shadow mt-1" cdkMenu>
                 <input (keydown.enter)="add()" [(ngModel)]="newTemplate.name" class="form-control form-control-sm app-select shadow-none mb-1" placeholder="Название (Enter)" type="text">
                 <button [disabled]="newTemplate.isLoad || newTemplate.name.length == 0" (click)="add()" class="app-button app-main-button app-button-border">
                     <span class="mx-1">Создать</span>
@@ -25,7 +25,7 @@
                 </span>
             </button>
             <ng-template #templatesSelectMenu>
-                <div style="max-height: 300px; max-width: 300px;" class="rounded-2 app-transparent-dark-bg shadow mt-1" cdkMenu>
+                <div style="max-height: 300px; max-width: 300px;" class="rounded-2 app-transparent-dark-bg border shadow mt-1" cdkMenu>
                     <div class="d-flex flex-column p-1 h-100">
                         <div>
                             <input [(ngModel)]="searchTemplateValue" 
@@ -34,12 +34,12 @@
                             type="text">
                         </div>
                         <span *ngIf="templates.length === 0" class="app-color-white75" style="font-size: 12px;">Добавьте хотя бы 1 шаблон</span>
-                        <ul class="app-active-list overflow-auto">
+                        <ul class="app-active-list mb-0 overflow-auto">
                             <li *ngFor="let template of templates | nameFilter : searchTemplateValue" 
                                 (click)="select(template)"
                                 class="d-flex flex-row justify-content-between rounded-1 active" 
                                 [ngClass]="{'active' : selectTemplate == template}">
-                                <span class="py-1 text-truncate app-color-white75">{{template.data.name}}</span>
+                                <span class="text-truncate app-color-white75">{{template.data.name}}</span>
                             </li>
                         </ul>
                     </div>
@@ -52,7 +52,7 @@
                 </span>
             </button>
             <ng-template #deleteMenu>
-                <div class="d-flex flex-column p-1 rounded-2 app-transparent-dark-bg shadow mt-1" cdkMenu>
+                <div class="d-flex flex-column p-1 rounded-2 border app-transparent-dark-bg shadow mt-1" cdkMenu>
                     <span style="font-size: 14px;" class="app-color-white75 mb-1">Удалить шаблон?</span>
                     <div class="d-flex flex-row">
                         <button cdkMenuItem (click)="delete(selectTemplate!)"  class="app-button app-main-button app-button-border flex-fill">
@@ -61,11 +61,14 @@
                     </div>
                 </div>
             </ng-template>
-            <button [disabled]="selectTemplate == null" class="app-icon-button app-button-border me-1">
+            <button [cdkMenuTriggerFor]="settingsMenu"  [disabled]="selectTemplate == null" class="app-icon-button app-button-border me-1">
                 <span class="material-symbols-outlined">
                     tune
                 </span>
             </button>
+            <ng-template #settingsMenu>
+                <app-settings [templateId]="selectTemplate!.data.id" cdkMenu></app-settings>
+            </ng-template>
             <button [disabled]="selectTemplate == null" class="app-icon-button app-button-border">
                 <span class="material-symbols-outlined">
                     policy

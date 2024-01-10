@@ -19,6 +19,19 @@
     width: 40px;
 }
 
+.app-icon-button.app-icon-small
+{
+    height: 22px;
+    width: 22px;
+}
+
+.app-icon-button.app-icon-small span
+{
+    height: 22px;
+    width: 22px;
+    font-size: 22px;
+}
+
 .app-icon-button.app-button-border {
     border-width: 1px;
     border-color: var(--grey-transparent50);

@@ -10,13 +10,14 @@ import { ProgressBarComponent } from "../../../../../shared/components/progress-
 import { SpinerComponent } from "../../../../../shared/components/spiner/spiner.component";
 import { CdkMenu, CdkMenuItem, CdkMenuTrigger } from '@angular/cdk/menu';
 import { NameFilterPipe } from "../../../../../shared/pipes/name-filter.pipe";
+import { SettingsComponent } from "./components/settings/settings.component";
 
 @Component({
     selector: 'app-templates',
     standalone: true,
     templateUrl: './templates.component.html',
     styleUrl: './templates.component.scss',
-    imports: [CdkMenuTrigger, CdkMenu, CdkMenuItem, CommonModule, FormsModule, ProgressBarComponent, SpinerComponent, NameFilterPipe]
+    imports: [CdkMenuTrigger, CdkMenu, CdkMenuItem, CommonModule, FormsModule, ProgressBarComponent, SpinerComponent, NameFilterPipe, SettingsComponent]
 })
 export class TemplatesComponent implements OnInit {
   selectTemplate : ViewResult<Template> | null = null;

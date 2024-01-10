@@ -1,6 +1,8 @@
-export interface Settings{
-    templateId : number;
+export interface SettingsModel{
     isSkipWithTextFeedbacks : boolean;
     isSkipEmptyFeedbacks : boolean;
-    asMainTemplate : boolean;
+}
+
+export interface SettingsUpdateModel extends SettingsModel{
+    templateId : number;
 }
