@@ -7,13 +7,14 @@ import { SettingsService } from './services/settings.service';
 import { finalize } from 'rxjs';
 import { SpinerComponent } from "../../../../../../../shared/components/spiner/spiner.component";
 import { FormsModule } from '@angular/forms';
+import { ProgressBarComponent } from "../../../../../../../shared/components/progress-bar/progress-bar.component";
 
 @Component({
     selector: 'app-settings',
     standalone: true,
     templateUrl: './settings.component.html',
     styleUrl: './settings.component.scss',
-    imports: [CdkMenuTrigger, CdkMenu, CdkMenuItem, CommonModule, MatTooltipModule, SpinerComponent, FormsModule]
+    imports: [CdkMenuTrigger, CdkMenu, CdkMenuItem, CommonModule, MatTooltipModule, SpinerComponent, FormsModule, ProgressBarComponent]
 })
 export class SettingsComponent implements OnInit {
   
