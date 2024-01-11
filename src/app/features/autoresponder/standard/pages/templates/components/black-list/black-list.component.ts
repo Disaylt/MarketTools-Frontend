@@ -6,6 +6,7 @@ import { BlackListsService } from '../../../black-lists/services/black-lists.ser
 import { Observable, concat } from 'rxjs';
 import { SpinerComponent } from "../../../../../../../shared/components/spiner/spiner.component";
 import { Template } from '../../models/template';
+import { TemplateBindBlackListService } from './services/template-bind-black-list.service';
 
 @Component({
     selector: 'app-black-list',
@@ -25,7 +26,7 @@ export class BlackListComponent implements OnInit {
 
   @Input({required : true}) template!: Template;
 
-  constructor(private blackListService : BlackListsService){}
+  constructor(private blackListService : BlackListsService, private bindService : TemplateBindBlackListService){}
 
   ngOnInit(): void {
     this.blackListService.getRange()
@@ -47,9 +48,15 @@ export class BlackListComponent implements OnInit {
   }
 
   select(blackList : BlackListVm){
-    this.selectedBlackList = blackList;
-    this.template.blackListId = blackList.id;
-    this.moveToUp(blackList);
+    
+    this.bindService.bind(blackList.id, this.template.id)
+      .subscribe({
+        complete : () => {
+          this.selectedBlackList = blackList;
+          this.template.blackListId = blackList.id;
+          this.moveToUp(blackList);
+        }
+      })
   }
 
   private moveToUp(blackList : BlackListVm){

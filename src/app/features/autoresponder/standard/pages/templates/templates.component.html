@@ -2,7 +2,7 @@
     <app-progress-bar></app-progress-bar>
 </div>
 <ng-template #templateComponent>
-    <div class="d-flex flex-row flex-wrap">
+    <div class="d-flex flex-row flex-wrap mb-3">
         <button [cdkMenuTriggerFor]="addMenu" class="app-icon-button app-main-button app-button-border app-big-button mt-1 me-1">
             <span class="material-symbols-outlined">
                 add
@@ -77,6 +77,14 @@
             <ng-template #blackListMenu>
                 <app-black-list [template]="selectTemplate!.data" cdkMenu></app-black-list>
             </ng-template>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-auto">
+            <app-articles></app-articles>
+        </div>
+        <div class="col">
+            <div class="border" style="height: 300px;"></div>
         </div>
     </div>
 </ng-template>
