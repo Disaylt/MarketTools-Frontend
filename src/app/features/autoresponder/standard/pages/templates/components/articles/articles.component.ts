@@ -11,4 +11,5 @@ import { FormsModule } from '@angular/forms';
 })
 export class ArticlesComponent {
   value : string = "";
+  isEditMode : boolean = false;
 }

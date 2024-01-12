@@ -16,9 +16,13 @@
             </span>
         </button>
     </div>
-    <div style="height: calc(100vh - 260px);">
-        <textarea [(ngModel)]="value" style="resize: none;" class="form-control app-select shadow-none h-100">
-
+    <div *ngIf="isEditMode; else articlesList" style="height: calc(100vh - 260px);">
+        <textarea [(ngModel)]="value" style="resize: none;" 
+        class="form-control app-select shadow-none h-100" 
+        placeholder="Каждый артикул вводится с новой строки">
         </textarea>
     </div>
+    <ng-template #articlesList>
+
+    </ng-template>
 </div>
