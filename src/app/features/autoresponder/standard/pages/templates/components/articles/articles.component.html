@@ -1,28 +1,60 @@
 <div class="" style="height: calc(100vh - 220px); width: 150px;">
     <div class="mb-2 d-flex flex-row">
-        <button class="app-icon-button app-main-button app-button-border flex-fill">
+        <button [cdkMenuTriggerFor]="addMenu" [disabled]="isEditMode || isLoad" class="app-icon-button app-main-button app-button-border flex-fill">
             <span class="material-symbols-outlined">
                 add
             </span>
         </button>
-        <button class="app-icon-button app-main-button app-button-border flex-fill mx-1">
-            <span class="material-symbols-outlined">
+        <ng-template #addMenu>
+            <div class="d-flex flex-column p-1 rounded-2 app-transparent-dark-bg border shadow mt-1" cdkMenu>
+                <input (keydown.enter)="add()" [(ngModel)]="newArticle.value" class="form-control form-control-sm app-select shadow-none mb-1" placeholder="Артикул (Enter)" type="text">
+                <button [disabled]="newArticle.isLoad || newArticle.value.length == 0" (click)="add()" class="app-button app-main-button app-button-border">
+                    <span class="mx-1">Добавить</span>
+                    <app-spiner size="sm" *ngIf="newArticle.isLoad"></app-spiner>
+                </button>
+            </div>
+        </ng-template>
+        <button (click)="changeEditMode()" [disabled]="isLoad || newArticle.isLoad" class="app-icon-button app-main-button app-button-border flex-fill mx-1">
+            <span *ngIf="isEditMode == false" class="material-symbols-outlined">
                 edit
             </span>
+            <span *ngIf="isEditMode" class="material-symbols-outlined">
+                undo
+            </span>
         </button>
-        <button class="app-icon-button app-main-button app-button-border flex-fill">
+        <button (click)="saveNewArticles()" [disabled]="isLoad || isEditMode == false || newArticle.isLoad" class="app-icon-button app-main-button app-button-border flex-fill">
             <span class="material-symbols-outlined">
                 check
             </span>
         </button>
     </div>
-    <div *ngIf="isEditMode; else articlesList" style="height: calc(100vh - 260px);">
-        <textarea [(ngModel)]="value" style="resize: none;" 
-        class="form-control app-select shadow-none h-100" 
-        placeholder="Каждый артикул вводится с новой строки">
-        </textarea>
+    <div class="mt-2 p-1 active-dark-bg rounded-3 flex-fill border" *ngIf="isLoad; else bodyArticles">
+        <app-spiner></app-spiner>
     </div>
-    <ng-template #articlesList>
-
+    <ng-template  #bodyArticles>
+        <div *ngIf="isEditMode; else articlesList" style="height: calc(100vh - 260px);">
+            <textarea [(ngModel)]="editTextArea" style="resize: none;" 
+            class="form-control app-select shadow-none h-100" 
+            placeholder="Каждый артикул вводится с новой строки">
+            </textarea>
+        </div>
+        <ng-template  #articlesList>
+            <ul *ngIf="articles.length > 0" style="max-height: calc(100vh - 260px);"  class="app-active-list border p-1 active-dark-bg flex-fill mt-2 rounded-2 p-1 mt-2 overflow-auto">
+                <li *ngFor="let article of articles" 
+                    class="d-flex flex-row justify-content-between rounded-1">
+                    <span class="py-1 text-truncate app-color-white75">{{article.data.value}}</span>
+                    <div class="ms-1 app-hide">
+                        <button (click)="delete(article)" [disabled]="article.actions.isLoad" class="app-icon-button app-icon-circle">
+                            <span *ngIf="article.actions.isLoad == false;  else closeButtonSpiner" class="material-symbols-outlined">
+                                close
+                            </span>
+                            <ng-template #closeButtonSpiner>
+                                <app-spiner size="sm"></app-spiner>
+                            </ng-template>
+                        </button>
+                    </div>
+                </li>
+            </ul>
+        </ng-template>
     </ng-template>
 </div>

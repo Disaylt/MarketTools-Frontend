@@ -30,7 +30,7 @@
             <ul *ngIf="isLoad == false && columns.length > 0"  class="app-active-list border p-1 active-dark-bg flex-fill mt-2 rounded-2 p-1 mt-2">
                 <li *ngFor="let column of columns" 
                     (click)="selectColumn(column)" 
-                    class="d-flex flex-row justify-content-between rounded-1 active" 
+                    class="d-flex flex-row justify-content-between rounded-1" 
                     [ngClass]="{'active' : selectedColumn == column}">
                     <span class="py-1 text-truncate app-color-white75">{{column.data.name}}</span>
                     <div class="ms-1 app-hide">

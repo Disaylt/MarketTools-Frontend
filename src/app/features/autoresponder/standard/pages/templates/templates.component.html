@@ -79,9 +79,9 @@
             </ng-template>
         </div>
     </div>
-    <div class="row">
+    <div *ngIf="selectTemplate != null"  class="row">
         <div class="col-auto">
-            <app-articles></app-articles>
+            <app-articles [templateId]="selectTemplate.data.id"></app-articles>
         </div>
         <div class="col">
             <div class="border" style="height: 300px;"></div>
