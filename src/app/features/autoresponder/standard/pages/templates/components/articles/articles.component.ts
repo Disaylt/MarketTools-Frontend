@@ -59,8 +59,9 @@ export class ArticlesComponent{
     this.isLoad = true;
     const newArticles : string[] = this.editTextArea
       .split("\n");
+    const requestTemplateId = this._templateId;
     
-    this.articlesServise.updateRange(newArticles, this._templateId)
+    this.articlesServise.updateRange(newArticles, requestTemplateId)
       .pipe(
         map(data => data.map(value => this.mapper.map(value))),
         finalize(() => {
@@ -69,7 +70,9 @@ export class ArticlesComponent{
       )
       .subscribe({
         next: data => {
-          this.articles = data;
+          if(this._templateId == requestTemplateId){
+            this.articles = data;
+          }
         },
         complete : () => {
           this.isEditMode = false;
@@ -83,7 +86,7 @@ export class ArticlesComponent{
 
     if(this.isEditMode){
       this.articles.forEach(x=> {
-        this.editTextArea += `${x.data.value}\r\n`
+        this.editTextArea += `${x.data.value}\n`
       })
     }
   }
