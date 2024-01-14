@@ -1,1 +1,78 @@
-<p>bind-positions works!</p>
+<div style="height: calc(100vh - 220px)" class="d-flex flex-column active-dark-bg border p-1 rounded-2 mb-2">
+    <div class="row">
+        <div class="col-1">
+            <button [cdkMenuTriggerFor]="helpClue" class="app-icon-button app-main-button app-icon-circle">
+                <span class="material-symbols-outlined">
+                    help
+                </span>
+            </button>
+            <ng-template #helpClue>
+                <div class="d-flex flex-column p-1 rounded-2 app-transparent-dark-bg border shadow mt-1" style="max-width: 250px;" cdkMenu>
+                    <div style="font-size: 12px;" class="text-white lh-sm mb-1">
+                        Если автоответчик находит артикул в таблице рекомендаций:
+                        <br>Система подберет шаблоны по условиям, в которых используются колонки с рекомендациями и выбрете один из них для ответа.
+                    </div>
+                    <div style="font-size: 12px;" class="text-white lh-sm mb-1">
+                        Если в таблице рекомендаций нет артикула для рекомендаций, то произойдет поиск шаблона со старндатными колонками.
+                    </div>
+                </div>
+            </ng-template>
+        </div>
+        <div class="col-11">
+            <app-tab-bar class="flex-fill">
+                <app-tab-bar-button class="active">Стандартныe</app-tab-bar-button>
+                <app-tab-bar-button>С рекомендациями</app-tab-bar-button>
+            </app-tab-bar>
+        </div>
+    </div>
+    <div id="2" class="flex-grow-1 overflow-hidden d-flex flex-row justify-content-center">
+        <div class="example-container d-flex flex-column h-auto">
+            <div class="border p-1 rounded-2 mb-2 text-center modal-background">
+                <label class="app-color-white75">
+                    Не используются
+                </label>
+            </div>
+          
+            <div
+              cdkDropList
+              #todoList="cdkDropList"
+              [cdkDropListData]="todo"
+              [cdkDropListConnectedTo]="[doneList]"
+              class="example-list overflow-auto border"
+              (cdkDropListDropped)="drop($event)">
+              @for (item of todo; track item) {
+                <div class="example-box text-break" cdkDrag>{{item}}</div>
+              }
+              <label *ngIf="todo.length == 0" class="app-color-white75 p-2" style="font-size: 12px;">
+                Создайте колонку
+          </label>
+            </div>
+          </div>
+          <div class="example-container d-flex flex-column h-auto">
+            <div class="border p-1 rounded-2 mb-2 text-center modal-background">
+                <label class="text-white">
+                    Используются
+                </label>
+            </div>
+            <div
+              cdkDropList
+              #doneList="cdkDropList"
+              [cdkDropListData]="done"
+              [cdkDropListConnectedTo]="[todoList]"
+              class="example-list overflow-auto border"
+              (cdkDropListDropped)="drop($event)">
+              @for (item of done; track item) {
+                <div class="example-box text-break text-white" cdkDrag>
+                    <span class="material-symbols-outlined">
+                        south
+                    </span>
+                    {{item}}
+                </div>
+              }
+              <label *ngIf="done.length == 0" class="app-color-white75 p-2" style="font-size: 12px;">
+                    Перетащите колонку
+              </label>
+            </div>
+          </div>
+    </div>
+</div>

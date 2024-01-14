@@ -13,13 +13,16 @@ import { NameFilterPipe } from "../../../../../shared/pipes/name-filter.pipe";
 import { SettingsComponent } from "./components/settings/settings.component";
 import { BlackListComponent } from "./components/black-list/black-list.component";
 import { ArticlesComponent } from "./components/articles/articles.component";
+import { BindPositionsComponent } from "./components/bind-positions/bind-positions.component";
+import { TabBarComponent } from "../../../../../shared/components/tab-bar/tab-bar.component";
+import { TabBarButtonComponent } from "../../../../../shared/components/tab-bar/tab-bar-button/tab-bar-button.component";
 
 @Component({
     selector: 'app-templates',
     standalone: true,
     templateUrl: './templates.component.html',
     styleUrl: './templates.component.scss',
-    imports: [CdkMenuTrigger, CdkMenu, CdkMenuItem, CommonModule, FormsModule, ProgressBarComponent, SpinerComponent, NameFilterPipe, SettingsComponent, BlackListComponent, ArticlesComponent]
+    imports: [CdkMenuTrigger, CdkMenu, CdkMenuItem, CommonModule, FormsModule, ProgressBarComponent, SpinerComponent, NameFilterPipe, SettingsComponent, BlackListComponent, ArticlesComponent, BindPositionsComponent, TabBarComponent, TabBarButtonComponent]
 })
 export class TemplatesComponent implements OnInit {
   selectTemplate : ViewResult<Template> | null = null;

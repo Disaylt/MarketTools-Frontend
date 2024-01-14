@@ -39,22 +39,32 @@
             </textarea>
         </div>
         <ng-template  #articlesList>
-            <ul *ngIf="articles.length > 0" style="max-height: calc(100vh - 260px);"  class="app-active-list border p-1 active-dark-bg flex-fill mt-2 rounded-2 p-1 mt-2 overflow-auto">
-                <li *ngFor="let article of articles" 
-                    class="d-flex flex-row justify-content-between rounded-1">
-                    <span class="py-1 text-truncate app-color-white75">{{article.data.value}}</span>
-                    <div class="ms-1 app-hide">
-                        <button (click)="delete(article)" [disabled]="article.actions.isLoad" class="app-icon-button app-icon-circle">
-                            <span *ngIf="article.actions.isLoad == false;  else closeButtonSpiner" class="material-symbols-outlined">
-                                close
-                            </span>
-                            <ng-template #closeButtonSpiner>
-                                <app-spiner size="sm"></app-spiner>
-                            </ng-template>
-                        </button>
+            <div class="active-dark-bg border p-1 mt-2 rounded-2">
+                <ul *ngIf="articles.length > 0; else articlesDescription" style="max-height: calc(100vh - 270px);"  class="app-active-list flex-fill overflow-auto mb-0">
+                    <li *ngFor="let article of articles" 
+                        class="d-flex flex-row justify-content-between rounded-1">
+                        <span class="py-1 text-truncate app-color-white75">{{article.data.value}}</span>
+                        <div class="ms-1 app-hide">
+                            <button (click)="delete(article)" [disabled]="article.actions.isLoad" class="app-icon-button app-icon-circle">
+                                <span *ngIf="article.actions.isLoad == false;  else closeButtonSpiner" class="material-symbols-outlined">
+                                    close
+                                </span>
+                                <ng-template #closeButtonSpiner>
+                                    <app-spiner size="sm"></app-spiner>
+                                </ng-template>
+                            </button>
+                        </div>
+                    </li>
+                </ul>
+                <ng-template #articlesDescription>
+                    <div style="font-size: 12px;" class="app-color-white75 lh-sm mb-1">
+                        Добавьте артикулы, на которые может отвечать шаблон.
                     </div>
-                </li>
-            </ul>
+                    <div style="font-size: 12px;" class="app-color-white75 lh-sm">
+                        Если оставить пустым, шаблон сможет отвечать на любые артикулы.
+                    </div>
+                </ng-template>
+            </div>
         </ng-template>
     </ng-template>
 </div>
