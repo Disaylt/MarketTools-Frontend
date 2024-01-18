@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-tab-bar-button',
@@ -8,5 +8,5 @@ import { Component } from '@angular/core';
   styleUrl: './tab-bar-button.component.scss'
 })
 export class TabBarButtonComponent {
-
+  @Input() disabled : boolean = false;
 }

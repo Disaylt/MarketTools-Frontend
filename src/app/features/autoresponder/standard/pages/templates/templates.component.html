@@ -81,7 +81,7 @@
     </div>
     <div *ngIf="selectTemplate != null"  class="row">
         <div class="col">
-            <app-bind-positions></app-bind-positions>
+            <app-bind-positions [templateId]="selectTemplate.data.id"></app-bind-positions>
         </div>
         <div class="col-12 col-sm-auto">
             <app-articles [templateId]="selectTemplate.data.id"></app-articles>
