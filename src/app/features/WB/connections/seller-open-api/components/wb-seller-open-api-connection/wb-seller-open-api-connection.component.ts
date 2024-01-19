@@ -10,6 +10,7 @@ import { CdkMenu, CdkMenuItem, CdkMenuTrigger } from '@angular/cdk/menu';
 import { Dialog } from '@angular/cdk/dialog';
 import { RefreshTokenModalComponent } from '../refresh-token-modal/refresh-token-modal.component';
 import { ActiveStatusInfoComponent } from "../../../../../../shared/components/active-status-info/active-status-info.component";
+import { UpdateDescriptionModalComponent } from '../../../../../marketplace-connections/components/update-description-modal/update-description-modal.component';
 
 @Component({
     selector: 'app-wb-seller-open-api-connection',
@@ -31,6 +32,16 @@ export class WbSellerOpenApiConnectionComponent {
 
   openRefreshTokenModal(){
     const modal = this.dialog.open(RefreshTokenModalComponent);
+    if(modal.componentInstance){
+      modal.componentInstance.data = this.data;
+    }
+    else{
+      modal.close();
+    }
+  }
+
+  openUpdateDescriptionModal(){
+    const modal = this.dialog.open(UpdateDescriptionModalComponent);
     if(modal.componentInstance){
       modal.componentInstance.data = this.data;
     }

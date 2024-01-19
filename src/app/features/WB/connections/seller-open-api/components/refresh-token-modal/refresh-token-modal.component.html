@@ -1,8 +1,8 @@
 <app-modal [dialogRef]="dialogRef" name="Обновление токена">
     <div style="max-width: 400px;">
         <div class="d-flex flex-row mb-2">
-            <input [(ngModel)]="token" class="form-control form-control-sm app-select shadow-none me-1"
-                placeholder="Новый токен" type="text">
+            <input (keydown.enter)="refresh()" [(ngModel)]="token" class="form-control form-control-sm app-select shadow-none me-1"
+                placeholder="Новый токен (Enter)" type="text">
             <button (click)="refresh()" class="app-icon-button app-button-border">
                 <span *ngIf="isLoad == false"  class="material-symbols-outlined">
                     published_with_changes

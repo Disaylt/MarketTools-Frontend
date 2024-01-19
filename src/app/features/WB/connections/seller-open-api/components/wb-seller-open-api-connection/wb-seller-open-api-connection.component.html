@@ -19,7 +19,7 @@
     </div>
     <div *ngIf="isOpen" class="d-flex flex-row mt-1">
         <div class="d-flex flex-column flex-fill border rounded-1 px-1 pb-1 text-break me-1 modal-background">
-            <label style="font-size: 12px;">Описание</label>
+            <label style="font-size: 12px; opacity: 0.8;">Описание</label>
             <label>{{data.description}}</label>
         </div>
         <div>
@@ -33,7 +33,7 @@
                     <button (click)="openRefreshTokenModal()" class="app-button">
                         <span class="mx-1">Токен</span>
                     </button>
-                    <button class="app-button ">
+                    <button (click)="openUpdateDescriptionModal()" class="app-button ">
                         <span class="mx-1">Описание</span>
                     </button>
                 </div>
