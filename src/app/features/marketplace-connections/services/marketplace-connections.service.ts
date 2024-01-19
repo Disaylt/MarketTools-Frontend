@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { MarketplaceConnection } from '../../../core/enums/marketplace-connection.enum';
+import { MarketplaceConnectionType } from '../../../core/enums/marketplace-connection.enum';
 import { MarketplaceConnectionModel } from '../models/marketplace-connection.model';
 
 @Injectable({
@@ -16,7 +16,7 @@ export class MarketplaceConnectionsService {
     return this.httpClient.delete(path);
   }
 
-  getRange(type : MarketplaceConnection, skip : number, take : number){
+  getRange(type : MarketplaceConnectionType, skip : number, take : number){
     const path = `api/v1/marketplace-connections?connectionType=${type}&take=${take}&skip=${skip}`;
 
     return this.httpClient.get<MarketplaceConnectionModel[]>(path);

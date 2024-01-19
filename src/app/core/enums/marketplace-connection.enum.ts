@@ -1,3 +1,3 @@
-export enum MarketplaceConnection{
+export enum MarketplaceConnectionType{
     wbSellerOpenApi
 }
