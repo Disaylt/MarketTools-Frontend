@@ -8,5 +8,5 @@ import { Component } from '@angular/core';
   styleUrl: './seller-open-api.component.scss'
 })
 export class SellerOpenApiComponent {
-
+  
 }

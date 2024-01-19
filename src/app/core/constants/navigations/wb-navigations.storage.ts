@@ -21,12 +21,12 @@ export class WbNavigationStorage{
             parent : [
                 {
                     name : "API",
-                    path : `${this.market}/connection/api`,
+                    path : `${this.market}/connections/seller/open-api`,
                     isDisabled : false
                 },
                 {
                     name : "Кабинет",
-                    path : `${this.market}/connection/seller`,
+                    path : `${this.market}/connections/seller`,
                     isDisabled : true
                 }
             ]
