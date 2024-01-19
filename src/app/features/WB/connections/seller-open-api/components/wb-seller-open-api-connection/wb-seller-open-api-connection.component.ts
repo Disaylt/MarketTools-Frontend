@@ -9,13 +9,14 @@ import { CommonModule } from '@angular/common';
 import { CdkMenu, CdkMenuItem, CdkMenuTrigger } from '@angular/cdk/menu';
 import { Dialog } from '@angular/cdk/dialog';
 import { RefreshTokenModalComponent } from '../refresh-token-modal/refresh-token-modal.component';
+import { ActiveStatusInfoComponent } from "../../../../../../shared/components/active-status-info/active-status-info.component";
 
 @Component({
     selector: 'app-wb-seller-open-api-connection',
     standalone: true,
     templateUrl: './wb-seller-open-api-connection.component.html',
     styleUrl: './wb-seller-open-api-connection.component.scss',
-    imports: [SpinerComponent, CdkAccordionModule, CommonModule,CdkMenuTrigger, CdkMenu, CdkMenuItem]
+    imports: [SpinerComponent, CdkAccordionModule, CommonModule, CdkMenuTrigger, CdkMenu, CdkMenuItem, ActiveStatusInfoComponent]
 })
 export class WbSellerOpenApiConnectionComponent {
 

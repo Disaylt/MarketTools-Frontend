@@ -33,3 +33,11 @@
 .app-color-white75{
     color: $white-transporent75;
 }
+
+.app-error-bg{
+    background-color: var(--error-bg) !important;
+}
+
+.app-success-bg{
+    background-color: var(--success-bg) !important;
+}
