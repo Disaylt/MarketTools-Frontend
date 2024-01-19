@@ -17,15 +17,18 @@ export class ErrorHttpInterceptor implements HttpInterceptor{
                         break;
                     case 403:
                         break;
+                    case 404:
+                        this.sendAlerts(error.error, "Объект не найден");
+                        return throwError(() => error.message);
                 }
-                this.sendAlerts(error.error);
+                this.sendAlerts(error.error, "Критическая ошибка");
 
                 return throwError(() => error.message);
             })
           );
     }
     
-    private sendAlerts(errorBody : any){
+    private sendAlerts(errorBody : any, notBodyMessage : string){
         try{
             for(const key of Object.keys(errorBody.errors)){
                 const values = errorBody.errors[key] as string[];
@@ -39,7 +42,7 @@ export class ErrorHttpInterceptor implements HttpInterceptor{
               }
         }
         catch{
-            this.toastsService.error("Критическая ошибка", "", {
+            this.toastsService.error(notBodyMessage, "", {
                 progressBar : true,
                 closeButton : true,
                 toastClass: "ngx-toastr shadow-none rounded-3 app-error-alert-bg"

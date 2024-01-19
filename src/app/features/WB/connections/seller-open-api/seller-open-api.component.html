@@ -1,18 +1,21 @@
-<div class="d-flex flex-row align-items-center active-dark-bg rounded-3 flex-fill border app-soft-element-border-color py-1">
-    <button (click)="openAddModal()" class="app-icon-button app-button-border mx-1">
-        <span class="material-symbols-outlined">
-            add
-        </span>
-    </button>
-</div>
-<div class="mt-2">
-    <div class="row text-white px-1">
-        <div class="col-2">
-            <label>Id</label>
-        </div>
-        <div class="col">
-            <label>Название</label>
-        </div>
+<app-progress-bar *ngIf="isLoad; else body"></app-progress-bar>
+<ng-template #body>
+    <div class="d-flex flex-row align-items-center active-dark-bg rounded-3 flex-fill border app-soft-element-border-color py-1">
+        <button (click)="openAddModal()" class="app-icon-button app-button-border mx-1">
+            <span class="material-symbols-outlined">
+                add
+            </span>
+        </button>
     </div>
-    <app-wb-seller-open-api-connection (deleted)="delete($event)" *ngFor="let coonection of connections" [data]="coonection"></app-wb-seller-open-api-connection>
-</div>
+    <div class="mt-2">
+        <div class="row text-white px-1">
+            <div class="col-2">
+                <label>Id</label>
+            </div>
+            <div class="col">
+                <label>Название</label>
+            </div>
+        </div>
+        <app-wb-seller-open-api-connection (deleted)="delete($event)" *ngFor="let coonection of connections" [data]="coonection"></app-wb-seller-open-api-connection>
+    </div>
+</ng-template>

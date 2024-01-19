@@ -7,6 +7,8 @@ import { SpinerComponent } from "../../../../../../shared/components/spiner/spin
 import {CdkAccordionModule} from '@angular/cdk/accordion';
 import { CommonModule } from '@angular/common';
 import { CdkMenu, CdkMenuItem, CdkMenuTrigger } from '@angular/cdk/menu';
+import { Dialog } from '@angular/cdk/dialog';
+import { RefreshTokenModalComponent } from '../refresh-token-modal/refresh-token-modal.component';
 
 @Component({
     selector: 'app-wb-seller-open-api-connection',
@@ -24,7 +26,17 @@ export class WbSellerOpenApiConnectionComponent {
   @Input({required : true}) data! : MarketplaceConnectionModel;
   @Output() deleted : EventEmitter<number> = new EventEmitter();
 
-  constructor(private connectionService : SellerOpenApiConnectionsService, private marketplaceConnectionService : MarketplaceConnectionsService){}
+  constructor(private dialog: Dialog, private connectionService : SellerOpenApiConnectionsService, private marketplaceConnectionService : MarketplaceConnectionsService){}
+
+  openRefreshTokenModal(){
+    const modal = this.dialog.open(RefreshTokenModalComponent);
+    if(modal.componentInstance){
+      modal.componentInstance.data = this.data;
+    }
+    else{
+      modal.close();
+    }
+  }
 
   delete(){
     this.isLoad = true;

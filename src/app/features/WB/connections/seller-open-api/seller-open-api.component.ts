@@ -6,13 +6,15 @@ import { MarketplaceConnectionType } from '../../../../core/enums/marketplace-co
 import { MarketplaceConnectionModel } from '../../../marketplace-connections/models/marketplace-connection.model';
 import { WbSellerOpenApiConnectionComponent } from "./components/wb-seller-open-api-connection/wb-seller-open-api-connection.component";
 import { CommonModule } from '@angular/common';
+import { ProgressBarComponent } from "../../../../shared/components/progress-bar/progress-bar.component";
+import { finalize } from 'rxjs';
 
 @Component({
     selector: 'app-seller-open-api',
     standalone: true,
     templateUrl: './seller-open-api.component.html',
     styleUrl: './seller-open-api.component.scss',
-    imports: [WbSellerOpenApiConnectionComponent, CommonModule]
+    imports: [WbSellerOpenApiConnectionComponent, CommonModule, ProgressBarComponent]
 })
 export class SellerOpenApiComponent implements OnInit {
 
@@ -22,7 +24,14 @@ export class SellerOpenApiComponent implements OnInit {
   constructor(private dialog: Dialog, private marketplaceConnectionService : MarketplaceConnectionsService){}
 
   ngOnInit(): void {
+    this.isLoad = true;
+
     this.marketplaceConnectionService.getRange(MarketplaceConnectionType.wbSellerOpenApi, 0, 20)
+      .pipe(
+        finalize(()=> {
+          this.isLoad = false;
+        })
+      )
       .subscribe({
         next : data => {
           this.connections = data;

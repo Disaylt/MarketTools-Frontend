@@ -17,8 +17,8 @@ export class SellerOpenApiConnectionsService {
   }
 
   refreshToken(body : OpenApiRefreshTokenBody){
-    const path = `api/v1/wb/connections/seller/openapi/refreshtoken`;
+    const path = `api/v1/wb/connections/seller/openapi/refresh-token`;
 
-    return this.httpClient.put(path, body);
+    return this.httpClient.put<MarketplaceConnectionModel>(path, body);
   }
 }
