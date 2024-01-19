@@ -3,13 +3,14 @@ import { Component, Inject } from '@angular/core';
 import { TypeFileService } from '../../services/type-file.service';
 import { FileType } from '../../enums/file-types';
 import { CommonModule } from '@angular/common';
+import { ModalComponent } from "../../../shared/modal/modal.component";
 
 @Component({
-  selector: 'app-file-uploader-modal',
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: './file-uploader-modal.component.html',
-  styleUrl: './file-uploader-modal.component.scss'
+    selector: 'app-file-uploader-modal',
+    standalone: true,
+    templateUrl: './file-uploader-modal.component.html',
+    styleUrl: './file-uploader-modal.component.scss',
+    imports: [CommonModule, ModalComponent]
 })
 export class FileUploaderModalComponent {
   

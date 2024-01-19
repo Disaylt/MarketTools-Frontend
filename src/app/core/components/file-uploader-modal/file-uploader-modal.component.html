@@ -1,12 +1,4 @@
-<div class="py-1 px-2 modal-background rounded-3 border">
-    <div class="d-flex flex-row justify-content-between align-items-center mb-2">
-        <span>Загрузка файла</span>
-        <button (click)="dialogRef.close()" class="app-icon-button app-icon-button-border">
-            <span class="material-symbols-outlined">
-                close
-            </span>
-        </button>
-    </div>
+<app-modal [dialogRef]="dialogRef" name="Загрузка файла">
     <input type="file" [accept]="accept" (change)="onFileSelected($event)" class="mb-2">
     <div *ngIf="isBadFile" class="d-flex flex-row p-1 rounded-3 app-warn-alert mb-1 app-color-white75 flex-fill">
         <span class="material-symbols-outlined me-1">
@@ -16,4 +8,4 @@
             Файл не подходит для загрузки.
         </span>
     </div>
-</div>
+</app-modal>

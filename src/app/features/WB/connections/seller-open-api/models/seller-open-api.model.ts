@@ -1,6 +1,6 @@
 export interface NewOpenApiConnectionBody{
     name : string;
-    descriptions : string;
+    description : string;
     token : string;
 }
 
