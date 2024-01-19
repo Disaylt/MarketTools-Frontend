@@ -19,7 +19,7 @@ export class MarketplaceConnectionsService {
   updateDescription(body : DescriptionUpdateBody){
     const path = "api/v1/marketplace-connection/description";
 
-    return this.httpClient.put(path, body);
+    return this.httpClient.put<MarketplaceConnectionModel>(path, body);
   }
 
   getRange(type : MarketplaceConnectionType, skip : number, take : number){

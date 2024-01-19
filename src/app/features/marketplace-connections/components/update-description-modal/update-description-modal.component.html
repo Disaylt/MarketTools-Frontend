@@ -1,1 +1,12 @@
-<p>update-description-modal works!</p>
+<app-modal [dialogRef]="dialogRef" name="Обновление описания">
+    <div class="d-flex flex-row mb-2">
+        <input [(ngModel)]="description" class="form-control form-control-sm app-select shadow-none me-1"
+            placeholder="Новое описание" type="text">
+        <button (click)="update()" class="app-icon-button app-button-border">
+            <span *ngIf="isLoad == false"  class="material-symbols-outlined">
+                published_with_changes
+            </span>
+            <app-spiner *ngIf="isLoad" size="sm"></app-spiner>
+        </button>
+    </div>
+</app-modal>
