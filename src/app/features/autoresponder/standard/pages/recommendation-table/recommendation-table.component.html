@@ -20,12 +20,20 @@
         </button>
     </div>
     <div>
-        <button [disabled]="isLoad" [cdkMenuTriggerFor]="excelMenu" class="app-button app-button-border app-big-button">
+        <button [disabled]="isLoad" [cdkMenuTriggerFor]="excelMenu" class="app-button app-button-border app-big-button me-1">
             <span>Excel</span>
         </button>
         <ng-template #excelMenu>
             <app-excel [reloadTableEvent]="reloadTableEvent" [loadStatusEvent]="loadStatusEvent" cdkMenu></app-excel>
         </ng-template>
+    </div>
+    <div class="active-dark-bg app-warn-alert app-color-white75 flex-fill d-flex align-items-center rounded-2 ">
+        <label class="material-symbols-outlined mx-1">
+            info
+        </label>
+        <div style="font-size: 12px;" class="app-color-white75 lh-sm me-1">
+            У каждого маркетплейса отдельная таблица!
+        </div>
     </div>
 </div>
 

@@ -1,0 +1,42 @@
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { MarketplaceConnectionModel } from '../../../../../marketplace-connections/models/marketplace-connection.model';
+import { SellerOpenApiConnectionsService } from '../../services/seller-open-api-connections.service';
+import { MarketplaceConnectionsService } from '../../../../../marketplace-connections/services/marketplace-connections.service';
+import { finalize } from 'rxjs';
+import { SpinerComponent } from "../../../../../../shared/components/spiner/spiner.component";
+
+@Component({
+    selector: 'app-wb-seller-open-api-connection',
+    standalone: true,
+    templateUrl: './wb-seller-open-api-connection.component.html',
+    styleUrl: './wb-seller-open-api-connection.component.scss',
+    imports: [SpinerComponent]
+})
+export class WbSellerOpenApiConnectionComponent {
+
+  isLoad : boolean = false;
+  isDelete : boolean = false;
+
+  @Input({required : true}) data! : MarketplaceConnectionModel;
+  @Output() deleted : EventEmitter<number> = new EventEmitter();
+
+  constructor(private connectionService : SellerOpenApiConnectionsService, private marketplaceConnectionService : MarketplaceConnectionsService){}
+
+  delete(){
+    this.isLoad = true;
+    this.isDelete = true;
+
+    this.marketplaceConnectionService.delete(this.data.id)
+      .pipe(
+        finalize(() => {
+          this.isDelete = false;
+          this.isLoad = false;
+        })
+      )
+      .subscribe({
+        complete : () => {
+          this.deleted.emit(this.data.id);
+        }
+      })
+  }
+}
