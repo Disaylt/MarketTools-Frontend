@@ -5,3 +5,14 @@
         </span>
     </button>
 </div>
+<div class="mt-2">
+    <div class="row text-white px-1">
+        <div class="col-2">
+            <label>Id</label>
+        </div>
+        <div class="col">
+            <label>Название</label>
+        </div>
+    </div>
+    <app-wb-seller-open-api-connection (deleted)="delete($event)" *ngFor="let coonection of connections" [data]="coonection"></app-wb-seller-open-api-connection>
+</div>

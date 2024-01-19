@@ -1,18 +1,59 @@
-<div class="row">
-    <div class="col-2">
-        <label>{{data.id}}</label>
+<div class="active-dark-bg rounded-3 border app-color-white75 p-1 mb-1">
+    <div class="row">
+        <div class="col-2 text-truncate">
+            <label>{{data.id}}</label>
+        </div>
+        <div class="col text-truncate">
+            <label>{{data.name}}</label>
+        </div>
+        <div class="col-2">
+            <label>{{data.isActive}}</label>
+        </div>
+        <div class="col-auto">
+            <button (click)="isOpen = !isOpen" class="app-icon-button">
+                <span class="material-symbols-outlined">
+                    more_horiz
+                </span>
+            </button>
+        </div>
     </div>
-    <div class="col">
-        <label>{{data.name}}</label>
-    </div>
-    <div class="col-3">
-        <label>{{data.isActive}}</label>
-    </div>
-    <div class="col-auto">
-        <button class="app-icon-button app-button-border">
-            <span class="material-symbols-outlined">
-                more_horiz
-            </span>
-        </button>
+    <div *ngIf="isOpen" class="d-flex flex-row mt-1">
+        <div class="d-flex flex-column flex-fill border rounded-1 px-1 pb-1 text-break me-1 modal-background">
+            <label style="font-size: 12px;">Описание</label>
+            <label>{{data.description}}</label>
+        </div>
+        <div>
+            <button  [cdkMenuTriggerFor]="editMenu"  [disabled]="isLoad" class="app-icon-button app-button-border me-1">
+                <span class="material-symbols-outlined">
+                    edit
+                </span>
+            </button>
+            <ng-template #editMenu>
+                <div class="d-flex flex-column p-1 rounded-2 app-transparent-dark-bg border shadow mt-1" cdkMenu>
+                    <button class="app-button">
+                        <span class="mx-1">Токен</span>
+                    </button>
+                    <button class="app-button ">
+                        <span class="mx-1">Описание</span>
+                    </button>
+                </div>
+            </ng-template>
+        </div>
+        <div>
+            <button [disabled]="isLoad" [cdkMenuTriggerFor]="deleteMenu"  class="app-icon-button app-button-border">
+                <span class="material-symbols-outlined">
+                    delete
+                </span>
+            </button>
+            <ng-template #deleteMenu>
+                <div class="d-flex flex-column p-1 rounded-2 app-transparent-dark-bg border shadow mt-1" cdkMenu>
+                    <label style="font-size: 14px;">Подтвердите удаление</label>
+                    <button (click)="delete()" class="app-button app-main-button app-button-border">
+                        <span class="mx-1">Подтверждаю</span>
+                        <app-spiner size="sm" *ngIf="isDelete"></app-spiner>
+                    </button>
+                </div>
+            </ng-template>
+        </div>
     </div>
 </div>

@@ -1,0 +1,22 @@
+<app-modal [dialogRef]="dialogRef" name="Обновление токена">
+    <div>
+        <input [(ngModel)]="token" class="form-control form-control-sm app-select shadow-none me-1"
+            placeholder="Новый токен" type="text">
+        <button class="app-icon-button app-button-border mx-1">
+            <span class="material-symbols-outlined">
+                published_with_changes
+            </span>
+        </button>
+    </div>
+    <div class="active-dark-bg app-warn-alert app-color-white75 flex-fill d-flex align-items-center rounded-1 p-1 mb-1">
+        <span class="material-symbols-outlined me-1">
+            info
+        </span>
+        <div style="font-size: 12px;" class="app-color-white75 lh-sm">
+            Пожалуйста не закрывайте окно и дождитесь проверки токена.
+        </div>
+        <div style="font-size: 12px;" class="app-color-white75 lh-sm">
+            Система просматривает все ваши активные сервисы, и отправляет запрос на чтение информации для этого сервиса.
+        </div>
+    </div>
+</app-modal>
