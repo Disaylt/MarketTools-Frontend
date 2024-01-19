@@ -22,12 +22,12 @@ export class WbNavigationStorage{
                 {
                     name : "API",
                     path : `${this.market}/connection/api`,
-                    isDisabled : true
+                    isDisabled : false
                 },
                 {
                     name : "Кабинет",
                     path : `${this.market}/connection/seller`,
-                    isDisabled : false
+                    isDisabled : true
                 }
             ]
         },
