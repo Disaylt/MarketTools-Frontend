@@ -1,3 +1,4 @@
+import { DialogRef } from '@angular/cdk/dialog';
 import { Component } from '@angular/core';
 
 @Component({
@@ -9,4 +10,5 @@ import { Component } from '@angular/core';
 })
 export class NewConnectionModalComponent {
 
+  constructor(public dialogRef: DialogRef<any>){}
 }
