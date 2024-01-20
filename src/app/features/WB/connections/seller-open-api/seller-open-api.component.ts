@@ -8,13 +8,14 @@ import { WbSellerOpenApiConnectionComponent } from "./components/wb-seller-open-
 import { CommonModule } from '@angular/common';
 import { ProgressBarComponent } from "../../../../shared/components/progress-bar/progress-bar.component";
 import { finalize } from 'rxjs';
+import { PaginationBarComponent } from "../../../../shared/components/pagination-bar/pagination-bar.component";
 
 @Component({
     selector: 'app-seller-open-api',
     standalone: true,
     templateUrl: './seller-open-api.component.html',
     styleUrl: './seller-open-api.component.scss',
-    imports: [WbSellerOpenApiConnectionComponent, CommonModule, ProgressBarComponent]
+    imports: [WbSellerOpenApiConnectionComponent, CommonModule, ProgressBarComponent, PaginationBarComponent]
 })
 export class SellerOpenApiComponent implements OnInit {
 
@@ -26,7 +27,7 @@ export class SellerOpenApiComponent implements OnInit {
   ngOnInit(): void {
     this.isLoad = true;
 
-    this.marketplaceConnectionService.getRange(MarketplaceConnectionType.wbSellerOpenApi, 0, 20)
+    this.marketplaceConnectionService.getRange(MarketplaceConnectionType.wbSellerOpenApi)
       .pipe(
         finalize(()=> {
           this.isLoad = false;

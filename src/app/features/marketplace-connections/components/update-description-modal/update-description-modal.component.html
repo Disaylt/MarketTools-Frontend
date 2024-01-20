@@ -1,5 +1,5 @@
 <app-modal [dialogRef]="dialogRef" name="Обновление описания">
-    <div class="d-flex flex-row mb-2">
+    <div class="d-flex flex-row">
         <input (keydown.enter)="update()" [(ngModel)]="description" class="form-control form-control-sm app-select shadow-none me-1"
             placeholder="Новое описание (Enter)" type="text">
         <button (click)="update()" class="app-icon-button app-button-border">
