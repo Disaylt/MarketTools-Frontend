@@ -1,1 +1,30 @@
-<p>connection works!</p>
+<div class="d-flex flex-row align-items-center active-dark-bg rounded-3 flex-fill mt-1 border app-soft-element-border-color">
+    <button [cdkMenuTriggerFor]="templatesSelectMenu" style="width: 200px;" class="app-button app-button-border d-flex flex-row justify-content-between mx-1">
+        <span class="text-truncate">{{selectTemplate === null ? 'Выбрать шаблон' : selectTemplate.name}}</span>
+        <span class="material-symbols-outlined">
+            expand_more
+        </span>
+    </button>
+    <ng-template #templatesSelectMenu>
+        <div style="max-height: 300px; max-width: 300px;" class="rounded-2 app-transparent-dark-bg border shadow mt-1" cdkMenu>
+            <div class="d-flex flex-column p-1 h-100">
+                <div>
+                    <input [(ngModel)]="searchTemplateValue" 
+                    class="form-control form-control-sm app-select shadow-none mb-1" 
+                    placeholder="🔍︎ Поиск" 
+                    type="text">
+                </div>
+                <span *ngIf="templates.length === 0" class="app-color-white75" style="font-size: 12px;">Добавьте хотя бы 1 шаблон</span>
+                <ul class="app-active-list mb-0 overflow-auto">
+                    <li *ngFor="let template of templates | templateFilter : searchTemplateValue" 
+                        (click)="select(template)"
+                        class="d-flex flex-row justify-content-between rounded-1" 
+                        [ngClass]="{'active' : selectTemplate == template}">
+                        <span class="text-truncate app-color-white75">{{template.name}}</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </ng-template>
+    <div class="vr app-color-white75"></div>
+</div>

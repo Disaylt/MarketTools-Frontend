@@ -47,9 +47,10 @@
         </div>
         <div *ngFor="let connection of connections" class="mb-2">
             <app-wb-seller-open-api-connection 
-            *ngIf="connection.isActive != activeStatusFilter.isHideActive || !connection.isActive != activeStatusFilter.isHideInactive"
-            (deleted)="delete($event)" 
-            [data]="connection"></app-wb-seller-open-api-connection>
+                *ngIf="connection.isActive != activeStatusFilter.isHideActive || !connection.isActive != activeStatusFilter.isHideInactive"
+                (deleted)="delete($event)" 
+                [data]="connection">
+            </app-wb-seller-open-api-connection>
         </div>
     </div>
 </ng-template>
