@@ -9,19 +9,27 @@ import { CommonModule } from '@angular/common';
 import { ProgressBarComponent } from "../../../../shared/components/progress-bar/progress-bar.component";
 import { finalize } from 'rxjs';
 import { PaginationBarComponent } from "../../../../shared/components/pagination-bar/pagination-bar.component";
+import { ActiveFilter } from '../../../../shared/pipes/models/active-filter.model';
+import { CdkMenu, CdkMenuItem, CdkMenuTrigger } from '@angular/cdk/menu';
+import { FormsModule } from '@angular/forms';
+import { MarketplaceConnectionActiveStatusPipe } from "../../../../shared/pipes/marketplace-connection-active-status.pipe";
 
 @Component({
     selector: 'app-seller-open-api',
     standalone: true,
     templateUrl: './seller-open-api.component.html',
     styleUrl: './seller-open-api.component.scss',
-    imports: [WbSellerOpenApiConnectionComponent, CommonModule, ProgressBarComponent, PaginationBarComponent]
+    imports: [WbSellerOpenApiConnectionComponent, FormsModule, CommonModule, ProgressBarComponent, PaginationBarComponent, CdkMenuTrigger, CdkMenu, CdkMenuItem, MarketplaceConnectionActiveStatusPipe]
 })
 export class SellerOpenApiComponent implements OnInit {
 
   isLoad : boolean = false;
   connections : MarketplaceConnectionModel[] = [];
-  
+  activeStatusFilter = {
+    isHideActive : false,
+    isHideInactive : false
+  }
+
   constructor(private dialog: Dialog, private marketplaceConnectionService : MarketplaceConnectionsService){}
 
   ngOnInit(): void {
@@ -40,6 +48,18 @@ export class SellerOpenApiComponent implements OnInit {
       })
   }
 
+  changeShowActiveFilter(){
+    if(this.activeStatusFilter.isHideActive){
+      this.activeStatusFilter.isHideInactive = false;
+    }
+  }
+
+  changeShowInactiveFilter(){
+    if(this.activeStatusFilter.isHideInactive){
+      this.activeStatusFilter.isHideActive = false;
+    }
+  }
+
   delete(id : number){
     this.connections = this.connections.filter(x=> x.id != id);
   }
@@ -51,7 +71,7 @@ export class SellerOpenApiComponent implements OnInit {
         const newConnection = data as MarketplaceConnectionModel;
 
         if(newConnection){
-          this.connections.push(newConnection);
+          this.connections.unshift(newConnection);
         }
       }
     })

@@ -24,7 +24,7 @@
             <span>Excel</span>
         </button>
         <ng-template #excelMenu>
-            <app-excel [reloadTableEvent]="reloadTableEvent" [loadStatusEvent]="loadStatusEvent" cdkMenu></app-excel>
+            <app-excel [reloadTableEvent]="reloadTableAterUplodaExcelEvent" [loadStatusEvent]="loadStatusEvent" cdkMenu></app-excel>
         </ng-template>
     </div>
     <div class="active-dark-bg app-warn-alert app-color-white75 flex-fill d-flex align-items-center rounded-2 ">
@@ -131,6 +131,6 @@
         <app-progress-bar></app-progress-bar>
     </div>
     <div class="mb-2">
-        <app-pagination-bar [paginationDetails]="{skip : 0, take :25}"></app-pagination-bar>
+        <app-pagination-bar (onChangePage)="subscribePaginator($event)" [paginationDetails]="{skip : 0, take :25, page : 1}"></app-pagination-bar>
     </div>
 </div>

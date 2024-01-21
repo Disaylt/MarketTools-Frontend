@@ -16,14 +16,14 @@ export class PaginationBarComponent implements OnInit {
   maxPage : number = 0;
   @Input() paginationDetails : Pagination = {
     take : 30,
-    skip :0
+    skip :0,
+    page : 1
   }
   @Output() onChangePage : EventEmitter<Pagination> = new EventEmitter<Pagination>();
 
   firstViewPageNumber : number | null = null;
   middleViewPageNumbers : number[] = [];
   lastViewPageNumber : number | null = null;
-  page : number = 1;
   isLoad : boolean = false;
 
   constructor(private router : Router, private activeRoute : ActivatedRoute){}
@@ -34,15 +34,19 @@ export class PaginationBarComponent implements OnInit {
       .queryParams["page"];
 
     if(page as number){
-      this.page = Number.parseInt(page);
+      this.paginationDetails.page = Number.parseInt(page);
       this.paginationDetails.skip = (page - 1) * this.paginationDetails.take;
     }
+  }
+
+  ngAfterViewInit(){
+    this.onChangePage.emit(this.paginationDetails);
   }
 
   updateTotal(value : number){
     setTimeout(() => {
       this.maxPage = Math.ceil(value/this.paginationDetails.take);
-      if(this.maxPage < this.page){
+      if(this.maxPage < this.paginationDetails.page){
         this.selectPage(this.maxPage)
       }
       this.setActivePages();
@@ -56,7 +60,7 @@ export class PaginationBarComponent implements OnInit {
 
     const queryParams = {"page" : page}
     this.router.navigate([],{queryParams: queryParams, queryParamsHandling : "merge"})
-    this.page = page;
+    this.paginationDetails.page = page;
     this.paginationDetails.skip = (page - 1) * this.paginationDetails.take;
     this.onChangePage.emit(this.paginationDetails);
   }
@@ -80,14 +84,14 @@ export class PaginationBarComponent implements OnInit {
     }
 
     let rangePages = 1;
-    if(this.page === this.firstViewPageNumber || this.page === this.lastViewPageNumber){
+    if(this.paginationDetails.page === this.firstViewPageNumber || this.paginationDetails.page === this.lastViewPageNumber){
       rangePages = 3
     }
-    else if(this.page === this.firstViewPageNumber + 1 || this.page === this.lastViewPageNumber - 1){
+    else if(this.paginationDetails.page === this.firstViewPageNumber + 1 || this.paginationDetails.page === this.lastViewPageNumber - 1){
       rangePages = 2
     }
 
-    for(let i = this.page - rangePages; i <=this.page + rangePages; i++){
+    for(let i = this.paginationDetails.page - rangePages; i <=this.paginationDetails.page + rangePages; i++){
       if(i > this.firstViewPageNumber && i < this.lastViewPageNumber){
         this.middleViewPageNumbers.push(i);
       }

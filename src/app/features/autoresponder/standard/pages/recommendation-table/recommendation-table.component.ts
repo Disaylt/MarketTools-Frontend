@@ -20,6 +20,7 @@ import { FileType } from '../../../../../core/enums/file-types';
 import { DomSanitizer } from '@angular/platform-browser';
 import { FilesUtility } from '../../../../../shared/utilities/FilesUtility';
 import { ExcelComponent } from "./components/excel/excel.component";
+import { Pagination } from '../../../../../core/models/pagination.model';
 
 @Component({
     selector: 'app-recommendation-table',
@@ -31,7 +32,7 @@ import { ExcelComponent } from "./components/excel/excel.component";
 })
 export class RecommendationTableComponent implements OnInit{
 
-  reloadTableEvent : EventEmitter<void> = new EventEmitter<void>();
+  reloadTableAterUplodaExcelEvent : EventEmitter<void> = new EventEmitter<void>();
   loadStatusEvent : EventEmitter<boolean> = new EventEmitter<boolean>();
   searchArticle : string = "";
   @ViewChild(PaginationBarComponent) paginationBar! : PaginationBarComponent;
@@ -55,7 +56,7 @@ export class RecommendationTableComponent implements OnInit{
       this.searchArticle = article;
     }
 
-    this.reloadTableEvent.subscribe(x=> {
+    this.reloadTableAterUplodaExcelEvent.subscribe(x=> {
       this.get();
     });
 
@@ -64,13 +65,8 @@ export class RecommendationTableComponent implements OnInit{
     })
   }
 
-  ngAfterViewInit(){
-    this.paginationBar.onChangePage.subscribe(
-      (data) => {
-        this.get()
-      }
-    )
-    this.get();
+  subscribePaginator(paginator : Pagination){
+    this.get()
   }
 
   add(){
@@ -139,7 +135,6 @@ export class RecommendationTableComponent implements OnInit{
     })
   }
 
-
   changeSearchArticle(){
     const queryParams = {"article" : this.searchArticle}
     this.router.navigate([],{queryParams: queryParams, queryParamsHandling : "merge"})
@@ -148,7 +143,7 @@ export class RecommendationTableComponent implements OnInit{
 
   get(){
     this.isLoad = true;
-    const requestPage = this.paginationBar.page;
+    const requestPage = this.paginationBar.paginationDetails.page;
     const requestArticle = this.searchArticle;
 
     this.recommendationProductsService.get(
@@ -157,7 +152,7 @@ export class RecommendationTableComponent implements OnInit{
       this.paginationBar.paginationDetails.skip)
       .pipe(
         finalize(() => {
-          if(requestPage === this.paginationBar.page && requestArticle === this.searchArticle){
+          if(requestPage === this.paginationBar.paginationDetails.page && requestArticle === this.searchArticle){
             this.isLoad = false;
           }
         })
@@ -165,7 +160,7 @@ export class RecommendationTableComponent implements OnInit{
       .subscribe(
         {
           next : (data) => {
-            if(requestPage === this.paginationBar.page && requestArticle === this.searchArticle){
+            if(requestPage === this.paginationBar.paginationDetails.page && requestArticle === this.searchArticle){
               this.paginationBar.updateTotal(data.total);
 
               this.recommendationProducts = data.items
