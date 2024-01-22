@@ -35,7 +35,7 @@
                         </div>
                         <span *ngIf="templates.length === 0" class="app-color-white75" style="font-size: 12px;">Добавьте хотя бы 1 шаблон</span>
                         <ul class="app-active-list mb-0 overflow-auto">
-                            <li *ngFor="let template of templates | nameFilter : searchTemplateValue" 
+                            <li *ngFor="let template of templates | viewTemplateFilter : searchTemplateValue" 
                                 (click)="select(template)"
                                 class="d-flex flex-row justify-content-between rounded-1" 
                                 [ngClass]="{'active' : selectTemplate == template}">

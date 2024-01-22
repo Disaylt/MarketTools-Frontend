@@ -6,6 +6,7 @@ import { CellsComponent } from "./standard/pages/columns/pages/cells/cells.compo
 import { BlackListsComponent } from "./standard/pages/black-lists/black-lists.component";
 import { BanWordsComponent } from "./standard/pages/black-lists/components/ban-words/ban-words.component";
 import { TemplatesComponent } from "./standard/pages/templates/templates.component";
+import { ConnectionComponent } from "./standard/pages/connection/connection.component";
 
 export const autoresponderRoutes : Routes = [
     {
@@ -32,6 +33,11 @@ export const autoresponderRoutes : Routes = [
                 title : "Шаблоны",
                 path : "templates",
                 component : TemplatesComponent
+            },
+            {
+                title : "Подключение",
+                path : "connections",
+                component : ConnectionComponent
             }
         ]
     }

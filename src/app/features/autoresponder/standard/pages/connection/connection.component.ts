@@ -6,41 +6,49 @@ import { ViewMappingService } from '../../../../../core/services/view-mapping.se
 import { TemplateService } from '../templates/services/template.service';
 import { Template } from '../templates/models/template';
 import { finalize } from 'rxjs';
-import { NameFilterPipe } from "../../../../../shared/pipes/name-filter.pipe";
 import { TemplateFilterPipe } from "../../../../../shared/pipes/template-filter.pipe";
+import { MarketplaceConnectionsService } from '../../../../marketplace-connections/services/marketplace-connections.service';
+import { MarketplaceConnectionModel } from '../../../../marketplace-connections/models/marketplace-connection.model';
+import { MarketDeterminantService } from '../../../../../core/services/market-determinant.service';
+import { MarketplaceName } from '../../../../../core/enums/marketplace-name';
+import { MarketplaceConnectionType } from '../../../../../core/enums/marketplace-connection.enum';
 
 @Component({
     selector: 'app-connection',
     standalone: true,
     templateUrl: './connection.component.html',
     styleUrl: './connection.component.scss',
-    imports: [CdkMenuTrigger, CdkMenu, CdkMenuItem, CommonModule, FormsModule, NameFilterPipe, TemplateFilterPipe]
+    imports: [CdkMenuTrigger, CdkMenu, CdkMenuItem, CommonModule, FormsModule, TemplateFilterPipe]
 })
 export class ConnectionComponent {
 
-  searchTemplateValue : string = "";
+  searchSellerValue : string = "";
   isLoad : boolean = true;
-  selectTemplate : Template | null = null;
-  templates : Template[] = [];
+  selectSeller : MarketplaceConnectionModel | null = null;
+  sellers : MarketplaceConnectionModel[] = [];
 
   @ViewChild(CdkMenu) cdkMenu!: CdkMenu;
   
-  constructor(private mapper : ViewMappingService, private templateService : TemplateService){}
+  constructor(private mapper : ViewMappingService, 
+    private sellerService : MarketplaceConnectionsService,
+    private marketDeterminantService : MarketDeterminantService){}
 
   ngOnInit(): void {
     this.getRange();
   }
   
-  select(template : Template){
+  select(seller : MarketplaceConnectionModel){
     this.cdkMenu.menuStack.closeAll();
-    this.selectTemplate = template;
+    this.selectSeller = seller;
   }
 
   getRange(){
     this.isLoad = true;
-    this.templates = [];
+    this.sellers = [];
 
-    this.templateService.getRange()
+    const connectionType = this.getType();
+
+    this.sellerService.getRange(connectionType)
       .pipe(
         finalize(() => {
           this.isLoad = false;
@@ -49,10 +57,21 @@ export class ConnectionComponent {
       .subscribe(
         {
           next : data => {
-            this.templates = data;
+            this.sellers = data;
           }
         }
       )
+  }
+
+  private getType() : MarketplaceConnectionType{
+    const marketplaceName = this.marketDeterminantService.marketplace;
+
+    switch(marketplaceName.nameEnum){
+      case MarketplaceName.wb:
+        return MarketplaceConnectionType.wbSellerOpenApi;
+      default:
+        throw new Error();
+    }
   }
 
 }

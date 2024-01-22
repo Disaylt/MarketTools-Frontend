@@ -9,7 +9,7 @@ import { finalize, map } from 'rxjs';
 import { ProgressBarComponent } from "../../../../../shared/components/progress-bar/progress-bar.component";
 import { SpinerComponent } from "../../../../../shared/components/spiner/spiner.component";
 import { CdkMenu, CdkMenuItem, CdkMenuTrigger } from '@angular/cdk/menu';
-import { NameFilterPipe } from "../../../../../shared/pipes/name-filter.pipe";
+import { ViewTemplateFilterPipe } from "../../../../../shared/pipes/view-template-filter.pipe";
 import { SettingsComponent } from "./components/settings/settings.component";
 import { BlackListComponent } from "./components/black-list/black-list.component";
 import { ArticlesComponent } from "./components/articles/articles.component";
@@ -22,7 +22,7 @@ import { TabBarButtonComponent } from "../../../../../shared/components/tab-bar/
     standalone: true,
     templateUrl: './templates.component.html',
     styleUrl: './templates.component.scss',
-    imports: [CdkMenuTrigger, CdkMenu, CdkMenuItem, CommonModule, FormsModule, ProgressBarComponent, SpinerComponent, NameFilterPipe, SettingsComponent, BlackListComponent, ArticlesComponent, BindPositionsComponent, TabBarComponent, TabBarButtonComponent]
+    imports: [CdkMenuTrigger, CdkMenu, CdkMenuItem, CommonModule, FormsModule, ProgressBarComponent, SpinerComponent, ViewTemplateFilterPipe, SettingsComponent, BlackListComponent, ArticlesComponent, BindPositionsComponent, TabBarComponent, TabBarButtonComponent]
 })
 export class TemplatesComponent implements OnInit {
   selectTemplate : ViewResult<Template> | null = null;

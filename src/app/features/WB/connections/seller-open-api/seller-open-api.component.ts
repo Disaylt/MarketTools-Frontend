@@ -12,14 +12,13 @@ import { PaginationBarComponent } from "../../../../shared/components/pagination
 import { ActiveFilter } from '../../../../shared/pipes/models/active-filter.model';
 import { CdkMenu, CdkMenuItem, CdkMenuTrigger } from '@angular/cdk/menu';
 import { FormsModule } from '@angular/forms';
-import { MarketplaceConnectionActiveStatusPipe } from "../../../../shared/pipes/marketplace-connection-active-status.pipe";
 
 @Component({
     selector: 'app-seller-open-api',
     standalone: true,
     templateUrl: './seller-open-api.component.html',
     styleUrl: './seller-open-api.component.scss',
-    imports: [WbSellerOpenApiConnectionComponent, FormsModule, CommonModule, ProgressBarComponent, PaginationBarComponent, CdkMenuTrigger, CdkMenu, CdkMenuItem, MarketplaceConnectionActiveStatusPipe]
+    imports: [WbSellerOpenApiConnectionComponent, FormsModule, CommonModule, ProgressBarComponent, PaginationBarComponent, CdkMenuTrigger, CdkMenu, CdkMenuItem]
 })
 export class SellerOpenApiComponent implements OnInit {
 
