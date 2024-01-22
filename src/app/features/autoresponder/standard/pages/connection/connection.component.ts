@@ -12,16 +12,20 @@ import { MarketplaceConnectionModel } from '../../../../marketplace-connections/
 import { MarketDeterminantService } from '../../../../../core/services/market-determinant.service';
 import { MarketplaceName } from '../../../../../core/enums/marketplace-name';
 import { MarketplaceConnectionType } from '../../../../../core/enums/marketplace-connection.enum';
+import { NameFilterPipe } from "../../../../../shared/pipes/name-filter.pipe";
+import { ActiveStatusInfoComponent } from "../../../../../shared/components/active-status-info/active-status-info.component";
 
 @Component({
     selector: 'app-connection',
     standalone: true,
     templateUrl: './connection.component.html',
     styleUrl: './connection.component.scss',
-    imports: [CdkMenuTrigger, CdkMenu, CdkMenuItem, CommonModule, FormsModule, TemplateFilterPipe]
+    imports: [CdkMenuTrigger, CdkMenu, CdkMenuItem, CommonModule, FormsModule, TemplateFilterPipe, NameFilterPipe, ActiveStatusInfoComponent]
 })
 export class ConnectionComponent {
 
+  isActive : boolean = false;
+  scores : number[] = [];
   searchSellerValue : string = "";
   isLoad : boolean = true;
   selectSeller : MarketplaceConnectionModel | null = null;
@@ -34,6 +38,7 @@ export class ConnectionComponent {
     private marketDeterminantService : MarketDeterminantService){}
 
   ngOnInit(): void {
+    this.scores = this.getScores();
     this.getRange();
   }
   
@@ -61,6 +66,10 @@ export class ConnectionComponent {
           }
         }
       )
+  }
+
+  private getScores() : number[]{
+    return Array.from({length: 5}, (_, index) => 5 - index);
   }
 
   private getType() : MarketplaceConnectionType{

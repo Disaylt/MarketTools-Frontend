@@ -10,4 +10,6 @@ import { Component, Input } from '@angular/core';
 })
 export class ActiveStatusInfoComponent {
   @Input({required : true}) isActive! : boolean;
+  @Input() activeText : string = "Активен"
+  @Input() inactiveText : string = "Неактивен"
 }
