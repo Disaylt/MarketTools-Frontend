@@ -18,13 +18,15 @@ import { ConnectionsService } from './services/connections.service';
 import { RatingsService } from './services/ratings.service';
 import { ProgressBarComponent } from "../../../../../shared/components/progress-bar/progress-bar.component";
 import { SpinerComponent } from "../../../../../shared/components/spiner/spiner.component";
+import { RatingsComponent } from "./components/ratings/ratings.component";
+import { RatingModel } from './models/rating.model';
 
 @Component({
     selector: 'app-connection',
     standalone: true,
     templateUrl: './connection.component.html',
     styleUrl: './connection.component.scss',
-    imports: [CdkMenuTrigger, CdkMenu, CdkMenuItem, CommonModule, FormsModule, TemplateFilterPipe, NameFilterPipe, ActiveStatusInfoComponent, ProgressBarComponent, SpinerComponent]
+    imports: [CdkMenuTrigger, CdkMenu, CdkMenuItem, CommonModule, FormsModule, TemplateFilterPipe, NameFilterPipe, ActiveStatusInfoComponent, ProgressBarComponent, SpinerComponent, RatingsComponent]
 })
 export class ConnectionComponent {
   scores : number[] = [];
@@ -32,17 +34,16 @@ export class ConnectionComponent {
   isLoad : boolean = true;
   selectSeller : MarketplaceConnectionModel | null = null;
   sellers : MarketplaceConnectionModel[] = [];
+  ratings : RatingModel[] | null = null;
 
   @ViewChild(CdkMenu) cdkMenu!: CdkMenu;
   
   constructor(private mapper : ViewMappingService, 
     private sellerService : MarketplaceConnectionsService,
     private marketDeterminantService : MarketDeterminantService,
-    private autoresponderConnectionSeervice : ConnectionsService,
-    private ratingsService : RatingsService){}
+    private autoresponderConnectionSeervice : ConnectionsService){}
 
   ngOnInit(): void {
-    this.scores = this.getScores();
     this.getRange();
   }
   
@@ -81,10 +82,6 @@ export class ConnectionComponent {
           }
         }
       )
-  }
-
-  private getScores() : number[]{
-    return Array.from({length: 5}, (_, index) => 5 - index);
   }
 
   private getType() : MarketplaceConnectionType{

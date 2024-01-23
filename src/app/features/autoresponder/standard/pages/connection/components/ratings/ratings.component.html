@@ -1,0 +1,27 @@
+<div *ngIf="ratings != null; else loadRatings" class="row g-2 app-color-white75">
+    <div *ngFor="let rating of ratings" class="col">
+        <div class="position-relative border app-soft-element-border-color rounded-2 active-dark-bg p-1"
+            style="min-width: 200px; height: 150px;">
+            <div class="d-flex flex-row justify-content-between">
+                <div class="">
+                    <label *ngFor="let _ of [].constructor(rating.rating)" class="material-symbols-outlined">
+                        grade
+                    </label>
+                </div>
+                <div>
+                    <button class="app-icon-button app-button-border">
+                        <span class="material-symbols-outlined">
+                            more_horiz
+                        </span>
+                    </button>
+                </div>
+            </div>
+            <div class="position-absolute top-50 text-center flex-fill">
+                <label style="font-size: 14px; opacity: 0.5;">Добавьте шаблоны, для ответа на оценку {{rating.rating}}.</label>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-template #loadRatings>
+    <app-progress-bar></app-progress-bar>
+</ng-template>
