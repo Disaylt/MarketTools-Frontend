@@ -14,17 +14,19 @@ import { MarketplaceName } from '../../../../../core/enums/marketplace-name';
 import { MarketplaceConnectionType } from '../../../../../core/enums/marketplace-connection.enum';
 import { NameFilterPipe } from "../../../../../shared/pipes/name-filter.pipe";
 import { ActiveStatusInfoComponent } from "../../../../../shared/components/active-status-info/active-status-info.component";
+import { ConnectionsService } from './services/connections.service';
+import { RatingsService } from './services/ratings.service';
+import { ProgressBarComponent } from "../../../../../shared/components/progress-bar/progress-bar.component";
+import { SpinerComponent } from "../../../../../shared/components/spiner/spiner.component";
 
 @Component({
     selector: 'app-connection',
     standalone: true,
     templateUrl: './connection.component.html',
     styleUrl: './connection.component.scss',
-    imports: [CdkMenuTrigger, CdkMenu, CdkMenuItem, CommonModule, FormsModule, TemplateFilterPipe, NameFilterPipe, ActiveStatusInfoComponent]
+    imports: [CdkMenuTrigger, CdkMenu, CdkMenuItem, CommonModule, FormsModule, TemplateFilterPipe, NameFilterPipe, ActiveStatusInfoComponent, ProgressBarComponent, SpinerComponent]
 })
 export class ConnectionComponent {
-
-  isActive : boolean = false;
   scores : number[] = [];
   searchSellerValue : string = "";
   isLoad : boolean = true;
@@ -35,7 +37,9 @@ export class ConnectionComponent {
   
   constructor(private mapper : ViewMappingService, 
     private sellerService : MarketplaceConnectionsService,
-    private marketDeterminantService : MarketDeterminantService){}
+    private marketDeterminantService : MarketDeterminantService,
+    private autoresponderConnectionSeervice : ConnectionsService,
+    private ratingsService : RatingsService){}
 
   ngOnInit(): void {
     this.scores = this.getScores();
@@ -45,6 +49,17 @@ export class ConnectionComponent {
   select(seller : MarketplaceConnectionModel){
     this.cdkMenu.menuStack.closeAll();
     this.selectSeller = seller;
+  }
+
+  changeStatus(selectSeller : MarketplaceConnectionModel){
+    this.autoresponderConnectionSeervice
+      .updateActiveStatus(selectSeller.id, selectSeller.autoresponderConnection.isActive)
+      .subscribe({
+        error : () => {
+          selectSeller.autoresponderConnection.isActive = !selectSeller.autoresponderConnection.isActive;
+        }
+      })
+
   }
 
   getRange(){

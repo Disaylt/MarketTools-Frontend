@@ -1,8 +1,11 @@
 <div
     class="d-flex flex-row align-items-center active-dark-bg rounded-3 flex-fill mt-1 border app-soft-element-border-color">
-    <button [cdkMenuTriggerFor]="templatesSelectMenu" style="width: 250px;"
+    <button [disabled]="isLoad" [cdkMenuTriggerFor]="templatesSelectMenu" style="width: 250px;"
         class="app-button app-button-border d-flex flex-row justify-content-between m-1">
-        <span class="text-truncate">{{selectSeller === null ? 'Выбрать подкючение' : selectSeller.name}}</span>
+        <span class="text-truncate">
+            {{selectSeller === null ? 'Выбрать подкючение' : selectSeller.name}}
+        </span>
+        <app-spiner *ngIf="isLoad" size="sm"></app-spiner>
         <span class="material-symbols-outlined">
             expand_more
         </span>
@@ -29,18 +32,19 @@
             </div>
         </div>
     </ng-template>
-    <div class="vr mx-1 app-color-white75"></div>
-    <div class="d-flex flex-row justify-content-between flex-fill">
+    <div class="vr app-color-white75"></div>
+    <div *ngIf="selectSeller != null" class="d-flex flex-row justify-content-between flex-fill">
         <div>
-            <button class="app-icon-button app-button-border">
+            <button class="app-icon-button app-button-border mx-1">
                 <span class="material-symbols-outlined">
                     add
                 </span>
             </button>
         </div>
         <div class="form-check form-switch mb-0 d-flex align-items-center mx-1">
-            <app-active-status-info [isActive]="isActive" activeText="Вкл." inactiveText="Выкл."></app-active-status-info>
-            <input [(ngModel)]="isActive"
+            <app-active-status-info [isActive]="selectSeller.autoresponderConnection.isActive" activeText="Вкл." inactiveText="Выкл."></app-active-status-info>
+            <input [(ngModel)]="selectSeller.autoresponderConnection.isActive"
+                (ngModelChange)="changeStatus(selectSeller)"
              class="form-check-input shadow-none app-check-input ms-1" 
              type="checkbox" role="switch">
           </div>
