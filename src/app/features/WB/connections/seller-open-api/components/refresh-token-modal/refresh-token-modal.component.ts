@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { ModalComponent } from "../../../../../../shared/modal/modal.component";
+import { ModalComponent } from "../../../../../../shared/components/modal/modal.component";
 import { DialogRef } from '@angular/cdk/dialog';
 import { MarketplaceConnectionsService } from '../../../../../marketplace-connections/services/marketplace-connections.service';
 import { SellerOpenApiConnectionsService } from '../../services/seller-open-api-connections.service';

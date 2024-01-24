@@ -3,7 +3,7 @@ import { Component, Inject } from '@angular/core';
 import { TypeFileService } from '../../services/type-file.service';
 import { FileType } from '../../enums/file-types';
 import { CommonModule } from '@angular/common';
-import { ModalComponent } from "../../../shared/modal/modal.component";
+import { ModalComponent } from "../../../shared/components/modal/modal.component";
 
 @Component({
     selector: 'app-file-uploader-modal',

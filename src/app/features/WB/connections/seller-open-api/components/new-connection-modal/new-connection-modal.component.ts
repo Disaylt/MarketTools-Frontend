@@ -1,6 +1,6 @@
 import { DialogRef } from '@angular/cdk/dialog';
 import { Component } from '@angular/core';
-import { ModalComponent } from "../../../../../../shared/modal/modal.component";
+import { ModalComponent } from "../../../../../../shared/components/modal/modal.component";
 import { NewOpenApiConnectionBody } from '../../models/seller-open-api.model';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
