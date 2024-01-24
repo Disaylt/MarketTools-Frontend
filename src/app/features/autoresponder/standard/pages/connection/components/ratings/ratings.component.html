@@ -4,20 +4,31 @@
             style="min-width: 200px; height: 150px;">
             <div class="d-flex flex-row justify-content-between">
                 <div class="">
-                    <label *ngFor="let _ of [].constructor(rating.rating)" class="material-symbols-outlined">
+                    <label *ngFor="let _ of [].constructor(rating.data.rating)" class="material-symbols-outlined">
                         grade
                     </label>
                 </div>
                 <div>
-                    <button class="app-icon-button app-button-border">
-                        <span class="material-symbols-outlined">
+                    <button [cdkMenuTriggerFor]="valueMenu" [disabled]="rating.actions.isLoad" class="app-icon-button app-button-border">
+                        <span *ngIf="rating.actions.isLoad == false" class="material-symbols-outlined">
                             more_horiz
                         </span>
+                        <app-spiner *ngIf="rating.actions.isLoad" size="sm"></app-spiner>
                     </button>
+                    <ng-template #valueMenu>
+                        <div class="d-flex flex-column mt-1 rounded-2 app-transparent-dark-bg shadow" cdkMenu>
+                            <button cdkMenuItem class="app-button">
+                                <span class="mx-1">Редактировать</span>
+                            </button>
+                            <button (click)="delete(rating)" cdkMenuItem class="app-button">
+                                <span class="mx-1">Очистить</span>
+                            </button>
+                        </div>
+                    </ng-template>
                 </div>
             </div>
             <div class="position-absolute top-50 text-center flex-fill">
-                <label style="font-size: 14px; opacity: 0.5;">Добавьте шаблоны, для ответа на оценку {{rating.rating}}.</label>
+                <label style="font-size: 14px; opacity: 0.5;">Добавьте шаблоны, для ответа на оценку {{rating.data.rating}}.</label>
             </div>
         </div>
     </div>

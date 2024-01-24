@@ -20,13 +20,15 @@ import { ProgressBarComponent } from "../../../../../shared/components/progress-
 import { SpinerComponent } from "../../../../../shared/components/spiner/spiner.component";
 import { RatingsComponent } from "./components/ratings/ratings.component";
 import { RatingModel } from './models/rating.model';
+import { ReversScorePipe } from "../../../../../shared/pipes/revers-score.pipe";
+import { ViewReversScorePipe } from "../../../../../shared/pipes/view-revers-score.pipe";
 
 @Component({
     selector: 'app-connection',
     standalone: true,
     templateUrl: './connection.component.html',
     styleUrl: './connection.component.scss',
-    imports: [CdkMenuTrigger, CdkMenu, CdkMenuItem, CommonModule, FormsModule, TemplateFilterPipe, NameFilterPipe, ActiveStatusInfoComponent, ProgressBarComponent, SpinerComponent, RatingsComponent]
+    imports: [CdkMenuTrigger, CdkMenu, CdkMenuItem, CommonModule, FormsModule, TemplateFilterPipe, NameFilterPipe, ActiveStatusInfoComponent, ProgressBarComponent, SpinerComponent, RatingsComponent, ReversScorePipe, ViewReversScorePipe]
 })
 export class ConnectionComponent {
   scores : number[] = [];
@@ -34,9 +36,10 @@ export class ConnectionComponent {
   isLoad : boolean = true;
   selectSeller : MarketplaceConnectionModel | null = null;
   sellers : MarketplaceConnectionModel[] = [];
-  ratings : RatingModel[] | null = null;
+  ratingsForAdd : number[] = [5,4,3,2,1]
 
   @ViewChild(CdkMenu) cdkMenu!: CdkMenu;
+  @ViewChild(RatingsComponent) ratingsComponent! : RatingsComponent;
   
   constructor(private mapper : ViewMappingService, 
     private sellerService : MarketplaceConnectionsService,
@@ -51,7 +54,7 @@ export class ConnectionComponent {
     this.cdkMenu.menuStack.closeAll();
     this.selectSeller = seller;
   }
-
+  
   changeStatus(selectSeller : MarketplaceConnectionModel){
     this.autoresponderConnectionSeervice
       .updateActiveStatus(selectSeller.id, selectSeller.autoresponderConnection.isActive)
