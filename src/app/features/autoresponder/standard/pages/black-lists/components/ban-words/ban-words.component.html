@@ -18,7 +18,7 @@
             <div *ngFor="let banWord of banWords" class="text-break border rounded-1 p-1 m-1 flex-fill app-border-active">
                 <div class="d-flex flex-row align-items-center justify-content-between">
                     <label class="me-1">{{banWord.data.value}}</label>
-                    <button (click)="delete(banWord)" class="app-button app-main-button">
+                    <button [disabled]="banWord.actions.isLoad" (click)="delete(banWord)" class="app-button app-main-button">
                         <span *ngIf="banWord.actions.isLoad == false; else closeButtonSpiner" class="material-symbols-outlined">
                             close
                         </span>

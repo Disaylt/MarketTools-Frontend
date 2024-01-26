@@ -103,7 +103,7 @@
                         </ng-template>
                     </button>
                     <ng-template #actionsButton>
-                        <button [cdkMenuTriggerFor]="valueMenu" class="app-icon-button">
+                        <button [disabled]="prodcutDetails.actions.isLoad" [cdkMenuTriggerFor]="valueMenu" class="app-icon-button">
                             <span *ngIf="prodcutDetails.actions.isLoad == false; else loadEditCell"
                                 class="material-symbols-outlined">
                                 more_horiz

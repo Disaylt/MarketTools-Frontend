@@ -13,14 +13,16 @@ import { ViewMappingService } from '../../../../../core/services/view-mapping.se
 import { finalize } from 'rxjs';
 import { ColumnTypeStorage } from './constants/column-types.storage';
 import { RouterLink, RouterModule, RouterOutlet } from '@angular/router';
+import { NameFilterPipe } from "../../../../../shared/pipes/name-filter.pipe";
+import { ViewNameFilterPipe } from "../../../../../shared/pipes/view-name-filter.pipe";
 
 
 @Component({
-  selector: 'app-columns',
-  standalone: true,
-  imports: [CommonModule, FormsModule, CellsComponent, CdkMenuTrigger, CdkMenu, CdkMenuItem, SpinerComponent, RecommendationVariablesClueComponent, RouterModule, RouterOutlet, RouterLink],
-  templateUrl: './columns.component.html',
-  styleUrl: './columns.component.scss'
+    selector: 'app-columns',
+    standalone: true,
+    templateUrl: './columns.component.html',
+    styleUrl: './columns.component.scss',
+    imports: [CommonModule, FormsModule, CellsComponent, CdkMenuTrigger, CdkMenu, CdkMenuItem, SpinerComponent, RecommendationVariablesClueComponent, RouterModule, RouterOutlet, RouterLink, NameFilterPipe, ViewNameFilterPipe]
 })
 export class ColumnsComponent {
 
@@ -33,6 +35,7 @@ export class ColumnsComponent {
   selectedColumn : ViewResult<Column> | null = null;
   columns : ViewResult<Column>[] = []
 
+  columnsSearchValue : string = "";
   newColumnName : string = "";
 
   constructor(private columnsService : ColumnsService, private viewMapper : ViewMappingService){}

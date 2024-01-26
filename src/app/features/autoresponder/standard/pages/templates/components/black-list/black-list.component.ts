@@ -48,7 +48,7 @@ export class BlackListComponent implements OnInit {
   }
 
   select(blackList : BlackListVm){
-    
+    this.selectedBlackList = null;
     this.bindService.bind(blackList.id, this.template.id)
       .subscribe({
         complete : () => {

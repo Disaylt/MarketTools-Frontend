@@ -27,24 +27,31 @@
                 </ng-template>
             </div>
             <app-recommendation-variables-clue *ngIf="selectedColumnType.id == 1"></app-recommendation-variables-clue>
-            <ul *ngIf="isLoad == false && columns.length > 0"  class="app-active-list border p-1 active-dark-bg flex-fill mt-2 rounded-2 p-1 mt-2">
-                <li *ngFor="let column of columns" 
-                    (click)="selectColumn(column)" 
-                    class="d-flex flex-row justify-content-between rounded-1" 
-                    [ngClass]="{'active' : selectedColumn == column}">
-                    <span class="py-1 text-truncate app-color-white75">{{column.data.name}}</span>
-                    <div class="ms-1 app-hide">
-                        <button (click)="$event.stopPropagation(); delete(column)" [disabled]="column.actions.isLoad" class="app-icon-button app-icon-circle">
-                            <span *ngIf="column.actions.isLoad == false;  else closeButtonSpiner" class="material-symbols-outlined">
-                                close
-                            </span>
-                            <ng-template #closeButtonSpiner>
-                                <app-spiner size="sm"></app-spiner>
-                            </ng-template>
-                        </button>
-                    </div>
-                </li>
-            </ul>
+            <div class="border p-1 active-dark-bg flex-fill mt-2 rounded-2 p-1">
+                <div>
+                    <input [(ngModel)]="columnsSearchValue"
+                        class="form-control form-control-sm app-select shadow-none mb-1" placeholder="🔍︎ Поиск"
+                        type="text">
+                </div>
+                <ul *ngIf="isLoad == false && columns.length > 0"  class="app-active-list">
+                    <li *ngFor="let column of columns | viewNameFilter : columnsSearchValue" 
+                        (click)="selectColumn(column)" 
+                        class="d-flex flex-row justify-content-between rounded-1" 
+                        [ngClass]="{'active' : selectedColumn == column}">
+                        <span class="py-1 text-truncate app-color-white75">{{column.data.name}}</span>
+                        <div class="ms-1 app-hide">
+                            <button (click)="$event.stopPropagation(); delete(column)" [disabled]="column.actions.isLoad" class="app-icon-button app-icon-circle">
+                                <span *ngIf="column.actions.isLoad == false;  else closeButtonSpiner" class="material-symbols-outlined">
+                                    close
+                                </span>
+                                <ng-template #closeButtonSpiner>
+                                    <app-spiner size="sm"></app-spiner>
+                                </ng-template>
+                            </button>
+                        </div>
+                    </li>
+                </ul>
+            </div>
             <div *ngIf="isLoad" class="active-dark-bg flex-fill mt-2 rounded-2 p-1">
                 <div class="my-2">
                     <app-spiner size="big"></app-spiner>
