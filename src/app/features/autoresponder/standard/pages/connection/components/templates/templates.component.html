@@ -1,1 +1,24 @@
-<p>templates works!</p>
+<app-modal [dialogRef]="dialogRef" name="Шаблоны">
+    <div style="max-width: 300px;">
+        <div *ngIf="isLoad == false; else load">
+            <div>
+                <input [(ngModel)]="searchSellerValue"
+                    class="form-control form-control-sm app-select shadow-none mb-1" placeholder="🔍︎ Поиск"
+                    type="text">
+            </div>
+            <ul class="app-active-list mb-0 overflow-auto app-color-white75" style="max-height: calc(60vh)">
+                <li *ngFor="let tempalte of availableTemplates | nameFilter : searchSellerValue"
+                    (click)="add(tempalte)"
+                    class="d-flex flex-row justify-content-between rounded-1">
+                    <span class="text-truncate">{{tempalte.name}}</span>
+                    <span class="ms-1 app-hide material-symbols-outlined">
+                        add
+                    </span>
+                </li>
+            </ul>
+        </div>
+        <ng-template #load>
+            <app-progress-bar></app-progress-bar>
+        </ng-template>
+    </div>
+</app-modal>

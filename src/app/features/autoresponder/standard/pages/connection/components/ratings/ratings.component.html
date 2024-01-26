@@ -1,34 +1,49 @@
-<div *ngIf="ratings != null; else loadRatings" class="row g-2 app-color-white75">
-    <div *ngFor="let rating of ratings" class="col">
-        <div class="position-relative border app-soft-element-border-color rounded-2 active-dark-bg p-1"
-            style="min-width: 200px; height: 150px;">
-            <div class="d-flex flex-row justify-content-between">
-                <div class="">
-                    <label *ngFor="let _ of [].constructor(rating.data.rating)" class="material-symbols-outlined">
-                        grade
-                    </label>
+<div class="">
+    <div *ngIf="ratings != null; else loadRatings" class="row g-2 app-color-white75">
+        <div *ngFor="let rating of ratings" class="col">
+            <div class="position-relative border app-soft-element-border-color rounded-2 active-dark-bg p-1 h-100"
+                style="min-width: 250px; min-height: 100px;">
+                <div class="d-flex flex-row justify-content-between">
+                    <div class="">
+                        <label *ngFor="let _ of [].constructor(rating.data.rating)" class="material-symbols-outlined">
+                            grade
+                        </label>
+                    </div>
+                    <div>
+                        <button [cdkMenuTriggerFor]="valueMenu" [disabled]="rating.actions.isLoad" class="app-icon-button app-button-border">
+                            <span *ngIf="rating.actions.isLoad == false" class="material-symbols-outlined">
+                                more_horiz
+                            </span>
+                            <app-spiner *ngIf="rating.actions.isLoad" size="sm"></app-spiner>
+                        </button>
+                        <ng-template #valueMenu>
+                            <div class="d-flex flex-column mt-1 rounded-2 app-transparent-dark-bg shadow" cdkMenu>
+                                <button (click)="addTemplates(rating.data)" cdkMenuItem class="app-button">
+                                    <span class="mx-1">Редактировать</span>
+                                </button>
+                                <button (click)="delete(rating)" cdkMenuItem class="app-button">
+                                    <span class="mx-1">Очистить</span>
+                                </button>
+                            </div>
+                        </ng-template>
+                    </div>
                 </div>
-                <div>
-                    <button [cdkMenuTriggerFor]="valueMenu" [disabled]="rating.actions.isLoad" class="app-icon-button app-button-border">
-                        <span *ngIf="rating.actions.isLoad == false" class="material-symbols-outlined">
-                            more_horiz
-                        </span>
-                        <app-spiner *ngIf="rating.actions.isLoad" size="sm"></app-spiner>
-                    </button>
-                    <ng-template #valueMenu>
-                        <div class="d-flex flex-column mt-1 rounded-2 app-transparent-dark-bg shadow" cdkMenu>
-                            <button cdkMenuItem class="app-button">
-                                <span class="mx-1">Редактировать</span>
-                            </button>
-                            <button (click)="delete(rating)" cdkMenuItem class="app-button">
-                                <span class="mx-1">Очистить</span>
+                <ul class="app-active-list mb-0 overflow-auto app-color-white75 mt-1" style="max-height: 300px;">
+                    <li *ngFor="let tempalte of rating.data.templates"
+                        class="d-flex flex-row justify-content-between rounded-1 overflow-hidden">
+                        <span class="text-truncate py-1" style="max-width: 180px;">{{tempalte.name}}</span>
+                        <div class="ms-1 app-hide">
+                            <button [disabled]="isItemDeleting(tempalte.id, rating.data.rating)" (click)="deleteTemplate(rating.data, tempalte.id)" class="app-icon-button">
+                                <span class="material-symbols-outlined">
+                                    close
+                                </span>
                             </button>
                         </div>
-                    </ng-template>
+                    </li>
+                </ul>
+                <div *ngIf="rating.data.templates.length == 0" class="position-absolute top-50 text-center flex-fill">
+                    <label style="font-size: 14px; opacity: 0.5;">Добавьте шаблоны, для ответа на оценку {{rating.data.rating}}.</label>
                 </div>
-            </div>
-            <div class="position-absolute top-50 text-center flex-fill">
-                <label style="font-size: 14px; opacity: 0.5;">Добавьте шаблоны, для ответа на оценку {{rating.data.rating}}.</label>
             </div>
         </div>
     </div>
