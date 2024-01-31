@@ -3,7 +3,7 @@
         <div style="width: 200px;">
             <div class="d-flex flex-row">
                 <select [disabled]="isLoad" [(ngModel)]="selectedColumnType" (ngModelChange)="loadColumns()" class="form-select form-select-sm app-select shadow-none border-1">
-                    <option *ngFor="let columnType of columnTypes"  [ngValue]="columnType">{{columnType.name}}</option>
+                    <option *ngFor="let columnType of columnTypes"  [ngValue]="columnType">{{columnType.nameView}}</option>
                 </select>
                 <div class="ms-1">
                     <button [disabled]="isLoad" [cdkMenuTriggerFor]="addMenu" class="app-icon-button app-main-button app-button-border">
@@ -26,14 +26,14 @@
                     </div>
                 </ng-template>
             </div>
-            <app-recommendation-variables-clue *ngIf="selectedColumnType.id == 1"></app-recommendation-variables-clue>
-            <div class="border p-1 active-dark-bg flex-fill mt-2 rounded-2 p-1">
+            <app-recommendation-variables-clue *ngIf="selectedColumnType.nameEnum == 2"></app-recommendation-variables-clue>
+            <div *ngIf="isLoad == false && columns.length > 0" class="border p-1 active-dark-bg flex-fill mt-2 rounded-2 p-1">
                 <div>
                     <input [(ngModel)]="columnsSearchValue"
                         class="form-control form-control-sm app-select shadow-none mb-1" placeholder="🔍︎ Поиск"
                         type="text">
                 </div>
-                <ul *ngIf="isLoad == false && columns.length > 0"  class="app-active-list">
+                <ul  class="app-active-list mb-0">
                     <li *ngFor="let column of columns | viewNameFilter : columnsSearchValue" 
                         (click)="selectColumn(column)" 
                         class="d-flex flex-row justify-content-between rounded-1" 

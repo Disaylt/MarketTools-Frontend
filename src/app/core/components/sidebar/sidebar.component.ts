@@ -38,7 +38,6 @@ export class SidebarComponent implements OnInit {
 
   setMarketNavigation(){
     let routeLink = "";
-
     switch(this.marketDeterminantService.marketplace.nameEnum){
       case MarketplaceName.wb:
         this.marketBar = WbNavigationStorage.value;

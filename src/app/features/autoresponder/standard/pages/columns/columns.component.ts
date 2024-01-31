@@ -5,16 +5,16 @@ import { CellsComponent } from './pages/cells/cells.component';
 import { CdkMenu, CdkMenuItem, CdkMenuTrigger } from '@angular/cdk/menu';
 import { SpinerComponent } from '../../../../../shared/components/spiner/spiner.component';
 import { RecommendationVariablesClueComponent } from './components/recommendation-variables-clue/recommendation-variables-clue.component';
-import { ColumnType } from './models/column-type.model';
 import { ViewResult } from '../../../../../core/models/view-result.model';
 import { Column, NewColumn } from './models/column.models';
 import { ColumnsService } from './services/columns.service';
 import { ViewMappingService } from '../../../../../core/services/view-mapping.service';
 import { finalize } from 'rxjs';
-import { ColumnTypeStorage } from './constants/column-types.storage';
 import { RouterLink, RouterModule, RouterOutlet } from '@angular/router';
 import { NameFilterPipe } from "../../../../../shared/pipes/name-filter.pipe";
 import { ViewNameFilterPipe } from "../../../../../shared/pipes/view-name-filter.pipe";
+import { ColumnTypesStorage } from '../../../../../core/constants/column-types.storage';
+import { ColumnTypeModel } from '../../../../../core/models/column-type.model';
 
 
 @Component({
@@ -28,8 +28,8 @@ export class ColumnsComponent {
 
   isLoad : boolean = true;
 
-  columnTypes : ColumnType[] = ColumnTypeStorage.value;
-  selectedColumnType : ColumnType = ColumnTypeStorage.value[0];
+  columnTypes : ColumnTypeModel[] = ColumnTypesStorage.value;
+  selectedColumnType : ColumnTypeModel = ColumnTypesStorage.value[0];
   
   isAddingNewColumn : boolean = false;
   selectedColumn : ViewResult<Column> | null = null;
@@ -73,7 +73,7 @@ export class ColumnsComponent {
   }
 
   add(){
-    const type = this.selectedColumnType.id;
+    const type = this.selectedColumnType.nameEnum;
     this.isAddingNewColumn = true;
 
     const newColumn : NewColumn = {
@@ -91,7 +91,7 @@ export class ColumnsComponent {
         {
           next: (data) => {
             const column = this.viewMapper.map(data);
-            if(this.selectedColumnType.id == type){
+            if(this.selectedColumnType.nameEnum == type){
               this.columns.push(column);
             }
           },
@@ -106,7 +106,7 @@ export class ColumnsComponent {
     this.isLoad = true;
     this.selectedColumn = null;
 
-    this.columnsService.getRange(this.selectedColumnType.id)
+    this.columnsService.getRange(this.selectedColumnType.nameEnum)
       .pipe(
         finalize(() => {
           this.isLoad = false;

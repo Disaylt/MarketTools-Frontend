@@ -23,10 +23,8 @@
         </div>
         <div class="col-11">
             <app-tab-bar class="flex-fill">
-                <app-tab-bar-button (click)="changeColumnType(0)"
-                    [ngClass]="{'active' : selectedColumnType == 0}">Стандартныe</app-tab-bar-button>
-                <app-tab-bar-button (click)="changeColumnType(1)"
-                    [ngClass]="{'active' : selectedColumnType == 1}">С рекомендациями</app-tab-bar-button>
+                <app-tab-bar-button *ngFor="let columnType of columnTypes" (click)="changeColumnType(columnType.nameEnum)"
+                    [ngClass]="{'active' : selectedColumnType == columnType.nameEnum}">{{columnType.nameView}}</app-tab-bar-button>=
             </app-tab-bar>
         </div>
     </div>

@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ColumnTypeStorage } from '../../../../columns/constants/column-types.storage';
 import { BindPositionModel } from '../models/bind-position.model';
 import { ColumnType } from '../../../../../../../../core/enums/columns-type.enum';
 

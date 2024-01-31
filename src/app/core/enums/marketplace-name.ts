@@ -1,5 +1,5 @@
 export enum MarketplaceName{
-    wb,
+    wb = 1,
     ozon,
     amazon
 }

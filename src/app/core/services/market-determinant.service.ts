@@ -15,6 +15,7 @@ export class MarketDeterminantService {
   }
 
   set marketplace(value : Marketplace){
+    console.log(value);
     this._marketplace = value;
     this.toggleEvent.emit();
   }

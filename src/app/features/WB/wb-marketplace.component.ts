@@ -14,6 +14,6 @@ import { MarketplaceStorage } from '../../core/constants/navigations/marketpkace
 export class WbMarketplaceComponent {
 
   constructor(marketplaceDetemint : MarketDeterminantService){
-    marketplaceDetemint.marketplace = MarketplaceStorage.value[MarketplaceName.wb];
+    marketplaceDetemint.marketplace = MarketplaceStorage.value.find(x=> x.nameEnum == MarketplaceName.wb)!;
   }
 }

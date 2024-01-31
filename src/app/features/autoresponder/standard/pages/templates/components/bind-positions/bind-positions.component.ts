@@ -13,11 +13,12 @@ import { CommonModule } from '@angular/common';
 import { ColumnsService } from '../../../columns/services/columns.service';
 import { BindPositionsService } from './services/bind-positions.service';
 import { Observable, finalize, switchMap } from 'rxjs';
-import { ColumnTypeStorage } from '../../../columns/constants/column-types.storage';
 import { Column } from '../../../columns/models/column.models';
 import { ColumnType } from '../../../../../../../core/enums/columns-type.enum';
 import { ProgressBarComponent } from "../../../../../../../shared/components/progress-bar/progress-bar.component";
 import { BindPositionModel } from './models/bind-position.model';
+import { ColumnTypeModel } from '../../../../../../../core/models/column-type.model';
+import { ColumnTypesStorage } from '../../../../../../../core/constants/column-types.storage';
 
 @Component({
     selector: 'app-bind-positions',
@@ -35,6 +36,7 @@ export class BindPositionsComponent {
     this.load();
   }
 
+  columnTypes : ColumnTypeModel[] = ColumnTypesStorage.value;
   selectedColumnType : ColumnType = ColumnType.standard;
   isLoad : boolean = false;
   
