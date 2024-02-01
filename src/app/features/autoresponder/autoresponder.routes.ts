@@ -7,6 +7,7 @@ import { BlackListsComponent } from "./standard/pages/black-lists/black-lists.co
 import { BanWordsComponent } from "./standard/pages/black-lists/components/ban-words/ban-words.component";
 import { TemplatesComponent } from "./standard/pages/templates/templates.component";
 import { ConnectionComponent } from "./standard/pages/connection/connection.component";
+import { ResponseTestingComponent } from "./standard/pages/response-testing/response-testing.component";
 
 export const autoresponderRoutes : Routes = [
     {
@@ -38,6 +39,11 @@ export const autoresponderRoutes : Routes = [
                 title : "Подключение",
                 path : "connections",
                 component : ConnectionComponent
+            },
+            {
+                title : "Тестирование",
+                path : "testing",
+                component : ResponseTestingComponent
             }
         ]
     }

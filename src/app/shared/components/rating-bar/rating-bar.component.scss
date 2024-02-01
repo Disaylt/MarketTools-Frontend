@@ -1,0 +1,40 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+.rate {
+    float: left;
+    padding: 0 5px;
+}
+.rate:not(:checked) > input {
+    position:absolute;
+    top:-9999px;
+}
+.rate:not(:checked) > label {
+    float:right;
+    width:1em;
+    overflow:hidden;
+    white-space:nowrap;
+    cursor:pointer;
+    font-size:30px;
+    color: var(--grey-transparent75);
+}
+.rate:not(:checked) > label:before {
+    content: 'grade';
+}
+
+.rate > input:checked ~ label {
+    color: var(--white-transparent75);
+    font-variation-settings: 'FILL' 1;
+}
+.rate:not(:checked) > label:hover,
+.rate:not(:checked) > label:hover ~ label {
+    color: white;
+}
+.rate > input:checked + label:hover,
+.rate > input:checked + label:hover ~ label,
+.rate > input:checked ~ label:hover,
+.rate > input:checked ~ label:hover ~ label,
+.rate > label:hover ~ input:checked ~ label {
+    color: white;
+}

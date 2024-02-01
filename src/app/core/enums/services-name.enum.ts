@@ -1,3 +1,3 @@
 export enum ServicesName{
-    standardAutoresponder
+    standardAutoresponder = 1
 }
