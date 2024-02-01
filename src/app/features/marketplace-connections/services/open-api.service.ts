@@ -1,12 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { NewOpenApiConnectionBody, OpenApiRefreshTokenBody } from '../models/seller-open-api.model';
-import { MarketplaceConnectionModel } from '../../../../marketplace-connections/models/marketplace-connection.model';
+import { NewOpenApiConnectionBody, OpenApiRefreshTokenBody } from '../models/open-api.models';
+import { MarketplaceConnectionModel } from '../models/marketplace-connection.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class SellerOpenApiConnectionsService {
+export class OpenApiService {
 
   constructor(private httpClient : HttpClient) { }
 

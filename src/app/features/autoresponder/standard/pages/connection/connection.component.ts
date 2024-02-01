@@ -22,6 +22,7 @@ import { RatingsComponent } from "./components/ratings/ratings.component";
 import { RatingModel } from './models/rating.model';
 import { ReversScorePipe } from "../../../../../shared/pipes/revers-score.pipe";
 import { ViewReversScorePipe } from "../../../../../shared/pipes/view-revers-score.pipe";
+import { ServicesName } from '../../../../../core/enums/services-name.enum';
 
 @Component({
     selector: 'app-connection',
@@ -70,9 +71,7 @@ export class ConnectionComponent {
     this.isLoad = true;
     this.sellers = [];
 
-    const connectionType = this.getType();
-
-    this.sellerService.getRange(connectionType)
+    this.sellerService.getRangeByService(ServicesName.standardAutoresponder, this.marketDeterminantService.marketplace.nameEnum)
       .pipe(
         finalize(() => {
           this.isLoad = false;
@@ -85,17 +84,6 @@ export class ConnectionComponent {
           }
         }
       )
-  }
-
-  private getType() : MarketplaceConnectionType{
-    const marketplaceName = this.marketDeterminantService.marketplace;
-
-    switch(marketplaceName.nameEnum){
-      case MarketplaceName.wb:
-        return MarketplaceConnectionType.wbSellerOpenApi;
-      default:
-        throw new Error();
-    }
   }
 
 }

@@ -1,12 +1,14 @@
 import { DialogRef } from '@angular/cdk/dialog';
 import { Component } from '@angular/core';
 import { ModalComponent } from "../../../../../../shared/components/modal/modal.component";
-import { NewOpenApiConnectionBody } from '../../models/seller-open-api.model';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { SellerOpenApiConnectionsService } from '../../services/seller-open-api-connections.service';
 import { finalize } from 'rxjs';
 import { SpinerComponent } from "../../../../../../shared/components/spiner/spiner.component";
+import { NewOpenApiConnectionBody } from '../../../../../marketplace-connections/models/open-api.models';
+import { OpenApiService } from '../../../../../marketplace-connections/services/open-api.service';
+import { MarketDeterminantService } from '../../../../../../core/services/market-determinant.service';
+import { MarketplaceName } from '../../../../../../core/enums/marketplace-name';
 
 @Component({
     selector: 'app-new-connection-modal',
@@ -18,13 +20,18 @@ import { SpinerComponent } from "../../../../../../shared/components/spiner/spin
 export class NewConnectionModalComponent {
 
   isLoad : boolean = false;
-  newConnection : NewOpenApiConnectionBody = {
-    name : "",
-    description : "",
-    token : ""
-  }
+  newConnection : NewOpenApiConnectionBody;
 
-  constructor(public dialogRef: DialogRef<any>, private openApiConnectionService : SellerOpenApiConnectionsService){}
+  constructor(public dialogRef: DialogRef<any>, 
+    private openApiConnectionService : OpenApiService)
+  {
+    this.newConnection = {
+      name : "",
+      description : "",
+      token : "",
+      marketplaceName : MarketplaceName.wb
+    }
+  }
 
   add(){
     this.isLoad = true;

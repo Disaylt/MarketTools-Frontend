@@ -2,12 +2,12 @@ import { Component, Input } from '@angular/core';
 import { ModalComponent } from "../../../../../../shared/components/modal/modal.component";
 import { DialogRef } from '@angular/cdk/dialog';
 import { MarketplaceConnectionsService } from '../../../../../marketplace-connections/services/marketplace-connections.service';
-import { SellerOpenApiConnectionsService } from '../../services/seller-open-api-connections.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { finalize } from 'rxjs';
 import { MarketplaceConnectionModel } from '../../../../../marketplace-connections/models/marketplace-connection.model';
 import { SpinerComponent } from "../../../../../../shared/components/spiner/spiner.component";
+import { OpenApiService } from '../../../../../marketplace-connections/services/open-api.service';
 
 @Component({
     selector: 'app-refresh-token-modal',
@@ -23,7 +23,7 @@ export class RefreshTokenModalComponent {
   
   @Input({required : true}) data! : MarketplaceConnectionModel;
   
-  constructor(public dialogRef: DialogRef<any>, private openApiConnectionService : SellerOpenApiConnectionsService){}
+  constructor(public dialogRef: DialogRef<any>, private openApiConnectionService : OpenApiService){}
 
   refresh(){
     this.isLoad = true;

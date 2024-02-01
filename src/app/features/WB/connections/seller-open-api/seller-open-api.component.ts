@@ -4,7 +4,6 @@ import { NewConnectionModalComponent } from './components/new-connection-modal/n
 import { MarketplaceConnectionsService } from '../../../marketplace-connections/services/marketplace-connections.service';
 import { MarketplaceConnectionType } from '../../../../core/enums/marketplace-connection.enum';
 import { MarketplaceConnectionModel } from '../../../marketplace-connections/models/marketplace-connection.model';
-import { WbSellerOpenApiConnectionComponent } from "./components/wb-seller-open-api-connection/wb-seller-open-api-connection.component";
 import { CommonModule } from '@angular/common';
 import { ProgressBarComponent } from "../../../../shared/components/progress-bar/progress-bar.component";
 import { finalize } from 'rxjs';
@@ -12,13 +11,16 @@ import { PaginationBarComponent } from "../../../../shared/components/pagination
 import { ActiveFilter } from '../../../../shared/pipes/models/active-filter.model';
 import { CdkMenu, CdkMenuItem, CdkMenuTrigger } from '@angular/cdk/menu';
 import { FormsModule } from '@angular/forms';
+import { OpenApiService } from '../../../marketplace-connections/services/open-api.service';
+import { MarketDeterminantService } from '../../../../core/services/market-determinant.service';
+import { WbSellerOpenApiConnectionComponent } from "./components/wb-seller-open-api-connection/wb-seller-open-api-connection.component";
 
 @Component({
     selector: 'app-seller-open-api',
     standalone: true,
     templateUrl: './seller-open-api.component.html',
     styleUrl: './seller-open-api.component.scss',
-    imports: [WbSellerOpenApiConnectionComponent, FormsModule, CommonModule, ProgressBarComponent, PaginationBarComponent, CdkMenuTrigger, CdkMenu, CdkMenuItem]
+    imports: [FormsModule, CommonModule, ProgressBarComponent, PaginationBarComponent, CdkMenuTrigger, CdkMenu, CdkMenuItem, WbSellerOpenApiConnectionComponent]
 })
 export class SellerOpenApiComponent implements OnInit {
 
@@ -29,12 +31,14 @@ export class SellerOpenApiComponent implements OnInit {
     isHideInactive : false
   }
 
-  constructor(private dialog: Dialog, private marketplaceConnectionService : MarketplaceConnectionsService){}
+  constructor(private dialog: Dialog, 
+    private marketplaceConnectionService : MarketplaceConnectionsService,
+    private marketplaceDeterminantService : MarketDeterminantService){}
 
   ngOnInit(): void {
     this.isLoad = true;
 
-    this.marketplaceConnectionService.getRange(MarketplaceConnectionType.wbSellerOpenApi)
+    this.marketplaceConnectionService.getRangeByType(MarketplaceConnectionType.openApi, this.marketplaceDeterminantService.marketplace.nameEnum)
       .pipe(
         finalize(()=> {
           this.isLoad = false;
