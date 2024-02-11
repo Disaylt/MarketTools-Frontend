@@ -56,9 +56,11 @@
                         </ng-template>
                     </div>
                     <div class="form-check form-switch m-0 d-flex align-items-center">
+                        <app-spiner *ngIf="isLoadActiveStatus" class="me-1" size="sm"></app-spiner>
                         <app-active-status-info [isActive]="selectSeller.autoresponderConnection.isActive" activeText="Вкл." inactiveText="Выкл."></app-active-status-info>
                         <input [(ngModel)]="selectSeller.autoresponderConnection.isActive"
                             (ngModelChange)="changeStatus(selectSeller)"
+                            [disabled]="isLoadActiveStatus"
                          class="form-check-input shadow-none app-check-input m-0 ms-1" 
                          type="checkbox" role="switch">
                       </div>

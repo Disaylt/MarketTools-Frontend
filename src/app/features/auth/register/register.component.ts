@@ -20,7 +20,8 @@ export class RegisterComponent {
   value : Register = {
     email : "",
     password : "",
-    repeatPassword : ""
+    repeatPassword : "",
+    userName : ""
   }
 
   constructor(private authService : AuthService, 

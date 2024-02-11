@@ -8,6 +8,7 @@ export interface Login{
 }
 
 export interface Register extends Login{
+    userName : string;
     repeatPassword : string;
 }
 

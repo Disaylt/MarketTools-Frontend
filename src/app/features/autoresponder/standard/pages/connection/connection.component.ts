@@ -38,6 +38,7 @@ export class ConnectionComponent {
   selectSeller : MarketplaceConnectionModel | null = null;
   sellers : MarketplaceConnectionModel[] = [];
   ratingsForAdd : number[] = [5,4,3,2,1]
+  isLoadActiveStatus : boolean = false;
 
   @ViewChild(CdkMenu) cdkMenu!: CdkMenu;
   @ViewChild(RatingsComponent) ratingsComponent! : RatingsComponent;
@@ -57,8 +58,12 @@ export class ConnectionComponent {
   }
   
   changeStatus(selectSeller : MarketplaceConnectionModel){
+    this.isLoadActiveStatus = true;
     this.autoresponderConnectionSeervice
       .updateActiveStatus(selectSeller.id, selectSeller.autoresponderConnection.isActive)
+      .pipe(finalize(() => {
+        this.isLoadActiveStatus = false;
+      }))
       .subscribe({
         error : () => {
           selectSeller.autoresponderConnection.isActive = !selectSeller.autoresponderConnection.isActive;

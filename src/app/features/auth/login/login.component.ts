@@ -29,15 +29,15 @@ export class LoginComponent implements OnInit {
   
   ngOnInit(): void {
     this.identityService.getAuthStatus()
+      .pipe(finalize(() => {
+        this.isLoad = false;
+      }))
       .subscribe(
         {
           next: (data) => {
             if(data.isAuth){
               this.router.navigate(["/dashboard"])
             }
-          },
-          complete: () => {
-            this.isLoad = false;
           }
         }
     )
