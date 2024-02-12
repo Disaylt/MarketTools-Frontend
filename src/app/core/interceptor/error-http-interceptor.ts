@@ -3,19 +3,22 @@ import { Injectable } from "@angular/core";
 import { ToastrService } from "ngx-toastr";
 import { Observable, catchError, tap, throwError } from "rxjs";
 import { AuthService } from "../services/auth.service";
+import { Router } from "@angular/router";
 
 @Injectable()
 export class ErrorHttpInterceptor implements HttpInterceptor{
 
-    constructor(private toastsService : ToastrService, private asuthService : AuthService){}
+    constructor(private toastsService : ToastrService, private authService : AuthService, private routerService : Router){}
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         return next.handle(req).pipe(
             catchError((error: HttpErrorResponse) => {
                 switch(error.status){
                     case 401:
+                        this.exit();
                         break;
                     case 403:
+                        this.exit();
                         break;
                     case 404:
                         this.sendAlerts(error.error, "Объект не найден");
@@ -28,6 +31,11 @@ export class ErrorHttpInterceptor implements HttpInterceptor{
           );
     }
     
+    private exit(){
+        this.authService.deleteToken();
+        this.routerService.navigate(["/auth"])
+    }
+
     private sendAlerts(errorBody : any, notBodyMessage : string){
         try{
             for(const key of Object.keys(errorBody.errors)){

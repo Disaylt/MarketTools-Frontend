@@ -24,10 +24,10 @@ export class UserNotificationCounterService {
       return;
     }
 
-    this.toastsService.error("У вас есть непрочитанные уведомления.", "", {
+    this.toastsService.info("У вас есть непрочитанные уведомления.", "", {
       progressBar : true,
       closeButton : true,
-      toastClass: "ngx-toastr shadow-none rounded-3 app-info-alert-bg"
+      toastClass: "ngx-toastr shadow-none rounded-3 app-error-alert-bg"
   });
   }
 }
