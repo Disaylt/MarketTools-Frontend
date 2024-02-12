@@ -34,6 +34,7 @@ export class SidebarComponent implements OnInit {
       .subscribe(x=> {
         this.setMarketNavigation();
       })
+      this.setMarketNavigation();
   }
 
   setMarketNavigation(){
