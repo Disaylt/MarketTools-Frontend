@@ -1,51 +1,56 @@
 <div id="sidebar">
-    <div class="mx-2 ">
-        <div class="mb-2">
+    <div class="mx-2 d-flex flex-column justify-content-between" style="height: calc(100vh - 90px);"> 
+        <div>
             <select [(ngModel)]="marketDeterminantService.marketplace" (ngModelChange)="setMarketNavigation()" class="form-select app-select shadow-none border-1 px-2" style="width: 200px;">
                 <option *ngFor="let market of markets" [ngValue]="market">{{market.nameView}}</option>
               </select>
-        </div>
-        <div style="width: 200px;" class="active-dark-bg p-1 rounded-2 text-white border">
-            <div class="accordion accordion-flush" id="accordionMenu">
-                <div *ngFor="let nav of marketBar" class="mb-1">
-                    <div *ngIf="nav.main.path != null; else colapceBar">
-                        <a 
-                        [ngClass]="{'app-link-disabled' : nav.main.isDisabled}"
-                        class="app-link app-main-link d-flex align-items-center py-1" 
-                        [routerLink]="nav.main.path"
-                        routerLinkActive="active"
-                        type="button" >
-                            <span class="material-symbols-outlined me-1">{{nav.iconCode}}</span>
-                            {{nav.main.name}}
-                        </a>
-                    </div>
-                    <ng-template #colapceBar>
-                        <div *ngIf="nav.colapseName != null" class="">
-                            <a
+              <div style="width: 200px;" class="active-dark-bg p-1 rounded-2 text-white border mt-2">
+                <div class="accordion accordion-flush" id="accordionMenu">
+                    <div *ngFor="let nav of marketBar" class="mb-1">
+                        <div *ngIf="nav.main.path != null; else colapceBar">
+                            <a 
                             [ngClass]="{'app-link-disabled' : nav.main.isDisabled}"
-                            class="app-link app-main-link d-flex align-items-center collapsed py-1 accordion-nav" 
-                            type="button" 
-                            data-bs-toggle="collapse" 
-                            [attr.data-bs-target]="'#' + nav.colapseName">
+                            class="app-link app-main-link d-flex align-items-center py-1" 
+                            [routerLink]="nav.main.path"
+                            routerLinkActive="active"
+                            type="button" >
                                 <span class="material-symbols-outlined me-1">{{nav.iconCode}}</span>
-                                <span class="me-1">{{nav.main.name}}</span>
+                                {{nav.main.name}}
                             </a>
-                            <div id="{{nav.colapseName}}" class="accordion-collapse collapse px-1" data-bs-parent="#accordionMenu">
-                                <div class="d-flex flex-column border-start ps-1">
-                                    <a *ngFor="let subNav of nav.parent" 
-                                    href="#"
-                                    [routerLink]="subNav.path"
-                                    routerLinkActive="active"
-                                    [ngClass]="subNav.isDisabled ? 'app-link-disabled' : ''" 
-                                    class="app-link app-main-link sub-nav">
-                                    {{subNav.name}}
+                        </div>
+                        <ng-template #colapceBar>
+                            <div *ngIf="nav.colapseName != null" class="">
+                                <a
+                                [ngClass]="{'app-link-disabled' : nav.main.isDisabled}"
+                                class="app-link app-main-link d-flex align-items-center collapsed py-1 accordion-nav" 
+                                type="button" 
+                                data-bs-toggle="collapse" 
+                                [attr.data-bs-target]="'#' + nav.colapseName">
+                                    <span class="material-symbols-outlined me-1">{{nav.iconCode}}</span>
+                                    <span class="me-1">{{nav.main.name}}</span>
                                 </a>
+                                <div id="{{nav.colapseName}}" class="accordion-collapse collapse px-1" data-bs-parent="#accordionMenu">
+                                    <div class="d-flex flex-column border-start ps-1">
+                                        <a *ngFor="let subNav of nav.parent" 
+                                        href="#"
+                                        [routerLink]="subNav.path"
+                                        routerLinkActive="active"
+                                        [ngClass]="subNav.isDisabled ? 'app-link-disabled' : ''" 
+                                        class="app-link app-main-link sub-nav">
+                                        {{subNav.name}}
+                                    </a>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </ng-template>
-                </div>
-              </div>
+                        </ng-template>
+                    </div>
+                  </div>
+            </div>
+        </div>
+        <div class="active-dark-bg p-1 rounded-2 border mt-2">
+            <a _ngcontent-tuh-c37="" href="https://t.me/mp_snake" target="_blank" class="app-link app-main-link m-1 d-flex align-items-center"><span class="material-symbols-outlined me-1">send</span>Чат пользователей</a>
+            <a _ngcontent-tuh-c37="" href="https://t.me/mpsnake" target="_blank" class="app-link app-main-link m-1 d-flex align-items-center"><span class="material-symbols-outlined me-1">send</span>Новости проекта</a>
+            <a _ngcontent-tuh-c37="" href="https://t.me/cs_dec" target="_blank" class="app-link app-main-link m-1 d-flex align-items-center"><span class="material-symbols-outlined me-1">send</span>Разработчик</a>
         </div>
     </div>
 </div>
