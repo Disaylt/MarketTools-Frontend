@@ -10,6 +10,7 @@ import { wbRoute } from './features/WB/wb.routes';
 import { MarketplaceNotFoundComponent } from './shared/pages/marketplace-not-found/marketplace-not-found.component';
 import { OzonMarketplaceComponent } from './features/ozon-marketplace/ozon-marketplace.component';
 import { WbMarketplaceComponent } from './features/WB/wb-marketplace.component';
+import { userRoute } from './features/user/user.routes';
 
 
 export const authDashboardGuard = (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
@@ -35,6 +36,7 @@ export const routes: Routes = [
                 redirectTo: "wb/info",
                 pathMatch: "full"
             },
+            userRoute,
             wbRoute,
             {
                 title : "Страница не найдена",
