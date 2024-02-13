@@ -1,0 +1,7 @@
+<div class="d-inline-flex text-white border rounded-2 px-1 fw-light" 
+    [ngClass]="{'app-success-border-color app-success-bg' : isActive, 'app-error-border-color app-error-bg' : isActive == false}">
+    <label *ngIf="isActive; else inactiveTemplate" style="font-size: 12px;">{{activeText}}</label>
+    <ng-template #inactiveTemplate>
+        <label style="font-size: 12px;">{{inactiveText}}</label>
+    </ng-template>
+</div>

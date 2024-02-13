@@ -1,1 +1,52 @@
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use '@angular/material' as mat;
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$MarketTools-Frontend-primary: mat.define-palette(mat.$indigo-palette);
+$MarketTools-Frontend-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$MarketTools-Frontend-warn: mat.define-palette(mat.$red-palette);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$MarketTools-Frontend-theme: mat.define-light-theme((
+  color: (
+    primary: $MarketTools-Frontend-primary,
+    accent: $MarketTools-Frontend-accent,
+    warn: $MarketTools-Frontend-warn,
+  )
+));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($MarketTools-Frontend-theme);
+
 /* You can add global styles to this file, and also import other style files */
+
+@import 'assets/styles/utilities/variables.scss';
+@import 'assets/styles/utilities/alerts.scss';
+@import 'assets/styles/utilities/elements.scss';
+@import 'assets/styles/layout/container.scss';
+@import 'assets/styles/base/colors.scss';
+@import 'assets/styles/base/scrollbar.scss';
+@import 'assets/styles/components/components.scss';
+@import 'assets/styles/components/lists.scss';
+@import 'assets/styles/components/checked.scss';
+@import 'assets/styles/components/tooltip.scss';
+@import 'assets/styles/base/media.scss';
+@import 'assets/styles/base/table.scss';
+@import 'assets/styles/base/borders.scss';
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

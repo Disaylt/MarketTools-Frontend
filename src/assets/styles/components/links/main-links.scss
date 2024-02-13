@@ -1,0 +1,12 @@
+.app-main-link{
+    color: $white-transporent75;
+}
+
+
+.app-main-link:hover{
+    color: white;
+}
+
+.app-main-link:active{
+    transform: scaleY(0.96)
+}

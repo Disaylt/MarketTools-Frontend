@@ -1,0 +1,24 @@
+<app-modal [dialogRef]="dialogRef" name="Создание API кабинета">
+    <div style="max-width: 400px;">
+        <input [(ngModel)]="newConnection.name" class="form-control form-control-sm app-select shadow-none mb-1"
+            placeholder="Название" type="text">
+        <input [(ngModel)]="newConnection.token" class="form-control form-control-sm app-select shadow-none mb-1"
+            placeholder="Токен" type="text">
+        <input [(ngModel)]="newConnection.description" class="form-control form-control-sm app-select shadow-none mb-1"
+            placeholder="Описание" type="text">
+        <div class="active-dark-bg app-warn-alert app-color-white75 flex-fill d-flex align-items-center rounded-1 p-1 mb-1">
+            <span class="material-symbols-outlined me-1">
+                info
+            </span>
+            <div style="font-size: 12px;" class="app-color-white75 lh-sm">
+                Описание позволяет напомнить какой вид/тип токена используете или для каких сервисов добавлена компания.
+            </div>
+        </div>
+        <div class="d-flex justify-content-end">
+            <button [disabled]="newConnection.name.length == 0 || isLoad" (click)="add()" class="app-button app-main-button app-button-border">
+                <app-spiner *ngIf="isLoad" class="me-1" size="sm"></app-spiner>
+                <span>Создать</span>
+            </button>
+        </div>
+    </div>
+</app-modal>

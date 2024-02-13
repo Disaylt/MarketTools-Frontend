@@ -1,0 +1,12 @@
+<div class="d-flex flex-row">
+    <div ngClass="d-flex align-items-center" class="grade" *ngFor="let rate of rates">
+        <input (change)="change(rate)" type="radio" [id]="rate" name="rate" [(ngModel)]="selectRate" [value]="rate" />
+        <label [ngClass]="{'active' : isActive(rate), 'hover' : isHover(rate)}" 
+        for="{{rate}}" 
+        class="material-symbols-outlined"
+        (mouseover)="hoverRate = rate"
+        (mouseout)="hoverRate = 0">
+            grade
+        </label>
+    </div>
+</div>

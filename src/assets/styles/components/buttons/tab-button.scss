@@ -1,0 +1,25 @@
+.app-tab-button{
+    background-color: transparent;
+    border: none;
+    white-space: nowrap;
+    color: $white-transporent75;
+    border-color: white;
+    border-radius: 10px 10px 0 0;
+    padding: 0 5px;
+}
+
+.app-tab-button.active{
+    color: white;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+}
+
+.app-tab-button:hover{
+    color: white;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+}
+
+.app-tab-button:active{
+    background-color: $grey-transporent25;
+}

@@ -1,0 +1,43 @@
+<div class="d-flex flex-row">
+    <div>
+        <div style="width: 160px;">
+            <div class="d-flex flex-row">
+                <input (keydown.enter)="add()" [(ngModel)]="newBlackList.name" class="form-control form-control-sm app-select shadow-none me-1" placeholder="Название" type="text">
+                <button [disabled]="newBlackList.name.length === 0 || isLoad || newBlackList.isLoad" (click)="add()" class="app-button app-main-button app-button-border">
+                    <span *ngIf="newBlackList.isLoad == false; else addButtonSpiner" class="material-symbols-outlined">
+                        add
+                    </span>
+                    <ng-template #addButtonSpiner>
+                        <app-spiner size="sm"></app-spiner>
+                    </ng-template>
+                </button>
+            </div>
+            <ul *ngIf="isLoad == false && blackLists.length > 0" class="app-active-list border p-1 active-dark-bg flex-fill mt-2 rounded-2 p-1 mt-2">
+                <li *ngFor="let blackList of blackLists" 
+                    (click)="selectBlackList(blackList)" 
+                    class="d-flex flex-row justify-content-between rounded-1 active" 
+                    [ngClass]="{'active' : selectedBlackList == blackList.data}">
+                    <span class="py-1 text-truncate app-color-white75">{{blackList.data.name}}</span>
+                    <div class="ms-1 app-hide">
+                        <button (click)="$event.stopPropagation(); delete(blackList)" [disabled]="blackList.actions.isLoad" class="app-icon-button app-icon-circle">
+                            <span *ngIf="blackList.actions.isLoad == false; else closeButtonSpiner" class="material-symbols-outlined">
+                                close
+                            </span>
+                            <ng-template #closeButtonSpiner>
+                                <app-spiner size="sm"></app-spiner>
+                            </ng-template>
+                        </button>
+                    </div>
+                </li>
+            </ul>
+            <div *ngIf="isLoad" class="active-dark-bg flex-fill mt-2 rounded-2 p-1 border">
+                <div class="my-2">
+                    <app-spiner size="big"></app-spiner>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="selectedBlackList != null" class="flex-fill mx-1">
+        <app-ban-words [blackListId]="selectedBlackList.id"></app-ban-words>
+    </div>
+</div>

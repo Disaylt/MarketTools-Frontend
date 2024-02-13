@@ -1,0 +1,16 @@
+<div style="max-width: 200px; min-width: 150px;" class="rounded-2 app-transparent-dark-bg border shadow p-1 mt-1">
+    <ul style="max-height: 300px;" *ngIf="selectedBlackList != null; else load" class="app-active-list mb-0 overflow-auto">
+        <li *ngFor="let blackList of blackLists" 
+            (click)="select(blackList)"
+            class="d-flex flex-row justify-content-between rounded-1"
+            [ngClass]="{'active' : selectedBlackList == blackList}">
+            <span class="text-truncate app-color-white75">{{blackList.name}}</span>
+            <span *ngIf="selectedBlackList == blackList" class="material-symbols-outlined">
+                check
+            </span>
+        </li>
+    </ul>
+    <ng-template #load>
+        <app-spiner size="big"></app-spiner>
+    </ng-template>
+</div>

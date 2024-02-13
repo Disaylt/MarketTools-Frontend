@@ -1,0 +1,13 @@
+.app-link{
+    text-decoration: none;
+}
+
+.app-link.active{
+    color: white;
+}
+
+.app-link-disabled{
+    opacity: 0.5;
+    pointer-events: none;
+    cursor: not-allowed;
+}

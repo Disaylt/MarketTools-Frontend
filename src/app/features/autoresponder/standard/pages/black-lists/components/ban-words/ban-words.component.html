@@ -1,0 +1,33 @@
+<div class="ms-2">
+    <div style="max-width: 300px;" class="d-flex flex-row mb-2">
+        <input  (keydown.enter)="add()" [(ngModel)]="newBanWord.value" class="form-control form-control-sm app-select shadow-none me-1" placeholder="Слово/Фраза (Enter)" type="text">
+        <button (click)="add()" [disabled]="newBanWord.isLoad || isLoad || newBanWord.value.length === 0" class="app-button app-main-button app-button-border">
+            <span *ngIf="newBanWord.isLoad == false; else addButtonSpiner" class="material-symbols-outlined">
+                add
+            </span>
+            <ng-template #addButtonSpiner>
+                <app-spiner size="sm"></app-spiner>
+            </ng-template>
+        </button>
+    </div>
+    <div *ngIf="isLoad" class="my-3">
+        <app-progress-bar></app-progress-bar>
+    </div>
+    <div *ngIf="banWords.length > 0" class="active-dark-bg border app-soft-element-border-color rounded-2">
+        <div class="d-flex flex-row flex-wrap class app-color-white75">
+            <div *ngFor="let banWord of banWords" class="text-break border rounded-1 p-1 m-1 flex-fill app-border-active">
+                <div class="d-flex flex-row align-items-center justify-content-between">
+                    <label class="me-1">{{banWord.data.value}}</label>
+                    <button [disabled]="banWord.actions.isLoad" (click)="delete(banWord)" class="app-button app-main-button">
+                        <span *ngIf="banWord.actions.isLoad == false; else closeButtonSpiner" class="material-symbols-outlined">
+                            close
+                        </span>
+                        <ng-template #closeButtonSpiner>
+                            <app-spiner size="sm"></app-spiner>
+                        </ng-template>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

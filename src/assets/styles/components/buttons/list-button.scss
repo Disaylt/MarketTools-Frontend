@@ -1,0 +1,42 @@
+.app-list-button{
+    display: flex;
+    height: 32px;
+    padding: 2px 5px 2px 5px;
+    background-color: var(--elements-dark);
+    border: 0px;
+    border-radius: 6px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.app-list-button:disabled {
+    opacity: 0.6;
+    pointer-events: none;
+  }
+
+.app-list-button.active{
+    background-color: $grey-transporent50;
+    pointer-events: none;
+}
+
+.app-list-button.active span {
+    color: white;
+}
+
+.app-list-button span {
+    color: $white-transporent75;
+}
+
+.app-list-button:hover{
+    background-color: $grey-transporent25;
+    border: 1px;
+}
+
+.app-list-button:hover span{
+    color: white;
+}
+
+.app-list-button:active{
+    background-color: $grey-transporent50;
+}

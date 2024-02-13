@@ -1,0 +1,55 @@
+.app-button{
+    display: flex;
+    align-items: center;
+    height: 32px;
+    min-width: 32px;
+    padding: 2px 5px 2px 5px;
+    justify-content: center;
+    background-color: $transparent0;
+    border-width: 0px;
+    border-radius: 6px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.app-big-button {
+    height: 40px;
+    padding: 2px 10px 2px 10px;
+    font-size: 18px;
+}
+
+.app-button.app-button-border {
+    border-width: 1px;
+    border-color: var(--grey-transparent50);
+}
+
+.app-button:disabled {
+    opacity: 0.6;
+    pointer-events: none;
+  }
+
+.app-button.active{
+    background-color: $grey-transporent50;
+    pointer-events: none;
+}
+
+.app-button.active span {
+    color: white;
+}
+
+.app-button span {
+    color: $white-transporent75;
+}
+
+.app-button:hover{
+    background-color: $grey-transporent25;
+}
+
+.app-button:hover span{
+    color: white;
+}
+
+.app-button:active{
+    background-color: $grey-transporent50;
+}

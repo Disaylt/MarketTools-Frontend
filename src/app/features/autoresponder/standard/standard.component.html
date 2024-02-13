@@ -1,0 +1,15 @@
+<div class="mx-1">
+    <app-tab-bar>
+        <app-tab-bar-button routerLink="columns" routerLinkActive="active">Колонки</app-tab-bar-button>
+        <app-tab-bar-button routerLink="recommendation-table" routerLinkActive="active">Таблица рекомендаций</app-tab-bar-button>
+        <app-tab-bar-button routerLink="black-lists" routerLinkActive="active">Черный список</app-tab-bar-button>
+        <app-tab-bar-button routerLink="templates" routerLinkActive="active">Шаблоны</app-tab-bar-button>
+        <app-tab-bar-button routerLink="connections" routerLinkActive="active">Подключение</app-tab-bar-button>
+        <app-tab-bar-button routerLink="reports" routerLinkActive="active">Отчеты</app-tab-bar-button>
+        <app-tab-bar-button routerLink="testing" routerLinkActive="active">Тестирование</app-tab-bar-button>
+    </app-tab-bar>
+
+    <div class="mt-3">
+        <router-outlet></router-outlet>
+    </div>
+</div>

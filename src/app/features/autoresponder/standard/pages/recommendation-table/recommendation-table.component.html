@@ -1,0 +1,136 @@
+<div class="d-flex flex-row active-dark-bg p-1 rounded-3 border app-soft-element-border-color">
+    <div class="me-1">
+        <button [cdkMenuTriggerFor]="searchMenu" class="app-icon-button app-button-border app-big-button">
+            <span class="material-symbols-outlined">
+                search
+            </span>
+        </button>
+        <ng-template #searchMenu>
+            <div class="d-flex flex-column p-1 rounded-2 app-transparent-dark-bg shadow mt-1" cdkMenu>
+                <input (input)="changeSearchArticle()" [(ngModel)]="searchArticle"
+                    class="form-control form-control-sm app-select shadow-none" placeholder="Артикул" type="text">
+            </div>
+        </ng-template>
+    </div>
+    <div class="me-1">
+        <button (click)="add()" class="app-icon-button app-button-border app-big-button">
+            <span class="material-symbols-outlined">
+                add
+            </span>
+        </button>
+    </div>
+    <div>
+        <button [disabled]="isLoad" [cdkMenuTriggerFor]="excelMenu" class="app-button app-button-border app-big-button me-1">
+            <span>Excel</span>
+        </button>
+        <ng-template #excelMenu>
+            <app-excel [reloadTableEvent]="reloadTableAterUplodaExcelEvent" [loadStatusEvent]="loadStatusEvent" cdkMenu></app-excel>
+        </ng-template>
+    </div>
+    <div class="active-dark-bg app-warn-alert app-color-white75 flex-fill d-flex align-items-center rounded-2 ">
+        <label class="material-symbols-outlined mx-1">
+            info
+        </label>
+        <div style="font-size: 12px;" class="app-color-white75 lh-sm me-1">
+            У каждого маркетплейса отдельная таблица!
+        </div>
+    </div>
+</div>
+
+<div class="mt-3 active-dark-bg border app-soft-element-border-color p-1 rounded-3">
+    <table *ngIf="isLoad == false" class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col" class="fw-medium p-1" style="min-width: 100px;">Артикул</th>
+                <th scope="col" class="fw-medium p-1">Название</th>
+                <th scope="col" class="fw-medium p-1" style="min-width: 100px;">Рек. Артикул</th>
+                <th scope="col" class="fw-medium p-1">Рек. Название</th>
+                <th scope="col" class="fw-medium p-1" style="width: 40px;"></th>
+            </tr>
+        </thead>
+        <tbody class="">
+            <tr class="" *ngFor="let prodcutDetails of recommendationProducts">
+                <td class="text-break p-1">
+                    <input *ngIf="prodcutDetails.actions.isEdit; else notEditFeedbackArticle"
+                    (keydown.enter)="save(prodcutDetails)"
+                        [(ngModel)]="prodcutDetails.data.feedbackArticle"
+                        class="form-control form-control-sm app-select shadow-none flex-fill" placeholder="Артикул"
+                        type="text">
+                    <ng-template #notEditFeedbackArticle>
+                        <span class="text-break ms-1">{{prodcutDetails.data.feedbackArticle}}</span>
+                    </ng-template>
+                </td>
+                <td class="text-break p-1">
+                    <input *ngIf="prodcutDetails.actions.isEdit; else notEditFeedbackProductName"
+                        (keydown.enter)="save(prodcutDetails)"
+                        [(ngModel)]="prodcutDetails.data.feedbackProductName"
+                        class="form-control form-control-sm app-select shadow-none flex-fill" placeholder="Название"
+                        type="text">
+                    <ng-template #notEditFeedbackProductName>
+                        <span class="text-break ms-1">{{prodcutDetails.data.feedbackProductName}}</span>
+                    </ng-template>
+                </td>
+                <td class="text-break p-1">
+                    <input *ngIf="prodcutDetails.actions.isEdit; else notEditRecommendationArticle"
+                        (keydown.enter)="save(prodcutDetails)"
+                        [(ngModel)]="prodcutDetails.data.recommendationArticle"
+                        class="form-control form-control-sm app-select shadow-none flex-fill" placeholder="Артикул"
+                        type="text">
+                    <ng-template #notEditRecommendationArticle>
+                        <span class="text-break ms-1">{{prodcutDetails.data.recommendationArticle}}</span>
+                    </ng-template>
+                </td>
+                <td class="text-break p-1">
+                    <input *ngIf="prodcutDetails.actions.isEdit; else notEditRecommendationProductName"
+                        (keydown.enter)="save(prodcutDetails)"
+                        [(ngModel)]="prodcutDetails.data.recommendationProductName"
+                        class="form-control form-control-sm app-select shadow-none flex-fill" placeholder="Название"
+                        type="text">
+                    <ng-template #notEditRecommendationProductName>
+                        <span class="text-break ms-1">{{prodcutDetails.data.recommendationProductName}}</span>
+                    </ng-template>
+                </td>
+                <td class="text-break p-1">
+                    <button (click)="save(prodcutDetails)" *ngIf="prodcutDetails.actions.isEdit; else actionsButton"
+                        [disabled]="prodcutDetails.actions.isLoad" 
+                        class="app-icon-button app-icon-button-border">
+                        <span *ngIf="prodcutDetails.actions.isLoad == false; else loadEditCell"
+                            class="material-symbols-outlined">
+                            done
+                        </span>
+                        <ng-template #loadEditCell>
+                            <app-spiner size="sm"></app-spiner>
+                        </ng-template>
+                    </button>
+                    <ng-template #actionsButton>
+                        <button [disabled]="prodcutDetails.actions.isLoad" [cdkMenuTriggerFor]="valueMenu" class="app-icon-button">
+                            <span *ngIf="prodcutDetails.actions.isLoad == false; else loadEditCell"
+                                class="material-symbols-outlined">
+                                more_horiz
+                            </span>
+                            <ng-template #loadEditCell>
+                                <app-spiner size="sm"></app-spiner>
+                            </ng-template>
+                        </button>
+                        <ng-template #valueMenu>
+                            <div class="d-flex flex-column p-1 mt-1 rounded-2 app-transparent-dark-bg shadow" cdkMenu>
+                                <button (click)="delete(prodcutDetails)" cdkMenuItem class="app-button">
+                                    <span class="mx-1">Удалить</span>
+                                </button>
+                                <button (click)="prodcutDetails.actions.isEdit = true" cdkMenuItem class="app-button">
+                                    <span class="mx-1">Редактировать</span>
+                                </button>
+                            </div>
+                        </ng-template>
+                    </ng-template>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div *ngIf="isLoad" class="my-3 px-2">
+        <app-progress-bar></app-progress-bar>
+    </div>
+    <div class="mb-2">
+        <app-pagination-bar (onChangePage)="subscribePaginator($event)" [paginationDetails]="{skip : 0, take :25, page : 1}"></app-pagination-bar>
+    </div>
+</div>

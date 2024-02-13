@@ -1,0 +1,47 @@
+.active-dark-bg{
+    background-color: $active-dark !important;
+}
+
+.inactive-dark-bg{
+    background-color: $inactive-dark !important;
+}
+
+.input-dark-bg{
+    background-color: black !important;
+}
+
+.modal-background{
+    background-color: var(--modal-background) !important;
+}
+
+.dark-background{
+    background-color: $dark !important;
+}
+
+.app-error-alert-bg{
+    background-color: #571B18EB;
+}
+
+.app-info-alert-bg{
+    background-color: #3679afcc;
+}
+
+.app-transparent-dark-bg{
+    background-color: #2e3338ea;
+}
+
+.transporent-bg{
+    background-color: $white-transporent0 !important;
+}
+
+.app-color-white75{
+    color: $white-transporent75;
+}
+
+.app-error-bg{
+    background-color: var(--error-bg) !important;
+}
+
+.app-success-bg{
+    background-color: var(--success-bg) !important;
+}

@@ -1,0 +1,22 @@
+.grade > input{
+    display: none;
+}
+
+.grade > label{
+    cursor: pointer;
+    font-size: 28px;
+    color: var(--grey-transparent75);
+}
+
+.grade > label.active{
+    color: var(--white-transparent90);
+    font-variation-settings : 'FILL' 1;
+}
+
+.grade > label.hover{
+    color: white;
+}
+
+.grade > label:hover{
+    color: white;
+}
