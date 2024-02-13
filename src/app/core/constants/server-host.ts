@@ -7,7 +7,7 @@ export class ServerHost{
             return "https://localhost:7116/";
         }
         else{
-            return "https://mp-snake.online/"
+            return "https://api.mp-force.ru/"
         }
     }
 }
