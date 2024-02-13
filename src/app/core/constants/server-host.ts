@@ -7,7 +7,7 @@ export class ServerHost{
             return "https://localhost:7116/";
         }
         else{
-            return "https://api.mp-force.ru/"
+            return "http://api.mp-force.ru/"
         }
     }
 }
