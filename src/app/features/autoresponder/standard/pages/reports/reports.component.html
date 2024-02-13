@@ -1,1 +1,183 @@
-<p>reports works!</p>
+<div class="d-flex flex-row active-dark-bg p-1 rounded-3 border app-soft-element-border-color mb-3">
+    <button [cdkMenuTriggerFor]="templatesSelectMenu" style="max-width: 200px;" class="app-button app-main-button w-100 app-button-border me-1 d-flex flex-row justify-content-between">
+        <span class="text-truncate" style="max-width: 170px;">{{selectedConnection === null ? 'Выбрать подключение' : selectedConnection.name}}</span>
+        <span class="material-symbols-outlined">
+            expand_more
+        </span>
+    </button>
+    <ng-template #templatesSelectMenu>
+        <div style="max-height: 300px; max-width: 300px;" class="rounded-2 app-transparent-dark-bg border shadow mt-1" cdkMenu>
+            <div class="d-flex flex-column p-1 h-100">
+                <div>
+                    <input [(ngModel)]="searchConnectionName" 
+                    class="form-control form-control-sm app-select shadow-none mb-1" 
+                    placeholder="🔍︎ Поиск" 
+                    type="text">
+                </div>
+                <span *ngIf="connections.length === 0" class="app-color-white75" style="font-size: 12px;">Добавьте хотя бы 1 подключение</span>
+                <ul class="app-active-list mb-0 overflow-auto">
+                    <li *ngFor="let connection of connections | nameFilter : searchConnectionName" 
+                        class="d-flex flex-row justify-content-between rounded-1" 
+                        [ngClass]="{'active' : selectedConnection == connection}" (click)="selectConnection(connection)">
+                        <span class="text-truncate app-color-white75">{{connection.name}}</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </ng-template>
+    <div class="">
+        <button [cdkMenuTriggerFor]="filterMenu" class="app-icon-button app-button-border">
+            <span class="material-symbols-outlined">
+                tune
+            </span>
+        </button>
+        <ng-template #filterMenu>
+            <div class="d-flex flex-column p-1 rounded-2 app-transparent-dark-bg shadow mt-1" cdkMenu>
+                <div class="mb-1 d-flex flex-row justify-content-between">
+                    <div class="border rounded-1 active-dark-bg">
+                        <app-rating-bar [maxRate]="5" (changeRating)="selectRating($event)" [selectRate]="searchRating ?? 0"></app-rating-bar>
+                    </div>
+                    <button (click)="clearRating()" class="app-button app-main-button app-button-border">
+                        <span class="material-symbols-outlined">
+                            close
+                        </span>
+                    </button>
+                </div>
+                <div>
+                    <input [(ngModel)]="searchArticle" (input)="getRange()"
+                    class="form-control form-control-sm app-select shadow-none mb-1" 
+                    placeholder="🔍︎ Артикул" 
+                    type="text">
+                </div>
+                <ul class="app-active-list active-dark-bg mb-0 overflow-auto border rounded-1">
+                    <label class="app-color-white75 ms-1" style="font-size: 12px;">Статус</label>
+                    <li *ngFor="let status of statuses" 
+                        class="d-flex flex-row justify-content-between rounded-1" 
+                        [ngClass]="{'active' : selectedStatus == status}" (click)="selectStatus(status)">
+                        <span class="text-truncate app-color-white75">{{status}}</span>
+                    </li>
+                </ul>
+            </div>
+        </ng-template>
+    </div>
+</div>
+<ng-template #loadBar>
+    <app-progress-bar class="mt-3"></app-progress-bar>
+</ng-template>
+<div *ngIf="isLoad == false; else loadBar" class="mt-3">
+    <div *ngFor="let report of reports" class="active-dark-bg p-1 rounded-3 border app-soft-element-border-color app-color-white75 mb-2">
+        <div class="row g-1">
+            <div class="col-6 d-none d-sm-block">
+                <div class="row g-1">
+                    <div class="col-4">
+                        <div class="rounded-3 px-1 border text-truncate mb-1 d-flex flex-column">
+                            <span style="font-size: 12px;">Артикул</span>
+                            <span class="">{{report.article}}</span>
+                        </div>
+                        <div class="rounded-3 px-1 border text-truncate d-flex flex-column">
+                            <span style="font-size: 12px;">Артикул продавца</span>
+                            <span class="">{{report.supplierArticle}}</span>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="rounded-3 px-1 border text-truncate mb-1 d-flex flex-column">
+                            <span style="font-size: 12px;">Дата отчета</span>
+                            <span class="">{{report.createDate}}</span>
+                        </div>
+                        <div class="rounded-3 px-1 border text-truncate d-flex flex-column">
+                            <span style="font-size: 12px;">Дата отзыва</span>
+                            <span class="">{{report.reviewCreateDate}}</span>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="row g-1">
+                            <div class="col-6">
+                                <div class="rounded-3 px-1 border text-truncate mb-1 d-flex flex-column">
+                                    <span style="font-size: 12px;">ID</span>
+                                    <span class="">{{report.id}}</span>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="rounded-3 px-1 border text-truncate mb-1 d-flex flex-column">
+                                    <span style="font-size: 12px;">Оценка</span>
+                                    <span class="">{{report.rating}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="rounded-3 px-1 border text-truncate d-flex flex-column pb-1">
+                            <span style="font-size: 12px;">Статус</span>
+                            <div class="d-flex flex-row">
+                                <app-active-status-info class="me-1" [isActive]="report.isSuccess" activeText="Успешно" inactiveText="Ошибка"></app-active-status-info>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="rounded-3 px-1 border text-break d-flex flex-column">
+                            <span style="font-size: 12px;">Ответ</span>
+                            <span class="">{{report.response}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 d-block d-sm-none">
+                <div class="rounded-3 px-1 border text-truncate mb-1 d-flex flex-column">
+                    <span style="font-size: 12px;">Артикул</span>
+                    <span class="">{{report.article}}</span>
+                </div>
+                <div class="rounded-3 px-1 border text-truncate mb-1 d-flex flex-column">
+                    <span style="font-size: 12px;">Артикул продавца</span>
+                    <span class="">{{report.supplierArticle}}</span>
+                </div>
+                <div class="rounded-3 px-1 border text-truncate d-flex flex-column pb-1">
+                    <span style="font-size: 12px;">Статус</span>
+                    <div class="d-flex flex-row">
+                        <app-active-status-info class="me-1" [isActive]="report.isSuccess" activeText="Успешно" inactiveText="Ошибка"></app-active-status-info>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 d-block d-sm-none">
+                <div class="rounded-3 px-1 border text-truncate mb-1 d-flex flex-column">
+                    <span style="font-size: 12px;">Дата отчета</span>
+                    <span class="">{{report.createDate}}</span>
+                </div>
+                <div class="rounded-3 px-1 border text-truncate mb-1 d-flex flex-column">
+                    <span style="font-size: 12px;">Дата отзыва</span>
+                    <span class="">{{report.reviewCreateDate}}</span>
+                </div>
+                <div class="row g-1">
+                    <div class="col-6">
+                        <div class="rounded-3 px-1 border text-truncate mb-1 d-flex flex-column">
+                            <span style="font-size: 12px;">ID</span>
+                            <span class="">{{report.id}}</span>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="rounded-3 px-1 border text-truncate mb-1 d-flex flex-column">
+                            <span style="font-size: 12px;">Оценка</span>
+                            <span class="">{{report.rating}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 d-block d-sm-none">
+                <div class="rounded-3 px-1 border text-break d-flex flex-column">
+                    <span style="font-size: 12px;">Ответ</span>
+                    <span class="">{{report.response}}</span>
+                </div>
+            </div>
+            <div class="col-6 d-none d-sm-block">
+                <div class="rounded-3 px-1 border text-truncate d-flex flex-column">
+                    <span style="font-size: 12px;">Отчет</span>
+                    <span class="" style="white-space: pre-wrap; font-size: 14px;">{{report.report}}</span>
+                </div>
+            </div>
+            <div class="col-12 d-block d-sm-none">
+                <div class="rounded-3 px-1 border text-truncate d-flex flex-column">
+                    <span style="font-size: 12px;">Отчет</span>
+                    <span class="" style="white-space: pre-wrap; font-size: 14px;">{{report.report}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-pagination-bar (onChangePage)="getRange()" [paginationDetails]="{skip : 0, take :25, page : 1}"></app-pagination-bar>

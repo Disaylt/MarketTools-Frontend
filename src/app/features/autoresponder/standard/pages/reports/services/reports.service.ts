@@ -14,7 +14,7 @@ export class ReportsService {
     skip : number, 
     connectionId : number | null = null,
     rating : number | null = null,
-    isSuccess : number | null = null,
+    isSuccess : boolean | null = null,
     article : string | null = null){
       let path = `api/v1/autoresponder/standard/reports?take=${take}&skip=${skip}&`
       if(rating != null){
