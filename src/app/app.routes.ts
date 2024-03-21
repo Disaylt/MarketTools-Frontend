@@ -11,6 +11,7 @@ import { MarketplaceNotFoundComponent } from './shared/pages/marketplace-not-fou
 import { OzonMarketplaceComponent } from './features/ozon-marketplace/ozon-marketplace.component';
 import { WbMarketplaceComponent } from './features/WB/wb-marketplace.component';
 import { userRoute } from './features/user/user.routes';
+import { ozonRoute } from './features/ozon-marketplace/ozon.routes';
 
 
 export const authDashboardGuard = (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
@@ -38,32 +39,12 @@ export const routes: Routes = [
             },
             userRoute,
             wbRoute,
+            ozonRoute,
             {
                 title : "Страница не найдена",
                 path : "marketpalce-not-found",
                 component : MarketplaceNotFoundComponent
             },
-            {
-                path : "ozon",
-                title : "Озон",
-                component: OzonMarketplaceComponent,
-                children : [
-                    {
-                        path : "",
-                        redirectTo: "info",
-                        pathMatch : "full"
-                    },
-                    {
-                        title : "Информация",
-                        path : "info",
-                        component : ViewTestComponent
-                    },
-                    {
-                        path: "test",
-                        component: MarketplaceNotFoundComponent
-                    }
-                ]
-            }
         ]
     },
     {

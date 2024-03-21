@@ -46,11 +46,12 @@
             </div>
         </div>
         <div *ngFor="let connection of connections" class="mb-2">
-            <app-wb-seller-open-api-connection 
+            <app-connection
                 *ngIf="connection.isActive != activeStatusFilter.isHideActive || !connection.isActive != activeStatusFilter.isHideInactive"
                 (deleted)="delete($event)" 
+                (changedData)="openChangeDataModal($event)"
                 [data]="connection">
-            </app-wb-seller-open-api-connection>
+            </app-connection>
         </div>
     </div>
 </ng-template>
