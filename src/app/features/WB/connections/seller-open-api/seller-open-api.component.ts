@@ -11,7 +11,6 @@ import { PaginationBarComponent } from "../../../../shared/components/pagination
 import { ActiveFilter } from '../../../../shared/pipes/models/active-filter.model';
 import { CdkMenu, CdkMenuItem, CdkMenuTrigger } from '@angular/cdk/menu';
 import { FormsModule } from '@angular/forms';
-import { OpenApiService } from '../../../marketplace-connections/services/open-api.service';
 import { MarketDeterminantService } from '../../../../core/services/market-determinant.service';
 import { WbSellerOpenApiConnectionComponent } from "./components/wb-seller-open-api-connection/wb-seller-open-api-connection.component";
 

@@ -10,7 +10,6 @@ import { Dialog } from '@angular/cdk/dialog';
 import { RefreshTokenModalComponent } from '../refresh-token-modal/refresh-token-modal.component';
 import { ActiveStatusInfoComponent } from "../../../../../../shared/components/active-status-info/active-status-info.component";
 import { UpdateDescriptionModalComponent } from '../../../../../marketplace-connections/components/update-description-modal/update-description-modal.component';
-import { OpenApiService } from '../../../../../marketplace-connections/services/open-api.service';
 
 @Component({
     selector: 'app-wb-seller-open-api-connection',
@@ -28,8 +27,7 @@ export class WbSellerOpenApiConnectionComponent {
   @Input({required : true}) data! : MarketplaceConnectionModel;
   @Output() deleted : EventEmitter<number> = new EventEmitter();
 
-  constructor(private dialog: Dialog, 
-    private openApiSerivce : OpenApiService, 
+  constructor(private dialog: Dialog,
     private marketplaceConnectionService : MarketplaceConnectionsService){}
 
   openRefreshTokenModal(){

@@ -7,7 +7,6 @@ import { FormsModule } from '@angular/forms';
 import { finalize } from 'rxjs';
 import { MarketplaceConnectionModel } from '../../../../../marketplace-connections/models/marketplace-connection.model';
 import { SpinerComponent } from "../../../../../../shared/components/spiner/spiner.component";
-import { OpenApiService } from '../../../../../marketplace-connections/services/open-api.service';
 
 @Component({
     selector: 'app-refresh-token-modal',
