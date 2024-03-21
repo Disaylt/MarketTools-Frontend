@@ -5,10 +5,10 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { finalize } from 'rxjs';
 import { SpinerComponent } from "../../../../../../shared/components/spiner/spiner.component";
-import { NewOpenApiConnectionBody } from '../../../../../marketplace-connections/models/open-api.models';
-import { OpenApiService } from '../../../../../marketplace-connections/services/open-api.service';
 import { MarketDeterminantService } from '../../../../../../core/services/market-determinant.service';
 import { MarketplaceName } from '../../../../../../core/enums/marketplace-name';
+import { WbSellerApiConnectionService } from '../../services/connection.service';
+import { NewWbSellerApiConnectionModel } from '../../models/new-connection.model';
 
 @Component({
     selector: 'app-new-connection-modal',
@@ -20,23 +20,22 @@ import { MarketplaceName } from '../../../../../../core/enums/marketplace-name';
 export class NewConnectionModalComponent {
 
   isLoad : boolean = false;
-  newConnection : NewOpenApiConnectionBody;
+  newConnection : NewWbSellerApiConnectionModel;
 
   constructor(public dialogRef: DialogRef<any>, 
-    private openApiConnectionService : OpenApiService)
+    private openApiConnectionService : WbSellerApiConnectionService)
   {
     this.newConnection = {
       name : "",
       description : "",
-      token : "",
-      marketplaceName : MarketplaceName.wb
+      token : ""
     }
   }
 
   add(){
     this.isLoad = true;
 
-    this.openApiConnectionService.add(this.newConnection)
+    this.openApiConnectionService.create(this.newConnection)
       .pipe(
         finalize(() => {
           this.isLoad = false;
