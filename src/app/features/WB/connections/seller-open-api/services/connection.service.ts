@@ -7,7 +7,7 @@ import { WbSellerApiUpdateTokenConnectionModel } from '../models/update-token-co
 @Injectable({
   providedIn: 'root'
 })
-export class ConnectionService {
+export class WbSellerApiConnectionService {
 
   constructor(private httpClient : HttpClient) { }
 
@@ -21,6 +21,6 @@ export class ConnectionService {
   updateToken(body : WbSellerApiUpdateTokenConnectionModel){
     const path = "api/v1/connections/wb/seller/api/token";
     
-    return this.httpClient.put(path, body);
+    return this.httpClient.put<MarketplaceConnectionModel>(path, body);
   }
 }
