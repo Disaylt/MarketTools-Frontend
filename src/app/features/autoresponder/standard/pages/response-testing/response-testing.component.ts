@@ -82,7 +82,7 @@ export class ResponseTestingComponent implements OnInit {
   getRange(){
     this.connections = [];
 
-    this.sellerService.getRangeByService(ServicesName.standardAutoresponder, this.marketDeterminantService.marketplace.nameEnum)
+    this.sellerService.getRangeByService(ServicesName.standardAutoresponder, this.marketDeterminantService.getRequired().nameEnum)
       .pipe(
       )
       .subscribe(

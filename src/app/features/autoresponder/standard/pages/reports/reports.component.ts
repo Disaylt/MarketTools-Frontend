@@ -87,7 +87,7 @@ export class ReportsComponent implements OnInit {
   getConnections(){
     this.connections = [];
 
-    this.sellerService.getRangeByService(ServicesName.standardAutoresponder, this.marketDeterminantService.marketplace.nameEnum)
+    this.sellerService.getRangeByService(ServicesName.standardAutoresponder, this.marketDeterminantService.getRequired().nameEnum)
       .pipe(
       )
       .subscribe(

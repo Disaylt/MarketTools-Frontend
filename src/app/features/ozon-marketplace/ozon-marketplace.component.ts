@@ -13,6 +13,7 @@ import { MarketplaceStorage } from '../../core/constants/navigations/marketpkace
 })
 export class OzonMarketplaceComponent {
   constructor(marketplaceDetemint : MarketDeterminantService){
-    marketplaceDetemint.marketplace = MarketplaceStorage.value.find(x=> x.nameEnum == MarketplaceName.ozon)!;
+    const value = MarketplaceStorage.value.find(x=> x.nameEnum == MarketplaceName.ozon)!;
+    marketplaceDetemint.set(value);
   }
 }

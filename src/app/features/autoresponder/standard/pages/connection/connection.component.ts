@@ -76,7 +76,7 @@ export class ConnectionComponent {
     this.isLoad = true;
     this.sellers = [];
 
-    this.sellerService.getRangeByService(ServicesName.standardAutoresponder, this.marketDeterminantService.marketplace.nameEnum)
+    this.sellerService.getRangeByService(ServicesName.standardAutoresponder, this.marketDeterminantService.getRequired().nameEnum)
       .pipe(
         finalize(() => {
           this.isLoad = false;

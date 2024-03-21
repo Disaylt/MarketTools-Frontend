@@ -38,7 +38,7 @@ export class SellerOpenApiComponent implements OnInit {
   ngOnInit(): void {
     this.isLoad = true;
 
-    this.marketplaceConnectionService.getRangeByType(MarketplaceConnectionType.openApi, this.marketplaceDeterminantService.marketplace.nameEnum)
+    this.marketplaceConnectionService.getRangeByType(MarketplaceConnectionType.openApi, this.marketplaceDeterminantService.getRequired().nameEnum)
       .pipe(
         finalize(()=> {
           this.isLoad = false;

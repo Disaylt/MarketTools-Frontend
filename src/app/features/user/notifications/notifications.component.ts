@@ -19,7 +19,7 @@ import { UserNotificationCounterService } from '../../../core/services/user-noti
     imports: [CdkMenuTrigger, CdkMenu, CdkMenuItem, CommonModule, FormsModule, ActiveStatusInfoComponent, ProgressBarComponent, PaginationBarComponent]
 })
 export class NotificationsComponent implements OnInit{
-  isLoad : boolean = false;
+  isLoad : boolean = true;
   notifications : NotificationModel[] = [];
   notificationStatuses : string[] = [
     "Любые",

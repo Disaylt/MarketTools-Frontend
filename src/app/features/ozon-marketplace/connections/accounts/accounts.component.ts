@@ -34,7 +34,7 @@ export class AccountsComponent {
   ngOnInit(): void {
     this.isLoad = true;
 
-    this.marketplaceConnectionService.getRangeByType(MarketplaceConnectionType.account, this.marketplaceDeterminantService.marketplace.nameEnum)
+    this.marketplaceConnectionService.getRangeByType(MarketplaceConnectionType.account, this.marketplaceDeterminantService.getRequired().nameEnum)
       .pipe(
         finalize(()=> {
           this.isLoad = false;
