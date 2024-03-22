@@ -26,6 +26,6 @@ export interface UserDetails{
 export interface ResetPasswordModel{
     email: string;
     password : string;
-    repeatPasswrod : string;
+    repeatPassword : string;
     code : string;
 }
