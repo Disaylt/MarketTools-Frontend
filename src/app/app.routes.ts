@@ -12,6 +12,7 @@ import { OzonMarketplaceComponent } from './features/ozon-marketplace/ozon-marke
 import { WbMarketplaceComponent } from './features/WB/wb-marketplace.component';
 import { userRoute } from './features/user/user.routes';
 import { ozonRoute } from './features/ozon-marketplace/ozon.routes';
+import { ResetComponent } from './features/auth/reset/reset.component';
 
 
 export const authDashboardGuard = (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
@@ -65,6 +66,11 @@ export const routes: Routes = [
                 title : "Регистрация",
                 path : "register",
                 component : RegisterComponent
+            },
+            {
+                title : "Восстановление пароля",
+                path : "reset",
+                component : ResetComponent
             }
         ]
     },

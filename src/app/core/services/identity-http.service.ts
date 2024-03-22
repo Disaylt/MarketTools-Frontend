@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AuthDetails, AuthStatus, Login, Register, UserDetails } from '../models/identity.models';
+import { AuthDetails, AuthStatus, Login, Register, ResetPasswordModel, UserDetails } from '../models/identity.models';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
@@ -30,6 +30,18 @@ export class IdentityHttpService {
 
   register(body : Register) : Observable<AuthDetails>{
     const path = "api/v1/Identity/register"
+
+    return this.http.post<AuthDetails>(path, body);
+  }
+
+  sendCode(email: string){
+    const path = `api/v1/Identity/send-code?email=${email}`;
+
+    return this.http.post(path, null);
+  }
+
+  resetPassword(body : ResetPasswordModel){
+    const path = "api/v1/Identity/reset-password";
 
     return this.http.post<AuthDetails>(path, body);
   }
