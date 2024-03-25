@@ -11,6 +11,7 @@ import { CommonModule } from '@angular/common';
 import { CdkMenu, CdkMenuItem, CdkMenuTrigger } from '@angular/cdk/menu';
 import { ConnectionComponent } from '../../../marketplace-connections/components/connection/connection.component';
 import { NewConnectionModalComponent } from './components/new-connection-modal/new-connection-modal.component';
+import { UpdateModalComponent } from './components/update-modal/update-modal.component';
 
 @Component({
     selector: 'app-accounts',
@@ -48,13 +49,13 @@ export class AccountsComponent {
   }
 
   openChangeDataModal(data : MarketplaceConnectionModel){
-    // const modal = this.dialog.open(RefreshTokenModalComponent);
-    //   if(modal.componentInstance){
-    //     modal.componentInstance.data = data;
-    //   }
-    //   else{
-    //     modal.close();
-    //   }
+    const modal = this.dialog.open(UpdateModalComponent);
+      if(modal.componentInstance){
+        modal.componentInstance.data = data;
+      }
+      else{
+        modal.close();
+      }
   }
 
   changeShowActiveFilter(){
