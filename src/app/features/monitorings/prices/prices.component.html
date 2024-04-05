@@ -1,1 +1,29 @@
-<p>prices works!</p>
+<div class="row g-2">
+    <div class="col-4 col-md-3 col-lg-2">
+        <div class="rounded-2 active-dark-bg border shadow"
+        cdkMenu>
+        <div *ngIf="isLoad == false; else loadConnections" class="d-flex flex-column p-1 h-100">
+            <div>
+                <input [(ngModel)]="searchSellerValue"
+                    class="form-control form-control-sm app-select shadow-none mb-1" placeholder="🔍︎ Поиск"
+                    type="text">
+            </div>
+            <span *ngIf="sellers.length === 0" class="app-color-white75" style="font-size: 12px;">Добавьте хотя бы 1
+                подключение</span>
+            <ul class="app-active-list mb-0 overflow-auto">
+                <li *ngFor="let seller of sellers | nameFilter : searchSellerValue" (click)="select(seller)"
+                    class="d-flex flex-row justify-content-between rounded-1"
+                    [ngClass]="{'active' : selectSeller == seller}">
+                    <span class="text-truncate app-color-white75">{{seller.name}}</span>
+                    <app-active-status-info [isActive]="seller.autoresponderConnection.isActive" activeText="Вкл." inactiveText="Выкл."></app-active-status-info>
+                </li>
+            </ul>
+        </div>
+        <ng-template #loadConnections>
+            <div class="my-1">
+                <app-spiner size="big"></app-spiner>
+            </div>
+        </ng-template>
+    </div>
+    </div>
+</div>
