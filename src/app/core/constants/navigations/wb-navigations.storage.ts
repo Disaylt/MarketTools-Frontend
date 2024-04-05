@@ -56,18 +56,18 @@ export class WbNavigationStorage{
             iconCode: "event_note",
             main : {
                 name : "Мониторинг",
-                isDisabled : true
+                isDisabled : false
             },
             parent : [
                 {
-                    name : "Цены/СПП/Скидки",
-                    path : `${this.market}/monitoring/spp-discount`,
+                    name : "Цены",
+                    path : `${this.market}/monitoring/price`,
                     isDisabled : false
                 },
                 {
                     name : "Сток",
                     path : `${this.market}/monitoring/stock`,
-                    isDisabled : false
+                    isDisabled : true
                 }
             ]
         },

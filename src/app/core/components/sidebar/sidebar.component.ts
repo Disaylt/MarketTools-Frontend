@@ -13,6 +13,7 @@ import { MarketDeterminantService } from '../../services/market-determinant.serv
 import { timeout } from 'rxjs';
 import { OzonNavigationStorage } from '../../constants/navigations/ozon-navigations.storage';
 import { CdkMenu, CdkMenuItem, CdkMenuTrigger } from '@angular/cdk/menu';
+import { TelegramNavigationStorage } from '../../constants/navigations/telegram-navigation.storage';
 
 @Component({
   selector: 'app-sidebar',
@@ -54,6 +55,10 @@ export class SidebarComponent implements OnInit {
         this.marketBar = OzonNavigationStorage.value;
         routeLink = "dashboard/ozon"
         break;
+      case MarketplaceName.telegram:
+          this.marketBar = TelegramNavigationStorage.value;
+          routeLink = "dashboard/telegram/info"
+          break;
       default:
         this.marketBar = WbNavigationStorage.value;
         break;

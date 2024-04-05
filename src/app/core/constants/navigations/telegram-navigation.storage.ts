@@ -5,7 +5,7 @@ export class TelegramNavigationStorage{
 
     static value : Navigation[] = [
         {
-            iconCode: "dashboard",
+            iconCode: "info",
             main : {
                 name : "Информация",
                 path : `${this.area}/info`,
@@ -13,8 +13,8 @@ export class TelegramNavigationStorage{
             }
         },
         {
-            colapseName : "connection",
-            iconCode: "device_hub",
+            colapseName : "bots",
+            iconCode: "robot_2",
             main : {
                 name : "Боты",
                 isDisabled : false
