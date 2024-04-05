@@ -7,6 +7,7 @@ export interface MarketplaceConnectionModel extends BaseConnectionModel{
     id : number;
     isActive : boolean;
     autoresponderConnection : ServiceConnectionModel;
+    priceMonitoringConnection : ServiceConnectionModel;
 }
 
 export interface DescriptionUpdateBody{

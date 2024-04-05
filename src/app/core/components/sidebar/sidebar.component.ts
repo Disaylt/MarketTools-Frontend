@@ -64,7 +64,7 @@ export class SidebarComponent implements OnInit {
         break;
     }
 
-    if(value != this.lastSelectMarket){
+    if(value != this.lastSelectMarket && this.lastSelectMarket != null){
       this.router.navigate([routeLink]);
     }
 

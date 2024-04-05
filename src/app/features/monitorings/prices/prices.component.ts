@@ -15,13 +15,16 @@ import { MarketplaceConnectionModel } from '../../marketplace-connections/models
 import { finalize } from 'rxjs';
 import { ServicesName } from '../../../core/enums/services-name.enum';
 import { MarketplaceConnectionsService } from '../../marketplace-connections/services/marketplace-connections.service';
+import { TabBarComponent } from "../../../shared/components/tab-bar/tab-bar.component";
+import { TabBarButtonComponent } from "../../../shared/components/tab-bar/tab-bar-button/tab-bar-button.component";
+import { RouterModule } from '@angular/router';
 
 @Component({
-  selector: 'app-prices',
-  standalone: true,
-  imports: [CdkMenuTrigger, CdkMenu, CdkMenuItem, CommonModule, FormsModule, TemplateFilterPipe, NameFilterPipe, ActiveStatusInfoComponent, ProgressBarComponent, SpinerComponent, ReversScorePipe, ViewReversScorePipe],
-  templateUrl: './prices.component.html',
-  styleUrl: './prices.component.scss'
+    selector: 'app-prices',
+    standalone: true,
+    templateUrl: './prices.component.html',
+    styleUrl: './prices.component.scss',
+    imports: [CdkMenuTrigger, CdkMenu, CdkMenuItem, CommonModule, RouterModule, FormsModule, TemplateFilterPipe, NameFilterPipe, ActiveStatusInfoComponent, ProgressBarComponent, SpinerComponent, ReversScorePipe, ViewReversScorePipe, TabBarComponent, TabBarButtonComponent]
 })
 export class PricesComponent implements OnInit {
 
@@ -29,7 +32,7 @@ export class PricesComponent implements OnInit {
   isLoad : boolean = true;
   selectSeller : MarketplaceConnectionModel | null = null;
   sellers : MarketplaceConnectionModel[] = [];
-  
+  isLoadActiveStatus : boolean = false;
   constructor(private marketDeterminantService : MarketDeterminantService,
     private sellerService : MarketplaceConnectionsService){
       
@@ -39,6 +42,21 @@ export class PricesComponent implements OnInit {
       this.getRange();
     }
     
+    changeStatus(selectSeller : MarketplaceConnectionModel){
+      this.isLoadActiveStatus = true;
+      // this.autoresponderConnectionSeervice
+      //   .updateActiveStatus(selectSeller.id, selectSeller.autoresponderConnection.isActive)
+      //   .pipe(finalize(() => {
+      //     this.isLoadActiveStatus = false;
+      //   }))
+      //   .subscribe({
+      //     error : () => {
+      //       selectSeller.autoresponderConnection.isActive = !selectSeller.autoresponderConnection.isActive;
+      //     }
+      //   })
+  
+    }
+
     select(seller : MarketplaceConnectionModel){
       this.selectSeller = seller;
     }

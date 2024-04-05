@@ -1,29 +1,79 @@
 <div class="row g-2">
     <div class="col-4 col-md-3 col-lg-2">
-        <div class="rounded-2 active-dark-bg border shadow"
-        cdkMenu>
-        <div *ngIf="isLoad == false; else loadConnections" class="d-flex flex-column p-1 h-100">
-            <div>
-                <input [(ngModel)]="searchSellerValue"
-                    class="form-control form-control-sm app-select shadow-none mb-1" placeholder="🔍︎ Поиск"
-                    type="text">
+        <div class="rounded-2 active-dark-bg border shadow" cdkMenu>
+            <div *ngIf="isLoad == false; else loadConnections" class="d-flex flex-column p-1 h-100">
+                <div>
+                    <input [(ngModel)]="searchSellerValue"
+                        class="form-control form-control-sm app-select shadow-none mb-1" placeholder="🔍︎ Поиск"
+                        type="text">
+                </div>
+                <span *ngIf="sellers.length === 0" class="app-color-white75" style="font-size: 12px;">Добавьте хотя бы 1
+                    подключение</span>
+                <ul class="app-active-list mb-0 overflow-auto">
+                    <li *ngFor="let seller of sellers | nameFilter : searchSellerValue" (click)="select(seller)"
+                        class="d-flex flex-row justify-content-between rounded-1"
+                        [ngClass]="{'active' : selectSeller == seller}">
+                        <span class="text-truncate app-color-white75">{{seller.name}}</span>
+                        <app-active-status-info [isActive]="seller.autoresponderConnection.isActive" activeText="Вкл."
+                            inactiveText="Выкл."></app-active-status-info>
+                    </li>
+                </ul>
             </div>
-            <span *ngIf="sellers.length === 0" class="app-color-white75" style="font-size: 12px;">Добавьте хотя бы 1
-                подключение</span>
-            <ul class="app-active-list mb-0 overflow-auto">
-                <li *ngFor="let seller of sellers | nameFilter : searchSellerValue" (click)="select(seller)"
-                    class="d-flex flex-row justify-content-between rounded-1"
-                    [ngClass]="{'active' : selectSeller == seller}">
-                    <span class="text-truncate app-color-white75">{{seller.name}}</span>
-                    <app-active-status-info [isActive]="seller.autoresponderConnection.isActive" activeText="Вкл." inactiveText="Выкл."></app-active-status-info>
-                </li>
-            </ul>
+            <ng-template #loadConnections>
+                <div class="my-1">
+                    <app-spiner size="big"></app-spiner>
+                </div>
+            </ng-template>
         </div>
-        <ng-template #loadConnections>
-            <div class="my-1">
-                <app-spiner size="big"></app-spiner>
-            </div>
-        </ng-template>
     </div>
+    <div class="col-8 col-md-9 col-lg-10">
+        <div *ngIf="selectSeller != null">
+            <div
+                class="d-flex flex-row align-items-center active-dark-bg rounded-3 flex-fill border app-soft-element-border-color p-1">
+                <div class="d-flex flex-row justify-content-between flex-fill">
+                    <div class="d-flex flex-row">
+                        <button [cdkMenuTriggerFor]="ratingsAddMenu" class="app-icon-button app-button-border me-1">
+                            <span class="material-symbols-outlined">
+                                settings
+                            </span>
+                        </button>
+                        <ng-template #ratingsAddMenu>
+                            <div style="max-height: 300px; max-width: 300px; min-width: 100px"
+                                class="rounded-2 app-transparent-dark-bg border shadow mt-1" cdkMenu>
+                                НАСТРОЙКИ
+                            </div>
+                        </ng-template>
+                        <button [cdkMenuTriggerFor]="ratingsAddMenu" class="app-icon-button app-button-border">
+                            <span class="material-symbols-outlined">
+                                group
+                            </span>
+                        </button>
+                        <ng-template #ratingsAddMenu>
+                            <div style="max-height: 300px; max-width: 300px; min-width: 100px"
+                                class="rounded-2 app-transparent-dark-bg border shadow mt-1" cdkMenu>
+                                НАСТРОЙКИ
+                            </div>
+                        </ng-template>
+                    </div>
+                    <div class="form-check form-switch m-0 d-flex align-items-center">
+                        <app-spiner *ngIf="isLoadActiveStatus" class="me-1" size="sm"></app-spiner>
+                        <app-active-status-info [isActive]="selectSeller.priceMonitoringConnection.isActive"
+                            activeText="Вкл." inactiveText="Выкл."></app-active-status-info>
+                        <input [(ngModel)]="selectSeller.priceMonitoringConnection.isActive"
+                            (ngModelChange)="changeStatus(selectSeller)" [disabled]="isLoadActiveStatus"
+                            class="form-check-input shadow-none app-check-input m-0 ms-1" type="checkbox" role="switch">
+                    </div>
+                </div>
+            </div>
+           <div class="mt-2">
+                <app-tab-bar>
+                    <app-tab-bar-button routerLink="products" routerLinkActive="active">Товары</app-tab-bar-button>
+                    <app-tab-bar-button routerLink="reports" routerLinkActive="active">Отчеты</app-tab-bar-button>
+                </app-tab-bar>
+           </div>
+           <div class="mt-3">
+            <router-outlet></router-outlet>
+        </div>
+        </div>
     </div>
 </div>
