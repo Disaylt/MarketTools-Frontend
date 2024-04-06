@@ -1,1 +1,28 @@
-<p>settings works!</p>
+<div style="min-width: 200px;" class="p-1 rounded-2 border app-transparent-dark-bg shadow mt-1">
+    <div *ngIf="viewSettings != null; else load" class="d-flex flex-column">
+        <div class="d-flex flex-row align-items-center">
+            <div class="form-check form-switch mb-0">
+                <input (change)="update()"  [(ngModel)]="viewSettings.isCheckBaseDiscount" class="form-check-input shadow-none app-check-input" type="checkbox" role="switch">
+                <label class="form-check-label" for="flexSwitchCheckDefault">Сверять скидку продовца</label>
+              </div>
+        </div>
+        <div class="d-flex flex-row align-items-center">
+            <div class="form-check form-switch mb-0">
+                <input (change)="update()"  [(ngModel)]="viewSettings.isCheckBuyerDiscount" class="form-check-input shadow-none app-check-input" type="checkbox" role="switch">
+                <label class="form-check-label" for="flexSwitchCheckDefault">Сверять скидку покупателя</label>
+              </div>
+        </div>
+        <div class="d-flex flex-row align-items-center">
+            <div class="form-check form-switch mb-0">
+                <input (change)="update()"  [(ngModel)]="viewSettings.isCheckPrices" class="form-check-input shadow-none app-check-input" type="checkbox" role="switch">
+                <label class="form-check-label" for="flexSwitchCheckDefault">Сверять цены</label>
+              </div>
+        </div>
+        <div class="mt-1" style="min-height: 10px;">
+            <app-progress-bar *ngIf="isLoad"></app-progress-bar>
+        </div>
+    </div>
+    <ng-template #load>
+        <app-spiner size="big"></app-spiner>
+    </ng-template>
+</div>

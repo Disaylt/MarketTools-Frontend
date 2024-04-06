@@ -18,13 +18,14 @@ import { TabBarComponent } from "../../../shared/components/tab-bar/tab-bar.comp
 import { TabBarButtonComponent } from "../../../shared/components/tab-bar/tab-bar-button/tab-bar-button.component";
 import { RouterModule } from '@angular/router';
 import { ConnectionsService } from './services/connections.service';
+import { SettingsComponent } from "./components/settings/settings.component";
 
 @Component({
     selector: 'app-prices',
     standalone: true,
     templateUrl: './prices.component.html',
     styleUrl: './prices.component.scss',
-    imports: [CdkMenuTrigger, CdkMenu, CdkMenuItem, CommonModule, RouterModule, FormsModule, TemplateFilterPipe, NameFilterPipe, ActiveStatusInfoComponent, ProgressBarComponent, SpinerComponent, ReversScorePipe, ViewReversScorePipe, TabBarComponent, TabBarButtonComponent]
+    imports: [CdkMenuTrigger, CdkMenu, CdkMenuItem, CommonModule, RouterModule, FormsModule, TemplateFilterPipe, NameFilterPipe, ActiveStatusInfoComponent, ProgressBarComponent, SpinerComponent, ReversScorePipe, ViewReversScorePipe, TabBarComponent, TabBarButtonComponent, SettingsComponent]
 })
 export class PricesComponent implements OnInit {
 

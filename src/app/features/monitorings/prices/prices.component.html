@@ -38,10 +38,7 @@
                             </span>
                         </button>
                         <ng-template #settingsMenu>
-                            <div style="max-height: 300px; max-width: 300px; min-width: 100px"
-                                class="rounded-2 app-transparent-dark-bg border shadow mt-1" cdkMenu>
-                                НАСТРОЙКИф
-                            </div>
+                            <app-settings [connectionId]="selectSeller.id" cdkMenu></app-settings>
                         </ng-template>
                         <button [cdkMenuTriggerFor]="usersMenu" class="app-icon-button app-button-border">
                             <span class="material-symbols-outlined">
@@ -53,7 +50,7 @@
                                 class="rounded-2 app-transparent-dark-bg border shadow mt-1" cdkMenu>
                                 <div class="d-flex flex-column px-1" style="font-size: 14px;">
                                     <label>Сервис поддерживет отправку отчетов в Telegram</label>
-                                    <label>Для настройки перейдите в управление пидписками на сайте.</label>
+                                    <label>Для настройки перейдите в управление Telegram ботов на сайте.</label>
                                 </div>
                             </div>
                         </ng-template>

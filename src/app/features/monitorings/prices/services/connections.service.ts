@@ -16,7 +16,7 @@ export class ConnectionsService {
   }
 
   getSettings(id :number){
-    const path = `api/v1/monitoring/price/connection/settings?connectionId=${id}`; 
+    const path = `api/v1/monitoring/price/connection/settings?id=${id}`; 
 
     return this.httpClient.get<SettingsModel>(path);
   }
