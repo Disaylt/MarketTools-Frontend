@@ -1,6 +1,7 @@
 import { Route } from "@angular/router";
 import { TelegramComponent } from "./telegram.component";
 import { InforamtionComponent } from "./inforamtion/inforamtion.component";
+import { TokensComponent } from "./tokens/tokens.component";
 
 export const telegramRoute : Route =
 {
@@ -17,6 +18,11 @@ export const telegramRoute : Route =
             title : "Информация",
             path : "info",
             component: InforamtionComponent
+        },
+        {
+            title : "Токены",
+            path : "token",
+            component: TokensComponent
         }
     ]
 } 

@@ -1,0 +1,16 @@
+<div class="d-flex flex-row align-items-center active-dark-bg rounded-3 flex-fill border app-soft-element-border-color p-1">
+    <button [disabled]="isLoad" class="app-button app-button-border me-1">
+        <span>Создать</span>
+        <div *ngIf="isLoad" class="spinner-border spinner-border-sm mx-1" role="status">
+            <span class="visually-hidden"></span>
+        </div>              
+    </button>
+    <button [disabled]="token == null" class="app-icon-button app-button-border me-1">
+        <span class="material-symbols-outlined">
+            content_copy
+        </span>
+    </button>
+    <div style="min-height: 32px;" *ngIf="token != null" class="modal-background rounded-2 flex-fill border px-1 d-flex align-items-center">
+        <span class="app-color-white75">{{token}}</span>
+    </div>
+</div>
