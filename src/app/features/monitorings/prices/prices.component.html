@@ -32,26 +32,29 @@
                 class="d-flex flex-row align-items-center active-dark-bg rounded-3 flex-fill border app-soft-element-border-color p-1">
                 <div class="d-flex flex-row justify-content-between flex-fill">
                     <div class="d-flex flex-row">
-                        <button [cdkMenuTriggerFor]="ratingsAddMenu" class="app-icon-button app-button-border me-1">
+                        <button [cdkMenuTriggerFor]="settingsMenu" class="app-icon-button app-button-border me-1">
                             <span class="material-symbols-outlined">
                                 settings
                             </span>
                         </button>
-                        <ng-template #ratingsAddMenu>
+                        <ng-template #settingsMenu>
                             <div style="max-height: 300px; max-width: 300px; min-width: 100px"
                                 class="rounded-2 app-transparent-dark-bg border shadow mt-1" cdkMenu>
-                                НАСТРОЙКИ
+                                НАСТРОЙКИф
                             </div>
                         </ng-template>
-                        <button [cdkMenuTriggerFor]="ratingsAddMenu" class="app-icon-button app-button-border">
+                        <button [cdkMenuTriggerFor]="usersMenu" class="app-icon-button app-button-border">
                             <span class="material-symbols-outlined">
                                 group
                             </span>
                         </button>
-                        <ng-template #ratingsAddMenu>
+                        <ng-template #usersMenu>
                             <div style="max-height: 300px; max-width: 300px; min-width: 100px"
                                 class="rounded-2 app-transparent-dark-bg border shadow mt-1" cdkMenu>
-                                НАСТРОЙКИ
+                                <div class="d-flex flex-column px-1" style="font-size: 14px;">
+                                    <label>Сервис поддерживет отправку отчетов в Telegram</label>
+                                    <label>Для настройки перейдите в управление пидписками на сайте.</label>
+                                </div>
                             </div>
                         </ng-template>
                     </div>
