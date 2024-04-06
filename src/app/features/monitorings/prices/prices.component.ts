@@ -10,7 +10,6 @@ import { ReversScorePipe } from '../../../shared/pipes/revers-score.pipe';
 import { TemplateFilterPipe } from '../../../shared/pipes/template-filter.pipe';
 import { ViewReversScorePipe } from '../../../shared/pipes/view-revers-score.pipe';
 import { MarketDeterminantService } from '../../../core/services/market-determinant.service';
-import { ConnectionsService } from '../../ozon-marketplace/connections/accounts/services/connections.service';
 import { MarketplaceConnectionModel } from '../../marketplace-connections/models/marketplace-connection.model';
 import { finalize } from 'rxjs';
 import { ServicesName } from '../../../core/enums/services-name.enum';
@@ -18,6 +17,7 @@ import { MarketplaceConnectionsService } from '../../marketplace-connections/ser
 import { TabBarComponent } from "../../../shared/components/tab-bar/tab-bar.component";
 import { TabBarButtonComponent } from "../../../shared/components/tab-bar/tab-bar-button/tab-bar-button.component";
 import { RouterModule } from '@angular/router';
+import { ConnectionsService } from './services/connections.service';
 
 @Component({
     selector: 'app-prices',
@@ -34,7 +34,8 @@ export class PricesComponent implements OnInit {
   sellers : MarketplaceConnectionModel[] = [];
   isLoadActiveStatus : boolean = false;
   constructor(private marketDeterminantService : MarketDeterminantService,
-    private sellerService : MarketplaceConnectionsService){
+    private sellerService : MarketplaceConnectionsService,
+    private serviceConnectionService : ConnectionsService){
       
     }
 
@@ -44,16 +45,16 @@ export class PricesComponent implements OnInit {
     
     changeStatus(selectSeller : MarketplaceConnectionModel){
       this.isLoadActiveStatus = true;
-      // this.autoresponderConnectionSeervice
-      //   .updateActiveStatus(selectSeller.id, selectSeller.autoresponderConnection.isActive)
-      //   .pipe(finalize(() => {
-      //     this.isLoadActiveStatus = false;
-      //   }))
-      //   .subscribe({
-      //     error : () => {
-      //       selectSeller.autoresponderConnection.isActive = !selectSeller.autoresponderConnection.isActive;
-      //     }
-      //   })
+      this.serviceConnectionService
+        .updateActiveStatus(selectSeller.id, selectSeller.priceMonitoringConnection.isActive)
+        .pipe(finalize(() => {
+          this.isLoadActiveStatus = false;
+        }))
+        .subscribe({
+          error : () => {
+            selectSeller.priceMonitoringConnection.isActive = !selectSeller.priceMonitoringConnection.isActive;
+          }
+        })
   
     }
 

@@ -14,7 +14,7 @@
                         class="d-flex flex-row justify-content-between rounded-1"
                         [ngClass]="{'active' : selectSeller == seller}">
                         <span class="text-truncate app-color-white75">{{seller.name}}</span>
-                        <app-active-status-info [isActive]="seller.autoresponderConnection.isActive" activeText="Вкл."
+                        <app-active-status-info [isActive]="seller.priceMonitoringConnection.isActive" activeText="Вкл."
                             inactiveText="Выкл."></app-active-status-info>
                     </li>
                 </ul>
@@ -67,8 +67,8 @@
             </div>
            <div class="mt-2">
                 <app-tab-bar>
-                    <app-tab-bar-button routerLink="products" routerLinkActive="active">Товары</app-tab-bar-button>
-                    <app-tab-bar-button routerLink="reports" routerLinkActive="active">Отчеты</app-tab-bar-button>
+                    <app-tab-bar-button >Товары</app-tab-bar-button>
+                    <app-tab-bar-button >Отчеты</app-tab-bar-button>
                 </app-tab-bar>
            </div>
            <div class="mt-3">
