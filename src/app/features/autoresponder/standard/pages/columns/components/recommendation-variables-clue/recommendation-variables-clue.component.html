@@ -29,7 +29,7 @@
                 <span>{{help.name}}</span>
             </div>
             <div class="">
-                <button (click)="copy(help.name)" class="app-icon-button">
+                <button [cdkCopyToClipboard]="help.name" class="app-icon-button">
                     <span  class="material-symbols-outlined">
                         content_copy
                     </span>
