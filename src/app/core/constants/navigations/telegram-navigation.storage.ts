@@ -13,6 +13,14 @@ export class TelegramNavigationStorage{
             }
         },
         {
+            iconCode: "key_vertical",
+            main : {
+                name : "Токены",
+                path : `${this.area}/token`,
+                isDisabled : false
+            }
+        },
+        {
             colapseName : "bots",
             iconCode: "robot_2",
             main : {

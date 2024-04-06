@@ -41,10 +41,16 @@ export class SidebarComponent implements OnInit {
 
   chooseMenu(value : Marketplace){
     this.marketDeterminantService.set(value);
-    this.cdkMenu.menuStack.closeAll();
+    if(this.cdkMenu != undefined){
+      this.cdkMenu.menuStack.closeAll();
+    }
   }
 
   setMarketNavigation(value : Marketplace){
+    if(value == this.lastSelectMarket){
+      return;
+    }
+
     let routeLink = "";
     switch(value.nameEnum){
       case MarketplaceName.wb:
@@ -64,7 +70,7 @@ export class SidebarComponent implements OnInit {
         break;
     }
 
-    if(value != this.lastSelectMarket && this.lastSelectMarket != null){
+    if(this.lastSelectMarket != null){
       this.router.navigate([routeLink]);
     }
 
