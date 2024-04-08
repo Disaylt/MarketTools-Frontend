@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { TelegramUser } from '../models/user.model';
+import { TelegramService, TelegramUser } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -10,13 +10,13 @@ export class TelegramUsersService {
   constructor(private httpClient : HttpClient) { }
 
   getRange(botId : number){
-    const path = `api/v1/telegram//users?botId=${botId}`;
+    const path = `api/v1/telegram/users?botId=${botId}`;
 
     return this.httpClient.get<TelegramUser[]>(path);
   }
 
   delete(id : number){
-    const path = `api/v1/telegram//user?id=${id}`;
+    const path = `api/v1/telegram/user?id=${id}`;
 
     return this.httpClient.delete(path);
   }
@@ -28,11 +28,11 @@ export class TelegramUsersService {
     }
     const path = "api/v1/telegram/user/service";
 
-    return this.httpClient.post(path, body);
+    return this.httpClient.post<TelegramService>(path, body);
   }
 
   deleteService(id : number){
-    const path = `api/v1/telegram//user/service?id=${id}`;
+    const path = `api/v1/telegram/user/service?id=${id}`;
 
     return this.httpClient.delete(path);
   }

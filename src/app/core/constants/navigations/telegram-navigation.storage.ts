@@ -36,7 +36,7 @@ export class TelegramNavigationStorage{
                 {
                     name : "База знаний",
                     path : `${this.area}/bots/1`,
-                    isDisabled : false
+                    isDisabled : true
                 }
             ]
         },

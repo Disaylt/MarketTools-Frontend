@@ -7,5 +7,7 @@ export interface TelegramUser{
 
 export interface TelegramService{
     id : number;
-    serviceType : string;
+    isActive : boolean;
+    serviceType : number;
+    serviceTypeView : string;
 }
