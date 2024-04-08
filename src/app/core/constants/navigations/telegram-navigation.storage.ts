@@ -15,7 +15,7 @@ export class TelegramNavigationStorage{
         {
             iconCode: "key_vertical",
             main : {
-                name : "Токены",
+                name : "Токен",
                 path : `${this.area}/token`,
                 isDisabled : false
             }
@@ -36,7 +36,7 @@ export class TelegramNavigationStorage{
                 {
                     name : "База знаний",
                     path : `${this.area}/bots/1`,
-                    isDisabled : true
+                    isDisabled : false
                 }
             ]
         },
