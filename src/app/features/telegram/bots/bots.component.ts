@@ -19,6 +19,7 @@ export class BotsComponent implements OnInit {
   isLoad : boolean = false;
   users : TelegramUser[] = []
   botId : number | null = null;
+  url : string | null = null;
 
   constructor(private tgUserService : TelegramUsersService, private activateRoute: ActivatedRoute)
   {
@@ -30,6 +31,13 @@ export class BotsComponent implements OnInit {
       this.botId = params["id"]
       this.loadUsers();
     });
+  }
+
+  loadBotToken(){
+    this.url = null;
+    if(this.botId == null){
+      return;
+    }
   }
 
   deleteUser(id : number){
@@ -73,11 +81,11 @@ export class BotsComponent implements OnInit {
   }
 
   loadUsers(){
+    this.users = []
     if(this.botId == null){
       return;
     }
     this.isLoad = true;
-    this.users = []
     this.tgUserService
       .getRange(this.botId)
       .pipe(
