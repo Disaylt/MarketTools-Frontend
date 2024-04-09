@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import { ProgressBarComponent } from "../../../shared/components/progress-bar/progress-bar.component";
 import { ActiveStatusInfoComponent } from "../../../shared/components/active-status-info/active-status-info.component";
 import { FormsModule } from '@angular/forms';
+import { BotService } from './services/bot.service';
 
 @Component({
     selector: 'app-bots',
@@ -21,7 +22,9 @@ export class BotsComponent implements OnInit {
   botId : number | null = null;
   url : string | null = null;
 
-  constructor(private tgUserService : TelegramUsersService, private activateRoute: ActivatedRoute)
+  constructor(private tgUserService : TelegramUsersService, 
+    private activateRoute: ActivatedRoute,
+    private botService : BotService)
   {
 
   }
@@ -30,14 +33,28 @@ export class BotsComponent implements OnInit {
     this.activateRoute.params.subscribe(params=>{
       this.botId = params["id"]
       this.loadUsers();
+      this.loadBotInfo();
     });
   }
 
-  loadBotToken(){
+  goToBot(){
+    if(this.url != null){
+      window.open(this.url, "_blank")
+    }
+  }
+
+  loadBotInfo(){
     this.url = null;
     if(this.botId == null){
       return;
     }
+    this.botService
+      .getInfo(this.botId)
+      .subscribe({
+        next: x=> {
+          this.url = x.url;
+        }
+      })
   }
 
   deleteUser(id : number){

@@ -1,8 +1,8 @@
 <div class="px-1">
     <div class="d-flex flex-row align-items-center active-dark-bg rounded-3 flex-fill border app-soft-element-border-color p-1 mb-2">
-        <a class="app-button app-button-border border app-link app-main-link me-1" target="_blank" href="https://t.me/MpSnakeDiscountMonitoringWb_bot">
+        <button [disabled]="url == null" (click)="goToBot()" class="app-button app-button-border border app-link app-main-link me-1">
             Бот
-        </a>
+        </button>
         <button [disabled]="isLoad" class="app-icon-button app-button-border me-1" (click)="loadUsers()">
             <span class="material-symbols-outlined">
                 refresh
