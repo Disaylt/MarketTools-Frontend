@@ -1,0 +1,63 @@
+<div class="px-1">
+    <div class="d-flex flex-row align-items-center active-dark-bg rounded-3 flex-fill border app-soft-element-border-color p-1 mb-2">
+        <button [disabled]="url == null" (click)="goToBot()" class="app-button app-button-border border app-link app-main-link me-1">
+            Бот
+        </button>
+        <button [disabled]="isLoad" class="app-icon-button app-button-border me-1" (click)="loadUsers()">
+            <span class="material-symbols-outlined">
+                refresh
+            </span>
+        </button>
+    </div>
+    <div *ngIf="isLoad; else body">
+        <app-progress-bar></app-progress-bar>
+    </div>
+    <ng-template #body>
+        <div *ngIf="users.length == 0">
+            <div class="active-dark-bg app-warn-alert app-color-white75 flex-fill d-flex align-items-center rounded-2 py-1">
+                <label class="material-symbols-outlined mx-1">
+                    info
+                </label>
+                <div>
+                    <div class="" style="font-size: 14px;">
+                        <div class="mt-1">Необходимо добавить Telegram пользователей.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="">
+            <div class="row g-2">
+                <div *ngFor="let user of users" class="col-6 col-sm-4 col-lg-3 col-xxl-2">
+                    <div class="border app-soft-element-border-color rounded-2 active-dark-bg app-color-white75 p-1" style="height: 300px;">
+                        <div class="d-flex flex-row justify-content-between text-break">
+                            <div>
+                                <label>&#64;{{user.phoneNumber}}</label>
+                                <app-active-status-info [isActive]="user.isActive"
+                                activeText="Активен" inactiveText="Неактивен"></app-active-status-info>
+                            </div>
+                            <button class="app-icon-button app-button-border" (click)="deleteUser(user.id)">
+                                <span class="material-symbols-outlined">
+                                    delete
+                                </span>
+                            </button>
+                        </div>
+                        <div *ngFor="let service of user.services">
+                            <div class="d-flex flex-row justify-content-between text-break mt-1">
+                                <div class="pt-0 flex-fill">
+                                    <div class="border rounded-3 px-1 flex-fill">
+                                        <label style="font-size: 14px;" class="lh-sm">{{service.serviceTypeView}}</label>
+                                    </div>
+                                </div>
+                                <div class="form-check form-switch m-0 ps-1">
+                                    <input [(ngModel)]="service.isActive"
+                                    (ngModelChange)="changeSerivceSubscription(user.id, service)"
+                                    class="form-check-input shadow-none app-check-input m-0" type="checkbox" role="switch">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</div>

@@ -4,6 +4,7 @@ import { DashboardComponent } from "./dashboard/dashboard.component";
 import { autoresponderRoutes } from "../autoresponder/autoresponder.routes";
 import { WbMarketplaceComponent } from "./wb-marketplace.component";
 import { connectionRoutes } from "./connections/connections.routes";
+import { monitoringRoutes } from "../monitorings/monitorings.routes";
 
 export const wbRoute : Route =
 {
@@ -30,6 +31,11 @@ export const wbRoute : Route =
             title : "Подключения",
             path : "connections",
             children : connectionRoutes
+        },
+        {
+            title : "Мониторинг",
+            path : "monitoring",
+            children : monitoringRoutes
         }
     ]
 } 

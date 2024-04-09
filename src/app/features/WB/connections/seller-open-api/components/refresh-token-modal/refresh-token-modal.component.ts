@@ -7,7 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { finalize } from 'rxjs';
 import { MarketplaceConnectionModel } from '../../../../../marketplace-connections/models/marketplace-connection.model';
 import { SpinerComponent } from "../../../../../../shared/components/spiner/spiner.component";
-import { OpenApiService } from '../../../../../marketplace-connections/services/open-api.service';
+import { WbSellerApiConnectionService } from '../../services/connection.service';
 
 @Component({
     selector: 'app-refresh-token-modal',
@@ -23,12 +23,12 @@ export class RefreshTokenModalComponent {
   
   @Input({required : true}) data! : MarketplaceConnectionModel;
   
-  constructor(public dialogRef: DialogRef<any>, private openApiConnectionService : OpenApiService){}
+  constructor(public dialogRef: DialogRef<any>, private openApiConnectionService : WbSellerApiConnectionService){}
 
   refresh(){
     this.isLoad = true;
 
-    this.openApiConnectionService.refreshToken({id : this.data.id, token : this.token})
+    this.openApiConnectionService.updateToken({connectionId : this.data.id, token : this.token})
       .pipe(
         finalize(() => {
           this.isLoad = false;

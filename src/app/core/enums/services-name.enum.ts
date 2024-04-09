@@ -1,3 +1,4 @@
 export enum ServicesName{
-    standardAutoresponder = 1
+    standardAutoresponder = 1,
+    priceMonitoring
 }

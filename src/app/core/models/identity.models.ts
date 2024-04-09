@@ -22,3 +22,10 @@ export interface UserDetails{
     email : string;
     createDate : string;
 }
+
+export interface ResetPasswordModel{
+    email: string;
+    password : string;
+    repeatPassword : string;
+    code : string;
+}

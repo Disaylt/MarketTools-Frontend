@@ -1,5 +1,5 @@
 import { EventEmitter, Injectable, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Marketplace } from '../models/marketplace.model';
 import { MarketplaceStorage } from '../constants/navigations/marketpkaces.storage';
 
@@ -8,20 +8,27 @@ import { MarketplaceStorage } from '../constants/navigations/marketpkaces.storag
 })
 export class MarketDeterminantService{
 
-  private _marketplace : Marketplace;
+  private _marketplace : Marketplace | null = null;
 
   constructor(){
-    this._marketplace = MarketplaceStorage.value[0];
   }
 
-  get marketplace() {
+  set(value : Marketplace){
+    this._marketplace = value;
+    this.toggleEvent.emit(value);
+  }
+
+  get() : Marketplace | null{
     return this._marketplace;
   }
 
-  set marketplace(value : Marketplace){
-    this._marketplace = value;
-    this.toggleEvent.emit();
+  getRequired(){
+    if(this._marketplace == null){
+      throw new Error();
+    }
+
+    return this._marketplace;
   }
 
-  toggleEvent : EventEmitter<void> = new EventEmitter<void>();
+  toggleEvent : EventEmitter<Marketplace> = new EventEmitter<Marketplace>();
 }

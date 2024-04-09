@@ -1,0 +1,15 @@
+<input [(ngModel)]="value.email" class="form-control form-control-sm app-select shadow-none my-2" placeholder="Email" type="text">
+<input [(ngModel)]="value.password" class="form-control form-control-sm app-select shadow-none mb-2" placeholder="Новый пароль" type="password">
+<input [(ngModel)]="value.repeatPassword" class="form-control form-control-sm app-select shadow-none mb-2" placeholder="Повторите пароль" type="password">
+<input [(ngModel)]="value.code" class="form-control form-control-sm app-select shadow-none mb-2" placeholder="Код подтверждения" type="text">
+<div class="d-flex justify-content-end">
+    <button [disabled]="value.email.length == 0" (click)="sendCode()" class="app-button me-1">Отправить код</button>
+    <button [disabled]="value.email.length == 0 || value.code.length == 0 || value.password.length == 0" 
+        (click)="resetPassword()"
+        class="app-button app-main-button app-button-border">
+        Изменить
+        <div *ngIf="load" class="spinner-border spinner-border-sm mx-1" role="status">
+            <span class="visually-hidden"></span>
+        </div>              
+    </button>
+</div>

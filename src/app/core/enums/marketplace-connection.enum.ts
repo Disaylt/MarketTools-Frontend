@@ -1,3 +1,4 @@
 export enum MarketplaceConnectionType{
-    openApi
+    openApi = 1,
+    account
 }

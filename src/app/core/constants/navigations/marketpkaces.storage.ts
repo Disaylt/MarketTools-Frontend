@@ -10,6 +10,10 @@ export class MarketplaceStorage{
         {
             nameEnum : MarketplaceName.ozon,
             nameView : "OZON"
+        },
+        {
+            nameEnum : MarketplaceName.telegram,
+            nameView : "Telegram"
         }
     ]
 }

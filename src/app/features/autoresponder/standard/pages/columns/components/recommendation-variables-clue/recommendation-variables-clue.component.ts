@@ -3,11 +3,12 @@ import { VariableHelp } from './models/variable-help.model';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { CdkMenu, CdkMenuItem, CdkMenuTrigger } from '@angular/cdk/menu';
+import {ClipboardModule} from '@angular/cdk/clipboard';
 
 @Component({
   selector: 'app-recommendation-variables-clue',
   standalone: true,
-  imports: [CommonModule, RouterModule, CdkMenuTrigger, CdkMenu, CdkMenuItem],
+  imports: [CommonModule, RouterModule, CdkMenuTrigger, CdkMenu, CdkMenuItem, ClipboardModule],
   templateUrl: './recommendation-variables-clue.component.html',
   styleUrl: './recommendation-variables-clue.component.scss'
 })
@@ -48,10 +49,6 @@ export class RecommendationVariablesClueComponent {
       ]
     }
   ]
-
-  copy(name : string){
-    navigator.clipboard.writeText(name);
-  }
 
   changeShow(value : boolean){
     this.isShow = value;

@@ -1,5 +1,5 @@
 import { CommonModule, NgForOf } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatIconModule} from '@angular/material/icon';
 import { Marketplace } from '../../models/marketplace.model';
@@ -12,16 +12,19 @@ import { Router, RouterModule, RouterOutlet } from '@angular/router';
 import { MarketDeterminantService } from '../../services/market-determinant.service';
 import { timeout } from 'rxjs';
 import { OzonNavigationStorage } from '../../constants/navigations/ozon-navigations.storage';
+import { CdkMenu, CdkMenuItem, CdkMenuTrigger } from '@angular/cdk/menu';
+import { TelegramNavigationStorage } from '../../constants/navigations/telegram-navigation.storage';
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [MatSidenavModule, CommonModule, MatIconModule, FormsModule, RouterModule],
+  imports: [MatSidenavModule, CommonModule, MatIconModule, FormsModule, RouterModule, CdkMenuTrigger, CdkMenu, CdkMenuItem],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss'
 })
 export class SidebarComponent implements OnInit {
   
+  @ViewChild(CdkMenu) cdkMenu!: CdkMenu;
   markets : Marketplace[] = MarketplaceStorage.value;
   lastSelectMarket : Marketplace | null = null;
 
@@ -32,14 +35,24 @@ export class SidebarComponent implements OnInit {
   ngOnInit(): void {
     this.marketDeterminantService.toggleEvent
       .subscribe(x=> {
-        this.setMarketNavigation();
+        this.setMarketNavigation(x);
       })
-      this.setMarketNavigation();
   }
 
-  setMarketNavigation(){
+  chooseMenu(value : Marketplace){
+    this.marketDeterminantService.set(value);
+    if(this.cdkMenu != undefined){
+      this.cdkMenu.menuStack.closeAll();
+    }
+  }
+
+  setMarketNavigation(value : Marketplace){
+    if(value == this.lastSelectMarket){
+      return;
+    }
+
     let routeLink = "";
-    switch(this.marketDeterminantService.marketplace.nameEnum){
+    switch(value.nameEnum){
       case MarketplaceName.wb:
         this.marketBar = WbNavigationStorage.value;
         routeLink = "dashboard/wb"
@@ -48,15 +61,19 @@ export class SidebarComponent implements OnInit {
         this.marketBar = OzonNavigationStorage.value;
         routeLink = "dashboard/ozon"
         break;
+      case MarketplaceName.telegram:
+          this.marketBar = TelegramNavigationStorage.value;
+          routeLink = "dashboard/telegram/info"
+          break;
       default:
-        this.marketBar = [];
-        this.router.navigate(["dashboard/marketpalce-not-found"]);
+        this.marketBar = WbNavigationStorage.value;
+        break;
     }
 
-    if(this.lastSelectMarket != null && this.marketDeterminantService.marketplace != this.lastSelectMarket){
+    if(this.lastSelectMarket != null){
       this.router.navigate([routeLink]);
     }
 
-    this.lastSelectMarket = this.marketDeterminantService.marketplace;
+    this.lastSelectMarket = value;
   }
 }
