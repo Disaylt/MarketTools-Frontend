@@ -13,7 +13,7 @@
             <div style="height: 20px;"></div>
               <app-sidebar></app-sidebar>
           </mat-sidenav>
-          <mat-sidenav-content class="px-2">
+          <mat-sidenav-content [style]="{'margin-left': (isMobile) ? '0px' : '216px'}" class="px-2">
             <div style="height: 20px;"></div>
             <router-outlet></router-outlet>
             <div style="height: 20px;"></div>
