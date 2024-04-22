@@ -11,8 +11,8 @@ export interface SizeViewModel{
     name : string;
     price : number;
     lastPrice : number;
-    discountedPrice : number;
     spp : number;
     sizeId : number;
     canEdit : boolean;
+    stock : number;
 }

@@ -14,7 +14,9 @@ import { ServicesName } from '../../../../core/enums/services-name.enum';
 import { MarketplaceName } from '../../../../core/enums/marketplace-name';
 import { PriceService } from './Services/price.service';
 import { PriceDetailsResult } from './models/result.model';
-import { finalize } from 'rxjs';
+import { finalize, map } from 'rxjs';
+import { ProductViewModel } from './models/product-view.model';
+import { ProductMapUtility } from './Utilities/ProductMapUtility';
 
 @Component({
     selector: 'app-price',
@@ -30,7 +32,7 @@ export class PriceComponent implements OnInit {
   searchConnectionName : string = "";
 
   isLoad = false;
-  result : PriceDetailsResult | null = null;
+  products : ProductViewModel[] = [];
   
   @ViewChild(CdkMenu) cdkMenu!: CdkMenu;
   constructor(private sellerService : MarketplaceConnectionsService, private priceService : PriceService){}
@@ -47,17 +49,23 @@ export class PriceComponent implements OnInit {
 
   getRange(connectionId : number){
     this.isLoad = true;
-    
+    this.products = [];
+
     this.priceService
       .getRange(connectionId)
       .pipe(
+        map(x=> {
+          const mapper = new ProductMapUtility(x);
+          return mapper.map();
+        }),
         finalize(() => {
           this.isLoad = false;
         })
       )
       .subscribe({
         next : data => {
-          this.result = data;
+          this.products = data;
+          console.log(this.products);
         }
       })
   }
