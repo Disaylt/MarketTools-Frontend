@@ -12,6 +12,6 @@ export class PriceService {
   getRange(connectionId : number){
     const path = `api/v1/workspace/price?connectionId=${connectionId}`;
 
-    return this.httpClient.get<PriceDetailsResult[]>(path);
+    return this.httpClient.get<PriceDetailsResult>(path);
   }
 }
