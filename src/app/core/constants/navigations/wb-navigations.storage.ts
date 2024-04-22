@@ -85,6 +85,21 @@ export class WbNavigationStorage{
                     isDisabled : true
                 }
             ]
+        },
+        {
+            colapseName : "workspace",
+            iconCode: "workspaces",
+            main : {
+                name : "Workspace",
+                isDisabled : false
+            },
+            parent : [
+                {
+                    name : "Цены",
+                    path : `${this.market}/workspace/price`,
+                    isDisabled : false
+                }
+            ]
         }
     ]
 }
