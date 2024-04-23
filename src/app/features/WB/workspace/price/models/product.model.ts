@@ -1,6 +1,7 @@
 export interface ProductApiModel{
     id : number;
     brand : string;
+    name : string;
     sizes : SizeApiModel[];
 }
 

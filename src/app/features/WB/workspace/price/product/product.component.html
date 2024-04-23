@@ -1,10 +1,105 @@
-<div class="d-row">
-    <div class="col">
-        <div>
-            {{product.article}}
+<div class="pb-1">
+    <div class="row gx-2 py-1 rounded-2 app-color-white75 active-dark-bg app-soft-element-border-color">
+        <div class="col-1">
+            <img [src]="product.imageUrl" class="rounded-1 img-fluid" alt="...">
         </div>
-        <div>
-            {{product.selsellerArticle}}
+        <div class="col-11">
+            <div class="row gx-2 pb-2">
+                <div class="col-4">
+                    <div class="border rounded-1 px-1 mb-1 d-flex flex-column">
+                        <label class="text-truncate lh-sm" style="font-size: 12px;">Название</label>
+                        <span class="text-break lh-sm">{{product.name}}</span>
+                    </div>
+                    <div class="border rounded-1 px-1 mb-1 d-flex flex-column">
+                        <label class="text-truncate lh-sm" style="font-size: 12px;">Бренд</label>
+                        <span class="text-truncate">{{product.brand}}</span>
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div class="border rounded-1 px-1 mb-1 d-flex flex-column">
+                        <label class="text-truncate lh-sm" style="font-size: 12px;">Атикул</label>
+                        <span class="text-truncate">{{product.article}}</span>
+                    </div>
+                    <div class="border rounded-1 px-1 d-flex flex-column">
+                        <label class="text-truncate lh-sm" style="font-size: 12px;">Атикул продовца</label>
+                        <span class="text-truncate">{{product.selsellerArticle}}</span>
+                    </div>
+                </div>
+                <div class="col-1">
+                    <div class="border rounded-1 px-1 mb-1 d-flex flex-column">
+                        <label class="text-truncate lh-sm" style="font-size: 12px;">Сток</label>
+                        <span class="text-truncate">{{product.stock}}</span>
+                    </div>
+                    <div *ngIf="product.sizes.length > 0" class="border rounded-1 px-1 d-flex flex-column">
+                        <label class="text-truncate lh-sm" style="font-size: 12px;">Размеры</label>
+                        <span class="text-break lh-sm">
+                            <span *ngFor="let size of product.sizes">
+                                {{size.name}};
+                            </span>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div class="mb-1 px-1 pb-1 d-flex flex-column border rounded-1">
+                        <label class="text-truncate lh-sm" style="font-size: 12px;">Цена (р)</label>
+                        <input [(ngModel)]="product.price" type="number" class="px-1 app-form-light app-form form-control form-control-sm border-0 app-select shadow-none">
+                    </div>
+                    <div class="px-1 pb-1 d-flex flex-column border rounded-1">
+                        <label class="text-truncate lh-sm" style="font-size: 12px;">Скидка (%)</label>
+                        <input [(ngModel)]="product.discount" type="number" class="px-1 app-form-light app-form form-control form-control-sm border-0 app-select shadow-none">
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="border rounded-1 px-1 mb-1 d-flex flex-column">
+                        <label class="text-truncate lh-sm" style="font-size: 12px;">Итог продовца</label>
+                        <span class="text-truncate">{{getDiscountPrice()}} р.</span>
+                    </div>
+                    <div class="row g-1">
+                        <div class="col-5">
+                            <div class="border rounded-1 px-1 mb-1 d-flex flex-column">
+                                <label class="text-truncate lh-sm" style="font-size: 12px;">СПП</label>
+                                <span class="text-truncate">{{product.spp}}%</span>
+                            </div>
+                        </div>
+                        <div class="col-7">
+                            <div class="border rounded-1 px-1 mb-1 d-flex flex-column">
+                                <label class="text-truncate lh-sm" style="font-size: 12px;">Итог</label>
+                                <span class="text-truncate">{{getBuyerDiscountPrice()}} р.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-auto">
+                    <div>
+                        <input class="form-check-input mt-0 shadow-none" type="checkbox" id="checkboxNoLabel" value="" aria-label="...">
+                    </div>
+                </div>
+            </div>
+            <div *ngFor="let size of product.sizes" class="border-top">
+                <div class="row g-2">
+                    <div class="col-6 d-flex align-items-center">
+                        <span style="font-size: 14px;">{{size.name}}</span>
+                    </div>
+                    <div class="col-1 d-flex align-items-center">
+                        <span style="font-size: 14px;">{{size.stock}}</span>
+                    </div>
+                    <div class="col-2">
+                        <input [disabled]="true" [(ngModel)]="size.price" type="number" class="py-0 px-1 app-form app-form-light form-control form-control-sm rounded-0 border-0 app-select shadow-none">
+                    </div>
+                    <div class="col-3 d-flex align-items-center">
+                        <div class="d-flex flex-row align-items-center text-truncate">
+                            <span style="font-size: 14px;" class="material-symbols-outlined">
+                                arrow_forward_ios
+                            </span> 
+                            <span style="font-size: 14px;" class="">{{product.discount}}% | {{size.stock}} р.</span>
+                            <span style="font-size: 14px;" class="material-symbols-outlined">
+                                arrow_forward_ios
+                            </span> 
+                            <span style="font-size: 14px;" class="">{{size.spp}}% | {{size.stock}}р.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

@@ -17,13 +17,14 @@ import { PriceDetailsResult } from './models/result.model';
 import { finalize, map } from 'rxjs';
 import { ProductViewModel } from './models/product-view.model';
 import { ProductMapUtility } from './Utilities/ProductMapUtility';
+import { ProductComponent } from "./product/product.component";
 
 @Component({
     selector: 'app-price',
     standalone: true,
     templateUrl: './price.component.html',
     styleUrl: './price.component.scss',
-    imports: [CdkMenuTrigger, CdkMenu, CdkMenuItem, CommonModule, FormsModule, ActiveStatusInfoComponent, ProgressBarComponent, PaginationBarComponent, TabBarComponent, TabBarButtonComponent, NameFilterPipe]
+    imports: [CdkMenuTrigger, CdkMenu, CdkMenuItem, CommonModule, FormsModule, ActiveStatusInfoComponent, ProgressBarComponent, PaginationBarComponent, TabBarComponent, TabBarButtonComponent, NameFilterPipe, ProductComponent]
 })
 export class PriceComponent implements OnInit {
 

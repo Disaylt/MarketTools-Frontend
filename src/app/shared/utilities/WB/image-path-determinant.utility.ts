@@ -1,5 +1,5 @@
 export class ImagePathDeterminantUtityli{
-    getImagePath(article : string) : string{
+    static getImagePath(article : string) : string{
 
         try{
             const vol = this.getVol(article);
@@ -13,7 +13,7 @@ export class ImagePathDeterminantUtityli{
         }
     }
 
-    private getVol(article : string) : string{
+    private static getVol(article : string) : string{
         const value = 5;
         if(article.length <= value){
             return "0";
@@ -21,7 +21,7 @@ export class ImagePathDeterminantUtityli{
         return article.slice(0, -value);
     }
 
-    private getPart(article : string) : string{
+    private static getPart(article : string) : string{
         const value = 3;
         if(article.length <= value){
             return "0";
@@ -29,52 +29,52 @@ export class ImagePathDeterminantUtityli{
         return article.slice(0, -value);
     }
 
-    private chooseBaseket(vol : string) : string{
+    private static chooseBaseket(vol : string) : string{
         const number = Number.parseInt(vol);
 
-        if(number >= 0){
+        if(number <= 143){
             return "01";
         }
-        if(number >= 144){
+        if(number <= 287){
             return "02";
         }
-        if(number >= 288){
+        if(number <= 431){
             return "03";
         }
-        if(number >= 432){
+        if(number <= 719){
             return "04";
         }
-        if(number >= 720){
+        if(number <= 1007){
             return "05";
         }
-        if(number >= 1008){
+        if(number <= 1061){
             return "06";
         }
-        if(number >= 1062){
+        if(number <= 1115){
             return "07";
         }
-        if(number >= 1116){
+        if(number <= 1169){
             return "08";
         }
-        if(number >= 1170){
+        if(number <= 1313){
             return "09";
         }
-        if(number >= 1314){
+        if(number <= 1601){
             return "10";
         }
-        if(number >= 1602){
+        if(number <= 1655){
             return "11";
         }
-        if(number >= 1656){
+        if(number <= 1919){
             return "12";
         }
-        if(number >= 1920){
+        if(number <= 2045){
             return "13";
         }
-        if(number >= 2046){
+        if(number <= 2189){
             return "14";
         }
-        if(number >= 2091 && number <= 2405){
+        if(number <= 2405){
             return "15";
         }
         else{

@@ -3,8 +3,16 @@ export interface ProductViewModel{
     selsellerArticle : string;
     discount : number;
     lastDiscount : number;
+    price : number;
+    lastPrice : number;
     isCheck : boolean;
     sizes : SizeViewModel[]
+    imageUrl : string;
+    stock : number;
+    name : string;
+    canEdit : boolean;
+    brand : string;
+    spp : number;
 }
 
 export interface SizeViewModel{

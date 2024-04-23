@@ -1,3 +1,4 @@
+import { ImagePathDeterminantUtityli } from "../../../../../shared/utilities/WB/image-path-determinant.utility";
 import { PriceApiModel } from "../models/price.model";
 import { ProductViewModel, SizeViewModel } from "../models/product-view.model";
 import { ProductApiModel } from "../models/product.model";
@@ -36,8 +37,16 @@ export class ProductMapUtility {
             selsellerArticle: price.sellerArticle,
             discount: price.discount,
             lastDiscount: price.discount,
+            price : 0,
+            lastPrice : 0,
             isCheck: false,
-            sizes: []
+            imageUrl : ImagePathDeterminantUtityli.getImagePath(price.article),
+            sizes: [],
+            stock : 0,
+            spp : 0,
+            name : product.name,
+            canEdit : false,
+            brand : product.brand
         };
 
         price.sizes
@@ -54,7 +63,7 @@ export class ProductMapUtility {
                     price: size.price,
                     lastPrice: size.price,
                     sizeId: size.sizeId,
-                    canEdit: price.editableSizePrice || size.name == "0",
+                    canEdit: price.editableSizePrice,
                     spp : this.mathSpp(size.discountedPrice, sizeDetails.price?.totalReal ?? null),
                     stock : sizeDetails.stocks
                         .map(x=> x.qty)
@@ -62,6 +71,23 @@ export class ProductMapUtility {
                 };
                 viewProduct.sizes.push(viewSize);
             });
+
+        if(price.editableSizePrice == false && viewProduct.sizes.length > 0){
+            const mainSize = viewProduct.sizes[0];
+            if(mainSize != undefined){
+                viewProduct.price = mainSize.price;
+                viewProduct.lastPrice = mainSize.price;
+                viewProduct.spp = mainSize.spp;
+                viewProduct.canEdit = true;
+            }
+        }
+
+        viewProduct.stock = viewProduct.sizes
+            .map(x=> x.stock)
+            .reduce((a,b) => a + b, 0);
+        
+        viewProduct.sizes = viewProduct.sizes
+            .filter(x=> x.name != "0"); 
         
         return viewProduct;
     }
