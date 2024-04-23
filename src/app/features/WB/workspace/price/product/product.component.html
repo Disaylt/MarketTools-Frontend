@@ -40,18 +40,36 @@
                     </div>
                 </div>
                 <div class="col-2">
-                    <div class="mb-1 px-1 pb-1 d-flex flex-column border rounded-1">
+                    <div [ngClass]="{'app-warn-alert': product.price != product.lastPrice,
+                        'border' : product.price == product.lastPrice}" 
+                        class="mb-1 px-1 pb-1 d-flex flex-column rounded-1">
                         <label class="text-truncate lh-sm" style="font-size: 12px;">Цена (р)</label>
-                        <input [(ngModel)]="product.price" type="number" class="px-1 app-form-light app-form form-control form-control-sm border-0 app-select shadow-none">
+                        <div class="d-flex flex-row">
+                            <input [disabled]="product.canEdit == false || product.editableSizePrice" min="1" [(ngModel)]="product.price" (ngModelChange)="changePrice()" type="number" class="me-1 px-1 app-form-light app-form form-control form-control-sm border-0 app-select shadow-none">
+                            <button [disabled]="product.canEdit == false || product.editableSizePrice" class="app-icon-button" (click)="returnPrice()">
+                                <span class="material-symbols-outlined">
+                                    undo
+                                </span>
+                            </button>
+                        </div>
                     </div>
-                    <div class="px-1 pb-1 d-flex flex-column border rounded-1">
+                    <div [ngClass]="{'app-warn-alert': product.discount != product.lastDiscount,
+                        'border' : product.discount == product.lastDiscount}" 
+                        class="px-1 pb-1 d-flex flex-column border rounded-1 ">
                         <label class="text-truncate lh-sm" style="font-size: 12px;">Скидка (%)</label>
-                        <input [(ngModel)]="product.discount" type="number" class="px-1 app-form-light app-form form-control form-control-sm border-0 app-select shadow-none">
+                        <div class="d-flex flex-row">
+                            <input [disabled]="product.canEdit == false" min="0" max="99" [(ngModel)]="product.discount" (ngModelChange)="changeDiscount()" type="number" class="me-1 px-1 app-form-light app-form form-control form-control-sm border-0 app-select shadow-none">
+                            <button [disabled]="product.canEdit == false" class="app-icon-button" (click)="returnDiscount()">
+                                <span class="material-symbols-outlined">
+                                    undo
+                                </span>
+                            </button>
+                        </div>
                     </div>
                 </div>
                 <div class="col">
                     <div class="border rounded-1 px-1 mb-1 d-flex flex-column">
-                        <label class="text-truncate lh-sm" style="font-size: 12px;">Итог продовца</label>
+                        <label class="text-truncate lh-sm" style="font-size: 12px;">Итог продавца</label>
                         <span class="text-truncate">{{getDiscountPrice()}} р.</span>
                     </div>
                     <div class="row g-1">
@@ -76,29 +94,7 @@
                 </div>
             </div>
             <div *ngFor="let size of product.sizes" class="border-top">
-                <div class="row g-2">
-                    <div class="col-6 d-flex align-items-center">
-                        <span style="font-size: 14px;">{{size.name}}</span>
-                    </div>
-                    <div class="col-1 d-flex align-items-center">
-                        <span style="font-size: 14px;">{{size.stock}}</span>
-                    </div>
-                    <div class="col-2">
-                        <input [disabled]="true" [(ngModel)]="size.price" type="number" class="py-0 px-1 app-form app-form-light form-control form-control-sm rounded-0 border-0 app-select shadow-none">
-                    </div>
-                    <div class="col-3 d-flex align-items-center">
-                        <div class="d-flex flex-row align-items-center text-truncate">
-                            <span style="font-size: 14px;" class="material-symbols-outlined">
-                                arrow_forward_ios
-                            </span> 
-                            <span style="font-size: 14px;" class="">{{product.discount}}% | {{size.stock}} р.</span>
-                            <span style="font-size: 14px;" class="material-symbols-outlined">
-                                arrow_forward_ios
-                            </span> 
-                            <span style="font-size: 14px;" class="">{{size.spp}}% | {{size.stock}}р.</span>
-                        </div>
-                    </div>
-                </div>
+                <app-size [size]="size" [product]="product" (changedPrice)="changeDiscountEditableStatus()"></app-size>
             </div>
         </div>
     </div>

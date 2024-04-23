@@ -32,7 +32,12 @@ export class ProductMapUtility {
             return null;
         }
 
+        if(price.article == "105358704"){
+            price.editableSizePrice = true;
+        }
+
         const viewProduct: ProductViewModel = {
+            editableSizePrice : price.editableSizePrice,
             article: price.article,
             selsellerArticle: price.sellerArticle,
             discount: price.discount,
@@ -45,7 +50,7 @@ export class ProductMapUtility {
             stock : 0,
             spp : 0,
             name : product.name,
-            canEdit : false,
+            canEdit : true,
             brand : product.brand
         };
 
@@ -78,7 +83,6 @@ export class ProductMapUtility {
                 viewProduct.price = mainSize.price;
                 viewProduct.lastPrice = mainSize.price;
                 viewProduct.spp = mainSize.spp;
-                viewProduct.canEdit = true;
             }
         }
 

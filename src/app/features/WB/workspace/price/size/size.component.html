@@ -1,1 +1,33 @@
-<p>size works!</p>
+<div class="row g-2">
+    <div class="col-6 d-flex align-items-center">
+        <span style="font-size: 14px;">{{size.name}}</span>
+    </div>
+    <div class="col-1 d-flex align-items-center">
+        <span style="font-size: 14px;">{{size.stock}}</span>
+    </div>
+    <div class="col-2">
+        <div class="d-flex flex-row">
+            <input [disabled]="size.canEdit == false" [(ngModel)]="size.price" type="number" 
+            (ngModelChange)="changedPrice.emit()"
+            class="me-1 py-0 px-1 app-form app-form-light form-control form-control-sm rounded-0 app-select shadow-none"
+            [ngClass]="{'app-warn-alert': size.price != size.lastPrice}">
+            <button [disabled]="size.canEdit == false" class="app-icon-button" (click)="returnPrice(); changedPrice.emit()">
+                <span class="material-symbols-outlined">
+                    undo
+                </span>
+            </button>
+        </div>
+    </div>
+    <div class="col-3 d-flex align-items-center">
+        <div class="d-flex flex-row align-items-center text-truncate">
+            <span style="font-size: 14px;" class="material-symbols-outlined">
+                arrow_forward_ios
+            </span> 
+            <span style="font-size: 14px;" class="">{{product.discount}}% | {{getDiscountPrice()}} р.</span>
+            <span style="font-size: 14px;" class="material-symbols-outlined">
+                arrow_forward_ios
+            </span> 
+            <span style="font-size: 14px;" class="">{{size.spp}}% | {{getBuyerDiscountPrice()}}р.</span>
+        </div>
+    </div>
+</div>

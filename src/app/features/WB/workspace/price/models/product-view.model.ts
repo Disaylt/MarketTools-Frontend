@@ -13,6 +13,7 @@ export interface ProductViewModel{
     canEdit : boolean;
     brand : string;
     spp : number;
+    editableSizePrice : boolean;
 }
 
 export interface SizeViewModel{
