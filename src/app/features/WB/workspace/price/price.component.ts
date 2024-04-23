@@ -18,15 +18,35 @@ import { finalize, map } from 'rxjs';
 import { ProductViewModel } from './models/product-view.model';
 import { ProductMapUtility } from './Utilities/ProductMapUtility';
 import { ProductComponent } from "./product/product.component";
+import { FilterComponent } from "./filter/filter.component";
+import { Filter } from './models/filter.model';
 
 @Component({
     selector: 'app-price',
     standalone: true,
     templateUrl: './price.component.html',
     styleUrl: './price.component.scss',
-    imports: [CdkMenuTrigger, CdkMenu, CdkMenuItem, CommonModule, FormsModule, ActiveStatusInfoComponent, ProgressBarComponent, PaginationBarComponent, TabBarComponent, TabBarButtonComponent, NameFilterPipe, ProductComponent]
+    imports: [CdkMenuTrigger, CdkMenu, CdkMenuItem, CommonModule, FormsModule, ActiveStatusInfoComponent, ProgressBarComponent, PaginationBarComponent, TabBarComponent, TabBarButtonComponent, NameFilterPipe, ProductComponent, FilterComponent]
 })
 export class PriceComponent implements OnInit {
+
+  filter : Filter = {
+    article : "",
+    sellerArticle : "",
+    name : "",
+    brand : "",
+    minStock : 0,
+    maxStock : 999999,
+    minPrice: 0,
+    maxPrice: 999999,
+    minDiscount : 0,
+    maxDiscount : 99,
+
+    isSelected : false,
+    isChangePrice : false,
+    isChangeDiscount : false,
+    canEditSize : false,
+  }
 
   selectedConnection : MarketplaceConnectionModel | null = null;
   connections : MarketplaceConnectionModel[] = [];
@@ -34,7 +54,10 @@ export class PriceComponent implements OnInit {
 
   isLoad = false;
   products : ProductViewModel[] = [];
+  filterProducts : ProductViewModel[] = [];
+  viewProducts : ProductViewModel[] = [];
   
+  @ViewChild(PaginationBarComponent) paginationBar! : PaginationBarComponent;
   @ViewChild(CdkMenu) cdkMenu!: CdkMenu;
   constructor(private sellerService : MarketplaceConnectionsService, private priceService : PriceService){}
 
@@ -48,9 +71,19 @@ export class PriceComponent implements OnInit {
     this.getRange(connection.id);
   }
 
+  changePage(){
+    const skip = this.paginationBar.paginationDetails.skip;
+    const take = this.paginationBar.paginationDetails.take;
+    this.viewProducts = this.filterProducts
+      .slice(skip, skip + take);
+    this.paginationBar.updateTotal(this.filterProducts.length);
+  }
+
   getRange(connectionId : number){
     this.isLoad = true;
     this.products = [];
+    this.filterProducts = [];
+    this.changePage();
 
     this.priceService
       .getRange(connectionId)
@@ -66,9 +99,18 @@ export class PriceComponent implements OnInit {
       .subscribe({
         next : data => {
           this.products = data;
-          console.log(this.products);
+          this.setFilterProducts();
+          this.changePage();
         }
       })
+  }
+
+  setFilterProducts(){
+    this.filterProducts = this.products
+      .filter(x=> {
+        return x.article.includes(this.filter.article);
+      });
+    this.changePage();
   }
 
   getConnections(){

@@ -11,7 +11,7 @@
             (ngModelChange)="changedPrice.emit()"
             class="me-1 py-0 px-1 app-form app-form-light form-control form-control-sm rounded-0 app-select shadow-none"
             [ngClass]="{'app-warn-alert': size.price != size.lastPrice}">
-            <button [disabled]="size.canEdit == false" class="app-icon-button" (click)="returnPrice(); changedPrice.emit()">
+            <button [disabled]="size.canEdit == false || size.lastPrice == size.price" class="app-icon-button" (click)="returnPrice(); changedPrice.emit()">
                 <span class="material-symbols-outlined">
                     undo
                 </span>

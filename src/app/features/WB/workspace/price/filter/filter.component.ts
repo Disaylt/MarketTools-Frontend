@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Filter } from '../models/filter.model';
 
 @Component({
   selector: 'app-filter',
@@ -10,5 +11,13 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './filter.component.scss'
 })
 export class FilterComponent {
-  article : string = "";
+  @Input({required : true}) filter! : Filter;
+  @Output() changed : EventEmitter<void> = new EventEmitter();
+
+  subjects : string[] = ["Информация", "Показатели", "Статусы"]
+  selectedSubject : string | null = null;
+
+  selectSubject(subject : string){
+    this.selectedSubject = subject;
+  }
 }
