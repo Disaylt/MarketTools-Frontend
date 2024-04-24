@@ -1,0 +1,24 @@
+<div class="row g-1">
+    <div class="col-auto" style="width:120px">
+        <ul class="app-active-list mb-0 overflow-auto mb-2">
+            <li *ngFor="let subject of subjects" 
+                class="d-flex flex-row justify-content-between rounded-1" 
+                [ngClass]="{'active' : selectedSubject == subject}" (click)="selectSubject(subject)">
+                <span class="text-truncate app-color-white75">{{subject}}</span>
+            </li>
+        </ul>
+    </div>
+    <div class="col" style="width: 200px;">
+        <div  *ngIf="selectedSubject == null">
+            <div class="active-dark-bg app-warn-alert app-color-white75 flex-fill d-flex align-items-center rounded-2 py-1">
+                <label class="material-symbols-outlined mx-1">
+                    info
+                </label>
+                <div style="font-size: 12px;" class="app-color-white75 lh-sm me-1">
+                    <p>Меню позволяет массово изменять цены и скидки для выбранных (Отмеченных галочкой) товаров.</p>
+                    <p>Из-за ограничений вб, невозможно одноверменно менять скидку/цену на размер.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
