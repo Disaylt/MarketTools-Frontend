@@ -62,43 +62,7 @@
             </button>
             <ng-template #checkList>
                 <div class="d-flex flex-column p-1 rounded-2 app-transparent-dark-bg shadow mt-1" cdkMenu>
-                    <div class="row g-1 mb-2">
-                        <label class="text-truncate lh-sm" style="font-size: 12px; opacity: 0.7;">По фильтру</label>
-                        <div class="col-6">
-                            <button cdkMenuItem class="app-icon-button app-button-border w-100">
-                                <span class="material-symbols-outlined">
-                                    done
-                                </span>
-                            </button>
-                        </div>
-                        <div class="col-6">
-                            <button cdkMenuItem class="app-icon-button app-button-border w-100">
-                                <span class="material-symbols-outlined">
-                                    close
-                                </span>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="row g-1 mb-2">
-                        <label class="text-truncate lh-sm" style="font-size: 12px; opacity: 0.7;">На странице</label>
-                        <div class="col-6">
-                            <button cdkMenuItem class="app-icon-button app-button-border w-100">
-                                <span class="material-symbols-outlined">
-                                    done
-                                </span>
-                            </button>
-                        </div>
-                        <div class="col-6">
-                            <button cdkMenuItem class="app-icon-button app-button-border w-100">
-                                <span class="material-symbols-outlined">
-                                    close
-                                </span>
-                            </button>
-                        </div>
-                    </div>
-                    <button cdkMenuItem class="app-button w-100 app-button-border">
-                        <span class="text-truncate">Сбросить</span>
-                    </button>
+                    <app-checker [filterProducts]="filterProducts" [viewProducts]="viewProducts" [products]="products" (changed)="setFilterProducts()"></app-checker>
                 </div>
             </ng-template>
         </div>

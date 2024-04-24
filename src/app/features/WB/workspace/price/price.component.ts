@@ -21,13 +21,14 @@ import { ProductComponent } from "./product/product.component";
 import { FilterComponent } from "./filter/filter.component";
 import { Filter } from './models/filter.model';
 import { FilterUtility } from './Utilities/default-filter.utility';
+import { CheckerComponent } from "./checker/checker.component";
 
 @Component({
     selector: 'app-price',
     standalone: true,
     templateUrl: './price.component.html',
     styleUrl: './price.component.scss',
-    imports: [CdkMenuTrigger, CdkMenu, CdkMenuItem, CommonModule, FormsModule, ActiveStatusInfoComponent, ProgressBarComponent, PaginationBarComponent, TabBarComponent, TabBarButtonComponent, NameFilterPipe, ProductComponent, FilterComponent]
+    imports: [CdkMenuTrigger, CdkMenu, CdkMenuItem, CommonModule, FormsModule, ActiveStatusInfoComponent, ProgressBarComponent, PaginationBarComponent, TabBarComponent, TabBarButtonComponent, NameFilterPipe, ProductComponent, FilterComponent, CheckerComponent]
 })
 export class PriceComponent implements OnInit {
 
@@ -65,8 +66,6 @@ export class PriceComponent implements OnInit {
     this.viewProducts = this.filterProducts
       .slice(skip, skip + take);
     this.paginationBar.updateTotal(this.filterProducts.length);
-    console.log(this.viewProducts)
-    console.log(this.filter)
   }
 
   getRange(connectionId : number){
