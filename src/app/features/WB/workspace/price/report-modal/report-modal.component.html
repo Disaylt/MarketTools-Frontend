@@ -1,0 +1,15 @@
+<app-modal [dialogRef]="dialogRef" name="Отправитель данных">
+    <app-progress-bar *ngIf="isLoad else body" class=""></app-progress-bar>
+    <ng-template #body>
+        <div *ngIf="products.length == 0">
+            <div class="app-warn-alert app-color-white75 flex-fill d-flex align-items-center rounded-2 p-1">
+                <div style="font-size: 12px;" class="app-color-white75 lh-sm">
+                    <span>Необходимо изменить хотя бы 1 товар.</span>
+                </div>
+            </div>
+        </div>
+        <div *ngFor="let product of products">
+            <div>{{product.name}}</div>
+        </div>
+    </ng-template>
+</app-modal>

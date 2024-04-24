@@ -23,6 +23,8 @@ import { Filter } from './models/filter.model';
 import { FilterUtility } from './Utilities/default-filter.utility';
 import { CheckerComponent } from "./checker/checker.component";
 import { RangePriceChangerComponent } from "./range-price-changer/range-price-changer.component";
+import { Dialog } from '@angular/cdk/dialog';
+import { ReportModalComponent } from './report-modal/report-modal.component';
 
 @Component({
     selector: 'app-price',
@@ -46,13 +48,22 @@ export class PriceComponent implements OnInit {
   
   @ViewChild(PaginationBarComponent) paginationBar! : PaginationBarComponent;
   @ViewChild(CdkMenu) cdkMenu!: CdkMenu;
-  constructor(private sellerService : MarketplaceConnectionsService, private priceService : PriceService)
+  constructor(private sellerService : MarketplaceConnectionsService, 
+    private priceService : PriceService,
+    private dialog: Dialog)
   {
     this.filter = FilterUtility.getDefault();
   }
 
   ngOnInit(): void {
     this.getConnections();
+  }
+
+  operReportModal(){
+    const modal = this.dialog.open(ReportModalComponent);
+    if(modal.componentInstance){
+      modal.componentInstance.setProdcuts(this.products);
+    }
   }
 
   selectConnection(connection : MarketplaceConnectionModel){
