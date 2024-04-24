@@ -20,6 +20,7 @@ import { ProductMapUtility } from './Utilities/ProductMapUtility';
 import { ProductComponent } from "./product/product.component";
 import { FilterComponent } from "./filter/filter.component";
 import { Filter } from './models/filter.model';
+import { FilterUtility } from './Utilities/default-filter.utility';
 
 @Component({
     selector: 'app-price',
@@ -30,23 +31,7 @@ import { Filter } from './models/filter.model';
 })
 export class PriceComponent implements OnInit {
 
-  filter : Filter = {
-    article : "",
-    sellerArticle : "",
-    name : "",
-    brand : "",
-    minStock : 0,
-    maxStock : 999999,
-    minPrice: 0,
-    maxPrice: 999999,
-    minDiscount : 0,
-    maxDiscount : 99,
-
-    isSelected : false,
-    isChangePrice : false,
-    isChangeDiscount : false,
-    canEditSize : false,
-  }
+  filter : Filter;
 
   selectedConnection : MarketplaceConnectionModel | null = null;
   connections : MarketplaceConnectionModel[] = [];
@@ -59,7 +44,10 @@ export class PriceComponent implements OnInit {
   
   @ViewChild(PaginationBarComponent) paginationBar! : PaginationBarComponent;
   @ViewChild(CdkMenu) cdkMenu!: CdkMenu;
-  constructor(private sellerService : MarketplaceConnectionsService, private priceService : PriceService){}
+  constructor(private sellerService : MarketplaceConnectionsService, private priceService : PriceService)
+  {
+    this.filter = FilterUtility.getDefault();
+  }
 
   ngOnInit(): void {
     this.getConnections();
@@ -77,6 +65,8 @@ export class PriceComponent implements OnInit {
     this.viewProducts = this.filterProducts
       .slice(skip, skip + take);
     this.paginationBar.updateTotal(this.filterProducts.length);
+    console.log(this.viewProducts)
+    console.log(this.filter)
   }
 
   getRange(connectionId : number){
@@ -108,7 +98,34 @@ export class PriceComponent implements OnInit {
   setFilterProducts(){
     this.filterProducts = this.products
       .filter(x=> {
-        return x.article.includes(this.filter.article);
+        let value = x.price >= this.filter.minPrice
+          && x.price <= this.filter.maxPrice
+          && x.discount >= this.filter.minDiscount
+          && x.discount <= this.filter.maxDiscount
+          && x.stock >= this.filter.minStock
+          && x.stock <= this.filter.maxStock
+          && x.article.includes(this.filter.article)
+          && x.name.toLowerCase().includes(this.filter.name.toLowerCase())
+          && x.selsellerArticle.toLowerCase().includes(this.filter.sellerArticle.toLowerCase())
+          && x.brand.toLowerCase().includes(this.filter.brand.toLowerCase());
+        
+        if(this.filter.isSelected){
+          value = value && x.isCheck
+        }
+
+        if(this.filter.isChangeDiscount){
+          value = value && x.discount != x.lastDiscount
+        }
+
+        if(this.filter.isChangePrice){
+          value = value && x.price != x.lastPrice
+        }
+
+        if(this.filter.canEditSize){
+          value = value && x.editableSizePrice
+        }
+        
+        return value;
       });
     this.changePage();
   }

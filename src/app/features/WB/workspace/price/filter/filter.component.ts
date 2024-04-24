@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Filter } from '../models/filter.model';
+import { FilterUtility } from '../Utilities/default-filter.utility';
 
 @Component({
   selector: 'app-filter',
@@ -19,5 +20,10 @@ export class FilterComponent {
 
   selectSubject(subject : string){
     this.selectedSubject = subject;
+  }
+
+  reset(){
+    FilterUtility.reset(this.filter);
+    this.changed.emit();
   }
 }

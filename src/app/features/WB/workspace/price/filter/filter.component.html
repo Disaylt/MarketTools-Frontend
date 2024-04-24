@@ -1,30 +1,33 @@
 <div class="row g-1">
     <div class="col-auto" style="width:120px">
-        <ul class="app-active-list mb-0 overflow-auto">
+        <ul class="app-active-list mb-0 overflow-auto mb-2">
             <li *ngFor="let subject of subjects" 
                 class="d-flex flex-row justify-content-between rounded-1" 
                 [ngClass]="{'active' : selectedSubject == subject}" (click)="selectSubject(subject)">
                 <span class="text-truncate app-color-white75">{{subject}}</span>
             </li>
         </ul>
+        <button (click)="reset()" class="app-button w-100 app-button-border">
+            <span class="text-truncate">Сбросить</span>
+        </button>
     </div>
     <div *ngIf="selectedSubject != null" class="col" style="width: 200px;">
         <div *ngIf="selectedSubject == 'Информация'">
             <div class="d-flex flex-column mb-1">
                 <label class="text-truncate lh-sm" style="font-size: 12px; opacity: 0.7;">Артикул</label>
-                <input [(ngModel)]="filter.article" type="text" class="me-1 px-1 app-form-light app-form form-control form-control-sm app-select shadow-none">
+                <input [(ngModel)]="filter.article" (ngModelChange)="changed.emit()" type="text" class="me-1 px-1 app-form-light app-form form-control form-control-sm app-select shadow-none">
             </div>
             <div class="d-flex flex-column mb-1">
                 <label class="text-truncate lh-sm" style="font-size: 12px; opacity: 0.7;">Артикул продавца</label>
-                <input [(ngModel)]="filter.sellerArticle" type="text" class="me-1 px-1 app-form-light app-form form-control form-control-sm app-select shadow-none">
+                <input [(ngModel)]="filter.sellerArticle" (ngModelChange)="changed.emit()" type="text" class="me-1 px-1 app-form-light app-form form-control form-control-sm app-select shadow-none">
             </div>
             <div class="d-flex flex-column mb-1">
                 <label class="text-truncate lh-sm" style="font-size: 12px; opacity: 0.7;">Название</label>
-                <input [(ngModel)]="filter.name" type="text" class="me-1 px-1 app-form-light app-form form-control form-control-sm app-select shadow-none">
+                <input [(ngModel)]="filter.name" (ngModelChange)="changed.emit()" type="text" class="me-1 px-1 app-form-light app-form form-control form-control-sm app-select shadow-none">
             </div>
             <div class="d-flex flex-column">
                 <label class="text-truncate lh-sm" style="font-size: 12px; opacity: 0.7;">Бренд</label>
-                <input [(ngModel)]="filter.brand" type="text" class="me-1 px-1 app-form-light app-form form-control form-control-sm app-select shadow-none">
+                <input [(ngModel)]="filter.brand" (ngModelChange)="changed.emit()" type="text" class="me-1 px-1 app-form-light app-form form-control form-control-sm app-select shadow-none">
             </div>
         </div>
         <div *ngIf="selectedSubject == 'Показатели'">
@@ -32,13 +35,13 @@
                 <div class="row gx-1">
                     <label class="text-truncate lh-sm" style="font-size: 12px; opacity: 0.7;">Цена</label>
                     <div class="col">
-                        <input [(ngModel)]="filter.minPrice" type="number" class="px-1 app-form-light app-form form-control form-control-sm app-select shadow-none">
+                        <input [(ngModel)]="filter.minPrice" (ngModelChange)="changed.emit()" type="number" class="px-1 app-form-light app-form form-control form-control-sm app-select shadow-none">
                     </div>
                     <div class="col-auto">
                         <label>-</label>
                     </div>
                     <div class="col">
-                        <input [(ngModel)]="filter.maxPrice" type="number" class="px-1 app-form-light app-form form-control form-control-sm app-select shadow-none">
+                        <input [(ngModel)]="filter.maxPrice" (ngModelChange)="changed.emit()" type="number" class="px-1 app-form-light app-form form-control form-control-sm app-select shadow-none">
                     </div>
                 </div>
             </div>
@@ -46,13 +49,13 @@
                 <div class="row gx-1">
                     <label class="text-truncate lh-sm" style="font-size: 12px; opacity: 0.7;">Скидка</label>
                     <div class="col">
-                        <input [(ngModel)]="filter.minDiscount" type="number" class="px-1 app-form-light app-form form-control form-control-sm app-select shadow-none">
+                        <input [(ngModel)]="filter.minDiscount" (ngModelChange)="changed.emit()" type="number" class="px-1 app-form-light app-form form-control form-control-sm app-select shadow-none">
                     </div>
                     <div class="col-auto">
                         <label>-</label>
                     </div>
                     <div class="col">
-                        <input [(ngModel)]="filter.maxDiscount" type="number" class="px-1 app-form-light app-form form-control form-control-sm app-select shadow-none">
+                        <input [(ngModel)]="filter.maxDiscount" (ngModelChange)="changed.emit()" type="number" class="px-1 app-form-light app-form form-control form-control-sm app-select shadow-none">
                     </div>
                 </div>
             </div>
@@ -60,35 +63,35 @@
                 <div class="row gx-1">
                     <label class="text-truncate lh-sm" style="font-size: 12px; opacity: 0.7;">Сток</label>
                     <div class="col">
-                        <input [(ngModel)]="filter.minStock" type="number" class="px-1 app-form-light app-form form-control form-control-sm app-select shadow-none">
+                        <input [(ngModel)]="filter.minStock" (ngModelChange)="changed.emit()" type="number" class="px-1 app-form-light app-form form-control form-control-sm app-select shadow-none">
                     </div>
                     <div class="col-auto">
                         <label>-</label>
                     </div>
                     <div class="col">
-                        <input [(ngModel)]="filter.maxStock" type="number" class="px-1 app-form-light app-form form-control form-control-sm app-select shadow-none">
+                        <input [(ngModel)]="filter.maxStock" (ngModelChange)="changed.emit()" type="number" class="px-1 app-form-light app-form form-control form-control-sm app-select shadow-none">
                     </div>
                 </div>
             </div>
         </div>
         <div *ngIf="selectedSubject == 'Статусы'" class="app-color-white75">
             <div class="form-check form-switch m-0 ps-0 text-truncate d-flex flex-row align-items-center ">
-                <input [(ngModel)]="filter.isSelected"
+                <input [(ngModel)]="filter.isSelected" (ngModelChange)="changed.emit()"
                 class="form-check-input shadow-none app-check-input m-0 me-1" type="checkbox" role="switch">
-                <label style="font-size: 12px;">Только выбранные</label>
+                <label style="font-size: 12px;">Отмеченные</label>
             </div>
             <div class="form-check form-switch m-0 ps-0 text-truncate d-flex flex-row align-items-center">
-                <input [(ngModel)]="filter.isChangePrice"
+                <input [(ngModel)]="filter.isChangePrice" (ngModelChange)="changed.emit()"
                 class="form-check-input shadow-none app-check-input m-0 me-1" type="checkbox" role="switch">
                 <label style="font-size: 12px;">С изменениями цены</label>
             </div>
             <div class="form-check form-switch m-0 ps-0 text-truncate d-flex flex-row align-items-center">
-                <input [(ngModel)]="filter.isChangeDiscount"
+                <input [(ngModel)]="filter.isChangeDiscount" (ngModelChange)="changed.emit()"
                 class="form-check-input shadow-none app-check-input m-0 me-1" type="checkbox" role="switch">
                 <label style="font-size: 12px;">С изменениями скидки</label>
             </div>
             <div class="form-check form-switch m-0 ps-0 text-truncate d-flex flex-row align-items-center">
-                <input [(ngModel)]="filter.canEditSize"
+                <input [(ngModel)]="filter.canEditSize" (ngModelChange)="changed.emit()"
                 class="form-check-input shadow-none app-check-input m-0 me-1" type="checkbox" role="switch">
                 <label style="font-size: 12px;">Доступны размеры</label>
             </div>
