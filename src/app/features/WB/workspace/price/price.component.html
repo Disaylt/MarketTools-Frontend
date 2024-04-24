@@ -40,11 +40,16 @@
                 </ng-template>
             </div>
             <div class="me-1">
-                <button class="app-icon-button app-button-border">
+                <button [disabled]="products.length == 0" [cdkMenuTriggerFor]="priceChanger" class="app-icon-button app-button-border">
                     <span class="material-symbols-outlined">
                         price_change
                     </span>
                 </button>
+                <ng-template #priceChanger>
+                    <div class="d-flex flex-column p-1 rounded-2 app-transparent-dark-bg shadow mt-1" cdkMenu>
+                        <app-range-price-changer [products]="products"></app-range-price-changer>
+                    </div>
+                </ng-template>
             </div>
             <div>
                 <button class="app-icon-button app-button-border">

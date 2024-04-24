@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ProductViewModel } from '../models/product-view.model';
 
 @Component({
   selector: 'app-range-price-changer',
@@ -10,11 +11,93 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './range-price-changer.component.scss'
 })
 export class RangePriceChangerComponent {
+  @Input({required : true}) products! : ProductViewModel[];
+
+  productPrice : number = 0;
+  sizePrice : number = 0;
+  discount : number = 0
 
   subjects : string[] = ["Цены (Арт.)", "Цены (Размер)", "Скидки"]
   selectedSubject : string | null = null;
 
   selectSubject(subject : string){
     this.selectedSubject = subject;
+  }
+
+  resetArticlePrice(){
+    this.products
+    .filter(x=> x.isCheck)
+    .forEach(x=> {
+      x.price = x.lastPrice
+    })
+  }
+
+  setArticlePrice(){
+    this.products
+    .filter(x=> x.isCheck)
+    .forEach(x=> {
+      x.price = this.productPrice;
+    })
+  }
+
+  resetSizePrice(){
+    this.products
+    .filter(x=> x.isCheck)
+    .forEach(product=> {
+        product.sizes.forEach(size=> {
+          size.price = size.lastPrice;
+        })
+    })
+  }
+
+  setSizePrice(){
+    this.products
+    .filter(x=> x.isCheck)
+    .forEach(product=> {
+        product.sizes.forEach(size=> {
+          size.price = this.sizePrice;
+        })
+    })
+  }
+
+  resetDiscount(){
+    this.products
+    .filter(x=> x.isCheck)
+    .forEach(x=> {
+      x.discount = x.lastDiscount;
+    })
+  }
+
+  setDiscount(){
+    this.products
+    .filter(x=> x.isCheck)
+    .forEach(x=> {
+      x.discount = this.discount;
+    })
+  }
+
+  canChangeArticlePrices(){
+    return this.products
+      .filter(x=> x.isCheck)
+      .every(x=> {
+        return x.editableSizePrice == false 
+      })
+  }
+
+  canChangeSizesPrices(){
+    return this.products
+      .filter(x=> x.isCheck)
+      .every(x=> {
+        return x.editableSizePrice
+      })
+  }
+
+  canChangeDiscounts(){
+    return this.products
+      .filter(x=> x.isCheck)
+      .every(product=> {
+        return product.sizes
+          .some(size => size.price != size.lastPrice) == false
+      })
   }
 }

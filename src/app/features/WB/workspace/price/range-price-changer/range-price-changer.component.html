@@ -4,21 +4,87 @@
             <li *ngFor="let subject of subjects" 
                 class="d-flex flex-row justify-content-between rounded-1" 
                 [ngClass]="{'active' : selectedSubject == subject}" (click)="selectSubject(subject)">
-                <span class="text-truncate app-color-white75">{{subject}}</span>
+                <span class="text-truncate app-color-white75" style="font-size: 14px;">{{subject}}</span>
             </li>
         </ul>
     </div>
     <div class="col" style="width: 200px;">
         <div  *ngIf="selectedSubject == null">
-            <div class="active-dark-bg app-warn-alert app-color-white75 flex-fill d-flex align-items-center rounded-2 py-1">
-                <label class="material-symbols-outlined mx-1">
-                    info
-                </label>
-                <div style="font-size: 12px;" class="app-color-white75 lh-sm me-1">
-                    <p>Меню позволяет массово изменять цены и скидки для выбранных (Отмеченных галочкой) товаров.</p>
+            <div class="active-dark-bg app-warn-alert app-color-white75 flex-fill d-flex align-items-center rounded-2 p-1">
+                <div style="font-size: 12px;" class="app-color-white75 lh-sm">
+                    <p>Позволяет менять цены и скидки для выбранных (Отмеченных галочкой) товаров.</p>
                     <p>Из-за ограничений вб, невозможно одноверменно менять скидку/цену на размер.</p>
                 </div>
             </div>
+        </div>
+        <div *ngIf="selectedSubject == 'Цены (Арт.)'">
+            <div *ngIf="canChangeArticlePrices() else badArticlePriceChangeAlert">
+                <div class="d-flex flex-row mb-2">
+                    <input type="number" class="me-1 px-1 app-form-light app-form form-control form-control-sm app-select shadow-none">
+                    <button class="app-icon-button app-button-border">
+                        <span class="material-symbols-outlined">
+                            published_with_changes
+                        </span>
+                    </button>
+                </div>
+                <button class="app-button w-100 app-button-border">
+                    <span class="text-truncate">Сбросить</span>
+                </button>
+            </div>
+            <ng-template #badArticlePriceChangeAlert>
+                <div class="active-dark-bg app-warn-alert app-color-white75 flex-fill d-flex align-items-center rounded-2 p-1">
+                    <div style="font-size: 12px;" class="app-color-white75 lh-sm">
+                        <span>В отмеченых, найдены товары пригодные для установки цены только по размерам. 
+                            Во избежание ошибок, такие товары следует группировать и изменять отдельно.</span>
+                    </div>
+                </div>
+            </ng-template>
+        </div>
+        <div *ngIf="selectedSubject == 'Цены (Размер)'">
+            <div *ngIf="canChangeSizesPrices() else badArticlePriceChangeAlert">
+                <div class="d-flex flex-row mb-2">
+                    <input type="number" class="me-1 px-1 app-form-light app-form form-control form-control-sm app-select shadow-none">
+                    <button class="app-icon-button app-button-border">
+                        <span class="material-symbols-outlined">
+                            published_with_changes
+                        </span>
+                    </button>
+                </div>
+                <button class="app-button w-100 app-button-border">
+                    <span class="text-truncate">Сбросить</span>
+                </button>
+            </div>
+            <ng-template #badArticlePriceChangeAlert>
+                <div class="active-dark-bg app-warn-alert app-color-white75 flex-fill d-flex align-items-center rounded-2 p-1">
+                    <div style="font-size: 12px;" class="app-color-white75 lh-sm">
+                        <span>В отмеченых, найдены товары пригодные для установки цены только по артикулам. 
+                            Во избежание ошибок, такие товары следует группировать и изменять отдельно.</span>
+                    </div>
+                </div>
+            </ng-template>
+        </div>
+        <div *ngIf="selectedSubject == 'Скидки'">
+            <div *ngIf="canChangeDiscounts() else badArticlePriceChangeAlert">
+                <div class="d-flex flex-row mb-2">
+                    <input type="number" class="me-1 px-1 app-form-light app-form form-control form-control-sm app-select shadow-none">
+                    <button class="app-icon-button app-button-border">
+                        <span class="material-symbols-outlined">
+                            published_with_changes
+                        </span>
+                    </button>
+                </div>
+                <button class="app-button w-100 app-button-border">
+                    <span class="text-truncate">Сбросить</span>
+                </button>
+            </div>
+            <ng-template #badArticlePriceChangeAlert>
+                <div class="active-dark-bg app-warn-alert app-color-white75 flex-fill d-flex align-items-center rounded-2 p-1">
+                    <div style="font-size: 12px;" class="app-color-white75 lh-sm">
+                        <span>В отмеченых, найдены товары в которых уже изменена цена размера. 
+                            Изменине цены размера и скидки происходят не одновременно, поэтому следует дождаться изменения цены и после изменять скидку.</span>
+                    </div>
+                </div>
+            </ng-template>
         </div>
     </div>
 </div>

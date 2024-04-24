@@ -22,13 +22,14 @@ import { FilterComponent } from "./filter/filter.component";
 import { Filter } from './models/filter.model';
 import { FilterUtility } from './Utilities/default-filter.utility';
 import { CheckerComponent } from "./checker/checker.component";
+import { RangePriceChangerComponent } from "./range-price-changer/range-price-changer.component";
 
 @Component({
     selector: 'app-price',
     standalone: true,
     templateUrl: './price.component.html',
     styleUrl: './price.component.scss',
-    imports: [CdkMenuTrigger, CdkMenu, CdkMenuItem, CommonModule, FormsModule, ActiveStatusInfoComponent, ProgressBarComponent, PaginationBarComponent, TabBarComponent, TabBarButtonComponent, NameFilterPipe, ProductComponent, FilterComponent, CheckerComponent]
+    imports: [CdkMenuTrigger, CdkMenu, CdkMenuItem, CommonModule, FormsModule, ActiveStatusInfoComponent, ProgressBarComponent, PaginationBarComponent, TabBarComponent, TabBarButtonComponent, NameFilterPipe, ProductComponent, FilterComponent, CheckerComponent, RangePriceChangerComponent]
 })
 export class PriceComponent implements OnInit {
 
@@ -117,7 +118,7 @@ export class PriceComponent implements OnInit {
         }
 
         if(this.filter.isChangePrice){
-          value = value && x.price != x.lastPrice
+          value = value && (x.price != x.lastPrice || x.sizes.some(size => size.price != size.lastPrice))
         }
 
         if(this.filter.canEditSize){
