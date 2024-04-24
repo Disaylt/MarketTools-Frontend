@@ -20,16 +20,13 @@
         <div *ngIf="selectedSubject == 'Цены (Арт.)'">
             <div *ngIf="canChangeArticlePrices() else badArticlePriceChangeAlert">
                 <div class="d-flex flex-row mb-2">
-                    <input type="number" class="me-1 px-1 app-form-light app-form form-control form-control-sm app-select shadow-none">
-                    <button class="app-icon-button app-button-border">
+                    <input min="0" max="100000" [(ngModel)]="productPrice" (ngModelChange)="setArticlePrice()" type="number" class="me-1 px-1 app-form-light app-form form-control form-control-sm app-select shadow-none">
+                    <button (click)="resetArticlePrice()" class="app-icon-button app-button-border">
                         <span class="material-symbols-outlined">
-                            published_with_changes
+                            undo
                         </span>
                     </button>
                 </div>
-                <button class="app-button w-100 app-button-border">
-                    <span class="text-truncate">Сбросить</span>
-                </button>
             </div>
             <ng-template #badArticlePriceChangeAlert>
                 <div class="active-dark-bg app-warn-alert app-color-white75 flex-fill d-flex align-items-center rounded-2 p-1">
@@ -43,22 +40,19 @@
         <div *ngIf="selectedSubject == 'Цены (Размер)'">
             <div *ngIf="canChangeSizesPrices() else badArticlePriceChangeAlert">
                 <div class="d-flex flex-row mb-2">
-                    <input type="number" class="me-1 px-1 app-form-light app-form form-control form-control-sm app-select shadow-none">
-                    <button class="app-icon-button app-button-border">
+                    <input min="0" max="100000" [(ngModel)]="sizePrice" (ngModelChange)="setSizePrice()" type="number" class="me-1 px-1 app-form-light app-form form-control form-control-sm app-select shadow-none">
+                    <button (click)="resetSizePrice()" class="app-icon-button app-button-border">
                         <span class="material-symbols-outlined">
-                            published_with_changes
+                            undo
                         </span>
                     </button>
                 </div>
-                <button class="app-button w-100 app-button-border">
-                    <span class="text-truncate">Сбросить</span>
-                </button>
             </div>
             <ng-template #badArticlePriceChangeAlert>
                 <div class="active-dark-bg app-warn-alert app-color-white75 flex-fill d-flex align-items-center rounded-2 p-1">
                     <div style="font-size: 12px;" class="app-color-white75 lh-sm">
-                        <span>В отмеченых, найдены товары пригодные для установки цены только по артикулам. 
-                            Во избежание ошибок, такие товары следует группировать и изменять отдельно.</span>
+                        <span>В отмеченых, найдены товары пригодные для установки цены только по артикулам либо в товарах уже становлена скидка. 
+                            Во избежание ошибок, такие товары следует группировать и изменять отдельно. Так как цена размера и скидка артикула устанавливаются независимо друг от друга.</span>
                     </div>
                 </div>
             </ng-template>
@@ -66,22 +60,19 @@
         <div *ngIf="selectedSubject == 'Скидки'">
             <div *ngIf="canChangeDiscounts() else badArticlePriceChangeAlert">
                 <div class="d-flex flex-row mb-2">
-                    <input type="number" class="me-1 px-1 app-form-light app-form form-control form-control-sm app-select shadow-none">
-                    <button class="app-icon-button app-button-border">
+                    <input min="0" max="100" [(ngModel)]="discount" (ngModelChange)="setDiscount()" type="number" class="me-1 px-1 app-form-light app-form form-control form-control-sm app-select shadow-none">
+                    <button (click)="resetDiscount()" class="app-icon-button app-button-border">
                         <span class="material-symbols-outlined">
-                            published_with_changes
+                            undo
                         </span>
                     </button>
                 </div>
-                <button class="app-button w-100 app-button-border">
-                    <span class="text-truncate">Сбросить</span>
-                </button>
             </div>
             <ng-template #badArticlePriceChangeAlert>
                 <div class="active-dark-bg app-warn-alert app-color-white75 flex-fill d-flex align-items-center rounded-2 p-1">
                     <div style="font-size: 12px;" class="app-color-white75 lh-sm">
                         <span>В отмеченых, найдены товары в которых уже изменена цена размера. 
-                            Изменине цены размера и скидки происходят не одновременно, поэтому следует дождаться изменения цены и после изменять скидку.</span>
+                            Изменине цены размера и скидки происходят независимо друг от друга, поэтому следует дождаться изменения цены и после изменять скидку.</span>
                     </div>
                 </div>
             </ng-template>

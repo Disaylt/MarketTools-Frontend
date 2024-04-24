@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ProductViewModel } from '../models/product-view.model';
+import { ProductUtility } from '../Utilities/product.utility';
 
 @Component({
   selector: 'app-range-price-changer',
@@ -28,7 +29,8 @@ export class RangePriceChangerComponent {
     this.products
     .filter(x=> x.isCheck)
     .forEach(x=> {
-      x.price = x.lastPrice
+      const productUtility = new ProductUtility(x);
+      productUtility.changePriceWithSizes(x.lastPrice);
     })
   }
 
@@ -36,7 +38,8 @@ export class RangePriceChangerComponent {
     this.products
     .filter(x=> x.isCheck)
     .forEach(x=> {
-      x.price = this.productPrice;
+      const productUtility = new ProductUtility(x);
+      productUtility.changePriceWithSizes(this.productPrice);
     })
   }
 
@@ -88,13 +91,13 @@ export class RangePriceChangerComponent {
     return this.products
       .filter(x=> x.isCheck)
       .every(x=> {
-        return x.editableSizePrice
+        return x.editableSizePrice && x.discount == x.lastDiscount
       })
   }
 
   canChangeDiscounts(){
     return this.products
-      .filter(x=> x.isCheck)
+      .filter(x=> x.isCheck && x.price == x.lastPrice)
       .every(product=> {
         return product.sizes
           .some(size => size.price != size.lastPrice) == false

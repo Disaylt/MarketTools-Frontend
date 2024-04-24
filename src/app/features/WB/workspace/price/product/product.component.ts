@@ -3,6 +3,7 @@ import { ProductViewModel } from '../models/product-view.model';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { SizeComponent } from "../size/size.component";
+import { ProductUtility } from '../Utilities/product.utility';
 
 @Component({
     selector: 'app-product',
@@ -15,8 +16,8 @@ export class ProductComponent {
   @Input({required: true}) product! : ProductViewModel;
 
   returnPrice(){
-    this.product.price = this.product.lastPrice;
-    this.updateSizesPrice();
+    const productUtility = new ProductUtility(this.product);
+    productUtility.changePriceWithSizes(this.product.lastPrice);
   }
 
   returnDiscount(){
@@ -36,7 +37,8 @@ export class ProductComponent {
   }
 
   changePrice(){
-    this.updateSizesPrice();
+    const productUtility = new ProductUtility(this.product);
+    productUtility.changePriceForSizes(this.product.price);
   }
 
   getDiscountPrice(){
@@ -63,13 +65,6 @@ export class ProductComponent {
     this.product.sizes
       .forEach(x=> {
         x.canEdit = canEdit;
-      })
-  }
-
-  private updateSizesPrice(){
-    this.product.sizes
-      .forEach(x=> {
-        x.price = this.product.price
       })
   }
 }
