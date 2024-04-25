@@ -1,4 +1,4 @@
-<app-modal [dialogRef]="dialogRef" name="Отправитель данных">
+<app-modal [dialogRef]="dialogRef" name="Отчет">
     <app-progress-bar *ngIf="isLoad else body" class=""></app-progress-bar>
     <ng-template #body>
         <div *ngIf="products.length == 0">
@@ -9,7 +9,22 @@
             </div>
         </div>
         <div *ngFor="let product of products">
-            <div>{{product.name}}</div>
+            <div class="row">
+                <div class="col-1">
+                    <span>{{product.article}}</span>
+                </div>
+                <div class="col-2">
+                    <span>{{product.selsellerArticle}}</span>
+                </div>
+                <div class="col-9">
+                    <div *ngIf="product.editableSizePrice">
+
+                    </div>
+                    <div *ngIf="product.editableSizePrice == false">
+
+                    </div>
+                </div>
+            </div>
         </div>
     </ng-template>
 </app-modal>

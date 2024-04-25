@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ModalComponent } from "../../../../../shared/components/modal/modal.component";
 import { DialogRef } from '@angular/cdk/dialog';
-import { ProductViewModel } from '../models/product-view.model';
+import { ProductViewModel, SizeViewModel } from '../models/product-view.model';
 import { CommonModule } from '@angular/common';
 import { ProgressBarComponent } from "../../../../../shared/components/progress-bar/progress-bar.component";
 
@@ -18,7 +18,7 @@ export class ReportModalComponent{
   isLoad : boolean = true;
   products : ProductViewModel[] = [];
 
-  setProdcuts(products : ProductViewModel[]){
+  setProducts(products : ProductViewModel[]){
     this.products = products
       .filter(product => {
         return product.price != product.lastPrice
