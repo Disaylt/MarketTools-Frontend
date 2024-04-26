@@ -1,0 +1,37 @@
+<div class="row g-1 mb-2">
+    <label class="text-truncate lh-sm" style="font-size: 12px; opacity: 0.7;">По фильтру</label>
+    <div class="col-6">
+        <button (click)="changeProducts(filterProducts, true)" class="app-icon-button app-button-border w-100">
+            <span class="material-symbols-outlined">
+                done
+            </span>
+        </button>
+    </div>
+    <div class="col-6">
+        <button (click)="changeProducts(filterProducts, false)" class="app-icon-button app-button-border w-100">
+            <span class="material-symbols-outlined">
+                close
+            </span>
+        </button>
+    </div>
+</div>
+<div class="row g-1 mb-2">
+    <label class="text-truncate lh-sm" style="font-size: 12px; opacity: 0.7;">На странице</label>
+    <div class="col-6">
+        <button (click)="changeProducts(viewProducts, true)" class="app-icon-button app-button-border w-100">
+            <span class="material-symbols-outlined">
+                done
+            </span>
+        </button>
+    </div>
+    <div class="col-6">
+        <button (click)="changeProducts(viewProducts, false)" class="app-icon-button app-button-border w-100">
+            <span class="material-symbols-outlined">
+                close
+            </span>
+        </button>
+    </div>
+</div>
+<button (click)="changeProducts(products, false)" class="app-button w-100 app-button-border">
+    <span class="text-truncate">Сбросить</span>
+</button>

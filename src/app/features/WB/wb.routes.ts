@@ -5,6 +5,7 @@ import { autoresponderRoutes } from "../autoresponder/autoresponder.routes";
 import { WbMarketplaceComponent } from "./wb-marketplace.component";
 import { connectionRoutes } from "./connections/connections.routes";
 import { monitoringRoutes } from "../monitorings/monitorings.routes";
+import { workspaceRoutes } from "./workspace/workspace.routes";
 
 export const wbRoute : Route =
 {
@@ -36,6 +37,11 @@ export const wbRoute : Route =
             title : "Мониторинг",
             path : "monitoring",
             children : monitoringRoutes
+        },
+        {
+            title : "Workspace",
+            path : "workspace",
+            children : workspaceRoutes
         }
     ]
 } 

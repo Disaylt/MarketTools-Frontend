@@ -1,0 +1,106 @@
+<div class="pb-1">
+    <div class="row gx-2 py-1 rounded-2 app-color-white75 active-dark-bg app-soft-element-border-color">
+        <div class="col-1">
+            <img [src]="product.imageUrl" class="rounded-1 img-fluid" alt="...">
+        </div>
+        <div class="col-11">
+            <div class="row gx-2 pb-2">
+                <div class="col-4">
+                    <div class="border rounded-1 px-1 mb-1 d-flex flex-column">
+                        <label class="text-truncate lh-sm" style="font-size: 12px; opacity: 0.7;">Название</label>
+                        <span class="text-break lh-sm">{{product.name}}</span>
+                    </div>
+                    <div class="border rounded-1 px-1 mb-1 d-flex flex-column">
+                        <label class="text-truncate lh-sm" style="font-size: 12px; opacity: 0.7;">Бренд</label>
+                        <span class="text-truncate">{{product.brand}}</span>
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div class="border rounded-1 px-1 mb-1 d-flex flex-column">
+                        <label class="text-truncate lh-sm" style="font-size: 12px; opacity: 0.7;">Атикул</label>
+                        <span class="text-truncate">{{product.article}}</span>
+                    </div>
+                    <div class="border rounded-1 px-1 d-flex flex-column">
+                        <label class="text-truncate lh-sm" style="font-size: 12px; opacity: 0.7;">Атикул продовца</label>
+                        <span class="text-truncate">{{product.selsellerArticle}}</span>
+                    </div>
+                </div>
+                <div class="col-1">
+                    <div class="border rounded-1 px-1 mb-1 d-flex flex-column">
+                        <label class="text-truncate lh-sm" style="font-size: 12px; opacity: 0.7;">Сток</label>
+                        <span class="text-truncate">{{product.stock}}</span>
+                    </div>
+                    <div *ngIf="product.sizes.length > 0" class="border rounded-1 px-1 d-flex flex-column">
+                        <label class="text-truncate lh-sm" style="font-size: 12px; opacity: 0.7;">Размеры</label>
+                        <span class="text-break lh-sm">
+                            <span *ngFor="let size of product.sizes">
+                                {{size.name}};
+                            </span>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div [ngClass]="{'app-warn-alert': product.price != product.lastPrice,
+                        'border' : product.price == product.lastPrice}" 
+                        class="mb-1 px-1 pb-1 d-flex flex-column rounded-1">
+                        <label class="text-truncate lh-sm" style="font-size: 12px; opacity: 0.7;">Цена (р)</label>
+                        <div class="d-flex flex-row">
+                            <input [disabled]="product.canEdit == false || product.editableSizePrice" min="1" [(ngModel)]="product.price" (ngModelChange)="changePrice()" type="number" class="me-1 px-1 app-form-light app-form form-control form-control-sm border-0 app-select shadow-none">
+                            <button [disabled]="product.canEdit == false 
+                                || product.editableSizePrice 
+                                || product.price == product.lastPrice" 
+                                class="app-icon-button" (click)="returnPrice()">
+                                <span class="material-symbols-outlined">
+                                    undo
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                    <div [ngClass]="{'app-warn-alert': product.discount != product.lastDiscount,
+                        'border' : product.discount == product.lastDiscount}" 
+                        class="px-1 pb-1 d-flex flex-column rounded-1 ">
+                        <label class="text-truncate lh-sm" style="font-size: 12px; opacity: 0.7;">Скидка (%)</label>
+                        <div class="d-flex flex-row">
+                            <input [disabled]="product.canEdit == false" min="0" max="99" [(ngModel)]="product.discount" (ngModelChange)="changeDiscount()" type="number" class="me-1 px-1 app-form-light app-form form-control form-control-sm border-0 app-select shadow-none">
+                            <button [disabled]="product.canEdit == false 
+                                || product.discount == product.lastDiscount" 
+                                class="app-icon-button" (click)="returnDiscount()">
+                                <span class="material-symbols-outlined">
+                                    undo
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="border rounded-1 px-1 mb-1 d-flex flex-column">
+                        <label class="text-truncate lh-sm" style="font-size: 12px; opacity: 0.7;">Итог продавца</label>
+                        <span class="text-truncate">{{getDiscountPrice()}} р.</span>
+                    </div>
+                    <div class="row g-1">
+                        <div class="col-5">
+                            <div class="border rounded-1 px-1 mb-1 d-flex flex-column">
+                                <label class="text-truncate lh-sm" style="font-size: 12px; opacity: 0.7;">СПП</label>
+                                <span class="text-truncate">{{product.spp}}%</span>
+                            </div>
+                        </div>
+                        <div class="col-7">
+                            <div class="border rounded-1 px-1 mb-1 d-flex flex-column">
+                                <label class="text-truncate lh-sm" style="font-size: 12px; opacity: 0.7;">Итог</label>
+                                <span class="text-truncate">{{getBuyerDiscountPrice()}} р.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-auto">
+                    <div>
+                        <input [(ngModel)]="product.isCheck" class="form-check-input mt-0 shadow-none" type="checkbox" id="checkboxNoLabel" value="" aria-label="...">
+                    </div>
+                </div>
+            </div>
+            <div *ngFor="let size of product.sizes" class="border-top">
+                <app-size [size]="size" [product]="product"></app-size>
+            </div>
+        </div>
+    </div>
+</div>
