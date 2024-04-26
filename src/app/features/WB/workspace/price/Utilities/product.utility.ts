@@ -11,13 +11,15 @@ export class ProductUtility{
 
     setLastPrice(value : number){
         this.product.lastPrice = value;
-        this.updatePrice();
+        this.product.sizes
+            .forEach(x=> x.lastPrice = value);
     }
 
     updatePrice(){
         this.product.sizes
             .forEach(x=> x.price = this.product.price);
     }
+
 
     updateDiscount(){
         const canEdit = this.product.discount == this.product.lastDiscount 
