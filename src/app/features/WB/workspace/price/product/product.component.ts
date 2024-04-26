@@ -18,28 +18,22 @@ export class ProductComponent {
 
   returnPrice(){
     const productUtility = new ProductUtility(this.product);
-    productUtility.changePriceWithSizes(this.product.lastPrice);
+    productUtility.setPrice(this.product.lastPrice);
   }
 
   returnDiscount(){
-    this.product.discount = this.product.lastDiscount;
-    this.updateSizesChangeStatus();
+    const productUtility = new ProductUtility(this.product);
+    productUtility.setDiscount(this.product.lastDiscount);
   }
 
   changeDiscount(){
-    this.updateSizesChangeStatus();
-  }
-
-  changeDiscountEditableStatus(){
-    const canChanged = this.product
-      .sizes
-      .every(x=> x.price == x.lastPrice);
-    this.product.canEdit = canChanged;
+    const productUtility = new ProductUtility(this.product);
+    productUtility.updateDiscount();
   }
 
   changePrice(){
     const productUtility = new ProductUtility(this.product);
-    productUtility.changePriceForSizes(this.product.price);
+    productUtility.updatePrice();
   }
 
   getDiscountPrice(){
@@ -53,15 +47,5 @@ export class ProductComponent {
     const buyerValue = PriceMathUtility.discountPrice(this.product.spp, value);
 
     return Math.trunc(buyerValue);
-  }
-
-  private updateSizesChangeStatus(){
-    const canEdit = this.product.discount == this.product.lastDiscount 
-      && this.product.editableSizePrice;
-
-    this.product.sizes
-      .forEach(x=> {
-        x.canEdit = canEdit;
-      })
   }
 }

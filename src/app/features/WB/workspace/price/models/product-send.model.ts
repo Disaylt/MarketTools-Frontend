@@ -1,5 +1,5 @@
 export interface ProductSendModel{
-    artice : string;
+    article : string;
     price : number | null;
     discount : number | null;
 }

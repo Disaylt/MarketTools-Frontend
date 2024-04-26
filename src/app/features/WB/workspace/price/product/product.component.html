@@ -99,7 +99,7 @@
                 </div>
             </div>
             <div *ngFor="let size of product.sizes" class="border-top">
-                <app-size [size]="size" [product]="product" (changedPrice)="changeDiscountEditableStatus()"></app-size>
+                <app-size [size]="size" [product]="product"></app-size>
             </div>
         </div>
     </div>

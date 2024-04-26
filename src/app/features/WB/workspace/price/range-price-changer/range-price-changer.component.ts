@@ -3,6 +3,7 @@ import { Component, Input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ProductViewModel } from '../models/product-view.model';
 import { ProductUtility } from '../Utilities/product.utility';
+import { SizeUtility } from '../Utilities/size.utility';
 
 @Component({
   selector: 'app-range-price-changer',
@@ -30,7 +31,7 @@ export class RangePriceChangerComponent {
     .filter(x=> x.isCheck)
     .forEach(x=> {
       const productUtility = new ProductUtility(x);
-      productUtility.changePriceWithSizes(x.lastPrice);
+      productUtility.setPrice(x.lastPrice);
     })
   }
 
@@ -39,7 +40,7 @@ export class RangePriceChangerComponent {
     .filter(x=> x.isCheck)
     .forEach(x=> {
       const productUtility = new ProductUtility(x);
-      productUtility.changePriceWithSizes(this.productPrice);
+      productUtility.setPrice(this.productPrice);
     })
   }
 
@@ -48,7 +49,8 @@ export class RangePriceChangerComponent {
     .filter(x=> x.isCheck)
     .forEach(product=> {
         product.sizes.forEach(size=> {
-          size.price = size.lastPrice;
+          const sizeUtil = new SizeUtility(product, size);
+          sizeUtil.setPrice(size.lastPrice);
         })
     })
   }
@@ -58,7 +60,8 @@ export class RangePriceChangerComponent {
     .filter(x=> x.isCheck)
     .forEach(product=> {
         product.sizes.forEach(size=> {
-          size.price = this.sizePrice;
+          const sizeUtil = new SizeUtility(product, size);
+          sizeUtil.setPrice(this.sizePrice);
         })
     })
   }
@@ -67,7 +70,8 @@ export class RangePriceChangerComponent {
     this.products
     .filter(x=> x.isCheck)
     .forEach(x=> {
-      x.discount = x.lastDiscount;
+      const productUtility = new ProductUtility(x);
+      productUtility.setDiscount(x.lastDiscount);
     })
   }
 
@@ -75,7 +79,8 @@ export class RangePriceChangerComponent {
     this.products
     .filter(x=> x.isCheck)
     .forEach(x=> {
-      x.discount = this.discount;
+      const productUtility = new ProductUtility(x);
+      productUtility.setDiscount(this.discount);
     })
   }
 

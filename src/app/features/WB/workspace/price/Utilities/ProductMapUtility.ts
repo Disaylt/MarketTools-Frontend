@@ -32,6 +32,10 @@ export class ProductMapUtility {
             return null;
         }
 
+        if(price.article == "105355144"|| price.article == "105359475"){
+            price.editableSizePrice = true;
+        }
+
         const viewProduct: ProductViewModel = {
             editableSizePrice : price.editableSizePrice,
             article: price.article,

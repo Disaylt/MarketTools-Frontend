@@ -3,6 +3,7 @@ import { ProductViewModel, SizeViewModel } from '../models/product-view.model';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { PriceMathUtility } from '../../../../../shared/utilities/common/PriceMath.Utility';
+import { SizeUtility } from '../Utilities/size.utility';
 
 @Component({
   selector: 'app-size',
@@ -15,10 +16,14 @@ export class SizeComponent {
   @Input({required: true}) product! : ProductViewModel;
   @Input({required: true}) size! : SizeViewModel;
 
-  @Output() changedPrice : EventEmitter<number> = new EventEmitter();
-
   returnPrice(){
-    this.size.price = this.size.lastPrice;
+    const sizeUtil = new SizeUtility(this.product, this.size);
+    sizeUtil.setPrice(this.size.lastPrice);
+  }
+
+  updatePrice(){
+    const sizeUtil = new SizeUtility(this.product, this.size);
+    sizeUtil.update();
   }
 
   getDiscountPrice(){

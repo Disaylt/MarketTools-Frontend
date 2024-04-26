@@ -60,9 +60,14 @@ export class PriceComponent implements OnInit {
   }
 
   operReportModal(){
+    if(this.selectedConnection == null){
+      return;
+    }
+
     const modal = this.dialog.open(ReportModalComponent);
     if(modal.componentInstance){
       modal.componentInstance.products = this.products;
+      modal.componentInstance.connectionId = this.selectedConnection.id;
     }
   }
 

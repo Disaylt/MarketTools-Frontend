@@ -1,125 +1,123 @@
 <app-modal [dialogRef]="dialogRef" minWidth="90vw" maxWidth="90vw" name="Отчет">
-    <app-progress-bar *ngIf="isLoad else body" class=""></app-progress-bar>
-    <ng-template #body>
-        <div class="px-1">
-            <div class="d-flex flex-row mb-2">
-                <button [disabled]="isLoad" [cdkMenuTriggerFor]="sendSubjects" style="max-width: 200px;" class="app-button app-button-border me-1 d-flex flex-row justify-content-between">
-                    <span class="text-truncate" style="max-width: 170px;">{{selectedSubject === null ? 'Выбрать тип' : selectedSubject}}</span>
-                    <span class="material-symbols-outlined">
-                        expand_more
-                    </span>
-                </button>
-                <ng-template #sendSubjects>
-                    <div style="max-height: 300px; max-width: 300px;" class="rounded-2 app-transparent-dark-bg border shadow mt-1" cdkMenu>
-                        <div class="d-flex flex-column p-1 h-100">
-                            <ul class="app-active-list mb-0 overflow-auto">
-                                <li *ngFor="let subject of subjects" cdkMenuItem (click)="changeType(subject)"
-                                    class="d-flex flex-row justify-content-between rounded-1">
-                                    <span class="text-truncate app-color-white75">{{subject}}</span>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </ng-template>
-                <button [disabled]="isLoad || viewProducts.length == 0" class="app-button app-button-border me-1 d-flex flex-row justify-content-between">
-                    <span class="text-truncate">Отправить</span>
-                    <app-spiner *ngIf="isLoad" size="sm" class="ms-1"></app-spiner>
-                </button>
-                <div *ngIf="isLoad" class="app-warn-alert app-color-white75 flex-fill d-flex align-items-center rounded-2 py-1">
-                    <label style="font-size: 18px;" class="material-symbols-outlined mx-1">
-                        info
-                    </label>
-                    <div style="font-size: 12px;" class="app-color-white75 lh-sm me-1">
-                        Не закрывайте окно, ожидайте ответа сервера.
+    <div class="px-1">
+        <div class="d-flex flex-row mb-2">
+            <button [disabled]="isLoad" [cdkMenuTriggerFor]="sendSubjects" style="max-width: 200px;" class="app-button app-button-border me-1 d-flex flex-row justify-content-between">
+                <span class="text-truncate" style="max-width: 170px;">{{selectedSubject === null ? 'Выбрать тип' : selectedSubject}}</span>
+                <span class="material-symbols-outlined">
+                    expand_more
+                </span>
+            </button>
+            <ng-template #sendSubjects>
+                <div style="max-height: 300px; max-width: 300px;" class="rounded-2 app-transparent-dark-bg border shadow mt-1" cdkMenu>
+                    <div class="d-flex flex-column p-1 h-100">
+                        <ul class="app-active-list mb-0 overflow-auto">
+                            <li *ngFor="let subject of subjects" cdkMenuItem (click)="changeType(subject)"
+                                class="d-flex flex-row justify-content-between rounded-1">
+                                <span class="text-truncate app-color-white75">{{subject}}</span>
+                            </li>
+                        </ul>
                     </div>
                 </div>
-                <div *ngIf="isSuccess" class="app-warn-alert app-color-white75 flex-fill d-flex align-items-center rounded-2 py-1">
-                    <label style="font-size: 18px;" class="material-symbols-outlined mx-1">
-                        info
-                    </label>
-                    <div style="font-size: 12px;" class="app-color-white75 lh-sm me-1">
-                        Изменения успено отправлены.
+            </ng-template>
+            <button [disabled]="isLoad || viewProducts.length == 0" (click)="sendReport()"
+            class="app-button app-button-border me-1 d-flex flex-row justify-content-between">
+                <span class="text-truncate">Отправить</span>
+                <app-spiner *ngIf="isLoad" size="sm" class="ms-1"></app-spiner>
+            </button>
+            <div *ngIf="isLoad" class="app-warn-alert app-color-white75 flex-fill d-flex align-items-center rounded-2 py-1">
+                <label style="font-size: 18px;" class="material-symbols-outlined mx-1">
+                    info
+                </label>
+                <div style="font-size: 12px;" class="app-color-white75 lh-sm me-1">
+                    Не закрывайте окно, ожидайте ответа сервера.
+                </div>
+            </div>
+            <div *ngIf="isComplete" class="app-success-alert app-color-white75 flex-fill d-flex align-items-center rounded-2 py-1">
+                <label style="font-size: 18px;" class="material-symbols-outlined mx-1">
+                    info
+                </label>
+                <div style="font-size: 12px;" class="app-color-white75 lh-sm me-1">
+                    Изменения успешно отправлены.
+                </div>
+            </div>
+        </div>
+        <div class="app-color-white75" style="font-size: 14px;">
+            <div style="font-size: 12px;" class="row g-1 pb-1">
+                <div class="col-1 text-truncate">
+                    <label>Артикул</label>
+                </div>
+                <div class="col-2 text-truncate">
+                    <label>Артикул продавца</label>
+                </div>
+                <div class="col-9">
+                    <div class="row g-1">
+                        <div class="col-1 text-truncate">
+                            <label>Размер</label>
+                        </div>
+                        <div class="col-3 text-truncate">
+                            <label>Цена</label>
+                        </div>
+                        <div class="col-2 text-truncate">
+                            <label>Скидка</label>
+                        </div>
+                        <div class="col-3 text-truncate">
+                            <label>Цена с скидкой</label>
+                        </div>
+                        <div class="col-3 text-truncate">
+                            <label>Цена с СПП</label>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="app-color-white75" style="font-size: 14px;">
-                <div style="font-size: 12px;" class="row g-1 pb-1">
+            <div *ngIf="viewProducts.length == 0">
+                <div class="app-warn-alert app-color-white75 flex-fill d-flex align-items-center rounded-2 p-1">
+                    <div style="font-size: 12px;" class="app-color-white75 lh-sm">
+                        <span>Необходимо изменить хотя бы 1 товар.</span>
+                    </div>
+                </div>
+            </div>
+            <div *ngFor="let product of viewProducts">
+                <div class="row g-1 border-top">
                     <div class="col-1 text-truncate">
-                        <label>Артикул</label>
+                        <span class="">{{product.article}}</span>
                     </div>
                     <div class="col-2 text-truncate">
-                        <label>Артикул продавца</label>
+                        <span class="" >{{product.selsellerArticle}}</span>
                     </div>
                     <div class="col-9">
-                        <div class="row g-1">
+                        <div class="row g-1" *ngIf="product.editableSizePrice == false">
                             <div class="col-1 text-truncate">
-                                <label>Размер</label>
+                                <span class=""></span>
                             </div>
                             <div class="col-3 text-truncate">
-                                <label>Цена</label>
+                                <span class="">{{getViewPrice(product.price, product.lastPrice)}}</span>
                             </div>
                             <div class="col-2 text-truncate">
-                                <label>Скидка</label>
+                                <span class="">{{getViewDiscount(product.discount, product.lastDiscount)}}</span>
                             </div>
                             <div class="col-3 text-truncate">
-                                <label>Цена с скидкой</label>
+                                <span class="">{{getViewDiscountPrice(product.price, product.lastPrice, product.discount, product.lastDiscount)}}</span>
                             </div>
                             <div class="col-3 text-truncate">
-                                <label>Цена с СПП</label>
+                                <span class="">{{getViewBuyerDiscountPrice(product.price, product.lastPrice, product.discount, product.lastDiscount, product.spp)}}</span>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div *ngIf="viewProducts.length == 0">
-                    <div class="app-warn-alert app-color-white75 flex-fill d-flex align-items-center rounded-2 p-1">
-                        <div style="font-size: 12px;" class="app-color-white75 lh-sm">
-                            <span>Необходимо изменить хотя бы 1 товар.</span>
-                        </div>
-                    </div>
-                </div>
-                <div *ngFor="let product of viewProducts">
-                    <div class="row g-1 border-top">
-                        <div class="col-1 text-truncate">
-                            <span class="">{{product.article}}</span>
-                        </div>
-                        <div class="col-2 text-truncate">
-                            <span class="" >{{product.selsellerArticle}}</span>
-                        </div>
-                        <div class="col-9">
-                            <div class="row g-1" *ngIf="product.editableSizePrice == false">
+                        <div *ngIf="product.editableSizePrice">
+                            <div class="row g-1" *ngFor="let size of product.sizes">
                                 <div class="col-1 text-truncate">
-                                    <span class=""></span>
+                                    <span class="">{{size.name}}</span>
                                 </div>
                                 <div class="col-3 text-truncate">
-                                    <span class="">{{getViewPrice(product.price, product.lastPrice)}}</span>
+                                    <span class="">{{getViewPrice(size.price, size.lastPrice)}}</span>
                                 </div>
                                 <div class="col-2 text-truncate">
                                     <span class="">{{getViewDiscount(product.discount, product.lastDiscount)}}</span>
                                 </div>
                                 <div class="col-3 text-truncate">
-                                    <span class="">{{getViewDiscountPrice(product.price, product.lastPrice, product.discount, product.lastDiscount)}}</span>
+                                    <span class="">{{getViewDiscountPrice(size.price, size.lastPrice, product.discount, product.lastDiscount)}}</span>
                                 </div>
                                 <div class="col-3 text-truncate">
-                                    <span class="">{{getViewBuyerDiscountPrice(product.price, product.lastPrice, product.discount, product.lastDiscount, product.spp)}}</span>
-                                </div>
-                            </div>
-                            <div *ngIf="product.editableSizePrice">
-                                <div class="row g-1" *ngFor="let size of product.sizes">
-                                    <div class="col-1 text-truncate">
-                                        <span class="">{{size.name}}</span>
-                                    </div>
-                                    <div class="col-3 text-truncate">
-                                        <span class="">{{getViewPrice(size.price, size.lastPrice)}}</span>
-                                    </div>
-                                    <div class="col-2 text-truncate">
-                                        <span class="">{{getViewDiscount(product.discount, product.lastDiscount)}}</span>
-                                    </div>
-                                    <div class="col-3 text-truncate">
-                                        <span class="">{{getViewDiscountPrice(size.price, size.lastPrice, product.discount, product.lastDiscount)}}</span>
-                                    </div>
-                                    <div class="col-3 text-truncate">
-                                        <span class="">{{getViewBuyerDiscountPrice(size.price, size.lastPrice, product.discount, product.lastDiscount, size.spp)}}</span>
-                                    </div>
+                                    <span class="">{{getViewBuyerDiscountPrice(size.price, size.lastPrice, product.discount, product.lastDiscount, size.spp)}}</span>
                                 </div>
                             </div>
                         </div>
@@ -127,5 +125,5 @@
                 </div>
             </div>
         </div>
-    </ng-template>
+    </div>
 </app-modal>
