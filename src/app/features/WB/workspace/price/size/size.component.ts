@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ProductViewModel, SizeViewModel } from '../models/product-view.model';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { PriceMathUtility } from '../../../../../shared/utilities/common/PriceMath.Utility';
 
 @Component({
   selector: 'app-size',
@@ -21,19 +22,15 @@ export class SizeComponent {
   }
 
   getDiscountPrice(){
-    const value = this.mathDiscountPrice();
+    const value = PriceMathUtility.discountPrice(this.product.discount, this.size.price);
 
     return value.toFixed(2);
   }
 
   getBuyerDiscountPrice(){
-    const value = this.mathDiscountPrice();
-    const buyerValue = (1 - (this.size.spp/100)) * value;
+    const value = PriceMathUtility.discountPrice(this.product.discount, this.size.price);
+    const buyerValue = PriceMathUtility.discountPrice(this.size.spp, value);
 
     return Math.trunc(buyerValue);
-  }
-
-  private mathDiscountPrice(){
-    return (1 - (this.product.discount/100)) * this.size.price;
   }
 }

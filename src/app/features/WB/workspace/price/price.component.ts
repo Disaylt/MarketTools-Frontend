@@ -62,7 +62,7 @@ export class PriceComponent implements OnInit {
   operReportModal(){
     const modal = this.dialog.open(ReportModalComponent);
     if(modal.componentInstance){
-      modal.componentInstance.setProducts(this.products);
+      modal.componentInstance.products = this.products;
     }
   }
 
