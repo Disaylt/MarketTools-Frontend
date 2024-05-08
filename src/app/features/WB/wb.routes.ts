@@ -3,9 +3,9 @@ import { ViewTestComponent } from "../view-test/view-test.component";
 import { DashboardComponent } from "./dashboard/dashboard.component";
 import { autoresponderRoutes } from "../autoresponder/autoresponder.routes";
 import { WbMarketplaceComponent } from "./wb-marketplace.component";
-import { connectionRoutes } from "./connections/connections.routes";
 import { monitoringRoutes } from "../monitorings/monitorings.routes";
 import { workspaceRoutes } from "./workspace/workspace.routes";
+import { ConnectionsV2Component } from "../marketplace-connections/components/connections-v2/connections-v2.component";
 
 export const wbRoute : Route =
 {
@@ -31,7 +31,7 @@ export const wbRoute : Route =
         {
             title : "Подключения",
             path : "connections",
-            children : connectionRoutes
+            component : ConnectionsV2Component
         },
         {
             title : "Мониторинг",

@@ -1,1 +1,44 @@
-<p>connections-v2 works!</p>
+<app-progress-bar *ngIf="isLoad; else body"></app-progress-bar>
+<ng-template #body>
+    <div>
+        <div class="d-flex flex-row align-items-center active-dark-bg rounded-3 flex-fill border app-soft-element-border-color py-1">
+            <button class="app-icon-button app-button-border mx-1">
+                <span class="material-symbols-outlined">
+                    add
+                </span>
+            </button>
+            <button [disabled]="isLoad" [cdkMenuTriggerFor]="deleteMenu"  class="app-icon-button app-button-border">
+                <span class="material-symbols-outlined">
+                    tune
+                </span>
+            </button>
+            <ng-template #deleteMenu>
+                <div class="d-flex flex-column p-1 rounded-2 app-transparent-dark-bg border shadow mt-1" cdkMenu>
+                    <div class="d-flex flex-row align-items-center">
+                        <div class="form-check form-switch mb-0">
+                            <input [(ngModel)]="activeStatusFilter.isHideActive"
+                            class="form-check-input shadow-none app-check-input" 
+                            type="checkbox" role="switch">
+                            <label class="form-check-label" for="flexSwitchCheckDefault">Скрыть активные</label>
+                          </div>
+                    </div>
+                    <div class="d-flex flex-row align-items-center">
+                        <div class="form-check form-switch mb-0">
+                            <input [(ngModel)]="activeStatusFilter.isHideInactive"
+                             class="form-check-input shadow-none app-check-input" 
+                             type="checkbox" role="switch">
+                            <label class="form-check-label" for="flexSwitchCheckDefault">Скрыть неактивные</label>
+                          </div>
+                    </div>
+                </div>
+            </ng-template>
+        </div>
+        <div class="row g-2 mt-2">
+            <div *ngFor="let t of test" class="col-12 col-xl-3 col-lg-4 col-sm-6">
+                <div style="height: 300px;" class="rounded-3 border app-soft-element-border-color active-dark-bg ">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
