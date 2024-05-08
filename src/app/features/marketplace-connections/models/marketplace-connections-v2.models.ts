@@ -24,7 +24,7 @@ export interface NewConnectionDescriptionModel{
     description : string;
 }
 
-export interface ActiveteConnectionModel{
+export interface ActivateConnectionModel{
     connectionId : number;
     connectionType : MarketplaceConnectionType;
 }
