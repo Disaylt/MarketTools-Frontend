@@ -10,13 +10,14 @@ import { BaseConnectionModel } from '../../models/marketplace-connection.model';
 import { BaseConnectionV2 } from '../../models/marketplace-connections-v2.models';
 import { MarketDeterminantService } from '../../../../core/services/market-determinant.service';
 import { finalize } from 'rxjs';
+import { NewConnectionModalComponent } from "../new-connection-modal/new-connection-modal.component";
 
 @Component({
     selector: 'app-connections-v2',
     standalone: true,
     templateUrl: './connections-v2.component.html',
     styleUrl: './connections-v2.component.scss',
-    imports: [ProgressBarComponent, FormsModule, CommonModule, PaginationBarComponent, CdkMenuTrigger, CdkMenu, CdkMenuItem, ConnectionComponent]
+    imports: [ProgressBarComponent, FormsModule, CommonModule, PaginationBarComponent, CdkMenuTrigger, CdkMenu, CdkMenuItem, ConnectionComponent, NewConnectionModalComponent]
 })
 export class ConnectionsV2Component implements OnInit {
 

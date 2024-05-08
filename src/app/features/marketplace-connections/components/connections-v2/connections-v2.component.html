@@ -2,17 +2,20 @@
 <ng-template #body>
     <div>
         <div class="d-flex flex-row align-items-center active-dark-bg rounded-3 flex-fill border app-soft-element-border-color py-1">
-            <button class="app-icon-button app-button-border mx-1">
+            <button [cdkMenuTriggerFor]="addMenu" class="app-icon-button app-button-border mx-1">
                 <span class="material-symbols-outlined">
                     add
                 </span>
             </button>
-            <button [disabled]="isLoad" [cdkMenuTriggerFor]="deleteMenu"  class="app-icon-button app-button-border">
+            <ng-template #addMenu>
+                <app-new-connection-modal></app-new-connection-modal>
+            </ng-template>
+            <button [disabled]="isLoad" [cdkMenuTriggerFor]="filterMenu"  class="app-icon-button app-button-border">
                 <span class="material-symbols-outlined">
                     tune
                 </span>
             </button>
-            <ng-template #deleteMenu>
+            <ng-template #filterMenu>
                 <div class="d-flex flex-column p-1 rounded-2 app-transparent-dark-bg border shadow mt-1" cdkMenu>
                     <div class="d-flex flex-row align-items-center">
                         <div class="form-check form-switch mb-0">
