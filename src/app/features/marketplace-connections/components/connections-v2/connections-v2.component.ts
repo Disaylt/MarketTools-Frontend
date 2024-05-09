@@ -11,13 +11,14 @@ import { BaseConnectionV2 } from '../../models/marketplace-connections-v2.models
 import { MarketDeterminantService } from '../../../../core/services/market-determinant.service';
 import { finalize } from 'rxjs';
 import { NewConnectionModalComponent } from "../new-connection-modal/new-connection-modal.component";
+import { ConnectionV2Component } from "../connection-v2/connection-v2.component";
 
 @Component({
     selector: 'app-connections-v2',
     standalone: true,
     templateUrl: './connections-v2.component.html',
     styleUrl: './connections-v2.component.scss',
-    imports: [ProgressBarComponent, FormsModule, CommonModule, PaginationBarComponent, CdkMenuTrigger, CdkMenu, CdkMenuItem, ConnectionComponent, NewConnectionModalComponent]
+    imports: [ProgressBarComponent, FormsModule, CommonModule, PaginationBarComponent, CdkMenuTrigger, CdkMenu, CdkMenuItem, ConnectionComponent, NewConnectionModalComponent, ConnectionV2Component]
 })
 export class ConnectionsV2Component implements OnInit {
 

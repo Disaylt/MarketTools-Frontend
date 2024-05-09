@@ -4,7 +4,7 @@ import { MarketplaceName } from "../../../core/enums/marketplace-name";
 export interface BaseConnectionV2{
     id : number;
     name : string;
-    descriptions : string | null;
+    description : string | null;
     baseApiDetails : BaseConnectionType;
     baseAccountDetails : BaseConnectionType;
 }
