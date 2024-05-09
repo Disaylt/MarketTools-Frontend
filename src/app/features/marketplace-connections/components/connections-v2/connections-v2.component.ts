@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ProgressBarComponent } from "../../../../shared/components/progress-bar/progress-bar.component";
 import { CdkMenuTrigger, CdkMenu, CdkMenuItem } from '@angular/cdk/menu';
 import { CommonModule } from '@angular/common';
@@ -43,6 +43,11 @@ export class ConnectionsV2Component implements OnInit {
           this.connections = data;
         }
       })
+  }
+
+  addNewConnection(value : BaseConnectionV2){
+    console.log(value);
+    this.connections.push(value);
   }
 
 }

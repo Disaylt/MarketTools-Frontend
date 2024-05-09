@@ -8,7 +8,7 @@
                 </span>
             </button>
             <ng-template #addMenu>
-                <app-new-connection-modal></app-new-connection-modal>
+                <app-new-connection-modal #addMenu cdkMenu (created)="addNewConnection($event)"></app-new-connection-modal>
             </ng-template>
             <button [disabled]="isLoad" [cdkMenuTriggerFor]="filterMenu"  class="app-icon-button app-button-border">
                 <span class="material-symbols-outlined">

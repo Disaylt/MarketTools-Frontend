@@ -1,12 +1,14 @@
-<div class="d-flex flex-column p-1 rounded-2 app-transparent-dark-bg shadow mt-1" cdkMenu>
+<div class="d-flex flex-column p-1 rounded-2 app-transparent-dark-bg shadow mt-1">
     <input [(ngModel)]="value.name" 
         class="form-control form-control-sm app-select shadow-none mb-1" 
+        placeholder="Название"
         type="text">
     <textarea [(ngModel)]="value.description" 
         class="form-control form-control-sm app-select shadow-none mb-1" 
+        placeholder="Описание/подсказка"
         type="text">
     </textarea>
-    <button [disabled]="isLoad" class="app-button app-main-button app-button-border">
+    <button (click)="create()" class="app-button app-main-button app-button-border">
         <span class="mx-1">Создать</span>
         <app-spiner size="sm" *ngIf="isLoad"></app-spiner>
     </button>
