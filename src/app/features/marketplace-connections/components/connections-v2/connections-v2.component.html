@@ -33,14 +33,28 @@
                             <label class="form-check-label" for="flexSwitchCheckDefault">Скрыть неактивные</label>
                           </div>
                     </div>
+                    <div class="d-flex flex-row align-items-center mt-2">
+                        <div class="form-check form-switch mb-0">
+                            <input [(ngModel)]="activeStatusFilter.isHideInactive"
+                             class="form-check-input shadow-none app-check-input" 
+                             type="checkbox" role="switch">
+                            <label class="form-check-label" for="flexSwitchCheckDefault">Выбрать API</label>
+                          </div>
+                    </div>
+                    <div class="d-flex flex-row align-items-center">
+                        <div class="form-check form-switch mb-0">
+                            <input [(ngModel)]="activeStatusFilter.isHideInactive"
+                             class="form-check-input shadow-none app-check-input" 
+                             type="checkbox" role="switch">
+                            <label class="form-check-label" for="flexSwitchCheckDefault">Выбрать аккаунт</label>
+                          </div>
+                    </div>
                 </div>
             </ng-template>
         </div>
-        <div class="row g-2 mt-2">
+        <div *ngIf="architectureServices != null" class="row gy-3 gx-2 mt-2">
             <div *ngFor="let connection of connections" class="col-12 col-xl-3 col-lg-4 col-sm-6">
-                <div class="rounded-3 border app-soft-element-border-color active-dark-bg ">
-                    <app-connection-v2 [value]="connection"></app-connection-v2>
-                </div>
+                <app-connection-v2 [value]="connection" [architectureServices]="architectureServices"></app-connection-v2>
             </div>
         </div>
     </div>

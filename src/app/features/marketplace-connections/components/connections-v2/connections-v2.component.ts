@@ -9,9 +9,11 @@ import { MarketplaceConnectionV2Service } from '../../services/marketplace-conne
 import { BaseConnectionModel } from '../../models/marketplace-connection.model';
 import { BaseConnectionV2 } from '../../models/marketplace-connections-v2.models';
 import { MarketDeterminantService } from '../../../../core/services/market-determinant.service';
-import { finalize } from 'rxjs';
+import { finalize, forkJoin, merge } from 'rxjs';
 import { NewConnectionModalComponent } from "../new-connection-modal/new-connection-modal.component";
 import { ConnectionV2Component } from "../connection-v2/connection-v2.component";
+import { ArchitectureService } from '../../services/architecture.service';
+import { ArchitectureModel } from '../../models/architecture.model';
 
 @Component({
     selector: 'app-connections-v2',
@@ -29,19 +31,33 @@ export class ConnectionsV2Component implements OnInit {
   }
 
   connections : BaseConnectionV2[] = []
+  architectureServices : ArchitectureModel | null = null;
 
-  constructor(private connectionsService : MarketplaceConnectionV2Service, private determinantService : MarketDeterminantService){}
+  constructor(private connectionsService : MarketplaceConnectionV2Service, 
+    private determinantService : MarketDeterminantService,
+    private architectureService : ArchitectureService){}
 
   ngOnInit(): void {
     this.isLoad = true;
-    this.connectionsService
-      .getRange(this.determinantService.getRequired().nameEnum)
+
+    const architectureServices = this.architectureService
+      .get(this.determinantService.getRequired().nameEnum);
+
+    const connections = this.connectionsService
+      .getRange(this.determinantService.getRequired().nameEnum);
+
+    forkJoin([architectureServices, connections])
       .pipe(finalize(() => {
         this.isLoad = false;
       }))
       .subscribe({
-        next: data => {
-          this.connections = data;
+        next : data => {
+          this.connections = data[1];
+          this.architectureServices = data[0];
+        },
+        error : () => {
+          this.connections = [];
+          this.architectureServices = null;
         }
       })
   }
