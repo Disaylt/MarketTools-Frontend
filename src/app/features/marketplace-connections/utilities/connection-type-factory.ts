@@ -3,6 +3,7 @@ import { MarketDeterminantService } from "../../../core/services/market-determin
 import { IConnectionTypeFactory } from "../interfacces/connection-type-factory";
 import { MarketplaceName } from "../../../core/enums/marketplace-name";
 import { WbConnectionTypeComponentFactory } from "../../WB/connections/utilities/wb-connection-type-factory";
+import { MarketplaceConnectionType } from "../../../core/enums/marketplace-connection.enum";
 
 @Injectable({
     providedIn: 'root'

@@ -15,6 +15,8 @@ import { MarketplaceConnectionV2Service } from '../../services/marketplace-conne
 import { Dialog } from '@angular/cdk/dialog';
 import { UpdateDescriptionModalComponent } from '../update-description-modal/update-description-modal.component';
 import { NewDescriptionModalV2Component } from '../new-description-modal-v2/new-description-modal-v2.component';
+import { AbstractConnectionTypeFactroy } from '../../utilities/connection-type-factory';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
     selector: 'app-connection-v2',
@@ -43,7 +45,46 @@ export class ConnectionV2Component implements OnInit{
 
   ]
 
-  constructor(private connectionService : MarketplaceConnectionV2Service, private dialog: Dialog){}
+  constructor(private connectionService : MarketplaceConnectionV2Service,
+    private toastsService : ToastrService,
+    private abstractConnectionTypeFactory : AbstractConnectionTypeFactroy,
+    private dialog: Dialog){}
+
+  openUpdateTypeModal(){
+    if(this.selectedConnectionType == null){
+      return;
+    }
+
+    const type = this.abstractConnectionTypeFactory
+    .get()
+    ?.get(this.selectedConnectionType.value);
+
+    if(type){
+      const modal = this.dialog.open(type);
+      if(modal.componentInstance){
+        modal.componentInstance.id = this.value.id;
+        modal.componentInstance.name = this.value.name;
+      }
+
+      modal.closed
+        .subscribe({
+          next: data => {
+            const connection = data as BaseConnectionV2;
+            if(connection && this.connectionTypeValue){
+              this.value.baseAccountDetails.isActive = connection.baseAccountDetails.isActive;
+              this.value.baseApiDetails.isActive = connection.baseApiDetails.isActive;
+            }
+          }
+        })
+    }
+    else{
+      this.toastsService.error("Невозможно редактировать данный тип", "", {
+        progressBar : true,
+        closeButton : true,
+        toastClass: "ngx-toastr shadow-none rounded-3 app-error-alert-bg"
+    });
+    }
+  }
 
   openUpdateDescriptionModal(){
     const modal = this.dialog.open(NewDescriptionModalV2Component);
