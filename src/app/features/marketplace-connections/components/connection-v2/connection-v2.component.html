@@ -12,7 +12,7 @@
                 </button>
                 <ng-template #connectionMenu>
                     <div class="d-flex flex-column p-1 rounded-2 app-transparent-dark-bg border shadow mt-1" cdkMenu>
-                        <button class="app-button app-button-border" cdkMenuItem>
+                        <button class="app-button app-button-border" cdkMenuItem (click)="openUpdateDescriptionModal()">
                             <span class="mx-1">Редактировать</span>
                         </button>
                         <button (click)="deleteConnection()" class="app-button app-button-border mt-1" cdkMenuItem>

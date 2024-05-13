@@ -12,6 +12,9 @@ import { ServiceDetails } from '../../models/service.model';
 import { MarketplaceConnectionType } from '../../../../core/enums/marketplace-connection.enum';
 import { ServicesTypeStorage } from '../../../../core/constants/services-type.storage';
 import { MarketplaceConnectionV2Service } from '../../services/marketplace-connection-v2.service';
+import { Dialog } from '@angular/cdk/dialog';
+import { UpdateDescriptionModalComponent } from '../update-description-modal/update-description-modal.component';
+import { NewDescriptionModalV2Component } from '../new-description-modal-v2/new-description-modal-v2.component';
 
 @Component({
     selector: 'app-connection-v2',
@@ -40,7 +43,25 @@ export class ConnectionV2Component implements OnInit{
 
   ]
 
-  constructor(private connectionService : MarketplaceConnectionV2Service){}
+  constructor(private connectionService : MarketplaceConnectionV2Service, private dialog: Dialog){}
+
+  openUpdateDescriptionModal(){
+    const modal = this.dialog.open(NewDescriptionModalV2Component);
+    if(modal.componentInstance){
+      modal.componentInstance.data = this.value;
+    }
+    else{
+      modal.close();
+    }
+
+    modal.closed
+      .subscribe({
+        next : data => {
+          this.value.description = data as string 
+            ?? this.value.description;
+        }
+      })
+  }
 
   ngOnInit(): void {
     this.changeTypeEvent
