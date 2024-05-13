@@ -14,6 +14,8 @@ import { NewConnectionModalComponent } from "../new-connection-modal/new-connect
 import { ConnectionV2Component } from "../connection-v2/connection-v2.component";
 import { ArchitectureService } from '../../services/architecture.service';
 import { ArchitectureModel } from '../../models/architecture.model';
+import { ConnectionTypeEnumModel } from '../../../../core/models/connection-type.model';
+import { MarketplaceConnectionType } from '../../../../core/enums/marketplace-connection.enum';
 
 @Component({
     selector: 'app-connections-v2',
@@ -24,11 +26,15 @@ import { ArchitectureModel } from '../../models/architecture.model';
 })
 export class ConnectionsV2Component implements OnInit {
 
+  changeTypeEvent : EventEmitter<MarketplaceConnectionType> = new EventEmitter<MarketplaceConnectionType>();
+
   isLoad : boolean = false;
   activeStatusFilter = {
     isHideActive : false,
     isHideInactive : false
   }
+
+  typeChangeInputValue : boolean = false;
 
   connections : BaseConnectionV2[] = []
   architectureServices : ArchitectureModel | null = null;
@@ -60,6 +66,21 @@ export class ConnectionsV2Component implements OnInit {
           this.architectureServices = null;
         }
       })
+  }
+
+  removeConnection(value : BaseConnectionV2){
+    this.connections = this.connections
+      .filter(x=> x.id != value.id);
+  }
+
+  setApiTypeForAllConnections(){
+    this.changeTypeEvent.emit(MarketplaceConnectionType.openApi)
+    this.typeChangeInputValue = false;
+  }
+
+  setAccountTypeForAllConnections(){
+    this.changeTypeEvent.emit(MarketplaceConnectionType.account)
+    this.typeChangeInputValue = false;
   }
 
   addNewConnection(value : BaseConnectionV2){
