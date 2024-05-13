@@ -19,7 +19,7 @@
                 <div class="d-flex flex-column p-1 rounded-2 app-transparent-dark-bg border shadow mt-1" cdkMenu>
                     <div class="d-flex flex-row align-items-center">
                         <div class="form-check form-switch mb-0">
-                            <input [(ngModel)]="activeStatusFilter.isHideActive"
+                            <input [(ngModel)]="activeStatusFilter.isHideActive" disabled
                             class="form-check-input shadow-none app-check-input" 
                             type="checkbox" role="switch">
                             <label class="form-check-label" for="flexSwitchCheckDefault">Скрыть активные</label>
@@ -27,7 +27,7 @@
                     </div>
                     <div class="d-flex flex-row align-items-center">
                         <div class="form-check form-switch mb-0">
-                            <input [(ngModel)]="activeStatusFilter.isHideInactive"
+                            <input [(ngModel)]="activeStatusFilter.isHideInactive" disabled
                                 class="form-check-input shadow-none app-check-input" 
                                 type="checkbox" role="switch">
                             <label class="form-check-label" for="flexSwitchCheckDefault">Скрыть неактивные</label>
