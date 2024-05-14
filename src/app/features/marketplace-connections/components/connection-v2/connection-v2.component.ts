@@ -17,13 +17,15 @@ import { UpdateDescriptionModalComponent } from '../update-description-modal/upd
 import { NewDescriptionModalV2Component } from '../new-description-modal-v2/new-description-modal-v2.component';
 import { AbstractConnectionTypeFactroy } from '../../utilities/connection-type-factory';
 import { ToastrService } from 'ngx-toastr';
+import { finalize } from 'rxjs';
+import { SpinerComponent } from "../../../../shared/components/spiner/spiner.component";
 
 @Component({
     selector: 'app-connection-v2',
     standalone: true,
     templateUrl: './connection-v2.component.html',
     styleUrl: './connection-v2.component.scss',
-    imports: [CommonModule, FormsModule, CdkMenuTrigger, CdkMenu, CdkMenuItem, ActiveStatusInfoComponent]
+    imports: [CommonModule, FormsModule, CdkMenuTrigger, CdkMenu, CdkMenuItem, ActiveStatusInfoComponent, SpinerComponent]
 })
 export class ConnectionV2Component implements OnInit{
   
@@ -37,6 +39,8 @@ export class ConnectionV2Component implements OnInit{
   selectedConnectionType : ConnectionTypeEnumModel | null = null;
   connectionTypeValue : BaseConnectionType | null = null;
 
+  isLoad : boolean = false;
+
   automation : ServiceDetails[] = [
     
   ]
@@ -49,6 +53,25 @@ export class ConnectionV2Component implements OnInit{
     private toastsService : ToastrService,
     private abstractConnectionTypeFactory : AbstractConnectionTypeFactroy,
     private dialog: Dialog){}
+    
+  activate(type : ConnectionTypeEnumModel, connectionTypeValue : BaseConnectionType){
+
+    this.isLoad = true;
+
+    this.connectionService
+      .activate({
+        connectionId : this.value.id,
+        connectionType : type.value
+      })
+      .pipe(finalize(() => {
+        this.isLoad = false;
+      }))
+      .subscribe({
+        complete : () => {
+          connectionTypeValue.isActive = true;
+        }
+      })
+  }
 
   openUpdateTypeModal(){
     if(this.selectedConnectionType == null){

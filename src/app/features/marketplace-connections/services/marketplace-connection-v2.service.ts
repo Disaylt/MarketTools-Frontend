@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MarketplaceName } from '../../../core/enums/marketplace-name';
 import { ActivateConnectionModel, BaseConnectionV2, NewConnectionDescriptionModel, NewSellecrConnection } from '../models/marketplace-connections-v2.models';
+import { NewServiceStatus } from '../models/new-service-status.model';
 
 @Injectable({
   providedIn: 'root'
@@ -35,7 +36,13 @@ export class MarketplaceConnectionV2Service {
   }
 
   activate(body: ActivateConnectionModel){
-    const path = `api/v1/marketplace-connection/description`;
+    const path = `api/v1/marketplace-connection/activate`;
+
+    return this.httpClient.put(path, body);
+  }
+
+  changeServiceStatus(body : NewServiceStatus){
+    const path = "api/v1/service";
 
     return this.httpClient.put(path, body);
   }

@@ -34,7 +34,8 @@
             <div class="d-flex flew-row">
                 <button [cdkMenuTriggerFor]="connectionTypesSelect" class="app-button w-100 app-main-button app-button-border me-1 d-flex flex-row justify-content-between">
                     <span style="font-size: 14px;" class="text-truncate">{{selectedConnectionType === null ? 'Выбрать тип' : selectedConnectionType.view}}</span>
-                    <div class="d-flex flex-row">
+                    <div class="d-flex flex-row align-items-center">
+                        <app-spiner class="me-1" *ngIf="isLoad" size="sm"></app-spiner>
                         <app-active-status-info 
                             *ngIf="connectionTypeValue != null"
                             [isActive]="connectionTypeValue.isActive" 
@@ -57,7 +58,9 @@
                         <button class="app-button app-button-border" cdkMenuItem (click)="openUpdateTypeModal()">
                             <span class="mx-1">Редактировать</span>
                         </button>
-                        <button [disabled]="connectionTypeValue == null || connectionTypeValue.isActive == true" class="app-button app-button-border mt-1" cdkMenuItem>
+                        <button [disabled]="connectionTypeValue == null || connectionTypeValue.isActive == true || isLoad" 
+                        (click)="activate(selectedConnectionType!, connectionTypeValue!)"
+                            class="app-button app-button-border mt-1" cdkMenuItem>
                             <span class="mx-1">Активировать</span>
                         </button>
                     </div>
@@ -84,7 +87,7 @@
                 </ng-template>
             </div>
         </div>
-        <div class="border rounded-1 mt-1 p-1 overflow-auto" style="height: 255px;">
+        <div class="border rounded-1 mt-1 p-1 overflow-auto" style="height: 254px;">
             <label class="text-truncate lh-sm" style="font-size: 12px; opacity: 0.7;">Сервисы</label>
             <div *ngIf="automation.length > 0" class="">
                 <label>Автоматизация</label>
@@ -94,6 +97,7 @@
                         <div class="form-check form-switch mb-0">
                             <input class="form-check-input shadow-none app-check-input"
                                 [(ngModel)]="service.value.isActive"
+                                [disabled]="isLoad"
                                 type="checkbox" role="switch">
                             <label class="form-check-label" for="flexSwitchCheckDefault"></label>
                           </div>
@@ -108,6 +112,7 @@
                         <div class="form-check form-switch mb-0">
                             <input class="form-check-input shadow-none app-check-input"
                                 [(ngModel)]="service.value.isActive"
+                                [disabled]="isLoad"
                                 type="checkbox" role="switch">
                             <label class="form-check-label" for="flexSwitchCheckDefault"></label>
                           </div>
