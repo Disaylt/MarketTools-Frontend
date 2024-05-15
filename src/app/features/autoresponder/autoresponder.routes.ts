@@ -37,8 +37,8 @@ export const autoresponderRoutes : Routes = [
                 component : TemplatesComponent
             },
             {
-                title : "Подключение",
-                path : "connections",
+                title : "Настройки",
+                path : "settings",
                 component : ConnectionComponent
             },
             {

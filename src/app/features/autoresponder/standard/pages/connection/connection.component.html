@@ -15,7 +15,7 @@
                     class="d-flex flex-row justify-content-between rounded-1"
                     [ngClass]="{'active' : selectSeller == seller}">
                     <span class="text-truncate app-color-white75">{{seller.name}}</span>
-                    <app-active-status-info [isActive]="seller.autoresponderConnection.isActive" activeText="Вкл." inactiveText="Выкл."></app-active-status-info>
+                    <app-active-status-info [isActive]="isActiveService(seller)" activeText="Вкл." inactiveText="Выкл."></app-active-status-info>
                 </li>
             </ul>
         </div>
@@ -55,15 +55,6 @@
                             </div>
                         </ng-template>
                     </div>
-                    <div class="form-check form-switch m-0 d-flex align-items-center">
-                        <app-spiner *ngIf="isLoadActiveStatus" class="me-1" size="sm"></app-spiner>
-                        <app-active-status-info [isActive]="selectSeller.autoresponderConnection.isActive" activeText="Вкл." inactiveText="Выкл."></app-active-status-info>
-                        <input [(ngModel)]="selectSeller.autoresponderConnection.isActive"
-                            (ngModelChange)="changeStatus(selectSeller)"
-                            [disabled]="isLoadActiveStatus"
-                         class="form-check-input shadow-none app-check-input m-0 ms-1" 
-                         type="checkbox" role="switch">
-                      </div>
                 </div>
             </div>
             <div class="mt-3">
