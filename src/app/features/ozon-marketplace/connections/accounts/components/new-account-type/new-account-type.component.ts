@@ -6,6 +6,8 @@ import { SpinerComponent } from "../../../../../../shared/components/spiner/spin
 import { ModalComponent } from "../../../../../../shared/components/modal/modal.component";
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ConnectionsService } from '../../services/connections.service';
+import { finalize } from 'rxjs';
 
 @Component({
     selector: 'app-new-account-type',
@@ -23,9 +25,23 @@ export class NewAccountTypeComponent implements IConnectionTypeComponent{
   @Input({required: true}) id! : number;
   @Input({required: true}) name : string = "Неизвестно";
 
-  constructor(public dialogRef: DialogRef<any>, private connectionService : MarketplaceConnectionV2Service){}
+  constructor(public dialogRef: DialogRef<any>, private connectionService : ConnectionsService){}
 
   refresh(){
-    
+    this.isLoad = true;
+    this.connectionService
+    .changeAaccountType({
+      id : this.id,
+      token : this.refreshToken,
+      sellerId : this.sellerId
+    })
+    .pipe(finalize(() => {
+      this.isLoad = false;
+    }))
+    .subscribe({
+      next : data => {
+        this.dialogRef.close(data);
+      }
+    })
   }
 }
