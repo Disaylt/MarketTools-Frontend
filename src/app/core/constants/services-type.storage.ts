@@ -12,6 +12,10 @@ export class ServicesTypeStorage{
         {
             viewName : "Станд. автоответчик",
             value : ServicesName.standardAutoresponder
+        },
+        {
+            viewName : "Менеджер цен",
+            value : ServicesName.workspacePriceManager
         }
     ]
 
@@ -21,5 +25,9 @@ export class ServicesTypeStorage{
 
     static monitoring : ServicesName[] = [
         ServicesName.priceMonitoring
+    ]
+
+    static workspace : ServicesName[] = [
+        ServicesName.workspacePriceManager
     ]
 }

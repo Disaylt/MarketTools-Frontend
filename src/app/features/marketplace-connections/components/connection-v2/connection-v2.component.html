@@ -95,9 +95,9 @@
                     <div *ngFor="let service of automation" class="d-flex flex-row justify-content-between align-items-center">
                         <div style="font-size: 14px;" class="text-truncate">{{service.name}}</div>
                         <div class="form-check form-switch mb-0">
-                            <input class="form-check-input shadow-none app-check-input"
+                            <input *ngIf="service.value != null" class="form-check-input shadow-none app-check-input"
                                 [(ngModel)]="service.value.isActive"
-                                (ngModelChange)="changeServiceStatus(service)"
+                                (ngModelChange)="changeServiceStatus(service.value)"
                                 [disabled]="isLoad"
                                 type="checkbox" role="switch">
                             <label class="form-check-label" for="flexSwitchCheckDefault"></label>
@@ -111,9 +111,25 @@
                     <div *ngFor="let service of monitoring" class="d-flex flex-row justify-content-between align-items-center">
                         <div style="font-size: 14px;" class="text-truncate">{{service.name}}</div>
                         <div class="form-check form-switch mb-0">
-                            <input class="form-check-input shadow-none app-check-input"
+                            <input *ngIf="service.value != null"class="form-check-input shadow-none app-check-input"
                                 [(ngModel)]="service.value.isActive"
-                                (ngModelChange)="changeServiceStatus(service)"
+                                (ngModelChange)="changeServiceStatus(service.value)"
+                                [disabled]="isLoad"
+                                type="checkbox" role="switch">
+                            <label class="form-check-label" for="flexSwitchCheckDefault"></label>
+                          </div>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="workSpace.length > 0" class="">
+                <label>Workspace</label>
+                <div class="d-flex flex-column border-start ps-1">
+                    <div *ngFor="let service of workSpace" class="d-flex flex-row justify-content-between align-items-center">
+                        <div style="font-size: 14px;" class="text-truncate">{{service.name}}</div>
+                        <div class="form-check form-switch mb-0">
+                            <input *ngIf="service.value != null" class="form-check-input shadow-none app-check-input"
+                                [(ngModel)]="service.value.isActive"
+                                (ngModelChange)="changeServiceStatus(service.value)"
                                 [disabled]="isLoad"
                                 type="checkbox" role="switch">
                             <label class="form-check-label" for="flexSwitchCheckDefault"></label>

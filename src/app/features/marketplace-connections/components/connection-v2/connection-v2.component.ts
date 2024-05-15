@@ -49,25 +49,31 @@ export class ConnectionV2Component implements OnInit{
 
   ]
 
+  workSpace : ServiceDetails[] = [
+
+  ]
+
   constructor(private connectionService : MarketplaceConnectionV2Service,
     private toastsService : ToastrService,
     private abstractConnectionTypeFactory : AbstractConnectionTypeFactroy,
     private dialog: Dialog){}
     
-    changeServiceStatus(service : ServiceDetails){
+    changeServiceStatus(service : ServiceConnection){
       this.isLoad = true;
+
+
 
       this.connectionService.changeServiceStatus({
         connectionId : this.value.id,
-        isActive : service.value.isActive,
-        service : service.value.type
+        isActive : service.isActive,
+        service : service.type
       })
       .pipe(finalize(() => {
         this.isLoad = false;
       }))
       .subscribe({
           error : () => {
-            service.value.isActive = !service.value.isActive;
+            service.isActive = !service.isActive;
           }
       })
     }
@@ -178,18 +184,15 @@ export class ConnectionV2Component implements OnInit{
   setServices(){
     this.automation = []
     this.monitoring = []
+    this.workSpace = []
 
     if(this.selectedConnectionType == null){
       return;
     }
 
-    const architectureServices = this.getArchitectureServices();
-    this.value
-      .services
-      .forEach(service => {
-        if(architectureServices.some(x=> x == service.type)){
-          this.addServiceDetails(service);
-        }
+    this.getArchitectureServices()
+      .forEach(serviceType => {
+        this.addServiceDetails(serviceType);
       })
   }
 
@@ -204,17 +207,25 @@ export class ConnectionV2Component implements OnInit{
     }
   }
 
-  private addServiceDetails(serviceConnection : ServiceConnection){
+  private addServiceDetails(serviceName : ServicesName){
+
+    const serviceConnection = this.value
+      .services
+      .find(service => service.type == serviceName) ?? null;
+
     const serviceDetails : ServiceDetails = {
       value : serviceConnection,
-      name : ServicesTypeStorage.value.find(x=> x.value == serviceConnection.type)?.viewName ?? "Неизвестный сервис"
+      name : ServicesTypeStorage.value.find(x=> x.value == serviceName)?.viewName ?? "Неизвестный сервис"
     }
 
-    if(ServicesTypeStorage.automation.some(x=> x == serviceConnection.type)){
+    if(ServicesTypeStorage.automation.some(x=> x == serviceName)){
       this.automation.push(serviceDetails);
     }
-    else if(ServicesTypeStorage.monitoring.some(x=> x == serviceConnection.type)){
+    else if(ServicesTypeStorage.monitoring.some(x=> x == serviceName)){
       this.monitoring.push(serviceDetails);
+    }
+    else if(ServicesTypeStorage.workspace.some(x=> x == serviceName)){
+      this.workSpace.push(serviceDetails);
     }
   }
 
