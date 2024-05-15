@@ -19,6 +19,8 @@ import { TabBarButtonComponent } from "../../../shared/components/tab-bar/tab-ba
 import { RouterModule } from '@angular/router';
 import { ConnectionsService } from './services/connections.service';
 import { SettingsComponent } from "./components/settings/settings.component";
+import { MarketplaceConnectionV2Service } from '../../marketplace-connections/services/marketplace-connection-v2.service';
+import { BaseConnectionV2 } from '../../marketplace-connections/models/marketplace-connections-v2.models';
 
 @Component({
     selector: 'app-prices',
@@ -31,11 +33,11 @@ export class PricesComponent implements OnInit {
 
   searchSellerValue : string = "";
   isLoad : boolean = true;
-  selectSeller : MarketplaceConnectionModel | null = null;
-  sellers : MarketplaceConnectionModel[] = [];
+  selectSeller : BaseConnectionV2 | null = null;
+  sellers : BaseConnectionV2[] = [];
   isLoadActiveStatus : boolean = false;
   constructor(private marketDeterminantService : MarketDeterminantService,
-    private sellerService : MarketplaceConnectionsService,
+    private sellerService : MarketplaceConnectionV2Service,
     private serviceConnectionService : ConnectionsService){
       
     }
@@ -59,7 +61,14 @@ export class PricesComponent implements OnInit {
   
     }
 
-    select(seller : MarketplaceConnectionModel){
+    getActiveStatus(connection : BaseConnectionV2){
+      return connection.services
+        .find(x=> x.type == ServicesName.priceMonitoring)
+        ?.isActive
+        ?? false;
+    }
+
+    select(seller : BaseConnectionV2){
       this.selectSeller = seller;
     }
 
@@ -67,7 +76,7 @@ export class PricesComponent implements OnInit {
       this.isLoad = true;
       this.sellers = [];
   
-      this.sellerService.getRangeByService(ServicesName.standardAutoresponder, this.marketDeterminantService.getRequired().nameEnum)
+      this.sellerService.getRange(this.marketDeterminantService.getRequired().nameEnum)
         .pipe(
           finalize(() => {
             this.isLoad = false;
