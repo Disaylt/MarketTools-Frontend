@@ -9,28 +9,16 @@ export class OzonNavigationStorage{
             main : {
                 name : "Дэшборд",
                 path : `${this.market}/info`,
-                isDisabled : false
+                isDisabled : true
             }
         },
         {
-            colapseName : "connection",
             iconCode: "device_hub",
             main : {
                 name : "Подключение",
+                path : `${this.market}/connections`,
                 isDisabled : false
-            },
-            parent : [
-                {
-                    name : "API",
-                    path : `${this.market}/connections/seller/open-api`,
-                    isDisabled : true
-                },
-                {
-                    name : "Кабинет",
-                    path : `${this.market}/connections/seller/account`,
-                    isDisabled : false
-                }
-            ]
+            }
         },
         {
             colapseName : "autoresponder",

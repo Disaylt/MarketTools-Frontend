@@ -48,7 +48,7 @@
                         </span>
                     </div>
                 </button>
-                <button [disabled]="selectedConnectionType == null" [cdkMenuTriggerFor]="connectionTypeMenu" class="app-icon-button app-button-border">
+                <button [disabled]="selectedConnectionType == null || isLoad" [cdkMenuTriggerFor]="connectionTypeMenu" class="app-icon-button app-button-border">
                     <span class="material-symbols-outlined">
                         more_vert
                     </span>
@@ -97,6 +97,7 @@
                         <div class="form-check form-switch mb-0">
                             <input class="form-check-input shadow-none app-check-input"
                                 [(ngModel)]="service.value.isActive"
+                                (ngModelChange)="changeServiceStatus(service)"
                                 [disabled]="isLoad"
                                 type="checkbox" role="switch">
                             <label class="form-check-label" for="flexSwitchCheckDefault"></label>
@@ -112,6 +113,7 @@
                         <div class="form-check form-switch mb-0">
                             <input class="form-check-input shadow-none app-check-input"
                                 [(ngModel)]="service.value.isActive"
+                                (ngModelChange)="changeServiceStatus(service)"
                                 [disabled]="isLoad"
                                 type="checkbox" role="switch">
                             <label class="form-check-label" for="flexSwitchCheckDefault"></label>

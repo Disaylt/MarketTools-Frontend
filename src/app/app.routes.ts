@@ -36,7 +36,7 @@ export const routes: Routes = [
         children : [
             {
                 path: "",
-                redirectTo: "wb/info",
+                redirectTo: "wb/connections",
                 pathMatch: "full"
             },
             userRoute,

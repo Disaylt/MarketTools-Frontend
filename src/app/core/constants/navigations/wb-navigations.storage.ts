@@ -8,7 +8,7 @@ export class WbNavigationStorage{
             main : {
                 name : "Дэшборд",
                 path : `${this.market}/info`,
-                isDisabled : false
+                isDisabled : true
             }
         },
         {

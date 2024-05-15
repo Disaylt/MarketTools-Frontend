@@ -54,6 +54,24 @@ export class ConnectionV2Component implements OnInit{
     private abstractConnectionTypeFactory : AbstractConnectionTypeFactroy,
     private dialog: Dialog){}
     
+    changeServiceStatus(service : ServiceDetails){
+      this.isLoad = true;
+
+      this.connectionService.changeServiceStatus({
+        connectionId : this.value.id,
+        isActive : service.value.isActive,
+        service : service.value.type
+      })
+      .pipe(finalize(() => {
+        this.isLoad = false;
+      }))
+      .subscribe({
+          error : () => {
+            service.value.isActive = !service.value.isActive;
+          }
+      })
+    }
+
   activate(type : ConnectionTypeEnumModel, connectionTypeValue : BaseConnectionType){
 
     this.isLoad = true;

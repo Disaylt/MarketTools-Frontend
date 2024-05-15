@@ -15,7 +15,7 @@ export const wbRoute : Route =
     children : [
         {
             path: "",
-            redirectTo: "info",
+            redirectTo: "connections",
             pathMatch: "full"
         },
         {
