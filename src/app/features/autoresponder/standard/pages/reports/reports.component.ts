@@ -17,6 +17,8 @@ import { ServicesName } from '../../../../../core/enums/services-name.enum';
 import { MarketDeterminantService } from '../../../../../core/services/market-determinant.service';
 import { RatingBarComponent } from "../../../../../shared/components/rating-bar/rating-bar.component";
 import { Pagination } from '../../../../../core/models/pagination.model';
+import { MarketplaceConnectionV2Service } from '../../../../marketplace-connections/services/marketplace-connection-v2.service';
+import { BaseConnectionV2 } from '../../../../marketplace-connections/models/marketplace-connections-v2.models';
 
 @Component({
     selector: 'app-reports',
@@ -29,7 +31,7 @@ export class ReportsComponent implements OnInit {
   reports : ReportModel[] = [];
   isLoad = false;
   constructor(private reportsService : ReportsService, 
-    private sellerService : MarketplaceConnectionsService,
+    private sellerService : MarketplaceConnectionV2Service,
     private marketDeterminantService : MarketDeterminantService){}
   tabs : string[] = [
     "Отчет",
@@ -44,8 +46,8 @@ export class ReportsComponent implements OnInit {
   ]
   selectedStatus : string = this.statuses[0];
 
-  selectedConnection : MarketplaceConnectionModel | null = null;
-  connections : MarketplaceConnectionModel[] = [];
+  selectedConnection : BaseConnectionV2 | null = null;
+  connections : BaseConnectionV2[] = [];
   searchConnectionName : string = "";
 
   searchArticle : string = "";
@@ -73,7 +75,7 @@ export class ReportsComponent implements OnInit {
     this.getRange();
   }
 
-  selectConnection(connection : MarketplaceConnectionModel){
+  selectConnection(connection : BaseConnectionV2){
     this.cdkMenu.menuStack.closeAll();
     this.selectedConnection = connection;
     this.getRange();
@@ -87,7 +89,7 @@ export class ReportsComponent implements OnInit {
   getConnections(){
     this.connections = [];
 
-    this.sellerService.getRangeByService(ServicesName.standardAutoresponder, this.marketDeterminantService.getRequired().nameEnum)
+    this.sellerService.getRange(this.marketDeterminantService.getRequired().nameEnum)
       .pipe(
       )
       .subscribe(
