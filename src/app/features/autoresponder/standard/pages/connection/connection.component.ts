@@ -23,6 +23,8 @@ import { RatingModel } from './models/rating.model';
 import { ReversScorePipe } from "../../../../../shared/pipes/revers-score.pipe";
 import { ViewReversScorePipe } from "../../../../../shared/pipes/view-revers-score.pipe";
 import { ServicesName } from '../../../../../core/enums/services-name.enum';
+import { MarketplaceConnectionV2Service } from '../../../../marketplace-connections/services/marketplace-connection-v2.service';
+import { BaseConnectionV2 } from '../../../../marketplace-connections/models/marketplace-connections-v2.models';
 
 @Component({
     selector: 'app-connection',
@@ -35,8 +37,8 @@ export class ConnectionComponent {
   scores : number[] = [];
   searchSellerValue : string = "";
   isLoad : boolean = true;
-  selectSeller : MarketplaceConnectionModel | null = null;
-  sellers : MarketplaceConnectionModel[] = [];
+  selectSeller : BaseConnectionV2 | null = null;
+  sellers : BaseConnectionV2[] = [];
   ratingsForAdd : number[] = [5,4,3,2,1]
   isLoadActiveStatus : boolean = false;
 
@@ -44,7 +46,7 @@ export class ConnectionComponent {
   @ViewChild(RatingsComponent) ratingsComponent! : RatingsComponent;
   
   constructor(private mapper : ViewMappingService, 
-    private sellerService : MarketplaceConnectionsService,
+    private sellerService : MarketplaceConnectionV2Service,
     private marketDeterminantService : MarketDeterminantService,
     private autoresponderConnectionSeervice : ConnectionsService){}
 
@@ -52,11 +54,18 @@ export class ConnectionComponent {
     this.getRange();
   }
   
-  select(seller : MarketplaceConnectionModel){
+  select(seller : BaseConnectionV2){
     this.cdkMenu.menuStack.closeAll();
     this.selectSeller = seller;
   }
   
+  isActiveService(connection : BaseConnectionV2){
+    return connection.services
+      .find(x=> x.type == ServicesName.standardAutoresponder)
+      ?.isActive
+      ?? false;
+  }
+
   changeStatus(selectSeller : MarketplaceConnectionModel){
     this.isLoadActiveStatus = true;
     this.autoresponderConnectionSeervice
@@ -76,7 +85,7 @@ export class ConnectionComponent {
     this.isLoad = true;
     this.sellers = [];
 
-    this.sellerService.getRangeByService(ServicesName.standardAutoresponder, this.marketDeterminantService.getRequired().nameEnum)
+    this.sellerService.getRange(this.marketDeterminantService.getRequired().nameEnum)
       .pipe(
         finalize(() => {
           this.isLoad = false;

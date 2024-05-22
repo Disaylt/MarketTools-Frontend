@@ -13,6 +13,8 @@ import { ResponseTestingService } from './services/response-testing.service';
 import { SpinerComponent } from "../../../../../shared/components/spiner/spiner.component";
 import { TestBody } from './models/test-body.model';
 import { finalize } from 'rxjs';
+import { MarketplaceConnectionV2Service } from '../../../../marketplace-connections/services/marketplace-connection-v2.service';
+import { BaseConnectionV2 } from '../../../../marketplace-connections/models/marketplace-connections-v2.models';
 
 @Component({
     selector: 'app-response-testing',
@@ -24,8 +26,8 @@ import { finalize } from 'rxjs';
 export class ResponseTestingComponent implements OnInit {
   @ViewChild(CdkMenu) cdkMenu!: CdkMenu;
   rate : number = 0
-  selectConnection : MarketplaceConnectionModel | null = null;
-  connections : MarketplaceConnectionModel[] = [];
+  selectConnection : BaseConnectionV2 | null = null;
+  connections : BaseConnectionV2[] = [];
   feedbackTextArea : string = "";
   responseText : string = "";
   responseReport : string = "";
@@ -35,7 +37,7 @@ export class ResponseTestingComponent implements OnInit {
 
   isLoad : boolean = false;
 
-  constructor(private sellerService : MarketplaceConnectionsService,
+  constructor(private sellerService : MarketplaceConnectionV2Service,
     private marketDeterminantService : MarketDeterminantService,
     private autoresponderConnectionSeervice : ConnectionsService,
     private testService : ResponseTestingService){}
@@ -74,7 +76,7 @@ export class ResponseTestingComponent implements OnInit {
       })
   }
 
-  select(connection : MarketplaceConnectionModel){
+  select(connection : BaseConnectionV2){
     this.cdkMenu.menuStack.closeAll();
     this.selectConnection = connection;
   }
@@ -82,7 +84,7 @@ export class ResponseTestingComponent implements OnInit {
   getRange(){
     this.connections = [];
 
-    this.sellerService.getRangeByService(ServicesName.standardAutoresponder, this.marketDeterminantService.getRequired().nameEnum)
+    this.sellerService.getRange(this.marketDeterminantService.getRequired().nameEnum)
       .pipe(
       )
       .subscribe(

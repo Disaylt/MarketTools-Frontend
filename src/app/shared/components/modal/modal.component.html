@@ -1,7 +1,7 @@
 <div [ngStyle]="{'min-width': minWidth, 'min-height': minHeight, 'max-width': maxWidth, 'max-height': maxHeight}" 
     class="p-1 modal-background rounded-3 border overflow-auto">
     <div class="d-flex flex-row justify-content-between align-items-center mb-2">
-        <label>{{name}}</label>
+        <label class="text-truncate">{{name}}</label>
         <button (click)="dialogRef.close()" class="app-icon-button app-icon-button-border">
             <span class="material-symbols-outlined">
                 close

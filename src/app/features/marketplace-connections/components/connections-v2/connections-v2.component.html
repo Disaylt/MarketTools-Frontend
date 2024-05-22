@@ -1,0 +1,55 @@
+<app-progress-bar *ngIf="isLoad; else body"></app-progress-bar>
+<ng-template #body>
+    <div>
+        <div class="d-flex flex-row align-items-center active-dark-bg rounded-3 flex-fill border app-soft-element-border-color py-1">
+            <button [cdkMenuTriggerFor]="addMenu" class="app-icon-button app-button-border mx-1">
+                <span class="material-symbols-outlined">
+                    add
+                </span>
+            </button>
+            <ng-template #addMenu>
+                <app-new-connection-modal #addMenu cdkMenu (created)="addNewConnection($event)"></app-new-connection-modal>
+            </ng-template>
+            <button [disabled]="isLoad" [cdkMenuTriggerFor]="filterMenu"  class="app-icon-button app-button-border">
+                <span class="material-symbols-outlined">
+                    tune
+                </span>
+            </button>
+            <ng-template #filterMenu>
+                <div class="d-flex flex-column p-1 rounded-2 app-transparent-dark-bg border shadow mt-1" cdkMenu>
+                    <div class="d-flex flex-row align-items-center">
+                        <div class="form-check form-switch mb-0">
+                            <input [(ngModel)]="activeStatusFilter.isHideActive" disabled
+                            class="form-check-input shadow-none app-check-input" 
+                            type="checkbox" role="switch">
+                            <label class="form-check-label" for="flexSwitchCheckDefault">Скрыть активные</label>
+                          </div>
+                    </div>
+                    <div class="d-flex flex-row align-items-center">
+                        <div class="form-check form-switch mb-0">
+                            <input [(ngModel)]="activeStatusFilter.isHideInactive" disabled
+                                class="form-check-input shadow-none app-check-input" 
+                                type="checkbox" role="switch">
+                            <label class="form-check-label" for="flexSwitchCheckDefault">Скрыть неактивные</label>
+                          </div>
+                    </div>
+                    <button class="app-button app-button-border mt-2" (click)="setApiTypeForAllConnections()">
+                        <span class="mx-1">Выбрать API</span>
+                    </button>
+                    <button class="app-button app-button-border mt-1" (click)="setAccountTypeForAllConnections()">
+                        <span class="mx-1">Выбрать аккаунты</span>
+                    </button>
+                </div>
+            </ng-template>
+        </div>
+        <div *ngIf="architectureServices != null" class="row gy-3 gx-2 mt-2">
+            <div *ngFor="let connection of connections" class="col-12 col-xl-3 col-lg-4 col-sm-6">
+                <app-connection-v2 [value]="connection" 
+                    [architectureServices]="architectureServices" 
+                    [changeTypeEvent]="changeTypeEvent"
+                    (deleted)="removeConnection($event)">
+                </app-connection-v2>
+            </div>
+        </div>
+    </div>
+</ng-template>

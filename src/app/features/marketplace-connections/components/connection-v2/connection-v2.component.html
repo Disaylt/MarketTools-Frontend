@@ -1,0 +1,142 @@
+<div class="app-color-white75">
+    <div class="rounded-top border app-soft-element-border-color active-dark-bg ">
+        <div class="p-1">
+            <div class="d-flex flex-row justify-content-between align-items-center">
+                <div style="height: 32px;" class="border rounded-2 text-truncate me-1 d-flex align-items-center px-1 flex-fill">
+                    <span class="text-truncate">{{value.name}}</span>
+                </div>
+                <button [cdkMenuTriggerFor]="connectionMenu" class="app-icon-button app-button-border">
+                    <span class="material-symbols-outlined">
+                        more_vert
+                    </span>
+                </button>
+                <ng-template #connectionMenu>
+                    <div class="d-flex flex-column p-1 rounded-2 app-transparent-dark-bg border shadow mt-1" cdkMenu>
+                        <button class="app-button app-button-border" cdkMenuItem (click)="openUpdateDescriptionModal()">
+                            <span class="mx-1">Редактировать</span>
+                        </button>
+                        <button (click)="deleteConnection()" class="app-button app-button-border mt-1" cdkMenuItem>
+                            <span class="mx-1">Удалить</span>
+                        </button>
+                    </div>
+                </ng-template>
+            </div>
+            <div style="height: 80px;" class="border rounded-2 mt-1 d-flex flex-column px-1">
+                <div style="height: 15px;">
+                    <label class="text-truncate lh-sm" style="font-size: 12px; opacity: 0.7;">Описание</label>
+                </div>
+                <span class="text-break overflow-auto">{{value.description}}</span>
+            </div>
+        </div>
+    </div>
+    <div class="rounded-bottom border app-soft-element-border-color active-dark-bg mt-1 p-1" style="height: 300px;">
+        <div class="">
+            <div class="d-flex flew-row">
+                <button [cdkMenuTriggerFor]="connectionTypesSelect" class="app-button w-100 app-main-button app-button-border me-1 d-flex flex-row justify-content-between">
+                    <span style="font-size: 14px;" class="text-truncate">{{selectedConnectionType === null ? 'Выбрать тип' : selectedConnectionType.view}}</span>
+                    <div class="d-flex flex-row align-items-center">
+                        <app-spiner class="me-1" *ngIf="isLoad" size="sm"></app-spiner>
+                        <app-active-status-info 
+                            *ngIf="connectionTypeValue != null"
+                            [isActive]="connectionTypeValue.isActive" 
+                            [isPointer]="true"
+                            activeText="Активен" 
+                            inactiveText="Неактивен">
+                        </app-active-status-info>
+                        <span class="material-symbols-outlined">
+                            expand_more
+                        </span>
+                    </div>
+                </button>
+                <button [disabled]="selectedConnectionType == null || isLoad" [cdkMenuTriggerFor]="connectionTypeMenu" class="app-icon-button app-button-border">
+                    <span class="material-symbols-outlined">
+                        more_vert
+                    </span>
+                </button>
+                <ng-template #connectionTypeMenu>
+                    <div class="d-flex flex-column p-1 rounded-2 app-transparent-dark-bg border shadow mt-1" cdkMenu>
+                        <button class="app-button app-button-border" cdkMenuItem (click)="openUpdateTypeModal()">
+                            <span class="mx-1">Редактировать</span>
+                        </button>
+                        <button [disabled]="connectionTypeValue == null || connectionTypeValue.isActive == true || isLoad" 
+                        (click)="activate(selectedConnectionType!, connectionTypeValue!)"
+                            class="app-button app-button-border mt-1" cdkMenuItem>
+                            <span class="mx-1">Активировать</span>
+                        </button>
+                    </div>
+                </ng-template>
+                <ng-template #connectionTypesSelect>
+                    <div style="max-height: 300px; max-width: 300px; min-width: 100px;" class="rounded-2 app-transparent-dark-bg border shadow mt-1" cdkMenu>
+                        <div class="d-flex flex-column p-1 h-100">
+                            <ul class="app-active-list mb-0 overflow-auto">
+                                <li *ngFor="let connectionType of coonectionTypes" cdkMenuItem
+                                    (click)="selectType(connectionType)"
+                                    class="d-flex flex-row justify-content-between rounded-1" 
+                                    [ngClass]="{'active' : selectedConnectionType == connectionType}" >
+                                    <span class="text-truncate app-color-white75 me-1">{{connectionType.view}}</span>
+                                    <app-active-status-info
+                                        [isPointer]="true"
+                                        [isActive]="getBaseConnectionType(connectionType.value)?.isActive ?? false" 
+                                        activeText="Активен" 
+                                        inactiveText="Неактивен">
+                                    </app-active-status-info>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </ng-template>
+            </div>
+        </div>
+        <div class="border rounded-1 mt-1 p-1 overflow-auto" style="height: 254px;">
+            <label class="text-truncate lh-sm" style="font-size: 12px; opacity: 0.7;">Сервисы</label>
+            <div *ngIf="automation.length > 0" class="">
+                <label>Автоматизация</label>
+                <div class="d-flex flex-column border-start ps-1">
+                    <div *ngFor="let service of automation" class="d-flex flex-row justify-content-between align-items-center">
+                        <div style="font-size: 14px;" class="text-truncate">{{service.name}}</div>
+                        <div class="form-check form-switch mb-0">
+                            <input *ngIf="service.value != null" class="form-check-input shadow-none app-check-input"
+                                [(ngModel)]="service.value.isActive"
+                                (ngModelChange)="changeServiceStatus(service.value)"
+                                [disabled]="isLoad"
+                                type="checkbox" role="switch">
+                            <label class="form-check-label" for="flexSwitchCheckDefault"></label>
+                          </div>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="monitoring.length > 0" class="">
+                <label>Мониторинг</label>
+                <div class="d-flex flex-column border-start ps-1">
+                    <div *ngFor="let service of monitoring" class="d-flex flex-row justify-content-between align-items-center">
+                        <div style="font-size: 14px;" class="text-truncate">{{service.name}}</div>
+                        <div class="form-check form-switch mb-0">
+                            <input *ngIf="service.value != null"class="form-check-input shadow-none app-check-input"
+                                [(ngModel)]="service.value.isActive"
+                                (ngModelChange)="changeServiceStatus(service.value)"
+                                [disabled]="isLoad"
+                                type="checkbox" role="switch">
+                            <label class="form-check-label" for="flexSwitchCheckDefault"></label>
+                          </div>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="workSpace.length > 0" class="">
+                <label>Workspace</label>
+                <div class="d-flex flex-column border-start ps-1">
+                    <div *ngFor="let service of workSpace" class="d-flex flex-row justify-content-between align-items-center">
+                        <div style="font-size: 14px;" class="text-truncate">{{service.name}}</div>
+                        <div class="form-check form-switch mb-0">
+                            <input *ngIf="service.value != null" class="form-check-input shadow-none app-check-input"
+                                [(ngModel)]="service.value.isActive"
+                                (ngModelChange)="changeServiceStatus(service.value)"
+                                [disabled]="isLoad"
+                                type="checkbox" role="switch">
+                            <label class="form-check-label" for="flexSwitchCheckDefault"></label>
+                          </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,28 @@
+<app-modal [dialogRef]="dialogRef" maxWidth="500px" [name]="'Редактор API (' + name + ')'">
+    <div>
+        <div class="d-flex flex-row mb-2">
+            <input (keydown.enter)="refresh()" [(ngModel)]="token" class="form-control form-control-sm app-select shadow-none me-1"
+                placeholder="Новый токен (Enter)" type="text">
+            <button (click)="refresh()" class="app-icon-button app-button-border">
+                <span *ngIf="isLoad == false"  class="material-symbols-outlined">
+                    done
+                </span>
+                <app-spiner *ngIf="isLoad" size="sm"></app-spiner>
+            </button>
+        </div>
+        <div class="active-dark-bg app-warn-alert app-color-white75 flex-fill d-flex align-items-center rounded-1 p-1 mb-1">
+            <span class="material-symbols-outlined me-1">
+                info
+            </span>
+            <div>
+                <div style="font-size: 12px;" class="app-color-white75 lh-sm">
+                    После изменениня/добавления токена, подключение будет отключено. Вам необходимо будет првоести активацию с новыми данными.
+                </div>
+                <div style="font-size: 12px;" class="app-color-white75 lh-sm">
+                    Система проверит сервисы на чтение. Будьте внимательны, некоторые сервисы требуют запись данных.
+                    Но это невозможно проверить при активации. Поэтому во время работы, если сервер получит отказ несколько раз, ваше подключение будет отключено.
+                </div>
+            </div>
+        </div>
+    </div>
+</app-modal>

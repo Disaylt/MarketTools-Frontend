@@ -3,6 +3,7 @@ import { OzonMarketplaceComponent } from "./ozon-marketplace.component";
 import { DashboardComponent } from "./dashboard/dashboard.component";
 import { AccountsComponent } from "./connections/accounts/accounts.component";
 import { autoresponderRoutes } from "../autoresponder/autoresponder.routes";
+import { ConnectionsV2Component } from "../marketplace-connections/components/connections-v2/connections-v2.component";
 
 export const ozonRoute : Route = 
 {
@@ -12,7 +13,7 @@ export const ozonRoute : Route =
     children : [
         {
             path: "",
-            redirectTo : "info",
+            redirectTo : "connections",
             pathMatch : "full"
         },
         {
@@ -21,15 +22,9 @@ export const ozonRoute : Route =
             component : DashboardComponent
         },
         {
-            path : "connections/seller",
-            children : 
-            [
-                {
-                    path : "account",
-                    title : "Аккаунты",
-                    component : AccountsComponent
-                }
-            ]
+            title : "Подключения",
+            path : "connections",
+            component : ConnectionsV2Component
         },
         {
             title : "Автоответчик",

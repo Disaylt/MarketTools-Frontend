@@ -25,6 +25,8 @@ import { CheckerComponent } from "./checker/checker.component";
 import { RangePriceChangerComponent } from "./range-price-changer/range-price-changer.component";
 import { Dialog } from '@angular/cdk/dialog';
 import { ReportModalComponent } from './report-modal/report-modal.component';
+import { BaseConnectionV2 } from '../../../marketplace-connections/models/marketplace-connections-v2.models';
+import { MarketplaceConnectionV2Service } from '../../../marketplace-connections/services/marketplace-connection-v2.service';
 
 @Component({
     selector: 'app-price',
@@ -37,8 +39,8 @@ export class PriceComponent implements OnInit {
 
   filter : Filter;
 
-  selectedConnection : MarketplaceConnectionModel | null = null;
-  connections : MarketplaceConnectionModel[] = [];
+  selectedConnection : BaseConnectionV2 | null = null;
+  connections : BaseConnectionV2[] = [];
   searchConnectionName : string = "";
 
   isLoad = false;
@@ -48,7 +50,7 @@ export class PriceComponent implements OnInit {
   
   @ViewChild(PaginationBarComponent) paginationBar! : PaginationBarComponent;
   @ViewChild(CdkMenu) cdkMenu!: CdkMenu;
-  constructor(private sellerService : MarketplaceConnectionsService, 
+  constructor(private sellerService : MarketplaceConnectionV2Service, 
     private priceService : PriceService,
     private dialog: Dialog)
   {
@@ -71,7 +73,7 @@ export class PriceComponent implements OnInit {
     }
   }
 
-  selectConnection(connection : MarketplaceConnectionModel){
+  selectConnection(connection : BaseConnectionV2){
     this.cdkMenu.menuStack.closeAll();
     this.selectedConnection = connection;
     this.getRange(connection.id);
@@ -149,7 +151,7 @@ export class PriceComponent implements OnInit {
   getConnections(){
     this.connections = [];
 
-    this.sellerService.getRangeByService(ServicesName.standardAutoresponder, MarketplaceName.wb)
+    this.sellerService.getRange(MarketplaceName.wb)
       .pipe(
       )
       .subscribe(

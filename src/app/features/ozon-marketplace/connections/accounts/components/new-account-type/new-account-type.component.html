@@ -1,0 +1,38 @@
+<app-modal [dialogRef]="dialogRef" maxWidth="500px" [name]="'Редактор аккаунта (' + name + ')'">
+        <div class="active-dark-bg app-warn-alert app-color-white75 flex-fill d-flex align-items-center rounded-1 p-1 mb-3">
+            <span class="material-symbols-outlined me-1">
+                info
+            </span>
+            <div style="font-size: 12px;" class="app-color-white75 lh-sm">
+                Если оставить поле пустым, значение останется прежним.
+            </div>
+        </div>
+        <input [(ngModel)]="refreshToken" class="form-control form-control-sm app-select shadow-none mb-1"
+            placeholder="Refresh token" type="text">
+        <div class="active-dark-bg app-warn-alert app-color-white75 flex-fill d-flex align-items-center rounded-1 p-1 mb-2">
+            <span class="material-symbols-outlined me-1">
+                info
+            </span>
+            <div style="font-size: 12px;" class="app-color-white75 lh-sm">
+                Для получения Refresh токена, зайдите в селлерский кабинет озона. 
+                Далее перейдите в куки вашего бразуера и найдите куку под названием '__Secure-refresh-token'.
+                Значение этой куки вставьте в текстовое поле.
+            </div>
+        </div>
+        <input [(ngModel)]="sellerId" class="form-control form-control-sm app-select shadow-none mb-1"
+            placeholder="Seller ID" type="text">
+        <div class="active-dark-bg app-warn-alert app-color-white75 flex-fill d-flex align-items-center rounded-1 p-1 mb-2">
+            <span class="material-symbols-outlined me-1">
+                info
+            </span>
+            <div style="font-size: 12px;" class="app-color-white75 lh-sm">
+                Seller ID можно посмотреть в 'Настройки' > 'Информация о компании'.
+            </div>
+        </div>
+        <div class="d-flex justify-content-end">
+            <button [disabled]="isLoad" (click)="refresh()" class="app-button app-button-border">
+                <app-spiner *ngIf="isLoad" class="me-1" size="sm"></app-spiner>
+                <span>Обновить</span>
+            </button>
+        </div>
+</app-modal>
