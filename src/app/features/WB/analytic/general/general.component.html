@@ -1,0 +1,29 @@
+<div class="d-flex flex-row active-dark-bg p-1 rounded-3 border app-soft-element-border-color mb-3 justify-content-between">
+    <div class="d-flex flex-row">
+        <button [disabled]="isLoad" [cdkMenuTriggerFor]="templatesSelectMenu" style="max-width: 200px;" class="app-button app-main-button w-100 app-button-border me-1 d-flex flex-row justify-content-between">
+            <span class="text-truncate" style="max-width: 170px;">{{selectedConnection === null ? 'Выбрать подключение' : selectedConnection.name}}</span>
+            <span class="material-symbols-outlined">
+                expand_more
+            </span>
+        </button>
+        <ng-template #templatesSelectMenu>
+            <div style="max-height: 300px; max-width: 300px;" class="rounded-2 app-transparent-dark-bg border shadow mt-1" cdkMenu>
+                <div class="d-flex flex-column p-1 h-100">
+                    <div>
+                        <input [(ngModel)]="searchConnectionName" 
+                        class="form-control form-control-sm app-select shadow-none mb-1" 
+                        placeholder="🔍︎ Поиск" 
+                        type="text">
+                    </div>
+                    <span *ngIf="connections.length === 0" class="app-color-white75" style="font-size: 12px;">Добавьте хотя бы 1 подключение</span>
+                    <ul class="app-active-list mb-0 overflow-auto">
+                        <li *ngFor="let connection of connections | nameFilter : searchConnectionName" 
+                            class="d-flex flex-row justify-content-between rounded-1" 
+                            [ngClass]="{'active' : selectedConnection == connection}" (click)="selectConnection(connection)">
+                            <span class="text-truncate app-color-white75">{{connection.name}}</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </ng-template>
+</div>
