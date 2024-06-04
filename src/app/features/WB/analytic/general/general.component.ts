@@ -17,15 +17,18 @@ import { ProductComponent } from '../../workspace/price/product/product.componen
 import { RangePriceChangerComponent } from '../../workspace/price/range-price-changer/range-price-changer.component';
 import { asapScheduler } from 'rxjs';
 import { ServicesName } from '../../../../core/enums/services-name.enum';
+import { CardsComponent } from "./cards/cards.component";
 
 @Component({
-  selector: 'app-general',
-  standalone: true,
-  imports: [CdkMenuTrigger, CdkMenu, CdkMenuItem, CommonModule, FormsModule, ActiveStatusInfoComponent, ProgressBarComponent, PaginationBarComponent, TabBarComponent, TabBarButtonComponent, NameFilterPipe, ProductComponent, FilterComponent, CheckerComponent, RangePriceChangerComponent],
-  templateUrl: './general.component.html',
-  styleUrl: './general.component.scss'
+    selector: 'app-general',
+    standalone: true,
+    templateUrl: './general.component.html',
+    styleUrl: './general.component.scss',
+    imports: [CdkMenuTrigger, CdkMenu, CdkMenuItem, CommonModule, FormsModule, ActiveStatusInfoComponent, ProgressBarComponent, PaginationBarComponent, TabBarComponent, TabBarButtonComponent, NameFilterPipe, ProductComponent, FilterComponent, CheckerComponent, RangePriceChangerComponent, CardsComponent]
 })
 export class GeneralComponent {
+
+  cardsSearch : string = "";
 
   isLoad : boolean = false;
   selectedConnection : BaseConnectionV2 | null = null;
