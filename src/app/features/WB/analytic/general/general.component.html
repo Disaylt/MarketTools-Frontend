@@ -21,6 +21,7 @@
                             class="d-flex flex-row justify-content-between rounded-1" 
                             [ngClass]="{'active' : selectedConnection == connection}" (click)="selectConnection(connection)">
                             <span class="text-truncate app-color-white75">{{connection.name}}</span>
+                            <app-active-status-info [isActive]="isActivaSeller(connection)" activeText="Вкл." inactiveText="Выкл."></app-active-status-info>
                         </li>
                     </ul>
                 </div>

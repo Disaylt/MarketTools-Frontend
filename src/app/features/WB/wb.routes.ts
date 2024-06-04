@@ -6,6 +6,7 @@ import { WbMarketplaceComponent } from "./wb-marketplace.component";
 import { monitoringRoutes } from "../monitorings/monitorings.routes";
 import { workspaceRoutes } from "./workspace/workspace.routes";
 import { ConnectionsV2Component } from "../marketplace-connections/components/connections-v2/connections-v2.component";
+import { analyticRoutes } from "./analytic/analytic.routs";
 
 export const wbRoute : Route =
 {
@@ -42,6 +43,11 @@ export const wbRoute : Route =
             title : "Workspace",
             path : "workspace",
             children : workspaceRoutes
+        },
+        {
+            title : "Аналитика",
+            path : "analytics",
+            children : analyticRoutes
         }
     ]
 } 

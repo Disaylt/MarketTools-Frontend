@@ -15,6 +15,8 @@ import { CheckerComponent } from '../../workspace/price/checker/checker.componen
 import { FilterComponent } from '../../workspace/price/filter/filter.component';
 import { ProductComponent } from '../../workspace/price/product/product.component';
 import { RangePriceChangerComponent } from '../../workspace/price/range-price-changer/range-price-changer.component';
+import { asapScheduler } from 'rxjs';
+import { ServicesName } from '../../../../core/enums/services-name.enum';
 
 @Component({
   selector: 'app-general',
@@ -58,5 +60,9 @@ export class GeneralComponent {
           }
         }
       )
+  }
+
+  isActivaSeller(connection : BaseConnectionV2){
+    return connection.services.some(x=> x.type == ServicesName.generalAnalytics && x.isActive == true);
   }
 }
