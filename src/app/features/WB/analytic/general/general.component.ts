@@ -18,54 +18,18 @@ import { RangePriceChangerComponent } from '../../workspace/price/range-price-ch
 import { asapScheduler } from 'rxjs';
 import { ServicesName } from '../../../../core/enums/services-name.enum';
 import { CardsComponent } from "./cards/cards.component";
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @Component({
     selector: 'app-general',
     standalone: true,
     templateUrl: './general.component.html',
     styleUrl: './general.component.scss',
-    imports: [CdkMenuTrigger, CdkMenu, CdkMenuItem, CommonModule, FormsModule, ActiveStatusInfoComponent, ProgressBarComponent, PaginationBarComponent, TabBarComponent, TabBarButtonComponent, NameFilterPipe, ProductComponent, FilterComponent, CheckerComponent, RangePriceChangerComponent, CardsComponent]
+    imports: [MatFormFieldModule, MatInputModule, MatDatepickerModule, MatNativeDateModule, CdkMenuTrigger, CdkMenu, CdkMenuItem, CommonModule, FormsModule, ActiveStatusInfoComponent, ProgressBarComponent, PaginationBarComponent, TabBarComponent, TabBarButtonComponent, NameFilterPipe, ProductComponent, FilterComponent, CheckerComponent, RangePriceChangerComponent, CardsComponent]
 })
 export class GeneralComponent {
 
-  cardsSearch : string = "";
-
-  isLoad : boolean = false;
-  selectedConnection : BaseConnectionV2 | null = null;
-  connections : BaseConnectionV2[] = [];
-  searchConnectionName : string = "";
-  
-  @ViewChild(CdkMenu) cdkMenu!: CdkMenu;
-  
-  constructor(private sellerService : MarketplaceConnectionV2Service){
-    
-  }
-
-  ngOnInit(): void {
-    this.getConnections();
-  }
-
-  selectConnection(connection : BaseConnectionV2){
-    this.cdkMenu.menuStack.closeAll();
-    this.selectedConnection = connection;
-  }
-
-  getConnections(){
-    this.connections = [];
-
-    this.sellerService.getRange(MarketplaceName.wb)
-      .pipe(
-      )
-      .subscribe(
-        {
-          next : data => {
-            this.connections = data;
-          }
-        }
-      )
-  }
-
-  isActivaSeller(connection : BaseConnectionV2){
-    return connection.services.some(x=> x.type == ServicesName.generalAnalytics && x.isActive == true);
-  }
 }

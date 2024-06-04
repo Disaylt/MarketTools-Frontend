@@ -38,7 +38,7 @@ export class CardsComponent implements OnInit, OnChanges {
   }
 
   selectCards(id : number){
-    const modal = this.dialog.open(CardComponent);
+    
   }
 
   private loadCards(){

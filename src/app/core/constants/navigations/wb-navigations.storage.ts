@@ -69,7 +69,7 @@ export class WbNavigationStorage{
             parent : [
                 {
                     name : "Общая",
-                    path : `${this.market}/analytics/general`,
+                    path : `${this.market}/analytics/general/menu`,
                     isDisabled : false
                 },
                 {
