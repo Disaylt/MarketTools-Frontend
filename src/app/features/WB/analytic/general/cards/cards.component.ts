@@ -7,13 +7,15 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Dialog } from '@angular/cdk/dialog';
 import { ReportModalComponent } from '../../../workspace/price/report-modal/report-modal.component';
+import { WbAnalyticGeneralCardSearchPipe } from "../../../../../shared/pipes/wb-analytic-general-card-search.pipe";
+import { CardComponent } from '../card/card.component';
 
 @Component({
     selector: 'app-cards',
     standalone: true,
     templateUrl: './cards.component.html',
     styleUrl: './cards.component.scss',
-    imports: [ProgressBarComponent, CommonModule, FormsModule]
+    imports: [ProgressBarComponent, CommonModule, FormsModule, WbAnalyticGeneralCardSearchPipe]
 })
 export class CardsComponent implements OnInit, OnChanges {
     @Input({required : true}) connectionId! : number;
@@ -36,7 +38,7 @@ export class CardsComponent implements OnInit, OnChanges {
   }
 
   selectCards(id : number){
-    const modal = this.dialog.open(ReportModalComponent);
+    const modal = this.dialog.open(CardComponent);
   }
 
   private loadCards(){
