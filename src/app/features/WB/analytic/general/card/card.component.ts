@@ -126,7 +126,7 @@ export class CardComponent implements OnInit{
       .subscribe({
         next : data => {
           this.card = data;
-          console.log(data);
+          console.log(new Date().getTime())
         }
       })
   }

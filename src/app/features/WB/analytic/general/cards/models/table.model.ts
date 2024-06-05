@@ -1,5 +1,6 @@
 export interface ColumnModel{
     title : string;
+    date : Date;
     costPrice: number;
     totalPrice : number;
     sellerDiscount : number;
