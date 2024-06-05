@@ -17,6 +17,8 @@ import { FilterComponent } from '../../../workspace/price/filter/filter.componen
 import { ProductComponent } from '../../../workspace/price/product/product.component';
 import { RangePriceChangerComponent } from '../../../workspace/price/range-price-changer/range-price-changer.component';
 import { CardsComponent } from '../cards/cards.component';
+import { ActivatedRoute } from '@angular/router';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-menu',
@@ -35,7 +37,7 @@ export class MenuComponent {
   
   @ViewChild(CdkMenu) cdkMenu!: CdkMenu;
   
-  constructor(private sellerService : MarketplaceConnectionV2Service){
+  constructor(private sellerService : MarketplaceConnectionV2Service, private activateRoute: ActivatedRoute){
     
   }
 
@@ -53,6 +55,12 @@ export class MenuComponent {
 
     this.sellerService.getRange(MarketplaceName.wb)
       .pipe(
+        finalize(() => {
+          const connectionId = this.activateRoute.snapshot.queryParams["connectionId"] as number;
+          this.selectedConnection = this.connections
+            .find(x=> x.id == connectionId)
+            ?? null;
+        })
       )
       .subscribe(
         {

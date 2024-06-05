@@ -9,13 +9,14 @@ import { Dialog } from '@angular/cdk/dialog';
 import { ReportModalComponent } from '../../../workspace/price/report-modal/report-modal.component';
 import { WbAnalyticGeneralCardSearchPipe } from "../../../../../shared/pipes/wb-analytic-general-card-search.pipe";
 import { CardComponent } from '../card/card.component';
+import { RouterOutlet, RouterLink, RouterLinkActive, ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'app-cards',
     standalone: true,
     templateUrl: './cards.component.html',
     styleUrl: './cards.component.scss',
-    imports: [ProgressBarComponent, CommonModule, FormsModule, WbAnalyticGeneralCardSearchPipe]
+    imports: [ProgressBarComponent, CommonModule, FormsModule, WbAnalyticGeneralCardSearchPipe, RouterOutlet, RouterLink, RouterLinkActive]
 })
 export class CardsComponent implements OnInit, OnChanges {
     @Input({required : true}) connectionId! : number;
@@ -35,10 +36,6 @@ export class CardsComponent implements OnInit, OnChanges {
     if (changes['connectionId']) {
       this.loadCards();
     }
-  }
-
-  selectCards(id : number){
-    
   }
 
   private loadCards(){

@@ -1,6 +1,7 @@
 import { Routes } from "@angular/router";
 import { GeneralComponent } from "./general/general.component";
 import { MenuComponent } from "./general/menu/menu.component";
+import { CardComponent } from "./general/card/card.component";
 
 export const analyticRoutes : Routes = [
     {
@@ -15,6 +16,10 @@ export const analyticRoutes : Routes = [
             {
                 path : "menu",
                 component : MenuComponent
+            },
+            {
+                path : "card/:id",
+                component : CardComponent
             }
         ]
     }
