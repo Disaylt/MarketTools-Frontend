@@ -17,3 +17,10 @@ export interface ColumnModel{
     refounds: number;
     refoundsCost : number;
 }
+
+export interface DateColumnsModel{
+    startDate : Date | null;
+    endDate : Date | null;
+    dateValue : number;
+    columns : ColumnModel[]
+}

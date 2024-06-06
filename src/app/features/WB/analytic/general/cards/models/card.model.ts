@@ -13,10 +13,23 @@ export interface CardModel{
     length : number;
     width : number;
     height : number;
+
+    isCombineSizes : boolean;
 }
 
 export interface AnalyticCardModel extends CardModel{
     sizes : SizeModel[]
+    comissions : ComissionModel[];
+}
+
+export interface ComissionModel{
+    id : number;
+    createDate : Date;
+    marketplace : number;
+    supplier : number;
+    supplierExperss : number;
+    paidStorage : number;
+    use : WbComissionByCardCategory;
 }
 
 export interface SizeModel{
@@ -52,6 +65,13 @@ export interface SaleModel{
  date : Date;
  countFinishedPrice : number;
  count : number;
+}
+
+export enum WbComissionByCardCategory{
+    marketplace,
+    supplier,
+    supplierExpress,
+    paidStorage
 }
 
 export enum WbSaleType{

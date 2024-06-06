@@ -16,8 +16,10 @@ export class CardsService {
   }
 
   get(id : number, startDate : Date, endDate : Date){
-    const path = `api/v1/analytic/general/card?id=${id}&startDate=${startDate.toDateString()}&endDate=${endDate.toDateString()}`;
-    
+    const addHours = new Date().getTimezoneOffset() * -1;
+    startDate.setMinutes(addHours);
+    endDate.setMinutes(addHours);
+    const path = `api/v1/analytic/general/card?id=${id}&startDate=${startDate.toUTCString()}&endDate=${endDate.toUTCString()}`;
     return this.httpClient.get<AnalyticCardModel>(path);
   }
 }

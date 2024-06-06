@@ -15,6 +15,7 @@ import { CardsService } from '../cards/services/cards.service';
 import { AnalyticCardModel, CardModel } from '../cards/models/card.model';
 import { finalize } from 'rxjs';
 import { ProgressBarComponent } from "../../../../../shared/components/progress-bar/progress-bar.component";
+import { AnalyticTableComponent } from "./analytic-table/analytic-table.component";
 
 @Component({
     selector: 'app-card',
@@ -38,7 +39,7 @@ import { ProgressBarComponent } from "../../../../../shared/components/progress-
         CdkMenuItem,
         JsonPipe,
         ReactiveFormsModule,
-        CalendarModule, ProgressBarComponent]
+        CalendarModule, ProgressBarComponent, AnalyticTableComponent]
 })
 export class CardComponent implements OnInit{
   id : number;
@@ -101,6 +102,7 @@ export class CardComponent implements OnInit{
   selectAnalyticType(type : string){
     localStorage.setItem("analyticGeneralType", type);
     this.selectedAnalyticCalendarType = type;
+    this.card = this.card;
   }
 
   selectDates(){
@@ -126,7 +128,6 @@ export class CardComponent implements OnInit{
       .subscribe({
         next : data => {
           this.card = data;
-          console.log(new Date().getTime())
         }
       })
   }
