@@ -66,5 +66,14 @@
         <td>Возвраты (Стоимость)</td>
         <td *ngFor="let column of columns">{{column.refoundsCost.toLocaleString()}}</td>
       </tr>
+      <tr>
+        <td>Комиссии (%)</td>
+        <td *ngFor="let column of columns">
+            <span *ngIf="column.comission != null; else nullComission">{{column.comission}}</span>
+            <ng-template #nullComission>
+                <span style="font-size: 12px;">Не выбрано</span>
+            </ng-template>
+        </td>
+      </tr>
     </tbody>
   </table>

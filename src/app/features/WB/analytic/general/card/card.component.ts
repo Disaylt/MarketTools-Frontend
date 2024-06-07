@@ -102,7 +102,6 @@ export class CardComponent implements OnInit{
   selectAnalyticType(type : string){
     localStorage.setItem("analyticGeneralType", type);
     this.selectedAnalyticCalendarType = type;
-    this.card = this.card;
   }
 
   selectDates(){

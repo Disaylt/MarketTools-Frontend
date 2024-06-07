@@ -16,6 +16,7 @@ export interface ColumnModel{
     salesCost : number;
     refounds: number;
     refoundsCost : number;
+    comission : number | null;
 }
 
 export interface DateColumnsModel{

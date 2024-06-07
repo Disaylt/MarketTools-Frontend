@@ -29,7 +29,7 @@ export interface ComissionModel{
     supplier : number;
     supplierExperss : number;
     paidStorage : number;
-    use : WbComissionByCardCategory;
+    use : WbComissionByCardCategory | null;
 }
 
 export interface SizeModel{

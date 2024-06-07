@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
-import { SizeModel, WbSaleType } from '../../cards/models/card.model';
+import { AnalyticCardModel, SizeModel, WbComissionByCardCategory, WbSaleType } from '../../cards/models/card.model';
 import { ColumnModel, DateColumnsModel } from '../../cards/models/table.model';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -17,6 +17,7 @@ export class AnalyticTableComponent implements OnInit, OnChanges {
   @Input({required : true}) sizes : SizeModel[] = [];
   @Input({required : true}) analyticDatesType : string = "Дни";
   @Input({required : true}) dates : Date[] = [];
+  @Input({required : true}) card! : AnalyticCardModel;
 
   columns : ColumnModel[] = [];
 
@@ -58,7 +59,8 @@ export class AnalyticTableComponent implements OnInit, OnChanges {
         sales : this.getSales(dateForCompare, WbSaleType.sale),
         salesCost : this.getCostSales(dateForCompare, WbSaleType.sale),
         refounds : this.getSales(dateForCompare, WbSaleType.refound),
-        refoundsCost : this.getCostSales(dateForCompare, WbSaleType.refound)
+        refoundsCost : this.getCostSales(dateForCompare, WbSaleType.refound),
+        comission : this.getComission(dateForCompare)
       }
       column.totalPrice = this.getTotalPrice(column.sellerPrice, column.sellerDiscount);
       column.buyerPrice = this.getTotalPrice(column.totalPrice, column.buyerDiscount);
@@ -131,7 +133,7 @@ export class AnalyticTableComponent implements OnInit, OnChanges {
 
     const startDate = dateColumns.startDate?.toLocaleDateString() ?? this.dates[0].toLocaleDateString();
     const endDate = dateColumns.endDate?.toLocaleDateString() ?? this.dates[1].toLocaleDateString();
-    return {
+    const result : ColumnModel = {
       title : endDate + " - " + startDate,
       date : new Date(),
       costPrice : dateColumns.columns.map(x=> x.costPrice).reduce((sum, current) => sum + current, 0) / dateColumns.columns.length,
@@ -149,7 +151,37 @@ export class AnalyticTableComponent implements OnInit, OnChanges {
       salesCost : dateColumns.columns.map(x=> x.salesCost).reduce((sum, current) => sum + current, 0),
       refounds : dateColumns.columns.map(x=> x.refounds).reduce((sum, current) => sum + current, 0),
       refoundsCost : dateColumns.columns.map(x=> x.refoundsCost).reduce((sum, current) => sum + current, 0),
+      comission : null
     }
+
+    const comissions = dateColumns.columns.filter(x=> x.comission != null);
+
+    if(comissions.length > 0){
+      result.comission = comissions.map(x=> x.comission ?? 0).reduce((sum, current) => sum + current, 0) / comissions.length;
+    }
+
+    return result;
+  }
+
+  private getComission(date : number) : number | null{
+    const comission = this.card
+      .comissions
+      .find(price => new Date(price.createDate).setHours(0,0,0,0) == date);
+
+    if(comission != undefined && comission.use != null){
+      switch(comission.use){
+        case WbComissionByCardCategory.marketplace:
+          return comission.marketplace;
+        case WbComissionByCardCategory.paidStorage:
+          return comission.paidStorage;
+        case WbComissionByCardCategory.supplier:
+          return comission.supplier;
+        case WbComissionByCardCategory.supplierExpress:
+          return comission.supplierExperss;
+      }
+    }
+
+    return null;
   }
 
   private getCostSales(date : number, type : WbSaleType){

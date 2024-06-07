@@ -1,6 +1,6 @@
 <div class="d-flex flex-row active-dark-bg p-1 rounded-3 border app-soft-element-border-color mb-3 justify-content-between">
     <div class="d-flex flex-row">
-        <button routerLink="/dashboard/wb/analytics/general/menu" [queryParams]="{'connectionId' : connectionId}" class="app-icon-button app-button-border me-1">
+        <button routerLink="/dashboard/wb/analytics/general/menu" [queryParams]="{'connectionId' : connectionId}" class="app-icon-button app-button-border me-3">
             <span class="material-symbols-outlined">
                 undo
             </span>
@@ -21,6 +21,21 @@
                 settings
             </span>
         </button>
+        <button [disabled]="isLoad || card == null" [cdkMenuTriggerFor]="updateMenu" class="app-icon-button app-button-border me-1">
+            <span class="material-symbols-outlined">
+                edit_note
+            </span>
+        </button>
+        <ng-template #updateMenu>
+            <div style="max-height: 300px; max-width: 300px;" class="rounded-2 app-transparent-dark-bg border shadow mt-1" cdkMenu>
+                <button  class="app-button w-100">
+                    <span class="text-truncate">Себестоимость</span>
+                </button>
+                <button class="app-button w-100">
+                    <span class="text-truncate">Тип комиссии</span>
+                </button>
+            </div>
+        </ng-template>
         <ng-template #cardSettings>
             <div style="max-height: 300px; max-width: 300px;" class="rounded-2 app-transparent-dark-bg border shadow mt-1 p-1" cdkMenu>
                 <div class="form-check form-switch m-0 ps-0 text-truncate d-flex flex-row align-items-center">
@@ -48,7 +63,7 @@
                 <p-calendar
                     (onSelect)="selectDates()"
                     [(ngModel)]="rangeDates" 
-                    selectionMode="range" 
+                    selectionMode="range"
                     dateFormat="mm.dd.yy"
                     [inline]="true" 
                     [readonlyInput]="true" />
@@ -91,13 +106,13 @@
             <div>
                 <div *ngIf="card.isCombineSizes; else manySizes">
                     <div style="max-height: calc(100vh - 350px);" class="mt-2 active-dark-bg p-1 rounded-3 border app-soft-element-border-color overflow-auto">
-                        <app-analytic-table [sizes]="card.sizes" [dates]="rangeDates" [analyticDatesType]="selectedAnalyticCalendarType"></app-analytic-table>
+                        <app-analytic-table [card]="card" [sizes]="card.sizes" [dates]="rangeDates" [analyticDatesType]="selectedAnalyticCalendarType"></app-analytic-table>
                     </div>
                 </div>
                 <ng-template #manySizes>
                     <div *ngFor="let size of card.sizes" style="max-height: calc(100vh - 350px);" class="mt-2 active-dark-bg p-1 rounded-3 border app-soft-element-border-color overflow-auto">
                         <div>{{size.techSize}}</div>
-                        <app-analytic-table [sizes]="[size]" [dates]="rangeDates" [analyticDatesType]="selectedAnalyticCalendarType"></app-analytic-table>
+                        <app-analytic-table [card]="card"  [sizes]="[size]" [dates]="rangeDates" [analyticDatesType]="selectedAnalyticCalendarType"></app-analytic-table>
                     </div>
                 </ng-template>
             </div>
