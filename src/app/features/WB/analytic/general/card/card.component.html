@@ -61,6 +61,7 @@
         <ng-template #calendar>
             <div class="rounded-2 app-transparent-dark-bg border shadow mt-1" cdkMenu>
                 <p-calendar
+                    class="max-w-full" 
                     (onSelect)="selectDates()"
                     [(ngModel)]="rangeDates" 
                     selectionMode="range"

@@ -67,7 +67,7 @@
         <td *ngFor="let column of columns">{{column.refoundsCost.toLocaleString()}}</td>
       </tr>
       <tr>
-        <td>Комиссии (%)</td>
+        <td>Комиссия (%)</td>
         <td *ngFor="let column of columns">
             <span *ngIf="column.comission != null; else nullComission">{{column.comission}}</span>
             <ng-template #nullComission>
