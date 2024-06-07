@@ -25,7 +25,7 @@ export class CardsService {
 
   combineStatus(value : boolean, id : number){
     const body = {isCombine : value, id : id}
-    const path = "api/v1/analytic/general/card/combine-optio"
+    const path = "api/v1/analytic/general/card/combine-option"
 
     return this.httpClient.put(path, body);
   }

@@ -31,7 +31,7 @@
                 <button  class="app-button w-100">
                     <span class="text-truncate">Себестоимость</span>
                 </button>
-                <button (click)="openComissionTypeModal()" class="app-button w-100">
+                <button [disabled]="isLoad || card == null" (click)="openComissionTypeModal(card!)" class="app-button w-100">
                     <span class="text-truncate">Тип комиссии</span>
                 </button>
             </div>
@@ -39,7 +39,7 @@
         <ng-template #cardSettings>
             <div style="max-height: 300px; max-width: 300px;" class="rounded-2 app-transparent-dark-bg border shadow mt-1 p-1" cdkMenu>
                 <div class="form-check form-switch m-0 ps-0 text-truncate d-flex flex-row align-items-center">
-                    <input [(ngModel)]="card!.isCombineSizes"
+                    <input [(ngModel)]="card!.isCombineSizes" (ngModelChange)="changeCombineStatus()"
                     class="form-check-input shadow-none app-check-input m-0 me-1" type="checkbox" role="switch">
                     <label style="font-size: 12px;">Объеденять размеры</label>
                 </div>

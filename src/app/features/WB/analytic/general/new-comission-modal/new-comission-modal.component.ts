@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { WbComissionByCardCategory } from '../cards/models/card.model';
+import { AnalyticCardModel, WbComissionByCardCategory } from '../cards/models/card.model';
 import { ModalComponent } from "../../../../../shared/components/modal/modal.component";
 import { DialogRef } from '@angular/cdk/dialog';
 import { CdkMenuTrigger, CdkMenu, CdkMenuItem } from '@angular/cdk/menu';
@@ -27,7 +27,7 @@ export class NewComissionModalComponent {
   calendarNames = CalendarTypeStorage;
 
   isLoad : boolean = false;
-  id! : number;
+  card! : AnalyticCardModel;
 
   calendarTypes : CalendarType[] = [
     CalendarType.afterDate,
@@ -56,7 +56,7 @@ export class NewComissionModalComponent {
     this.isLoad = true;
 
     const body : ComissionRquestBody = {
-      id : this.id,
+      id : this.card.id,
       startDate : null,
       endDate : null,
       value : value
@@ -81,9 +81,16 @@ export class NewComissionModalComponent {
         this.isLoad = false;
       }))
       .subscribe({
-        complete : () => {this.dialogRef.close()}
+        complete : () => {
+          this.changeComissions();
+          this.dialogRef.close()
+        }
       })
     
+  }
+
+  changeComissions(){
+
   }
 
   isShowRangeCalendar(value : CalendarType) : boolean{

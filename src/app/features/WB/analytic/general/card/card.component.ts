@@ -81,11 +81,11 @@ export class CardComponent implements OnInit{
     
   }
 
-  openComissionTypeModal(){
+  openComissionTypeModal(card : AnalyticCardModel){
     const modal = this.dialog.open(NewComissionModalComponent);
     if(modal.componentInstance)
     {
-      modal.componentInstance.id = this.id;
+      modal.componentInstance.card = card;
     }
     modal.closed.subscribe({
       next : data => {
@@ -111,6 +111,20 @@ export class CardComponent implements OnInit{
     }
 
     return dates;
+  }
+
+  changeCombineStatus(){
+    if(this.card){
+      this.isLoad = true;
+      this.cardsService
+        .combineStatus(this.card.isCombineSizes, this.card.id)
+        .pipe(finalize(() => this.isLoad = false))
+        .subscribe({
+          next : data => {
+
+          }
+        });
+    }
   }
 
   selectAnalyticType(type : string){
