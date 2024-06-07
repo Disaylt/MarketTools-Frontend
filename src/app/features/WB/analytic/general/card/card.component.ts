@@ -1,4 +1,4 @@
-import { DialogRef } from '@angular/cdk/dialog';
+import { Dialog, DialogRef } from '@angular/cdk/dialog';
 import { Component, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { ModalComponent } from "../../../../../shared/components/modal/modal.component";
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -16,6 +16,7 @@ import { AnalyticCardModel, CardModel } from '../cards/models/card.model';
 import { finalize } from 'rxjs';
 import { ProgressBarComponent } from "../../../../../shared/components/progress-bar/progress-bar.component";
 import { AnalyticTableComponent } from "./analytic-table/analytic-table.component";
+import { NewComissionModalComponent } from '../new-comission-modal/new-comission-modal.component';
 
 @Component({
     selector: 'app-card',
@@ -58,7 +59,7 @@ export class CardComponent implements OnInit{
 
   card : AnalyticCardModel | null = null;
 
-  constructor(activateRoute: ActivatedRoute, private cardsService : CardsService){
+  constructor(activateRoute: ActivatedRoute, private cardsService : CardsService, private dialog : Dialog){
           
     this.id = activateRoute.snapshot.params["id"];
     this.connectionId = activateRoute.snapshot.queryParams["connectionId"];
@@ -78,6 +79,10 @@ export class CardComponent implements OnInit{
     this.selectedAnalyticCalendarType = localStorage.getItem("analyticGeneralType") ?? "Дни";
     this.loadCard();
     
+  }
+
+  openComissionTypeModal(){
+    const modal = this.dialog.open(NewComissionModalComponent);
   }
 
   getDates(){

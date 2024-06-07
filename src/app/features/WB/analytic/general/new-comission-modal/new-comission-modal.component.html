@@ -1,1 +1,21 @@
-<p>new-comission-modal works!</p>
+<app-modal [dialogRef]="dialogRef" name="Тип комиссии">
+    <button [cdkMenuTriggerFor]="comissionTypesTemplate" class="app-button app-main-button w-100 app-button-border me-1 d-flex flex-row justify-content-between">
+        <span class="text-truncate" style="max-width: 170px; font-size: 14px;">{{selectedcomissionType === null ? 'Выбрать комиссию' : comissionNames.getName(selectedcomissionType)}}</span>
+        <span class="material-symbols-outlined">
+            expand_more
+        </span>
+    </button>
+    <ng-template #comissionTypesTemplate>
+        <div class="rounded-2 app-transparent-dark-bg border shadow mt-1" cdkMenu>
+            <div class="d-flex flex-column p-1 h-100">
+                <ul class="app-active-list mb-0 overflow-auto">
+                    <li *ngFor="let comissionType of comissionTypes"  cdkMenuItem 
+                        class="d-flex flex-row justify-content-between rounded-1" 
+                        [ngClass]="{'active' : selectedcomissionType == comissionType}" (click)="selectComissionType(comissionType)">
+                        <span class="text-truncate app-color-white75">{{comissionNames.getName(comissionType)}}</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </ng-template>
+</app-modal>
