@@ -22,4 +22,11 @@ export class CardsService {
     const path = `api/v1/analytic/general/card?id=${id}&startDate=${startDate.toUTCString()}&endDate=${endDate.toUTCString()}`;
     return this.httpClient.get<AnalyticCardModel>(path);
   }
+
+  combineStatus(value : boolean, id : number){
+    const body = {isCombine : value, id : id}
+    const path = "api/v1/analytic/general/card/combine-optio"
+
+    return this.httpClient.put(path, body);
+  }
 }
