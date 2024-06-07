@@ -27,7 +27,7 @@ export interface ComissionModel{
     createDate : Date;
     marketplace : number;
     supplier : number;
-    supplierExperss : number;
+    supplierExpress : number;
     paidStorage : number;
     use : WbComissionByCardCategory | null;
 }

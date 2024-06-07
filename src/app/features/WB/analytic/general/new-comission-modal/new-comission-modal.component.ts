@@ -10,6 +10,9 @@ import { CalendarTypeStorage } from '../consts/calendar-type.const';
 import { CalendarType } from '../enums/calendar-type.enums';
 import { CalendarModule } from 'primeng/calendar';
 import { SpinerComponent } from "../../../../../shared/components/spiner/spiner.component";
+import { ComissionService } from '../card/services/comission.service';
+import { ComissionRquestBody } from '../card/models/comission-request-body';
+import { finalize } from 'rxjs';
 
 @Component({
     selector: 'app-new-comission-modal',
@@ -24,6 +27,7 @@ export class NewComissionModalComponent {
   calendarNames = CalendarTypeStorage;
 
   isLoad : boolean = false;
+  id! : number;
 
   calendarTypes : CalendarType[] = [
     CalendarType.afterDate,
@@ -44,12 +48,42 @@ export class NewComissionModalComponent {
   onlyDate : Date = new Date();
   rangeDate : Date[] = [];
 
-  constructor(public dialogRef: DialogRef<any>){
+  constructor(public dialogRef: DialogRef<any>, private comissionService :ComissionService){
     
   }
 
-  send(){
+  send(value : WbComissionByCardCategory){
     this.isLoad = true;
+
+    const body : ComissionRquestBody = {
+      id : this.id,
+      startDate : null,
+      endDate : null,
+      value : value
+    };
+
+    switch(this.selectedCalendarType){
+      case CalendarType.afterDate:
+        body.startDate = this.onlyDate;
+        break;
+      case CalendarType.beforeDate:
+        body.endDate = this.onlyDate;
+        break;
+      case CalendarType.rangeDate:
+        body.startDate = this.rangeDate[0]
+        body.endDate = this.rangeDate[1]
+        break;
+    }
+
+    this.comissionService
+      .send(body)
+      .pipe(finalize(( )=> {
+        this.isLoad = false;
+      }))
+      .subscribe({
+        complete : () => {this.dialogRef.close()}
+      })
+    
   }
 
   isShowRangeCalendar(value : CalendarType) : boolean{

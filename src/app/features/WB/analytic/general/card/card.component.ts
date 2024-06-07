@@ -83,6 +83,15 @@ export class CardComponent implements OnInit{
 
   openComissionTypeModal(){
     const modal = this.dialog.open(NewComissionModalComponent);
+    if(modal.componentInstance)
+    {
+      modal.componentInstance.id = this.id;
+    }
+    modal.closed.subscribe({
+      next : data => {
+        this.loadCard();
+      }
+    })
   }
 
   getDates(){

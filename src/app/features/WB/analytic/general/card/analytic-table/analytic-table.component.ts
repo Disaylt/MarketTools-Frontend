@@ -177,7 +177,7 @@ export class AnalyticTableComponent implements OnInit, OnChanges {
         case WbComissionByCardCategory.supplier:
           return comission.supplier;
         case WbComissionByCardCategory.supplierExpress:
-          return comission.supplierExperss;
+          return comission.supplierExpress;
       }
     }
 
