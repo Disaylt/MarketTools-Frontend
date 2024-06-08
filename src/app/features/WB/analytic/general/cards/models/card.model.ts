@@ -33,6 +33,7 @@ export interface ComissionModel{
 }
 
 export interface SizeModel{
+    id : number;
     techSize : string;
     sales : SaleModel[];
     orders : OrderModel[];

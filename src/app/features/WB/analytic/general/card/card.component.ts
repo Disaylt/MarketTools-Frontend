@@ -17,6 +17,7 @@ import { finalize } from 'rxjs';
 import { ProgressBarComponent } from "../../../../../shared/components/progress-bar/progress-bar.component";
 import { AnalyticTableComponent } from "./analytic-table/analytic-table.component";
 import { NewComissionModalComponent } from '../new-comission-modal/new-comission-modal.component';
+import { NewCostPriceModalComponent } from '../new-cost-price-modal/new-cost-price-modal.component';
 
 @Component({
     selector: 'app-card',
@@ -79,6 +80,14 @@ export class CardComponent implements OnInit{
     this.selectedAnalyticCalendarType = localStorage.getItem("analyticGeneralType") ?? "Дни";
     this.loadCard();
     
+  }
+
+  openCostPriceModal(card : AnalyticCardModel){
+    const modal = this.dialog.open(NewCostPriceModalComponent);
+    if(modal.componentInstance)
+      {
+        modal.componentInstance.card = card;
+      }
   }
 
   openComissionTypeModal(card : AnalyticCardModel){

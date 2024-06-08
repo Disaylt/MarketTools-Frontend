@@ -1,3 +1,74 @@
 <app-modal [dialogRef]="dialogRef" name="Себестоимость">
-
+    <div>
+        <input [(ngModel)]="costPrice"
+            class="form-control form-control-sm app-select shadow-none mb-1" placeholder="Введите себестоимость"
+            type="number" step="0.01">
+    </div>
+    <button [disabled]="isLoad"  *ngIf="card.sizes.length > 1"  [cdkMenuTriggerFor]="sizesTemplate" class="app-button app-main-button w-100 app-button-border me-1 d-flex flex-row justify-content-between mt-1">
+        <span class="text-truncate" style="max-width: 170px; font-size: 14px;">{{selectedSize === null ? 'Для всех размеров' : selectedSize.techSize}}</span>
+        <span class="material-symbols-outlined">
+            expand_more
+        </span>
+    </button>
+    <button [disabled]="isLoad" [cdkMenuTriggerFor]="calendarTypesTemplate" class="app-button app-main-button w-100 app-button-border me-1 d-flex flex-row justify-content-between mt-1">
+        <span class="text-truncate" style="max-width: 170px; font-size: 14px;">{{selectedCalendarType === null ? 'Выбрать тип календаря' : calendarNames.getName(selectedCalendarType)}}</span>
+        <span class="material-symbols-outlined">
+            expand_more
+        </span>
+    </button>
+    <div *ngIf="isShowOnlyDateCalendar(selectedCalendarType)" class="mt-1">
+        <p-calendar
+        [disabled]="isLoad"
+        [(ngModel)]="onlyDate" 
+        dateFormat="mm.dd.yy"
+        [inline]="true" 
+        [readonlyInput]="true" />
+    </div>
+    <div *ngIf="isShowRangeCalendar(selectedCalendarType)" class="mt-1">
+        <p-calendar
+        [disabled]="isLoad"
+        [(ngModel)]="rangeDate" 
+        dateFormat="mm.dd.yy"
+        selectionMode="range"
+        [inline]="true" 
+        [readonlyInput]="true" />
+    </div>
+    <div class="d-flex justify-content-end">
+        <button [disabled]="isLoad"
+            class="app-button app-button-border d-flex flex-row justify-content-between mt-1">
+                <span class="text-truncate">Отправить</span>
+                <app-spiner *ngIf="isLoad" size="sm" class="ms-1"></app-spiner>
+            </button>
+    </div>
+    <ng-template #calendarTypesTemplate>
+        <div class="rounded-2 app-transparent-dark-bg border shadow mt-1" cdkMenu>
+            <div class="d-flex flex-column p-1 h-100">
+                <ul class="app-active-list mb-0 overflow-auto">
+                    <li *ngFor="let calendarType of calendarTypes"  cdkMenuItem 
+                        class="d-flex flex-row justify-content-between rounded-1" 
+                        [ngClass]="{'active' : selectedCalendarType == calendarType}" (click)="selectCalendarType(calendarType)">
+                        <span class="text-truncate app-color-white75">{{calendarNames.getName(calendarType)}}</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </ng-template>
+    <ng-template #sizesTemplate>
+        <div class="rounded-2 app-transparent-dark-bg border shadow mt-1" cdkMenu>
+            <div class="d-flex flex-column p-1 h-100">
+                <ul class="app-active-list mb-0 overflow-auto">
+                    <li cdkMenuItem 
+                        class="d-flex flex-row justify-content-between rounded-1" 
+                        [ngClass]="{'active' : selectedSize == null}" (click)="selectSize(null)">
+                        <span class="text-truncate app-color-white75">Для всех размеров</span>
+                    </li>
+                    <li *ngFor="let size of card.sizes" cdkMenuItem 
+                        class="d-flex flex-row justify-content-between rounded-1" 
+                        [ngClass]="{'active' : selectedSize == size}" (click)="selectSize(size)">
+                        <span class="text-truncate app-color-white75">{{size.techSize}}</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </ng-template>
 </app-modal>

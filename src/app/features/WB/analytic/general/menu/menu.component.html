@@ -11,6 +11,11 @@
                 expand_more
             </span>
         </button>
+        <button [disabled]="isLoad || selectedConnection == null" [cdkMenuTriggerFor]="updateMenu" class="app-icon-button app-button-border me-1">
+            <span class="material-symbols-outlined">
+                settings
+            </span>
+        </button>
         <input [(ngModel)]="cardsSearch" 
                         class="form-control form-control-sm app-select shadow-none" 
                         style="width: 100px;"
@@ -35,6 +40,13 @@
                         </li>
                     </ul>
                 </div>
+            </div>
+        </ng-template>
+        <ng-template #updateMenu>
+            <div style="max-height: 300px; max-width: 300px;" class="rounded-2 app-transparent-dark-bg border shadow mt-1" cdkMenu>
+                <button [disabled]="isLoad || selectedConnection == null" (click)="openComissionTypeModal(selectedConnection!.id)" class="app-button w-100">
+                    <span class="text-truncate">Тип комиссии</span>
+                </button>
             </div>
         </ng-template>
         <ng-template #info>

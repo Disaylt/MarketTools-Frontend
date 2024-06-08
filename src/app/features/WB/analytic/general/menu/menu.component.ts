@@ -19,6 +19,8 @@ import { RangePriceChangerComponent } from '../../../workspace/price/range-price
 import { CardsComponent } from '../cards/cards.component';
 import { ActivatedRoute } from '@angular/router';
 import { finalize } from 'rxjs';
+import { Dialog } from '@angular/cdk/dialog';
+import { NewComissionModalComponent } from '../new-comission-modal/new-comission-modal.component';
 
 @Component({
   selector: 'app-menu',
@@ -37,13 +39,21 @@ export class MenuComponent {
   
   @ViewChild(CdkMenu) cdkMenu!: CdkMenu;
   
-  constructor(private sellerService : MarketplaceConnectionV2Service, private activateRoute: ActivatedRoute){
+  constructor(private sellerService : MarketplaceConnectionV2Service, private activateRoute: ActivatedRoute, private dialog : Dialog){
     
   }
 
   ngOnInit(): void {
     this.getConnections();
   }
+
+  openComissionTypeModal(connectionId : number){
+    const modal = this.dialog.open(NewComissionModalComponent);
+    if(modal.componentInstance)
+    {
+      modal.componentInstance.connectionId = connectionId;
+    }
+  } 
 
   selectConnection(connection : BaseConnectionV2){
     this.cdkMenu.menuStack.closeAll();

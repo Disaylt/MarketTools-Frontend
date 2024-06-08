@@ -27,7 +27,8 @@ export class NewComissionModalComponent {
   calendarNames = CalendarTypeStorage;
 
   isLoad : boolean = false;
-  card! : AnalyticCardModel;
+  card : AnalyticCardModel | null = null;
+  connectionId : number | null = null;
 
   calendarTypes : CalendarType[] = [
     CalendarType.afterDate,
@@ -56,7 +57,7 @@ export class NewComissionModalComponent {
     this.isLoad = true;
 
     const body : ComissionRquestBody = {
-      id : this.card.id,
+      id : 0,
       startDate : null,
       endDate : null,
       value : value
@@ -75,8 +76,11 @@ export class NewComissionModalComponent {
         break;
     }
 
-    this.comissionService
-      .send(body)
+    if(this.card){
+      body.id = this.card.id;
+
+      this.comissionService
+      .sendByCard(body)
       .pipe(finalize(( )=> {
         this.isLoad = false;
       }))
@@ -86,7 +90,25 @@ export class NewComissionModalComponent {
           this.dialogRef.close()
         }
       })
-    
+
+      return;
+    }
+
+    if(this.connectionId){
+      body.id = this.connectionId;
+
+      this.comissionService
+      .sendByConnection(body)
+      .pipe(finalize(( )=> {
+        this.isLoad = false;
+      }))
+      .subscribe({
+        complete : () => {
+          this.changeComissions();
+          this.dialogRef.close()
+        }
+      })
+    }
   }
 
   changeComissions(){
