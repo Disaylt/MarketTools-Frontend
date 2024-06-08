@@ -14,6 +14,7 @@ import { userRoute } from './features/user/user.routes';
 import { ozonRoute } from './features/ozon-marketplace/ozon.routes';
 import { ResetComponent } from './features/auth/reset/reset.component';
 import { telegramRoute } from './features/telegram/telegram.routes';
+import { DonateComponent } from './features/donate/donate.component';
 
 
 export const authDashboardGuard = (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
@@ -47,6 +48,10 @@ export const routes: Routes = [
                 title : "Страница не найдена",
                 path : "marketpalce-not-found",
                 component : MarketplaceNotFoundComponent
+            },
+            {
+                path : "donate",
+                component : DonateComponent
             },
         ]
     },

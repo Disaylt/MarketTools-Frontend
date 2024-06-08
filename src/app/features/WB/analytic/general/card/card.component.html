@@ -106,13 +106,13 @@
             </div>
             <div>
                 <div *ngIf="card.isCombineSizes; else manySizes">
-                    <div style="max-height: calc(100vh - 350px);" class="mt-2 active-dark-bg p-1 rounded-3 border app-soft-element-border-color overflow-auto">
+                    <div style="max-height: calc(100vh - 350px);" class="mt-2 active-dark-bg rounded-3 border app-soft-element-border-color overflow-auto">
                         <app-analytic-table [card]="card" [sizes]="card.sizes" [dates]="rangeDates" [analyticDatesType]="selectedAnalyticCalendarType"></app-analytic-table>
                     </div>
                 </div>
                 <ng-template #manySizes>
-                    <div *ngFor="let size of card.sizes" style="max-height: calc(100vh - 350px);" class="mt-2 active-dark-bg p-1 rounded-3 border app-soft-element-border-color overflow-auto">
-                        <div>{{size.techSize}}</div>
+                    <div *ngFor="let size of card.sizes" style="max-height: calc(100vh - 350px);" class="mt-2 active-dark-bg rounded-3 border app-soft-element-border-color overflow-auto">
+                        <div class="px-1">{{size.techSize}}</div>
                         <app-analytic-table [card]="card"  [sizes]="[size]" [dates]="rangeDates" [analyticDatesType]="selectedAnalyticCalendarType"></app-analytic-table>
                     </div>
                 </ng-template>

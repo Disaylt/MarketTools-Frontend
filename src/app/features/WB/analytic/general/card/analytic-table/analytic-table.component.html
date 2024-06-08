@@ -1,79 +1,79 @@
 <table style="font-size: 14px;" class="table table-bordered table-hover table-sm">
-    <thead>
-      <tr>
-        <th scope="col"><div style="width: 200px;">Назначение</div></th>
-        <th *ngFor="let column of columns" scope="col">{{column.title}}</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Себестоимость (р.)</td>
-        <td *ngFor="let column of columns">{{column.costPrice.toLocaleString()}}</td>
-      </tr>
-      <tr>
-        <td>Цена (р.)</td>
-        <td *ngFor="let column of columns">{{column.sellerPrice.toLocaleString()}}</td>
-      </tr>
-      <tr>
-        <td>Скидка продовца (%)</td>
-        <td *ngFor="let column of columns">{{column.sellerDiscount.toLocaleString()}}</td>
-      </tr>
-      <tr>
-        <td>Цена со скидкой (р.)</td>
-        <td *ngFor="let column of columns">{{column.totalPrice.toLocaleString()}}</td>
-      </tr>
-      <tr>
-        <td>Скидка покупателя (%)</td>
-        <td *ngFor="let column of columns">{{column.buyerDiscount.toLocaleString()}}</td>
-      </tr>
-      <tr>
-        <td>Цена с СП (р.)</td>
-        <td *ngFor="let column of columns">{{column.buyerPrice.toLocaleString()}}</td>
-      </tr>
-      <tr>
-        <td>Сток (ед.)</td>
-        <td *ngFor="let column of columns">{{column.stock.toLocaleString()}}</td>
-      </tr>
-      <tr>
-        <td>Заказано (ед.)</td>
-        <td *ngFor="let column of columns">{{column.orders.toLocaleString()}}</td>
-      </tr>
-      <tr>
-        <td>Заказано (Стоимость)</td>
-        <td *ngFor="let column of columns">{{column.ordersCost.toLocaleString()}}</td>
-      </tr>
-      <tr>
-        <td>Отмены (ед.)</td>
-        <td *ngFor="let column of columns">{{column.cancels.toLocaleString()}}</td>
-      </tr>
-      <tr>
-        <td>Отмены (Стоимость)</td>
-        <td *ngFor="let column of columns">{{column.canselsCost.toLocaleString()}}</td>
-      </tr>
-      <tr>
-        <td>Продажи (ед.)</td>
-        <td *ngFor="let column of columns">{{column.sales.toLocaleString()}}</td>
-      </tr>
-      <tr>
-        <td>Продажи (Стоимость)</td>
-        <td *ngFor="let column of columns">{{column.salesCost.toLocaleString()}}</td>
-      </tr>
-      <tr>
-        <td>Возвраты (ед.)</td>
-        <td *ngFor="let column of columns">{{column.refounds.toLocaleString()}}</td>
-      </tr>
-      <tr>
-        <td>Возвраты (Стоимость)</td>
-        <td *ngFor="let column of columns">{{column.refoundsCost.toLocaleString()}}</td>
-      </tr>
-      <tr>
-        <td>Комиссия (%)</td>
-        <td *ngFor="let column of columns">
-            <span *ngIf="column.comission != null; else nullComission">{{column.comission}}</span>
-            <ng-template #nullComission>
-                <span style="font-size: 12px;">Не выбрано</span>
-            </ng-template>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <thead>
+    <tr>
+      <th scope="col"><div style="width: 200px;" >Назначение</div></th>
+      <th *ngFor="let column of columns" scope="col">{{column.title}}</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Себестоимость (р.)</td>
+      <td *ngFor="let column of columns">{{column.costPrice.toLocaleString()}}</td>
+    </tr>
+    <tr>
+      <td>Цена (р.)</td>
+      <td *ngFor="let column of columns">{{column.sellerPrice.toLocaleString()}}</td>
+    </tr>
+    <tr>
+      <td>Скидка продовца (%)</td>
+      <td *ngFor="let column of columns">{{column.sellerDiscount.toLocaleString()}}</td>
+    </tr>
+    <tr>
+      <td>Цена со скидкой (р.)</td>
+      <td *ngFor="let column of columns">{{column.totalPrice.toLocaleString()}}</td>
+    </tr>
+    <tr>
+      <td>Скидка покупателя (%)</td>
+      <td *ngFor="let column of columns">{{column.buyerDiscount.toLocaleString()}}</td>
+    </tr>
+    <tr>
+      <td>Цена с СП (р.)</td>
+      <td *ngFor="let column of columns">{{column.buyerPrice.toLocaleString()}}</td>
+    </tr>
+    <tr>
+      <td>Сток (ед.)</td>
+      <td *ngFor="let column of columns">{{column.stock.toLocaleString()}}</td>
+    </tr>
+    <tr>
+      <td>Заказано (ед.)</td>
+      <td *ngFor="let column of columns">{{column.orders.toLocaleString()}}</td>
+    </tr>
+    <tr>
+      <td>Заказано (Стоимость)</td>
+      <td *ngFor="let column of columns">{{column.ordersCost.toLocaleString()}}</td>
+    </tr>
+    <tr>
+      <td>Отмены (ед.)</td>
+      <td *ngFor="let column of columns">{{column.cancels.toLocaleString()}}</td>
+    </tr>
+    <tr >
+      <td>Отмены (Стоимость)</td>
+      <td *ngFor="let column of columns">{{column.canselsCost.toLocaleString()}}</td>
+    </tr>
+    <tr>
+      <td>Продажи (ед.)</td>
+      <td *ngFor="let column of columns">{{column.sales.toLocaleString()}}</td>
+    </tr>
+    <tr>
+      <td>Продажи (Стоимость)</td>
+      <td *ngFor="let column of columns">{{column.salesCost.toLocaleString()}}</td>
+    </tr>
+    <tr>
+      <td>Возвраты (ед.)</td>
+      <td *ngFor="let column of columns">{{column.refounds.toLocaleString()}}</td>
+    </tr>
+    <tr>
+      <td>Возвраты (Стоимость)</td>
+      <td *ngFor="let column of columns">{{column.refoundsCost.toLocaleString()}}</td>
+    </tr>
+    <tr>
+      <td>Комиссия (%)</td>
+      <td *ngFor="let column of columns">
+          <span *ngIf="column.comission != null; else nullComission">{{column.comission}}</span>
+          <ng-template #nullComission>
+              <span style="font-size: 12px;">Не выбрано</span>
+          </ng-template>
+      </td>
+    </tr>
+  </tbody>
+</table>

@@ -90,7 +90,7 @@ export class NewComissionModalComponent {
   }
 
   changeComissions(){
-
+    
   }
 
   isShowRangeCalendar(value : CalendarType) : boolean{
