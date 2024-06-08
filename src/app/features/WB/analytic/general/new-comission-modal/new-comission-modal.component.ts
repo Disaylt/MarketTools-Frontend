@@ -86,7 +86,6 @@ export class NewComissionModalComponent {
       }))
       .subscribe({
         complete : () => {
-          this.changeComissions();
           this.dialogRef.close()
         }
       })
@@ -104,15 +103,10 @@ export class NewComissionModalComponent {
       }))
       .subscribe({
         complete : () => {
-          this.changeComissions();
           this.dialogRef.close()
         }
       })
     }
-  }
-
-  changeComissions(){
-    
   }
 
   isShowRangeCalendar(value : CalendarType) : boolean{

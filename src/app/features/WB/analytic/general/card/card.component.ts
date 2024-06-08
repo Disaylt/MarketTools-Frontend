@@ -85,9 +85,14 @@ export class CardComponent implements OnInit{
   openCostPriceModal(card : AnalyticCardModel){
     const modal = this.dialog.open(NewCostPriceModalComponent);
     if(modal.componentInstance)
-      {
-        modal.componentInstance.card = card;
+    {
+      modal.componentInstance.card = card;
+    }
+    modal.closed.subscribe({
+      next : data => {
+        this.loadCard();
       }
+    })
   }
 
   openComissionTypeModal(card : AnalyticCardModel){
