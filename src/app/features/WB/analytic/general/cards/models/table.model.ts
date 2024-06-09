@@ -8,6 +8,9 @@ export interface ColumnModel{
     buyerDiscount : number;
     buyerPrice : number;
     stock : number;
+    inWayFromClient : number;
+    quantityFull : number;
+    inWayToClient : number;
     orders : number;
     ordersCost : number;
     cancels : number;
@@ -17,6 +20,7 @@ export interface ColumnModel{
     refounds: number;
     refoundsCost : number;
     comission : number | null;
+    sumSalesComission : number;
 }
 
 export interface DateColumnsModel{

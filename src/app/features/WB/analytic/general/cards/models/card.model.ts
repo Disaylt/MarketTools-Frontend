@@ -44,6 +44,9 @@ export interface SizeModel{
 export interface StcokModel{
     date : Date;
     total : number;
+    inWayFromClient : number;
+    quantityFull : number;
+    inWayToClient : number;
 }
 
 export interface PriceModel{

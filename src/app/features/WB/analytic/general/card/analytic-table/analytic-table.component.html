@@ -31,8 +31,20 @@
       <td *ngFor="let column of columns">{{column.buyerPrice.toLocaleString()}}</td>
     </tr>
     <tr>
-      <td>Сток (ед.)</td>
+      <td>Сток для заказов (ед.)</td>
       <td *ngFor="let column of columns">{{column.stock.toLocaleString()}}</td>
+    </tr>
+    <tr>
+      <td>Сток до клиента (ед.)</td>
+      <td *ngFor="let column of columns">{{column.inWayToClient.toLocaleString()}}</td>
+    </tr>
+    <tr>
+      <td>Сток от клиента (ед.)</td>
+      <td *ngFor="let column of columns">{{column.inWayFromClient.toLocaleString()}}</td>
+    </tr>
+    <tr>
+      <td>Полный сток (ед.)</td>
+      <td *ngFor="let column of columns">{{column.quantityFull.toLocaleString()}}</td>
     </tr>
     <tr>
       <td>Заказано (ед.)</td>
@@ -74,6 +86,10 @@
               <span style="font-size: 12px;">Не выбрано</span>
           </ng-template>
       </td>
+    </tr>
+    <tr>
+      <td>Комиссия от продаж (Стоимость)</td>
+      <td *ngFor="let column of columns">{{column.sumSalesComission.toLocaleString()}}</td>
     </tr>
   </tbody>
 </table>

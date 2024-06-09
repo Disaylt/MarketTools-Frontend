@@ -52,6 +52,9 @@ export class AnalyticTableComponent implements OnInit, OnChanges {
         buyerDiscount : this.getBuyerDiscount(dateForCompare),
         buyerPrice : 0,
         stock : this.getStock(dateForCompare),
+        quantityFull : this.getFullStock(dateForCompare),
+        inWayFromClient : this.getInWayStockFromClient(dateForCompare),
+        inWayToClient : this.getInWayStockToClient(dateForCompare),
         orders : this.getOrders(dateForCompare, false),
         ordersCost : this.getCostOrders(dateForCompare, false),
         cancels : this.getOrders(dateForCompare, true),
@@ -60,10 +63,13 @@ export class AnalyticTableComponent implements OnInit, OnChanges {
         salesCost : this.getCostSales(dateForCompare, WbSaleType.sale),
         refounds : this.getSales(dateForCompare, WbSaleType.refound),
         refoundsCost : this.getCostSales(dateForCompare, WbSaleType.refound),
-        comission : this.getComission(dateForCompare)
+        comission : this.getComission(dateForCompare),
+        sumSalesComission : 0
       }
       column.totalPrice = this.getTotalPrice(column.sellerPrice, column.sellerDiscount);
       column.buyerPrice = this.getTotalPrice(column.totalPrice, column.buyerDiscount);
+
+      column.sumSalesComission = this.getSumSaleComission(column);
 
       if(column.costPrice > 0
         || column.sellerDiscount > 0
@@ -158,6 +164,9 @@ export class AnalyticTableComponent implements OnInit, OnChanges {
       buyerDiscount : dateColumns.columns.map(x=> x.buyerDiscount).reduce((sum, current) => sum + current, 0) / dateColumns.columns.length,
       buyerPrice : dateColumns.columns.map(x=> x.buyerPrice).reduce((sum, current) => sum + current, 0) / dateColumns.columns.length,
       stock : dateColumns.columns.map(x=> x.stock).reduce((sum, current) => sum + current, 0) / dateColumns.columns.length,
+      quantityFull : dateColumns.columns.map(x=> x.quantityFull).reduce((sum, current) => sum + current, 0) / dateColumns.columns.length,
+      inWayFromClient :dateColumns.columns.map(x=> x.inWayFromClient).reduce((sum, current) => sum + current, 0) / dateColumns.columns.length,
+      inWayToClient :dateColumns.columns.map(x=> x.inWayToClient).reduce((sum, current) => sum + current, 0) / dateColumns.columns.length,
       orders : dateColumns.columns.map(x=> x.orders).reduce((sum, current) => sum + current, 0),
       ordersCost : dateColumns.columns.map(x=> x.ordersCost).reduce((sum, current) => sum + current, 0),
       cancels : dateColumns.columns.map(x=> x.cancels).reduce((sum, current) => sum + current, 0),
@@ -166,7 +175,8 @@ export class AnalyticTableComponent implements OnInit, OnChanges {
       salesCost : dateColumns.columns.map(x=> x.salesCost).reduce((sum, current) => sum + current, 0),
       refounds : dateColumns.columns.map(x=> x.refounds).reduce((sum, current) => sum + current, 0),
       refoundsCost : dateColumns.columns.map(x=> x.refoundsCost).reduce((sum, current) => sum + current, 0),
-      comission : null
+      comission : null,
+      sumSalesComission : 0
     }
 
     const comissions = dateColumns.columns.filter(x=> x.comission != null);
@@ -174,6 +184,8 @@ export class AnalyticTableComponent implements OnInit, OnChanges {
     if(comissions.length > 0){
       result.comission = comissions.map(x=> x.comission ?? 0).reduce((sum, current) => sum + current, 0) / comissions.length;
     }
+
+    result.sumSalesComission = dateColumns.columns.map(x=> this.getSumSaleComission(x)).reduce((sum, current) => sum + current, 0);
 
     return result;
   }
@@ -215,6 +227,14 @@ export class AnalyticTableComponent implements OnInit, OnChanges {
       .reduce((sum, current) => sum + current, 0);
   }
 
+  private getSumSaleComission(column : ColumnModel){
+    if(column.comission){
+      return column.salesCost * column.comission / 100;
+    }
+
+    return 0;
+  }
+
   private getCostOrders(date : number, isCancel : boolean){
     return this.sizes
       .map(size => size
@@ -231,11 +251,35 @@ export class AnalyticTableComponent implements OnInit, OnChanges {
       .reduce((sum, current) => sum + current, 0);
   }
 
+  private getInWayStockToClient(date : number){
+    return this.sizes
+      .map(size => size
+        .stocks
+        .find(stock => new Date(stock.date).setHours(0,0,0,0) == date)?.inWayToClient ?? 0)
+      .reduce((sum, current) => sum + current, 0);
+  }
+
+  private getInWayStockFromClient(date : number){
+    return this.sizes
+      .map(size => size
+        .stocks
+        .find(stock => new Date(stock.date).setHours(0,0,0,0) == date)?.inWayFromClient ?? 0)
+      .reduce((sum, current) => sum + current, 0);
+  }
+
+  private getFullStock(date : number){
+    return this.sizes
+      .map(size => size
+        .stocks
+        .find(stock => new Date(stock.date).setHours(0,0,0,0) == date)?.quantityFull ?? 0)
+      .reduce((sum, current) => sum + current, 0);
+  }
+
   private getStock(date : number){
     return this.sizes
       .map(size => size
         .stocks
-        .find(price => new Date(price.date).setHours(0,0,0,0) == date)?.total ?? 0)
+        .find(stock => new Date(stock.date).setHours(0,0,0,0) == date)?.total ?? 0)
       .reduce((sum, current) => sum + current, 0);
   }
 
