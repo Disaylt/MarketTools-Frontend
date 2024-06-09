@@ -64,7 +64,22 @@ export class AnalyticTableComponent implements OnInit, OnChanges {
       }
       column.totalPrice = this.getTotalPrice(column.sellerPrice, column.sellerDiscount);
       column.buyerPrice = this.getTotalPrice(column.totalPrice, column.buyerDiscount);
-      columnsForEveryDay.push(column);
+
+      if(column.costPrice > 0
+        || column.sellerDiscount > 0
+        || column.sellerPrice > 0
+        || column.totalPrice > 0
+        || column.buyerDiscount > 0
+        || column.buyerPrice > 0
+        || column.stock > 0
+        || column.orders > 0
+        || column.cancels > 0
+        || column.refounds > 0
+        || column.comission != null
+      )
+      {
+        columnsForEveryDay.push(column);
+      }
     }
 
     

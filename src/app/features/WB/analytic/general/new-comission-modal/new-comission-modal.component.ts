@@ -30,6 +30,8 @@ export class NewComissionModalComponent {
   card : AnalyticCardModel | null = null;
   connectionId : number | null = null;
 
+  isChanged : boolean = false;
+
   calendarTypes : CalendarType[] = [
     CalendarType.afterDate,
     CalendarType.beforeDate,
@@ -86,7 +88,8 @@ export class NewComissionModalComponent {
       }))
       .subscribe({
         complete : () => {
-          this.dialogRef.close()
+          this.isChanged = true;
+          this.dialogRef.close(this.isChanged)
         }
       })
 
@@ -103,7 +106,8 @@ export class NewComissionModalComponent {
       }))
       .subscribe({
         complete : () => {
-          this.dialogRef.close()
+          this.isChanged = true;
+          this.dialogRef.close(this.isChanged)
         }
       })
     }

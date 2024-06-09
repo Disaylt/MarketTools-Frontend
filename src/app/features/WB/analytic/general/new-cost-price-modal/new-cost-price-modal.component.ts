@@ -37,6 +37,7 @@ export class NewCostPriceModalComponent {
   selectedSize : SizeModel | null = null;
 
   isLoad : boolean = false;
+  isChanged : boolean = false;
   selectedCalendarType : CalendarType = CalendarType.allDate;
 
   constructor(public dialogRef: DialogRef<any>, private costPriceService : CostPriceService){}
@@ -76,7 +77,8 @@ export class NewCostPriceModalComponent {
         }))
         .subscribe({
           complete : () => {
-            this.dialogRef.close()
+            this.isChanged = true;
+            this.dialogRef.close(this.isChanged)
           }
         })
     }
@@ -90,7 +92,8 @@ export class NewCostPriceModalComponent {
         }))
         .subscribe({
           complete : () => {
-            this.dialogRef.close()
+            this.isChanged = true;
+            this.dialogRef.close(this.isChanged)
           }
         })
     }

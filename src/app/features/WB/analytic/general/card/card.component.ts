@@ -90,7 +90,9 @@ export class CardComponent implements OnInit{
     }
     modal.closed.subscribe({
       next : data => {
-        this.loadCard();
+        if(data === true){
+          this.loadCard();
+        }
       }
     })
   }
@@ -103,7 +105,9 @@ export class CardComponent implements OnInit{
     }
     modal.closed.subscribe({
       next : data => {
-        this.loadCard();
+        if(data === true){
+          this.loadCard();
+        }
       }
     })
   }
