@@ -64,7 +64,8 @@ export class AnalyticTableComponent implements OnInit, OnChanges {
         refounds : this.getSales(dateForCompare, WbSaleType.refound),
         refoundsCost : this.getCostSales(dateForCompare, WbSaleType.refound),
         comission : this.getComission(dateForCompare),
-        sumSalesComission : 0
+        sumSalesComission : 0,
+        paidStoragePrice : this.getPaidStoragePrice(dateForCompare)
       }
       column.totalPrice = this.getTotalPrice(column.sellerPrice, column.sellerDiscount);
       column.buyerPrice = this.getTotalPrice(column.totalPrice, column.buyerDiscount);
@@ -175,6 +176,7 @@ export class AnalyticTableComponent implements OnInit, OnChanges {
       salesCost : dateColumns.columns.map(x=> x.salesCost).reduce((sum, current) => sum + current, 0),
       refounds : dateColumns.columns.map(x=> x.refounds).reduce((sum, current) => sum + current, 0),
       refoundsCost : dateColumns.columns.map(x=> x.refoundsCost).reduce((sum, current) => sum + current, 0),
+      paidStoragePrice : dateColumns.columns.map(x=> x.paidStoragePrice).reduce((sum, current) => sum + current, 0),
       comission : null,
       sumSalesComission : 0
     }
@@ -293,6 +295,14 @@ export class AnalyticTableComponent implements OnInit, OnChanges {
         .prices
         .find(price => new Date(price.createDate).setHours(0,0,0,0) == date)?.buyerDiscount ?? 0)
       .reduce((sum, current) => sum + current, 0) / this.sizes.length;
+  }
+
+  private getPaidStoragePrice(date : number){
+    return this.sizes
+      .map(size => size
+        .paidStorages
+        .find(ps => new Date(ps.date).setHours(0,0,0,0) == date)?.totalPrice ?? 0)
+      .reduce((sum, current) => sum + current, 0);
   }
 
   private getDiscount(date : number){

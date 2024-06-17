@@ -21,6 +21,27 @@ export interface ColumnModel{
     refoundsCost : number;
     comission : number | null;
     sumSalesComission : number;
+    paidStoragePrice : number;
+}
+
+
+
+export interface PromotionRow{
+    name : string;
+    columns : PromotionColumn[]
+}
+
+export interface PromotionColumn{
+    title : string;
+    date : Date;
+    value : number;
+}
+
+export interface DatePromotionColumns{
+    startDate : Date | null;
+    endDate : Date | null;
+    dateValue : number;
+    columns : PromotionColumn[]
 }
 
 export interface DateColumnsModel{

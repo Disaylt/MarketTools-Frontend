@@ -1,0 +1,17 @@
+<div style="font-size: 14px;" class="mt-2 active-dark-bg rounded-3 border app-soft-element-border-color overflow-auto p-1">
+    <label>Реклама</label>
+    <table *ngIf="promotionsRow.length > 0" class="table table-bordered table-hover table-sm">
+        <thead>
+          <tr>
+            <th scope="col"><div style="width: 200px;" >Назначение</div></th>
+            <th *ngFor="let promotion of promotionsRow[0].columns" scope="col">{{promotion.title}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let promotionRow of promotionsRow">
+            <td>{{promotionRow.name}}</td>
+            <td *ngFor="let promotionColumn of promotionRow.columns">{{promotionColumn.value}}</td>
+          </tr>
+        </tbody>
+      </table>
+</div>

@@ -20,6 +20,36 @@ export interface CardModel{
 export interface AnalyticCardModel extends CardModel{
     sizes : SizeModel[]
     comissions : ComissionModel[];
+    promotions : Promotion[];
+    searchWords : SearchWord[];
+}
+
+export interface SearchWord{
+    id : number;
+    name : string;
+    historyPositions : SearchWordHistoryPosition[];
+}
+
+export interface SearchWordHistoryPosition{
+    value : number;
+    date : string;
+}
+
+export interface Promotion{
+    name : string;
+    dayReports : PromotionReport[]
+    cardUseHistories : UseHistory[]
+
+}
+export interface PromotionReport{
+    price : number;
+    date : string;
+}
+
+export interface UseHistory{
+    date : string;
+    isUseCurrentCard : boolean;
+    totalCards : number;
 }
 
 export interface ComissionModel{
@@ -39,6 +69,12 @@ export interface SizeModel{
     orders : OrderModel[];
     prices : PriceModel[];
     stocks : StcokModel[];
+    paidStorages : PaidStorageModel[];
+}
+
+export interface PaidStorageModel{
+    totalPrice : number;
+    date : number;
 }
 
 export interface StcokModel{

@@ -18,6 +18,7 @@ import { ProgressBarComponent } from "../../../../../shared/components/progress-
 import { AnalyticTableComponent } from "./analytic-table/analytic-table.component";
 import { NewComissionModalComponent } from '../new-comission-modal/new-comission-modal.component';
 import { NewCostPriceModalComponent } from '../new-cost-price-modal/new-cost-price-modal.component';
+import { PromotionComponent } from "./promotion/promotion.component";
 
 @Component({
     selector: 'app-card',
@@ -41,7 +42,7 @@ import { NewCostPriceModalComponent } from '../new-cost-price-modal/new-cost-pri
         CdkMenuItem,
         JsonPipe,
         ReactiveFormsModule,
-        CalendarModule, ProgressBarComponent, AnalyticTableComponent]
+        CalendarModule, ProgressBarComponent, AnalyticTableComponent, PromotionComponent]
 })
 export class CardComponent implements OnInit{
   id : number;
@@ -173,6 +174,7 @@ export class CardComponent implements OnInit{
       .subscribe({
         next : data => {
           this.card = data;
+          console.log(data);
         }
       })
   }

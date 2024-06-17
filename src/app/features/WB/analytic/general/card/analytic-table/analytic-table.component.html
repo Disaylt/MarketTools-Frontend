@@ -91,5 +91,9 @@
       <td>Комиссия от продаж (Стоимость)</td>
       <td *ngFor="let column of columns">{{column.sumSalesComission.toLocaleString()}}</td>
     </tr>
+    <tr>
+      <td>Хранение (Стоимость)</td>
+      <td *ngFor="let column of columns">{{column.paidStoragePrice.toLocaleString()}}</td>
+    </tr>
   </tbody>
 </table>

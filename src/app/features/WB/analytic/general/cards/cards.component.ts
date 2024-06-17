@@ -29,7 +29,7 @@ export class CardsComponent implements OnInit, OnChanges {
     }
 
   ngOnInit() {
-    this.loadCards();
+    
   }
 
   ngOnChanges(changes: SimpleChanges) {
