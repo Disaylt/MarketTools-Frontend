@@ -106,6 +106,9 @@
             </div>
             <div>
                 <div>
+                    <app-search-words></app-search-words>
+                </div>
+                <div>
                     <app-promotion [promotions]="card.promotions" [dates]="rangeDates" [analyticDatesType]="selectedAnalyticCalendarType"></app-promotion>
                 </div>
                 <div *ngIf="card.isCombineSizes; else manySizes">

@@ -19,6 +19,7 @@ import { AnalyticTableComponent } from "./analytic-table/analytic-table.componen
 import { NewComissionModalComponent } from '../new-comission-modal/new-comission-modal.component';
 import { NewCostPriceModalComponent } from '../new-cost-price-modal/new-cost-price-modal.component';
 import { PromotionComponent } from "./promotion/promotion.component";
+import { SearchWordsComponent } from "./search-words/search-words.component";
 
 @Component({
     selector: 'app-card',
@@ -42,7 +43,7 @@ import { PromotionComponent } from "./promotion/promotion.component";
         CdkMenuItem,
         JsonPipe,
         ReactiveFormsModule,
-        CalendarModule, ProgressBarComponent, AnalyticTableComponent, PromotionComponent]
+        CalendarModule, ProgressBarComponent, AnalyticTableComponent, PromotionComponent, SearchWordsComponent]
 })
 export class CardComponent implements OnInit{
   id : number;
