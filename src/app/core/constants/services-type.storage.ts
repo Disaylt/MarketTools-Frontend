@@ -17,6 +17,15 @@ export class ServicesTypeStorage{
             viewName : "Менеджер цен",
             value : ServicesName.workspacePriceManager
         }
+        ,
+        {
+            viewName : "Общая",
+            value : ServicesName.generalAnalytics
+        }
+    ]
+
+    static analytics : ServicesName[] = [
+        ServicesName.generalAnalytics
     ]
 
     static automation : ServicesName[] = [

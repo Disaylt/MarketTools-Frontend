@@ -1,0 +1,128 @@
+<div class="d-flex flex-row active-dark-bg p-1 rounded-3 border app-soft-element-border-color mb-3 justify-content-between">
+    <div class="d-flex flex-row">
+        <button routerLink="/dashboard/wb/analytics/general/menu" [queryParams]="{'connectionId' : connectionId}" class="app-icon-button app-button-border me-3">
+            <span class="material-symbols-outlined">
+                undo
+            </span>
+        </button>
+        <button [disabled]="isLoad"  [cdkMenuTriggerFor]="calendar" class="app-icon-button app-button-border me-1">
+            <span class="material-symbols-outlined">
+                calendar_month
+            </span>
+        </button>
+        <button [disabled]="isLoad"  [cdkMenuTriggerFor]="analyticCalendarType" style="max-width: 200px;" class="app-button app-main-button w-100 app-button-border me-1 d-flex flex-row justify-content-between">
+            <span class="text-truncate" style="max-width: 170px; font-size: 14px;">{{selectedAnalyticCalendarType}}</span>
+            <span class="material-symbols-outlined">
+                expand_more
+            </span>
+        </button>
+        <button [disabled]="isLoad || card == null" [cdkMenuTriggerFor]="cardSettings" class="app-icon-button app-button-border me-1">
+            <span class="material-symbols-outlined">
+                settings
+            </span>
+        </button>
+        <button [disabled]="isLoad || card == null" [cdkMenuTriggerFor]="updateMenu" class="app-icon-button app-button-border me-1">
+            <span class="material-symbols-outlined">
+                edit_note
+            </span>
+        </button>
+        <ng-template #updateMenu>
+            <div style="max-height: 300px; max-width: 300px;" class="rounded-2 app-transparent-dark-bg border shadow mt-1" cdkMenu>
+                <button [disabled]="isLoad || card == null" (click)="openCostPriceModal(card!)" class="app-button w-100">
+                    <span class="text-truncate">Себестоимость</span>
+                </button>
+                <button [disabled]="isLoad || card == null" (click)="openComissionTypeModal(card!)" class="app-button w-100">
+                    <span class="text-truncate">Тип комиссии</span>
+                </button>
+            </div>
+        </ng-template>
+        <ng-template #cardSettings>
+            <div style="max-height: 300px; max-width: 300px;" class="rounded-2 app-transparent-dark-bg border shadow mt-1 p-1" cdkMenu>
+                <div class="form-check form-switch m-0 ps-0 text-truncate d-flex flex-row align-items-center">
+                    <input [(ngModel)]="card!.isCombineSizes" (ngModelChange)="changeCombineStatus()"
+                    class="form-check-input shadow-none app-check-input m-0 me-1" type="checkbox" role="switch">
+                    <label style="font-size: 12px;">Объеденять размеры</label>
+                </div>
+            </div>
+        </ng-template>
+        <ng-template #analyticCalendarType>
+            <div style="max-height: 300px; max-width: 300px;" class="rounded-2 app-transparent-dark-bg border shadow mt-1" cdkMenu>
+                <div class="d-flex flex-column p-1 h-100">
+                    <ul class="app-active-list mb-0 overflow-auto">
+                        <li *ngFor="let type of analyticCalendarTypes"  cdkMenuItem 
+                            class="d-flex flex-row justify-content-between rounded-1" 
+                            [ngClass]="{'active' : selectedAnalyticCalendarType == type}" (click)="selectAnalyticType(type)">
+                            <span class="text-truncate app-color-white75">{{type}}</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </ng-template>
+        <ng-template #calendar>
+            <div class="rounded-2 app-transparent-dark-bg border shadow mt-1" cdkMenu>
+                <p-calendar
+                    class="max-w-full" 
+                    (onSelect)="selectDates()"
+                    [(ngModel)]="rangeDates" 
+                    selectionMode="range"
+                    dateFormat="mm.dd.yy"
+                    [inline]="true" 
+                    [readonlyInput]="true" />
+            </div>
+        </ng-template>
+    </div>
+</div>
+
+<div style="font-size: 14px;" class="app-color-white75">
+    <app-progress-bar *ngIf="isLoad; else cardTempalte" class="mt-3"></app-progress-bar>
+    <ng-template #cardTempalte>
+        <div *ngIf="card != null">
+            <div class="row g-2">
+                <div *ngIf="card.mainPhotoUrl" class="col-auto">
+                    <img style="max-height: 200px;" [src]="card.mainPhotoUrl" class="rounded-1 img-fluid">
+                </div>
+                <div class="col">
+                    <div style="height: 200px;" class="active-dark-bg p-1 rounded-3 border app-soft-element-border-color overflow-x-hidden overflow-y-auto">
+                        <div class="row gy-2">
+                            <div class="col-12 col-sm-6">
+                                <div style="max-width: 250px;">
+                                    <div class="text-white"  style="font-size: 12px;">Информация</div>
+                                    <div class="text-truncate">{{card.title}}</div>
+                                    <div class="text-truncate">Артикул: {{card.article}}</div>
+                                    <div class="text-truncate">Код: {{card.vendorCode}}</div>
+                                    <div class="text-truncate">Длина: {{card.length}}</div>
+                                    <div class="text-truncate">Ширина: {{card.width}}</div>
+                                    <div class="text-truncate">Высота: {{card.height}}</div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-6">
+                                <div style="max-width: 250px;">
+                                    <div class="text-white" style="font-size: 12px;">Статистика</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div>
+                    <app-search-words [card]="card"[dates]="rangeDates" [analyticDatesType]="selectedAnalyticCalendarType"></app-search-words>
+                </div>
+                <div>
+                    <app-promotion [promotions]="card.promotions" [dates]="rangeDates" [analyticDatesType]="selectedAnalyticCalendarType"></app-promotion>
+                </div>
+                <div *ngIf="card.isCombineSizes; else manySizes">
+                    <div class="mt-2 active-dark-bg rounded-3 border app-soft-element-border-color overflow-auto">
+                        <app-analytic-table [card]="card" [sizes]="card.sizes" [dates]="rangeDates" [analyticDatesType]="selectedAnalyticCalendarType"></app-analytic-table>
+                    </div>
+                </div>
+                <ng-template #manySizes>
+                    <div *ngFor="let size of card.sizes" class="mt-2 active-dark-bg rounded-3 border app-soft-element-border-color overflow-auto">
+                        <div class="px-1">{{size.techSize}}</div>
+                        <app-analytic-table [card]="card"  [sizes]="[size]" [dates]="rangeDates" [analyticDatesType]="selectedAnalyticCalendarType"></app-analytic-table>
+                    </div>
+                </ng-template>
+            </div>
+        </div>
+    </ng-template>
+</div>

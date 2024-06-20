@@ -64,9 +64,14 @@ export class WbNavigationStorage{
             iconCode: "equalizer",
             main : {
                 name : "Аналитика",
-                isDisabled : true
+                isDisabled : false
             },
             parent : [
+                {
+                    name : "Общая",
+                    path : `${this.market}/analytics/general/menu`,
+                    isDisabled : false
+                },
                 {
                     name : "Сток",
                     path : `${this.market}/analytics/stock`,

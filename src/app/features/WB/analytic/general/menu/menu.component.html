@@ -1,0 +1,67 @@
+<div class="d-flex flex-row active-dark-bg p-1 rounded-3 border app-soft-element-border-color mb-3 justify-content-between">
+    <div class="d-flex flex-row">
+        <button [cdkMenuTriggerFor]="info" class="app-icon-button app-button-border me-1">
+            <span class="material-symbols-outlined">
+                info
+            </span>
+        </button>
+        <button [disabled]="isLoad" [cdkMenuTriggerFor]="templatesSelectMenu" style="max-width: 200px;" class="app-button app-main-button w-100 app-button-border me-1 d-flex flex-row justify-content-between">
+            <span class="text-truncate" style="max-width: 170px; font-size: 14px;">{{selectedConnection === null ? 'Выбрать подключение' : selectedConnection.name}}</span>
+            <span class="material-symbols-outlined">
+                expand_more
+            </span>
+        </button>
+        <button [disabled]="isLoad || selectedConnection == null" [cdkMenuTriggerFor]="updateMenu" class="app-icon-button app-button-border me-1">
+            <span class="material-symbols-outlined">
+                edit_note
+            </span>
+        </button>
+        <input [(ngModel)]="cardsSearch" 
+                        class="form-control form-control-sm app-select shadow-none" 
+                        style="width: 100px;"
+                        placeholder="🔍︎ Поиск" 
+                        type="text">
+        <ng-template #templatesSelectMenu>
+            <div style="max-height: 300px; max-width: 300px;" class="rounded-2 app-transparent-dark-bg border shadow mt-1" cdkMenu>
+                <div class="d-flex flex-column p-1 h-100">
+                    <div>
+                        <input [(ngModel)]="searchConnectionName" 
+                        class="form-control form-control-sm app-select shadow-none mb-1" 
+                        placeholder="🔍︎ Поиск" 
+                        type="text">
+                    </div>
+                    <span *ngIf="connections.length === 0" class="app-color-white75" style="font-size: 12px;">Добавьте хотя бы 1 подключение</span>
+                    <ul class="app-active-list mb-0 overflow-auto">
+                        <li *ngFor="let connection of connections | nameFilter : searchConnectionName" 
+                            class="d-flex flex-row justify-content-between rounded-1" 
+                            [ngClass]="{'active' : selectedConnection == connection}" (click)="selectConnection(connection)">
+                            <span class="text-truncate app-color-white75">{{connection.name}}</span>
+                            <app-active-status-info [isActive]="isActivaSeller(connection)" activeText="Вкл." inactiveText="Выкл."></app-active-status-info>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </ng-template>
+        <ng-template #updateMenu>
+            <div style="max-height: 300px; max-width: 300px;" class="rounded-2 app-transparent-dark-bg border shadow mt-1" cdkMenu>
+                <button [disabled]="isLoad || selectedConnection == null" (click)="openComissionTypeModal(selectedConnection!.id)" class="app-button w-100">
+                    <span class="text-truncate">Тип комиссии</span>
+                </button>
+            </div>
+        </ng-template>
+        <ng-template #info>
+            <div style="max-height: 300px; max-width: 300px;" class="active-dark-bg app-warn-alert app-color-white75 flex-fill d-flex align-items-center rounded-2 py-1" cdkMenu>
+                <label class="material-symbols-outlined mx-1">
+                    info
+                </label>
+                <div style="font-size: 12px;" class="app-color-white75 lh-sm me-1">
+                    <div class="mb-1">- Данные обновляются с 5:00 до 20:00.</div>
+                    <div class="mb-1">- Данные обновляются за последние 30 дней начиная с предыдущего.</div>
+                    <div>- Обновляется 1 дата кажыде 5 минут. 
+                        То есть в 5:00 добавляются данные за предыдщий день, через 5 минут обновляются данные 2 дневной давности и т.д. до 30 дней.</div>
+                </div>
+            </div>
+        </ng-template>
+    </div>
+</div>
+<app-cards *ngIf="selectedConnection" [connectionId]="selectedConnection.id" [cardsSearch]="cardsSearch"></app-cards>

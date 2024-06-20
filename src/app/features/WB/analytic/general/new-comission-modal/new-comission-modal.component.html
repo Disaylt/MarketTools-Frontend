@@ -1,0 +1,72 @@
+<app-modal [dialogRef]="dialogRef" name="Тип комиссии">
+    <button [disabled]="isLoad" [cdkMenuTriggerFor]="comissionTypesTemplate" class="app-button app-main-button w-100 app-button-border me-1 d-flex flex-row justify-content-between">
+        <span class="text-truncate" style="max-width: 170px; font-size: 14px;">{{selectedcomissionType === null ? 'Выбрать комиссию' : comissionNames.getName(selectedcomissionType)}}</span>
+        <span class="material-symbols-outlined">
+            expand_more
+        </span>
+    </button>
+    <button [disabled]="isLoad" [cdkMenuTriggerFor]="calendarTypesTemplate" class="app-button app-main-button w-100 app-button-border me-1 d-flex flex-row justify-content-between mt-1">
+        <span class="text-truncate" style="max-width: 170px; font-size: 14px;">{{selectedCalendarType === null ? 'Выбрать комиссию' : calendarNames.getName(selectedCalendarType)}}</span>
+        <span class="material-symbols-outlined">
+            expand_more
+        </span>
+    </button>
+    <div *ngIf="isShowOnlyDateCalendar(selectedCalendarType)" class="mt-1">
+        <p-calendar
+        [disabled]="isLoad"
+        [(ngModel)]="onlyDate" 
+        dateFormat="mm.dd.yy"
+        [inline]="true" 
+        [readonlyInput]="true" />
+    </div>
+    <div *ngIf="isShowRangeCalendar(selectedCalendarType)" class="mt-1">
+        <p-calendar
+        [disabled]="isLoad"
+        [(ngModel)]="rangeDate" 
+        dateFormat="mm.dd.yy"
+        selectionMode="range"
+        [inline]="true" 
+        [readonlyInput]="true" />
+    </div>
+    <div *ngIf="isLoad" class="active-dark-bg app-warn-alert app-color-white75 flex-fill d-flex align-items-center rounded-2 py-1 mt-1">
+        <label class="material-symbols-outlined mx-1">
+            info
+        </label>
+        <div style="font-size: 12px;" class="app-color-white75 lh-sm me-1">
+            Не закрывайте окно до окончания загрузки данных.
+        </div>
+    </div>
+    <div class="d-flex justify-content-end">
+        <button [disabled]="isLoad || selectedcomissionType == null" (click)="send(selectedcomissionType!)"
+            class="app-button app-button-border d-flex flex-row justify-content-between mt-1">
+                <span class="text-truncate">Отправить</span>
+                <app-spiner *ngIf="isLoad" size="sm" class="ms-1"></app-spiner>
+            </button>
+    </div>
+    <ng-template #calendarTypesTemplate>
+        <div class="rounded-2 app-transparent-dark-bg border shadow mt-1" cdkMenu>
+            <div class="d-flex flex-column p-1 h-100">
+                <ul class="app-active-list mb-0 overflow-auto">
+                    <li *ngFor="let calendarType of calendarTypes"  cdkMenuItem 
+                        class="d-flex flex-row justify-content-between rounded-1" 
+                        [ngClass]="{'active' : selectedCalendarType == calendarType}" (click)="selectCalendarType(calendarType)">
+                        <span class="text-truncate app-color-white75">{{calendarNames.getName(calendarType)}}</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </ng-template>
+    <ng-template #comissionTypesTemplate>
+        <div class="rounded-2 app-transparent-dark-bg border shadow mt-1" cdkMenu>
+            <div class="d-flex flex-column p-1 h-100">
+                <ul class="app-active-list mb-0 overflow-auto">
+                    <li *ngFor="let comissionType of comissionTypes"  cdkMenuItem 
+                        class="d-flex flex-row justify-content-between rounded-1" 
+                        [ngClass]="{'active' : selectedcomissionType == comissionType}" (click)="selectComissionType(comissionType)">
+                        <span class="text-truncate app-color-white75">{{comissionNames.getName(comissionType)}}</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </ng-template>
+</app-modal>

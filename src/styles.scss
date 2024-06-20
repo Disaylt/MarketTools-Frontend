@@ -34,6 +34,8 @@ $MarketTools-Frontend-theme: mat.define-light-theme((
 
 /* You can add global styles to this file, and also import other style files */
 
+@import "primeng/resources/themes/mdc-dark-indigo/theme.css";
+@import "primeng/resources/primeng.css";
 @import 'assets/styles/utilities/variables.scss';
 @import 'assets/styles/utilities/alerts.scss';
 @import 'assets/styles/utilities/elements.scss';
@@ -49,5 +51,5 @@ $MarketTools-Frontend-theme: mat.define-light-theme((
 @import 'assets/styles/base/borders.scss';
 @import 'assets/styles/components/form.scss';
 
-html, body { height: 100%; }
+html, body { height: 100%; font-size: 16px;}
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

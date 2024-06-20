@@ -53,6 +53,10 @@ export class ConnectionV2Component implements OnInit{
 
   ]
 
+  analytic : ServiceDetails[] = [
+
+  ]
+
   constructor(private connectionService : MarketplaceConnectionV2Service,
     private toastsService : ToastrService,
     private abstractConnectionTypeFactory : AbstractConnectionTypeFactroy,
@@ -185,6 +189,7 @@ export class ConnectionV2Component implements OnInit{
     this.automation = []
     this.monitoring = []
     this.workSpace = []
+    this.analytic = []
 
     if(this.selectedConnectionType == null){
       return;
@@ -226,6 +231,9 @@ export class ConnectionV2Component implements OnInit{
     }
     else if(ServicesTypeStorage.workspace.some(x=> x == serviceName)){
       this.workSpace.push(serviceDetails);
+    }
+    else if(ServicesTypeStorage.analytics.some(x=> x == serviceName)){
+      this.analytic.push(serviceDetails);
     }
   }
 
