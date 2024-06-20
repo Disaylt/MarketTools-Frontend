@@ -22,9 +22,28 @@ export interface ColumnModel{
     comission : number | null;
     sumSalesComission : number;
     paidStoragePrice : number;
+    saleLogistic : number;
+    returnedLogistic : number;
+    fullLogistic : number;
+    marginPercent : number | null;
+    marginCurrency : number;
+    marginWithoutPromotionPercent : number | null;
+    marginWithoutPromotionCurrency : number;
+    turnover : number;
+    promotionCost : number;
 }
 
+export interface SearchWordRow{
+    name : string;
+    id : number;
+    columns : SearchWordColumn[]
+}
 
+export interface SearchWordColumn{
+    title : string;
+    date : Date;
+    value: number | null;
+}
 
 export interface PromotionRow{
     name : string;
@@ -35,6 +54,13 @@ export interface PromotionColumn{
     title : string;
     date : Date;
     value : number;
+}
+
+export interface DateSearchWordColumns{
+    startDate : Date | null;
+    endDate : Date | null;
+    dateValue : number;
+    columns : SearchWordColumn[]
 }
 
 export interface DatePromotionColumns{

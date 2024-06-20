@@ -62,6 +62,7 @@ export interface ComissionModel{
     use : WbComissionByCardCategory | null;
 }
 
+
 export interface SizeModel{
     id : number;
     techSize : string;
@@ -70,6 +71,13 @@ export interface SizeModel{
     prices : PriceModel[];
     stocks : StcokModel[];
     paidStorages : PaidStorageModel[];
+    reports : ReportModel[];
+}
+
+export interface ReportModel{
+    type : WbSaleType;
+    logisticCost : number;
+    saleDate : string;
 }
 
 export interface PaidStorageModel{

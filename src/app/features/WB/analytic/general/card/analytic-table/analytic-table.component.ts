@@ -65,12 +65,34 @@ export class AnalyticTableComponent implements OnInit, OnChanges {
         refoundsCost : this.getCostSales(dateForCompare, WbSaleType.refound),
         comission : this.getComission(dateForCompare),
         sumSalesComission : 0,
-        paidStoragePrice : this.getPaidStoragePrice(dateForCompare)
+        paidStoragePrice : this.getPaidStoragePrice(dateForCompare),
+        fullLogistic : 0,
+        saleLogistic : this.getLogisticCost(dateForCompare, WbSaleType.sale),
+        returnedLogistic : this.getLogisticCost(dateForCompare, WbSaleType.refound),
+        turnover : 999,
+        marginCurrency : 0,
+        marginPercent : null,
+        marginWithoutPromotionCurrency : 0,
+        marginWithoutPromotionPercent : null,
+        promotionCost : this.getPromotionCost(dateForCompare)
       }
       column.totalPrice = this.getTotalPrice(column.sellerPrice, column.sellerDiscount);
       column.buyerPrice = this.getTotalPrice(column.totalPrice, column.buyerDiscount);
+      column.fullLogistic = column.saleLogistic + column.returnedLogistic;
+
+      if(column.sales > 0){
+        column.turnover = Math.round(column.stock / column.sales);
+      }
 
       column.sumSalesComission = this.getSumSaleComission(column);
+
+      column.marginWithoutPromotionCurrency = column.salesCost - (column.costPrice * column.sales) - column.sumSalesComission - column.fullLogistic - column.paidStoragePrice;
+      column.marginCurrency = column.salesCost - (column.costPrice * column.sales) - column.sumSalesComission - column.fullLogistic - column.paidStoragePrice - column.promotionCost;
+      
+      if(column.salesCost != 0){
+        column.marginWithoutPromotionPercent = column.marginWithoutPromotionCurrency / column.salesCost * 100;
+        column.marginPercent = column.marginCurrency / column.salesCost * 100;
+      }
 
       if(column.costPrice > 0
         || column.sellerDiscount > 0
@@ -168,6 +190,11 @@ export class AnalyticTableComponent implements OnInit, OnChanges {
       quantityFull : dateColumns.columns.map(x=> x.quantityFull).reduce((sum, current) => sum + current, 0) / dateColumns.columns.length,
       inWayFromClient :dateColumns.columns.map(x=> x.inWayFromClient).reduce((sum, current) => sum + current, 0) / dateColumns.columns.length,
       inWayToClient :dateColumns.columns.map(x=> x.inWayToClient).reduce((sum, current) => sum + current, 0) / dateColumns.columns.length,
+      turnover : Math.round(dateColumns.columns.map(x=> x.turnover).reduce((sum, current) => sum + current, 0) / dateColumns.columns.length),
+      marginCurrency :dateColumns.columns.map(x=> x.marginCurrency).reduce((sum, current) => sum + current, 0),
+      marginPercent : null,
+      marginWithoutPromotionCurrency :dateColumns.columns.map(x=> x.marginWithoutPromotionCurrency).reduce((sum, current) => sum + current, 0),
+      marginWithoutPromotionPercent : null,
       orders : dateColumns.columns.map(x=> x.orders).reduce((sum, current) => sum + current, 0),
       ordersCost : dateColumns.columns.map(x=> x.ordersCost).reduce((sum, current) => sum + current, 0),
       cancels : dateColumns.columns.map(x=> x.cancels).reduce((sum, current) => sum + current, 0),
@@ -177,11 +204,20 @@ export class AnalyticTableComponent implements OnInit, OnChanges {
       refounds : dateColumns.columns.map(x=> x.refounds).reduce((sum, current) => sum + current, 0),
       refoundsCost : dateColumns.columns.map(x=> x.refoundsCost).reduce((sum, current) => sum + current, 0),
       paidStoragePrice : dateColumns.columns.map(x=> x.paidStoragePrice).reduce((sum, current) => sum + current, 0),
+      fullLogistic : dateColumns.columns.map(x=> x.fullLogistic).reduce((sum, current) => sum + current, 0),
+      saleLogistic : dateColumns.columns.map(x=> x.saleLogistic).reduce((sum, current) => sum + current, 0),
+      returnedLogistic : dateColumns.columns.map(x=> x.returnedLogistic).reduce((sum, current) => sum + current, 0),
+      promotionCost : dateColumns.columns.map(x=> x.promotionCost).reduce((sum, current) => sum + current, 0),
       comission : null,
       sumSalesComission : 0
     }
 
     const comissions = dateColumns.columns.filter(x=> x.comission != null);
+
+    if(result.salesCost != 0){
+      result.marginPercent = result.marginCurrency / result.salesCost * 100;
+      result.marginWithoutPromotionPercent = result.marginWithoutPromotionCurrency / result.salesCost * 100;
+    }
 
     if(comissions.length > 0){
       result.comission = comissions.map(x=> x.comission ?? 0).reduce((sum, current) => sum + current, 0) / comissions.length;
@@ -253,6 +289,23 @@ export class AnalyticTableComponent implements OnInit, OnChanges {
       .reduce((sum, current) => sum + current, 0);
   }
 
+  private getPromotionCost(date : number){
+    let totalPromotionsCost = 0;
+
+    this.card.promotions
+      .forEach(promotion=> {
+        const history = promotion.cardUseHistories
+          .find(x=> new Date(x.date).setHours(0,0,0,0) == date) ?? null;
+
+        if(history != null && history.isUseCurrentCard && history.totalCards > 0){
+          totalPromotionsCost += promotion.dayReports
+            .find(x=> new Date(x.date).setHours(0,0,0,0) == date)?.price ?? 0;
+        }
+      });
+
+    return totalPromotionsCost / (this.card.sizes.length / this.sizes.length);
+  }
+
   private getInWayStockToClient(date : number){
     return this.sizes
       .map(size => size
@@ -295,6 +348,14 @@ export class AnalyticTableComponent implements OnInit, OnChanges {
         .prices
         .find(price => new Date(price.createDate).setHours(0,0,0,0) == date)?.buyerDiscount ?? 0)
       .reduce((sum, current) => sum + current, 0) / this.sizes.length;
+  }
+
+  private getLogisticCost(date : number, type : WbSaleType){
+    return this.sizes
+      .map(size => size
+        .reports
+        .find(ps => new Date(ps.saleDate).setHours(0,0,0,0) == date && ps.type == type)?.logisticCost ?? 0)
+      .reduce((sum, current) => sum + current, 0);
   }
 
   private getPaidStoragePrice(date : number){

@@ -106,7 +106,7 @@
             </div>
             <div>
                 <div>
-                    <app-search-words></app-search-words>
+                    <app-search-words [card]="card"[dates]="rangeDates" [analyticDatesType]="selectedAnalyticCalendarType"></app-search-words>
                 </div>
                 <div>
                     <app-promotion [promotions]="card.promotions" [dates]="rangeDates" [analyticDatesType]="selectedAnalyticCalendarType"></app-promotion>

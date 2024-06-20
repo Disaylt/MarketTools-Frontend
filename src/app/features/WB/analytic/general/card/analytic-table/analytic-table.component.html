@@ -31,6 +31,10 @@
       <td *ngFor="let column of columns">{{column.buyerPrice.toLocaleString()}}</td>
     </tr>
     <tr>
+      <td style="height: 15px;" class="border-0"></td>
+      <td style="height: 15px;" class="border-0" *ngFor="let column of columns"></td>
+    </tr>
+    <tr>
       <td>Сток для заказов (ед.)</td>
       <td *ngFor="let column of columns">{{column.stock.toLocaleString()}}</td>
     </tr>
@@ -45,6 +49,10 @@
     <tr>
       <td>Полный сток (ед.)</td>
       <td *ngFor="let column of columns">{{column.quantityFull.toLocaleString()}}</td>
+    </tr>
+    <tr>
+      <td style="height: 15px;" class="border-0"></td>
+      <td style="height: 15px;" class="border-0" *ngFor="let column of columns"></td>
     </tr>
     <tr>
       <td>Заказано (ед.)</td>
@@ -79,6 +87,10 @@
       <td *ngFor="let column of columns">{{column.refoundsCost.toLocaleString()}}</td>
     </tr>
     <tr>
+      <td style="height: 15px;" class="border-0"></td>
+      <td style="height: 15px;" class="border-0" *ngFor="let column of columns"></td>
+    </tr>
+    <tr>
       <td>Комиссия (%)</td>
       <td *ngFor="let column of columns">
           <span *ngIf="column.comission != null; else nullComission">{{column.comission}}</span>
@@ -94,6 +106,46 @@
     <tr>
       <td>Хранение (Стоимость)</td>
       <td *ngFor="let column of columns">{{column.paidStoragePrice.toLocaleString()}}</td>
+    </tr>
+    <tr>
+      <td>Логистика (Продажи)</td>
+      <td *ngFor="let column of columns">{{column.saleLogistic.toLocaleString()}}</td>
+    </tr>
+    <tr>
+      <td>Логистика (Возвраты)</td>
+      <td *ngFor="let column of columns">{{column.returnedLogistic.toLocaleString()}}</td>
+    </tr>
+    <tr>
+      <td>Логистика (Сумма)</td>
+      <td *ngFor="let column of columns">{{column.fullLogistic.toLocaleString()}}</td>
+    </tr>
+    <tr>
+      <td>Реклама (Сумма)</td>
+      <td *ngFor="let column of columns">{{column.promotionCost.toLocaleString()}}</td>
+    </tr>
+    <tr>
+      <td style="height: 15px;" class="border-0"></td>
+      <td style="height: 15px;" class="border-0" *ngFor="let column of columns"></td>
+    </tr>
+    <tr>
+      <td>Оборачиваемость (Дни)</td>
+      <td *ngFor="let column of columns">{{column.turnover.toLocaleString()}}</td>
+    </tr>
+    <tr>
+      <td>Маржа без маркетинга (Стоимость)</td>
+      <td *ngFor="let column of columns">{{column.marginWithoutPromotionCurrency.toLocaleString()}}</td>
+    </tr>
+    <tr>
+      <td>Маржа без маркетинга (%)</td>
+      <td *ngFor="let column of columns">{{column.marginWithoutPromotionPercent?.toLocaleString()?? 'Без продаж'}}</td>
+    </tr>
+    <tr>
+      <td>Маржа (Стоимость)</td>
+      <td *ngFor="let column of columns">{{column.marginCurrency.toLocaleString()}}</td>
+    </tr>
+    <tr>
+      <td>Маржа (%)</td>
+      <td *ngFor="let column of columns">{{column.marginPercent?.toLocaleString() ?? 'Без продаж'}}</td>
     </tr>
   </tbody>
 </table>

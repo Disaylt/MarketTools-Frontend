@@ -18,4 +18,27 @@
             </button>
         </div>
     </ng-template>
+    <table *ngIf="rows.length > 0" class="table table-bordered table-hover table-sm mt-2">
+        <thead>
+          <tr>
+            <th scope="col"><div style="width: 300px;" >Назначение</div></th>
+            <th *ngFor="let promotion of rows[0].columns" scope="col">{{promotion.title}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let promotionRow of rows">
+            <td>
+                <div style="max-width: 300px;" class="d-flex flex-row">
+                    <button (click)="delete(promotionRow.id)" class="app-icon-button app-button-border me-1">
+                        <span class="material-symbols-outlined">
+                            delete
+                        </span>
+                    </button>
+                    <span class="text-truncate">{{promotionRow.name}} (Поз.)</span>
+                </div>
+            </td>
+            <td *ngFor="let promotionColumn of promotionRow.columns">{{promotionColumn.value == null ? '-' : promotionColumn.value }}</td>
+          </tr>
+        </tbody>
+      </table>
 </div>

@@ -1,6 +1,6 @@
 import { CdkMenuTrigger, CdkMenu, CdkMenuItem } from '@angular/cdk/menu';
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Promotion } from '../../cards/models/card.model';
 import { DatePromotionColumns, PromotionColumn, PromotionRow } from '../../cards/models/table.model';
@@ -16,7 +16,7 @@ import { DatePromotionColumns, PromotionColumn, PromotionRow } from '../../cards
   templateUrl: './promotion.component.html',
   styleUrl: './promotion.component.scss'
 })
-export class PromotionComponent implements OnInit {
+export class PromotionComponent implements OnInit, OnChanges {
   
   @Input({required : true}) promotions : Promotion[] = [];
   @Input({required : true}) analyticDatesType : string = "Дни";
@@ -26,6 +26,12 @@ export class PromotionComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadColumns();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if(changes["analyticDatesType"]){
+      this.loadColumns();
+    }
   }
 
   loadColumns(){
@@ -73,7 +79,7 @@ export class PromotionComponent implements OnInit {
           }
         }
       })
-      
+
       this.promotionsRow = promotionRows;
   }
 

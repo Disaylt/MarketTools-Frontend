@@ -20,7 +20,7 @@ export class SearchWordsService {
   }
 
   delete(id : number){
-    const path = `api/v1/analytic/general/card/searchword`;
+    const path = `api/v1/analytic/general/card/searchword?id=${id}`;
 
     return this.httpClient.delete(path);
   }
